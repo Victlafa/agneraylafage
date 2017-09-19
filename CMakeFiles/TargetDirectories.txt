@@ -1,0 +1,3 @@
+/home/pahtatorr/Documents/plt/agneraylafage/CMakeFiles/rebuild_cache.dir
+/home/pahtatorr/Documents/plt/agneraylafage/CMakeFiles/edit_cache.dir
+/home/pahtatorr/Documents/plt/agneraylafage/CMakeFiles/client.dir

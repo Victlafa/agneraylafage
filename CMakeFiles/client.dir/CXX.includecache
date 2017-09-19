@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pahtatorr/Documents/plt/agneraylafage/src/client/main.cpp
+iostream
+-
+SFML/Graphics.hpp
+-
+state.h
+/home/pahtatorr/Documents/plt/agneraylafage/src/client/state.h
+
+/home/pahtatorr/Documents/plt/agneraylafage/src/shared/state/Exemple.cpp
+Exemple.h
+/home/pahtatorr/Documents/plt/agneraylafage/src/shared/state/Exemple.h
+
+/home/pahtatorr/Documents/plt/agneraylafage/src/shared/state/Exemple.h
+
+src/shared/state.h
+state/Exemple.h
+src/shared/state/Exemple.h
+
+src/shared/state/Exemple.h
+
