@@ -56,6 +56,10 @@ CMAKE_BINARY_DIR = /home/pahtatorr/Documents/plt/agneraylafage
 #=============================================================================
 # Targets provided globally by CMake.
 
+configure:
+	./configure
+.PHONY : configure
+	
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
