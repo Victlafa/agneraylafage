@@ -55,10 +55,6 @@ CMAKE_BINARY_DIR = /home/pahtatorr/Documents/plt/agneraylafage
 
 #=============================================================================
 # Targets provided globally by CMake.
-
-configure:
-	./configure
-.PHONY : configure
 	
 # Special rule for the target rebuild_cache
 rebuild_cache:
