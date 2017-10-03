@@ -8,6 +8,7 @@
 
 namespace state
 {
+    // Constructor :
     ElementTab::ElementTab (size_t width = 0, size_t height = 1)
     {
         this->width = width;
@@ -16,6 +17,11 @@ namespace state
         if (list == NULL)
             throw std::bad_alloc("La liste des éléments d'ElementTab doit être initialisée !");
     }
+    
+    ElementTab::~ElementTab() 
+    { delete this; }
+    
+    // Getters and setters :
     
     size_t const ElementTab::getWidth (){
         return this->width;
@@ -47,12 +53,12 @@ namespace state
     }
     
     // Setters and Getters
-    const Element& ElementTab::getCompose() const{
-        return this->Compose;
+    const Element& ElementTab::getComposedOf() const{
+        return this->composedOf;
     }
     
-    void ElementTab::setCompose(const Element& Compose){
-        this->Compose = Compose;
+    void ElementTab::setComposedOf(const Element& Compose){
+        this->composedOf = Compose;
     }
     
     
