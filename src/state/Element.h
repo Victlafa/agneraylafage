@@ -16,10 +16,6 @@ namespace state {
   public:
     Element ();
     virtual ~Element ();
-    int getx ();
-    void setx (int x);
-    int gety ();
-    void sety (int y);
     virtual TypeID const getTypeID () = 0;
     // Setters and Getters
     int getX() const;

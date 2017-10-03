@@ -15,25 +15,34 @@ namespace state
     
     // Setters and Getters :
     
-    int Cell::getx (){
-        return this->x;
+    CellState Cell::getCellState() const{
+        return this->cellState;
     }
     
-    void Cell::setx (int x){
-        this->x = x;
+    void Cell::setCellState(CellState cellState){
+        this->cellState = cellState;
     }
     
-    int Cell::gety (){
-        return this->y;
+    const std::string& Cell::getResType() const{
+        return this->resType;
     }
     
-    void Cell::sety (int y){
-        this->y = y;
+    void Cell::setResType(const std::string& resType){
+        this->resType = resType;
+    }
+    
+    int Cell::getResNbr() const{
+        return this->resNbr;
+    }
+    
+    void Cell::setResNbr(int resNbr){
+        this->resNbr = resNbr;
     }
     
     const CreaturesGroup& Cell::getPositionedOn() const{
         return this->positionedOn;
     }
+    
     void Cell::setPositionedOn(const CreaturesGroup& positionedOn){
         this->positionedOn = positionedOn;
     }

@@ -22,22 +22,6 @@ namespace state
     
     // Setters and getters :
     
-    int CreaturesGroup::getx (){
-        return x;
-    }
-    
-    void CreaturesGroup::setx (int x){
-        this->x = x;
-    }
-    
-    int CreaturesGroup::gety (){
-        return y;
-    }
-    
-    void CreaturesGroup::sety (int y){
-        this->y = y;
-    }
-    
     TypeID const CreaturesGroup::getTypeID (){
         return TypeID.CREATURESGROUP;
     }
