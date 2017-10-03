@@ -18,7 +18,7 @@ namespace state {
     state::CreaturesID Creatures_type;
     // Attributes
   private:
-    const int stolenResourceNbr     = 2;
+    const int stolenResourceNbr = 2;
     bool placed;
     // Operations
   public:

@@ -32,7 +32,7 @@ namespace state {
     void resize (size_t width, size_t height);
     Element* const get (int i, int j = 0);
     void set (int i, int j = 0, Element* elem);
-    const Element& const operator ( )  (int i, int j = 0);
+    const Element& operator() (int i, int j = 0) const;
     // Setters and Getters
     const Element& getCompose() const;
     void setCompose(const Element& Compose);

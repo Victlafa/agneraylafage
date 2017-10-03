@@ -24,6 +24,7 @@ namespace state {
     std::vector<int> genResNbr;
     // Operations
   public:
+    SimpleCell(std::string res, int nbr, SimpleCellID type);
     std::vector<string> getResType ();
     std::vector<int> getResNbr ();
     void addResType (std::string resType);
