@@ -2,41 +2,37 @@
 #ifndef STATE__SIMPLECELL__H
 #define STATE__SIMPLECELL__H
 
-#include <vector>
 #include <string>
 
 namespace state {
   class Cell;
 }
 
-#include "Cell.h"
 #include "SimpleCellID.h"
+#include "Cell.h"
 
 namespace state {
 
   /// class SimpleCell - 
   class SimpleCell : public state::Cell {
     // Associations
-    state::SimpleCellID Simple cell type;
+    state::SimpleCellID simpleCellType;
     // Attributes
   private:
-    std::vector<string> genResType;
-    std::vector<int> genResNbr;
+    std::string genResType;
+    int genResNbr;
     // Operations
   public:
-    SimpleCell(std::string res, int nbr, SimpleCellID type);
-    std::vector<string> getResType ();
-    std::vector<int> getResNbr ();
+    SimpleCell (SimpleCellID type, std::string resType, int resNbr);
+    ~SimpleCell ();
+    std::string getResType ();
+    int getResNbr ();
     void addResType (std::string resType);
     void addResNbr (int resNbr);
     TypeID const getTypeID ();
-    int getx ();
-    void setx (int x);
-    int gety ();
-    void sety (int y);
     // Setters and Getters
-    SimpleCellID getSimple cell type() const;
-    void setSimple cell type(SimpleCellID Simple cell type);
+    SimpleCellID getSimpleCellType() const;
+    void setSimpleCellType(SimpleCellID simpleCellType);
   };
 
 };

@@ -16,17 +16,19 @@ namespace state {
   /// class Cell - 
   class Cell : public state::Element {
     // Associations
-    state::CreaturesGroup where;
+    state::CreaturesGroup positionedOn;
     // Operations
   public:
-    virtual int getx () = 0;
-    virtual void setx (int x) = 0;
-    virtual int gety () = 0;
-    virtual void sety (int y) = 0;
+    Cell ();
+    ~Cell ();
+    int getx ();
+    void setx (int x);
+    int gety ();
+    void sety (int y);
     virtual TypeID const getTypeID () = 0;
     // Setters and Getters
-    const CreaturesGroup& getWhere() const;
-    void setWhere(const CreaturesGroup& where);
+    const CreaturesGroup& getPositionedOn() const;
+    void setPositionedOn(const CreaturesGroup& positionedOn);
   };
 
 };

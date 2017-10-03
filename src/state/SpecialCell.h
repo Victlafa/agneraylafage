@@ -8,33 +8,31 @@ namespace state {
   class Cell;
 }
 
-#include "Cell.h"
 #include "SpecialCellID.h"
+#include "Cell.h"
 
 namespace state {
 
   /// class SpecialCell - 
   class SpecialCell : public state::Cell {
     // Associations
-    state::SpecialCellID Special cell type;
+    state::SpecialCellID specialCellType;
     // Attributes
   private:
     std::string neededResType;
     int neededResNbr;
     // Operations
   public:
+    SpecialCell (SpecialCellID type, std::string resType, int resNbr);
+    ~SpecialCell ();
     std::string getResType ();
     int getResNbr ();
     void setResType (std::string resType);
     void setResNbr (int resNbr);
     TypeID const getTypeID ();
-    int getx ();
-    void setx (int x);
-    int gety ();
-    void sety (int y);
     // Setters and Getters
-    SpecialCellID getSpecial cell type() const;
-    void setSpecial cell type(SpecialCellID Special cell type);
+    SpecialCellID getSpecialCellType() const;
+    void setSpecialCellType(SpecialCellID specialCellType);
   };
 
 };

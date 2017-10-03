@@ -16,7 +16,8 @@ namespace state {
   /// class State - 
   class State {
     // Associations
-    state::ElementTab Compose;
+    state::Player possess;
+    state::ElementTab possess;
     // Attributes
   private:
     ElementTab grid;
@@ -24,12 +25,16 @@ namespace state {
     int totalCellNbr;
     // Operations
   public:
+    State ();
+    ~State ();
     ElementTab& getGrid ();
     ElementTab& getCharacters ();
     int getCellNbr ();
     // Setters and Getters
-    const ElementTab& getCompose() const;
-    void setCompose(const ElementTab& Compose);
+    const Player& getPossess() const;
+    void setPossess(const Player& possess);
+    const ElementTab& getPossess() const;
+    void setPossess(const ElementTab& possess);
   };
 
 };

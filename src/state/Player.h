@@ -17,7 +17,8 @@ namespace state {
   /// class Player - 
   class Player {
     // Associations
-    state::ClanNameID Identify;
+    state::CreaturesGroup possess;
+    state::ClanNameID identify;
     // Attributes
   private:
     int cellNbr;
@@ -29,6 +30,8 @@ namespace state {
     int yLastCell     = 0;
     // Operations
   public:
+    Player ();
+    ~Player ();
     int getCellsNbr ();
     int getZonesNbr ();
     int getConquestPoints ();
@@ -45,8 +48,10 @@ namespace state {
     void setXLastCell (int x);
     void setYLastCell (int y);
     // Setters and Getters
+    const CreaturesGroup& getPossess() const;
+    void setPossess(const CreaturesGroup& possess);
     ClanNameID getIdentify() const;
-    void setIdentify(ClanNameID Identify);
+    void setIdentify(ClanNameID identify);
   };
 
 };
