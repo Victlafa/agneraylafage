@@ -3,6 +3,7 @@
 #define STATE__SIMPLECELL__H
 
 #include <vector>
+#include <string>
 
 namespace state {
   class Cell;
@@ -25,7 +26,7 @@ namespace state {
   public:
     std::vector<string> getResType ();
     std::vector<int> getResNbr ();
-    void addResType (string resType);
+    void addResType (std::string resType);
     void addResNbr (int resNbr);
     TypeID const getTypeID ();
     int getx ();

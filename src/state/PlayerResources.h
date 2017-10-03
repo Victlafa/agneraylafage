@@ -11,11 +11,23 @@ namespace state {
 
 namespace state {
 
-  struct PlayerResources {
+  /// class PlayerResources - 
+  class PlayerResources {
+    // Associations
+    state::Player Possess;
+    // Attributes
+  public:
     int wood     = 0;
     int stone     = 0;
     int metal     = 0;
     int food     = 0;
+    // Operations
+  public:
+    int getResource (string type);
+    void setResource (string type, int quantity, bool increase);
+    // Setters and Getters
+    const Player& getPossess() const;
+    void setPossess(const Player& Possess);
   };
 
 };

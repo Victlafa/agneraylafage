@@ -20,6 +20,18 @@ void SpecialCell::sety(int new_y){
 }
 
 std::string SpecialCell::getResType(){
-	
+	return neededResType;
+}
+
+void SpecialCell::setResType(std::string res){
+	neededResType = res;
+}
+
+int SpecialCell::getResNbr(){
+	return neededResNbr;
+}
+
+void SpecialCell::setResNbr(int nbr){
+	neededResNbr = nbr;
 }
 

@@ -2,6 +2,7 @@
 #ifndef STATE__SPECIALCELL__H
 #define STATE__SPECIALCELL__H
 
+#include <string>
 
 namespace state {
   class Cell;
@@ -18,13 +19,13 @@ namespace state {
     state::SpecialCellID Special cell type;
     // Attributes
   private:
-    string neededResType;
+    std::string neededResType;
     int neededResNbr;
     // Operations
   public:
-    string getResType ();
+    std::string getResType ();
     int getResNbr ();
-    void setResType (string resType);
+    void setResType (std::string resType);
     void setResNbr (int resNbr);
     TypeID const getTypeID ();
     int getx ();
