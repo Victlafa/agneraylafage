@@ -16,10 +16,12 @@ using namespace state;
 
 int main(int argc,char* argv[]) 
 {
-    Exemple exemple;
-    exemple.setX(53);
+    //Exemple exemple;
+    //exemple.setX(53);
 
     cout << "It works !" << endl;
+    
+    Player joueur = new Player();
 
     return 0;
 }
