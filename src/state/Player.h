@@ -18,7 +18,7 @@ namespace state {
   /// class Player - 
   class Player {
     // Associations
-    state::ElementTab Creatures to put on the map;
+    state::ElementTab Creatures_to_add;
     state::ClanNameID Identify;
     // Attributes
   private:
@@ -48,8 +48,8 @@ namespace state {
     void setXLastCell (int x);
     void setYLastCell (int y);
     // Setters and Getters
-    const ElementTab& getCreatures to put on the map() const;
-    void setCreatures to put on the map(const ElementTab& Creatures to put on the map);
+    const ElementTab& getCreatures_to_add() const;
+    void setCreatures_to_add(const ElementTab& Creatures to put on the map);
     ClanNameID getIdentify() const;
     void setIdentify(ClanNameID Identify);
   };

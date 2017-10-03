@@ -18,8 +18,8 @@ namespace state {
   /// class SimpleCell - 
   class SimpleCell : public state::Cell {
     // Associations
-    state::SimpleCellID Simple cell type;
-    state::Zone Cells included in a zone;
+    state::SimpleCellID SimpleCell_type;
+    state::Zone Cells_in_zone;
     // Attributes
   private:
     std::vector<string> genResType;
@@ -31,10 +31,10 @@ namespace state {
     void addResType (string resType);
     void addResNbr (int resNbr);
     // Setters and Getters
-    SimpleCellID getSimple cell type() const;
-    void setSimple cell type(SimpleCellID Simple cell type);
-    const Zone& getCells included in a zone() const;
-    void setCells included in a zone(const Zone& Cells included in a zone);
+    SimpleCellID getSimplCell_type() const;
+    void setSimpleCell_type(SimpleCellID SimpleCell_type);
+    const Zone& getCells_in_zone() const;
+    void setCells_in_zone(const Zone& Cells_in_zone);
   };
 
 };

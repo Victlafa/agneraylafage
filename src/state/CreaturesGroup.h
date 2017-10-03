@@ -15,7 +15,7 @@ namespace state {
   /// class CreaturesGroup - 
   class CreaturesGroup : public state::Element {
     // Associations
-    state::CreaturesID Creatures' type;
+    state::CreaturesID Creatures_type;
     // Attributes
   private:
     const int stolenResourceNbr     = 2;
@@ -26,7 +26,7 @@ namespace state {
     int gety ();
     void sety (int y);
     // Setters and Getters
-    CreaturesID getCreatures' type() const;
+    CreaturesID getCreatures_type() const;
     void setCreatures' type(CreaturesID Creatures' type);
   };
 

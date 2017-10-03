@@ -17,7 +17,7 @@ namespace state {
   /// class Zone - 
   class Zone {
     // Associations
-    state::Player Players' zones;
+    state::Player Players_zones;
     // Attributes
   private:
     int cellNbr;
@@ -29,8 +29,8 @@ namespace state {
     Player getOwner ();
     void addToCellList (SimpleCell cell);
     // Setters and Getters
-    const Player& getPlayers' zones() const;
-    void setPlayers' zones(const Player& Players' zones);
+    const Player& getPlayers_zones() const;
+    void setPlayers_zones(const Player& Players' zones);
   };
 
 };

@@ -15,11 +15,12 @@ namespace state {
   class Cell : public state::Element {
     // Operations
   public:
+// Setters and Getters
     int getx ();
     void setx (int x);
     int gety ();
     void sety (int y);
-    // Setters and Getters
+    
   };
 
 };
