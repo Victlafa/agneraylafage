@@ -27,7 +27,6 @@ namespace state {
     std::vector<std::string> speCellsNames;
     int xLastCell     = 0;
     int yLastCell     = 0;
-    std::vector<Zone> zone;
     // Operations
   public:
     int getCellsNbr ();
