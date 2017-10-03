@@ -17,18 +17,10 @@ namespace state {
   class SpecialCell : public state::Cell {
     // Associations
     state::SpecialCellID specialCellType;
-    // Attributes
-  private:
-    std::string neededResType;
-    int neededResNbr;
     // Operations
   public:
     SpecialCell (SpecialCellID type, std::string resType, int resNbr);
     ~SpecialCell ();
-    std::string getResType ();
-    int getResNbr ();
-    void setResType (std::string resType);
-    void setResNbr (int resNbr);
     TypeID const getTypeID ();
     // Setters and Getters
     SpecialCellID getSpecialCellType() const;

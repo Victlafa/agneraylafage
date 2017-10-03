@@ -9,6 +9,19 @@
 
 namespace state
 {
+    // Constructors :
+    
+    CreaturesGroup::CreaturesGroup (CreaturesID type){
+        placed = false;
+        this->creaturesType = type;
+    }
+    
+    CreaturesGroup::~CreaturesGroup (){
+        delete this;
+    }
+    
+    // Setters and getters :
+    
     int CreaturesGroup::getx (){
         return x;
     }
@@ -29,21 +42,21 @@ namespace state
         return TypeID.CREATURESGROUP;
     }
     
-    bool CreaturesGroup::getplaced (){
+    bool CreaturesGroup::getPlaced (){
         return placed;
     }
     
-    void CreaturesGroup::place (int x, int y){
+    void CreaturesGroup::toPlace (int x, int y){
         this->x = x;
         this->y = y;
     }
     
-    CreaturesID CreaturesGroup::getCreatures_type() const{
-        return this->Creatures_type;
+    CreaturesID CreaturesGroup::getCreaturesType() const{
+        return this->creaturesType;
     }
     
-    void CreaturesGroup::setCreatures_type(CreaturesID Creatures_type){
-        this->Creatures_type = Creatures_type;
+    void CreaturesGroup::setCreaturesType(CreaturesID Creatures_type){
+        this->creaturesType = Creatures_type;
     }
     
     

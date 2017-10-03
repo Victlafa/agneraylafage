@@ -8,17 +8,35 @@
 
 namespace state
 {
+    // Constructor :
+    
+    Cell::Cell (){}
+    Cell::~Cell (){}
+    
+    // Setters and Getters :
+    
     int Cell::getx (){
-        return ;
+        return this->x;
     }
     
-    void Cell::setx (int x);
-    int Cell::gety ();
-    void Cell::sety (int y);
-    virtual Cell::TypeID const getTypeID () = 0;
-    // Setters and Getters
-    const CreaturesGroup& getPositionedOn() const;
-    void setPositionedOn(const CreaturesGroup& positionedOn);
+    void Cell::setx (int x){
+        this->x = x;
+    }
+    
+    int Cell::gety (){
+        return this->y;
+    }
+    
+    void Cell::sety (int y){
+        this->y = y;
+    }
+    
+    const CreaturesGroup& Cell::getPositionedOn() const{
+        return this->positionedOn;
+    }
+    void Cell::setPositionedOn(const CreaturesGroup& positionedOn){
+        this->positionedOn = positionedOn;
+    }
     
     
 };

@@ -17,18 +17,10 @@ namespace state {
   class SimpleCell : public state::Cell {
     // Associations
     state::SimpleCellID simpleCellType;
-    // Attributes
-  private:
-    std::string genResType;
-    int genResNbr;
     // Operations
   public:
     SimpleCell (SimpleCellID type, std::string resType, int resNbr);
     ~SimpleCell ();
-    std::string getResType ();
-    int getResNbr ();
-    void addResType (std::string resType);
-    void addResNbr (int resNbr);
     TypeID const getTypeID ();
     // Setters and Getters
     SimpleCellID getSimpleCellType() const;

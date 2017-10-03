@@ -24,10 +24,6 @@ namespace state {
   public:
     CreaturesGroup (CreaturesID type);
     ~CreaturesGroup ();
-    int getx ();
-    void setx (int x);
-    int gety ();
-    void sety (int y);
     TypeID const getTypeID ();
     bool getPlaced ();
     void toPlace (int x, int y);
