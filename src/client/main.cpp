@@ -20,13 +20,15 @@ int main(int argc,char* argv[])
     // argv est un tableau de mots dont le premier mot entre par l'utilisateur est l'element d'indice 1.
     // le tout premier element de argv est le chemin où se trouve le fichier à executer
     
-    Exemple exemple;
-    exemple.setX(53);
+    //Exemple exemple;
+    //exemple.setX(53);
 
     cout << "It works !" << endl;
     
     if (argc >= 2 && (string)argv[1] == "hello")
         cout << "Bonjour tout le monde !" << endl;
+    
+    Player joueur = new Player();
 
     return 0;
 }

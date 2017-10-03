@@ -8,12 +8,6 @@
 
 namespace state{
     
-    /// class Player - 
-  class Player {
-    
-      // Associations
-    state::ClanNameID Identify;
-    
     /// Builder :
       
       Player::Player()
@@ -23,9 +17,12 @@ namespace state{
           conquestPoints = 0;
           creaturesLeft = 0;
           speCellsNames = new std::vector<std::string>(4);
+          if (speCellsNames == NULL)
+              throw std::bad_alloc("L'attribut speCellsNames du joueur doit être instanciée.");
           xLastCell = 0;
           yLastCell = 0;
           Identify = 0;
+          std::cout << "Le joueur a été initialisé correctement." << std::endl;
       }
     
     /// Setters and Getters :
@@ -128,7 +125,5 @@ namespace state{
         void Player::setIdentify(ClanNameID Identify) {
             Identify = Identify;
         }
-    
-  };
     
 };
