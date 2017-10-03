@@ -5,22 +5,28 @@
 
 namespace state {
   class Element;
+  class CreaturesGroup;
 }
 
 #include "Element.h"
+#include "CreaturesGroup.h"
 
 namespace state {
 
   /// class Cell - 
   class Cell : public state::Element {
+    // Associations
+    state::CreaturesGroup where;
     // Operations
   public:
-// Setters and Getters
-    int getx ();
-    void setx (int x);
-    int gety ();
-    void sety (int y);
-    
+    virtual int getx () = 0;
+    virtual void setx (int x) = 0;
+    virtual int gety () = 0;
+    virtual void sety (int y) = 0;
+    virtual TypeID const getTypeID () = 0;
+    // Setters and Getters
+    const CreaturesGroup& getWhere() const;
+    void setWhere(const CreaturesGroup& where);
   };
 
 };

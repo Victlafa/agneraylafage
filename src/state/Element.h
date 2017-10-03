@@ -8,7 +8,7 @@ namespace state {
   /// class Element - 
   class Element {
     // Attributes
-  private:
+  protected:
     int x;
     int y;
     int creaturesNbr;
@@ -20,6 +20,12 @@ namespace state {
     virtual void sety (int y) = 0;
     virtual TypeID const getTypeID () = 0;
     // Setters and Getters
+    int getX() const;
+    void setX(int x);
+    int getY() const;
+    void setY(int y);
+    int getCreaturesNbr() const;
+    void setCreaturesNbr(int creaturesNbr);
   };
 
 };

@@ -15,7 +15,7 @@ namespace state {
   /// class SpecialCell - 
   class SpecialCell : public state::Cell {
     // Associations
-    state::SpecialCellID SpecialCell_type;
+    state::SpecialCellID Special cell type;
     // Attributes
   private:
     string neededResType;
@@ -26,9 +26,14 @@ namespace state {
     int getResNbr ();
     void setResType (string resType);
     void setResNbr (int resNbr);
+    TypeID const getTypeID ();
+    int getx ();
+    void setx (int x);
+    int gety ();
+    void sety (int y);
     // Setters and Getters
-    SpecialCellID getSpecialCell_type() const;
-    void setSpecialCell_type(SpecialCellID SpecialCell_type);
+    SpecialCellID getSpecial cell type() const;
+    void setSpecial cell type(SpecialCellID Special cell type);
   };
 
 };
