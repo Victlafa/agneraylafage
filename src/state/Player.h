@@ -2,15 +2,14 @@
 #ifndef STATE__PLAYER__H
 #define STATE__PLAYER__H
 
+#include <string>
 #include <vector>
 
 namespace state {
-  class Zone;
-  class ElementTab;
+  class CreaturesGroup;
 }
 
-#include "Zone.h"
-#include "ElementTab.h"
+#include "CreaturesGroup.h"
 #include "ClanNameID.h"
 
 namespace state {
@@ -18,7 +17,6 @@ namespace state {
   /// class Player - 
   class Player {
     // Associations
-    state::ElementTab Creatures_to_add;
     state::ClanNameID Identify;
     // Attributes
   private:
@@ -26,7 +24,7 @@ namespace state {
     int zonesNbr;
     int conquestPoints;
     int creaturesLeft;
-    std::vector<std::String> speCellsNames;
+    std::vector<std::string> speCellsNames;
     int xLastCell     = 0;
     int yLastCell     = 0;
     std::vector<Zone> zone;
@@ -36,20 +34,18 @@ namespace state {
     int getZonesNbr ();
     int getConquestPoints ();
     int getCreaturesLeft ();
-    std::vector<std::String> getSpeCellsNames ();
+    std::vector<std::string> getSpeCellsNames ();
     int getXLastCell ();
     int getYLastCell ();
     void setCellsNbr (int count);
     void setZonesNbr (int count);
     void setConquestPts (int count);
     void setCreaLeft (int count);
-    void decreaseCreaLeft (bool decrease);
-    void modifySpeCellsNames (string name, bool add);
+    void decreaseCreaLeft ();
+    void modifySpeCellsNames (std::string name, bool add);
     void setXLastCell (int x);
     void setYLastCell (int y);
     // Setters and Getters
-    const ElementTab& getCreatures_to_add() const;
-    void setCreatures_to_add(const ElementTab& Creatures to put on the map);
     ClanNameID getIdentify() const;
     void setIdentify(ClanNameID Identify);
   };

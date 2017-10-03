@@ -19,15 +19,19 @@ namespace state {
     // Attributes
   private:
     const int stolenResourceNbr     = 2;
+    bool placed;
     // Operations
   public:
     int getx ();
     void setx (int x);
     int gety ();
     void sety (int y);
+    TypeID const getTypeID ();
+    bool getplaced ();
+    void place (int x, int y);
     // Setters and Getters
     CreaturesID getCreatures_type() const;
-    void setCreatures' type(CreaturesID Creatures' type);
+    void setCreatures_type(CreaturesID Creatures_type);
   };
 
 };

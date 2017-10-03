@@ -17,7 +17,6 @@ namespace state {
   class State {
     // Associations
     state::ElementTab Compose;
-    state::ElementTab Compose;
     // Attributes
   private:
     ElementTab grid;
@@ -29,8 +28,6 @@ namespace state {
     ElementTab& getCharacters ();
     int getCellNbr ();
     // Setters and Getters
-    const ElementTab& getCompose() const;
-    void setCompose(const ElementTab& Compose);
     const ElementTab& getCompose() const;
     void setCompose(const ElementTab& Compose);
   };
