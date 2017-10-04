@@ -10,14 +10,14 @@ namespace state {
 }
 
 #include "CreaturesGroup.h"
-#include "ClanNameID.h"
+#include "CreaturesID.h"
 
 namespace state {
 
   /// class Player - 
   class Player {
     // Associations
-    state::ClanNameID identify;
+    state::CreaturesID clanName;
     // Attributes
   private:
     int cellNbr;
@@ -27,7 +27,6 @@ namespace state {
     int xLastCell     = 0;
     int yLastCell     = 0;
     std::vector<CreaturesGroup> allCreatures;
-    std::vector<CreaturesGroup> creaturesToPlace;
     int creaturesLeft;
     // Operations
   public:
@@ -55,8 +54,8 @@ namespace state {
     void setCreaToPlace (std::vector<CreaturesGroup> creaList);
     void setCreaToPlace (bool add, CreaturesGroup group);
     // Setters and Getters
-    ClanNameID getIdentify() const;
-    void setIdentify(ClanNameID identify);
+    CreaturesID getClanName() const;
+    void setClanName(CreaturesID clanName);
   };
 
 };
