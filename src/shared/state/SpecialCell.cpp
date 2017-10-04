@@ -5,27 +5,25 @@
 namespace state
 {
 
-    SpecialCell::SpecialCell(SpecialCellID type, std::string resType, int resNbr){
-        this->type = type;
-        this->neededResType = resType;
-        this->neededResNbr = resNbr;
+    SpecialCell::SpecialCell (SpecialCellID type, std::string resType, int resNbr, int x, int y){
+        this->resNbr=resNbr;
+        this->resType=resType;
+        this->specialCellType=type;
+        this->x=x;
+        this->y=y;
+    }
+ 
+    const SpecialCellID SpecialCell::getSpecialCellID(){
+        SpecialCellID id = 1;
+        return id;
     }
     
-
-    std::string SpecialCell::getResType() {
-        return neededResType;
+    SpecialCellID SpecialCell::getSpecialCellType() const{
+        return specialCellType;
     }
-
-    void SpecialCell::setResType(std::string res) {
-        neededResType = res;
-    }
-
-    int SpecialCell::getResNbr() {
-        return neededResNbr;
-    }
-
-    void SpecialCell::setResNbr(int nbr) {
-        neededResNbr = nbr;
+    
+    void setSpecialCellType(SpecialCellID specialCellType){
+        specialCellType=specialCellType;
     }
 };
 
