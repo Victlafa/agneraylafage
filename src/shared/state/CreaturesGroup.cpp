@@ -10,11 +10,6 @@
 namespace state
 {
     // Constructors :
-    CreaturesGroup::CreaturesGroup (){
-        placed = false;
-        this->creaturesType = nullptr;
-    }
-    
     CreaturesGroup::CreaturesGroup (CreaturesID type){
         placed = false;
         this->creaturesType = type;
