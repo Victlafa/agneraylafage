@@ -4,6 +4,7 @@
 
 #include "state/TypeID.h"
 #include "state/Element.h"
+#include "state/CellTypeID.h"
 #include "state/CellState.h"
 #include "state/CreaturesID.h"
 #include "state/CreaturesGroup.h"
