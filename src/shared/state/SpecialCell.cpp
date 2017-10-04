@@ -14,17 +14,13 @@ namespace state
     }
  
     const SpecialCellID SpecialCell::getSpecialCellID(){
-        SpecialCellID id = 1;
-        return id;
-    }
-    
-    SpecialCellID SpecialCell::getSpecialCellType() const{
         return specialCellType;
     }
     
-    void setSpecialCellType(SpecialCellID specialCellType){
-        specialCellType=specialCellType;
+    void SpecialCell::setSpecialCellType(SpecialCellID specialCellType){
+        this->specialCellType=specialCellType;
     }
+    
 };
 
 
