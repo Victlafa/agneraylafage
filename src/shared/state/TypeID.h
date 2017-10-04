@@ -7,8 +7,7 @@ namespace state {
 
   enum TypeID {
     CREATURESGROUP     = 1,
-    SPECIALCELL     = 2,
-    SIMPLECELL     = 3
+    CELL     = 2
   };
 
 };

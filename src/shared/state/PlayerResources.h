@@ -15,7 +15,7 @@ namespace state {
   /// class PlayerResources - 
   class PlayerResources {
     // Associations
-    state::Player possess;
+    state::Player playerResources;
     // Attributes
   public:
     int wood     = 0;
@@ -29,8 +29,8 @@ namespace state {
     int getResource (std::string type);
     void setResource (std::string type, int quantity, bool increase);
     // Setters and Getters
-    const Player& getPossess() const;
-    void setPossess(const Player& possess);
+    const Player& getPlayerResources() const;
+    void setPlayerResources(const Player& playerResources);
   };
 
 };

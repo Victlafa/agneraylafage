@@ -10,6 +10,10 @@
 namespace state
 {
     // Constructors :
+    CreaturesGroup::CreaturesGroup (){
+        placed = false;
+        this->creaturesType = nullptr;
+    }
     
     CreaturesGroup::CreaturesGroup (CreaturesID type){
         placed = false;
@@ -21,11 +25,7 @@ namespace state
     }
     
     // Setters and getters :
-    
-    TypeID const CreaturesGroup::getTypeID (){
-        return this->element_type;
-    }
-    
+
     bool CreaturesGroup::getPlaced (){
         return placed;
     }
