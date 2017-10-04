@@ -40,7 +40,6 @@ namespace state {
     int getXLastCell ();
     int getYLastCell ();
     std::vector<CreaturesGroup>* getAllCreatures ();
-    std::vector<CreaturesGroup>* getCreaturesToPlace ();
     void setCellsNbr (int count);
     void setZonesNbr (int count);
     void setConquestPts (int count);
@@ -51,8 +50,6 @@ namespace state {
     void setYLastCell (int y);
     void setAllCreatures (std::vector<CreaturesGroup>* creaList);
     void setAllCreatures (bool add, CreaturesGroup group);
-    void setCreaToPlace (std::vector<CreaturesGroup>* creaList);
-    void setCreaToPlace (bool add, CreaturesGroup group);
     // Setters and Getters
     CreaturesID getClanName() const;
     void setClanName(CreaturesID clanName);

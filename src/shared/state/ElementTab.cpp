@@ -44,16 +44,34 @@ namespace state
         this->height = height;
     }
     
-    Element* ElementTab::get (int i, int j){
+    const Element& ElementTab::get (int i, int j){
         return list->at(i*width + j);
     }
     
-    void ElementTab::set (std::unique_ptr<Element> elem, int i, int j){
-        list->insert(i*width + j,elem);
+    void ElementTab::set (Element elem, int i, int j){
+        int cpt = 0;
+        for (auto Iter = list->begin(); Iter != list->end(); Iter++) {
+            if (cpt == (int)(i * width + j)) {
+                // Quand on a trouvé la bonne position, on insère le nouvel élément dans la liste :
+                list->insert(Iter, elem);
+                
+                break;
+            }
+            cpt += 1;
+        }
+        
     }
     
     const Element& ElementTab::operator()(int i, int j){
         return list->at(i*width + j);
+    }
+    
+    TypeID ElementTab::getTabType() const{
+        return this->tabType;
+    }
+    
+    void ElementTab::setTabType(TypeID tabType){
+        this->tabType = tabType;
     }
     
     

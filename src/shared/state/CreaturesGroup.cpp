@@ -9,6 +9,9 @@
 
 namespace state
 {
+    // Static attribut :
+    int CreaturesGroup::stolenResourceNbr = 2;
+    
     // Constructors :
     CreaturesGroup::CreaturesGroup (CreaturesID type){
         placed = false;
@@ -37,6 +40,4 @@ namespace state
     void CreaturesGroup::setCreaturesType(CreaturesID Creatures_type){
         this->creaturesType = Creatures_type;
     }
-    
-    
 };

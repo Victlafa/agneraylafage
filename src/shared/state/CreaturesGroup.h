@@ -17,14 +17,14 @@ namespace state {
     // Associations
     state::CreaturesID creaturesType;
     // Attributes
+  public:
+    static int stolenResourceNbr;
   private:
-    const int stolenResourceNbr     = 2;
     bool placed;
     // Operations
   public:
     CreaturesGroup (CreaturesID type);
     ~CreaturesGroup ();
-    CreaturesID const getCreaturesID ();
     bool getPlaced ();
     void toPlace (int x, int y);
     // Setters and Getters
