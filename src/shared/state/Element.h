@@ -9,8 +9,6 @@ namespace state {
 
   /// class Element - 
   class Element {
-    // Associations
-    state::TypeID element_type;
     // Attributes
   protected:
     int x;
@@ -22,8 +20,6 @@ namespace state {
     virtual ~Element ();
     virtual const TypeID getTypeID () = 0;
     // Setters and Getters
-    TypeID getElement_type() const;
-    void setElement_type(TypeID element_type);
     int getX() const;
     void setX(int x);
     int getY() const;

@@ -10,6 +10,7 @@ namespace state {
   class Element;
 }
 
+#include "TypeID.h"
 #include "Element.h"
 
 namespace state {
@@ -17,6 +18,7 @@ namespace state {
   /// class ElementTab - 
   class ElementTab {
     // Associations
+    state::TypeID tabType;
     // Attributes
   private:
     size_t width;
@@ -34,6 +36,8 @@ namespace state {
     void set (int i, int j = 0);
     const Element& operator ( )  (int i, int j = 0);
     // Setters and Getters
+    TypeID getTabType() const;
+    void setTabType(TypeID tabType);
   };
 
 };
