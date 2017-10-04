@@ -23,7 +23,7 @@ namespace state
     // Setters and getters :
     
     TypeID const CreaturesGroup::getTypeID (){
-        return this-;
+        return this->element_type;
     }
     
     bool CreaturesGroup::getPlaced (){
