@@ -5,17 +5,25 @@
  */
 
 #include "ElementTab.h"
+#include <iostream>
 
 namespace state
 {
     // Constructor :
-    ElementTab::ElementTab (size_t width = 0, size_t height = 1)
+    ElementTab::ElementTab (size_t width, size_t height)
     {
         this->width = width;
         this->height = height;
-        this->list = new std::vector<std::unique_ptr<Element>>();
-        if (list == NULL)
-            throw std::bad_alloc("La liste des éléments d'ElementTab doit être initialisée !");
+        
+        try
+        {
+            this->list = new std::vector<std::unique_ptr<Element>>();
+        }
+        
+        catch(std::bad_alloc &e)
+        {
+            std::cerr << e.what() << std::endl;
+        }
     }
     
     ElementTab::~ElementTab() 
@@ -23,16 +31,12 @@ namespace state
     
     // Getters and setters :
     
-    size_t const ElementTab::getWidth (){
+    size_t ElementTab::getWidth (){
         return this->width;
     }
     
-    size_t const ElementTab::getHeight (){
+    size_t ElementTab::getHeight (){
         return this->height;
-    }
-    
-    size_t ElementTab::add (Element* elem){
-        this->list.push_back(elem);
     }
     
     void ElementTab::resize (size_t width, size_t height){
@@ -40,26 +44,19 @@ namespace state
         this->height = height;
     }
     
-    Element* const ElementTab::get (int i, int j = 0){
-        return list[i*width + j];
+    Element* ElementTab::get (int i, int j){
+        return list->at(i*width + j);
     }
     
-    void ElementTab::set (int i, int j = 0, Element* elem){
-        list[i*width + j] = elem;
+    void ElementTab::set (std::unique_ptr<Element> elem, int i, int j){
+        list->insert(i*width + j,elem);
     }
     
-    const Element& ElementTab::operator()(int i, int j = 0) const{
-        return list[i*width + j];
+    const Element& ElementTab::operator()(int i, int j){
+        return list->at(i*width + j);
     }
     
-    // Setters and Getters
-    const Element& ElementTab::getComposedOf() const{
-        return this->composedOf;
-    }
     
-    void ElementTab::setComposedOf(const Element& Compose){
-        this->composedOf = Compose;
-    }
     
     
 };

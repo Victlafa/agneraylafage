@@ -24,7 +24,7 @@ namespace state {
   public:
     CreaturesGroup (CreaturesID type);
     ~CreaturesGroup ();
-    TypeID const getTypeID ();
+    CreaturesID const getCreaturesID ();
     bool getPlaced ();
     void toPlace (int x, int y);
     // Setters and Getters

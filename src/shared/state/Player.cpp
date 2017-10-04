@@ -5,6 +5,7 @@
  */
 
 #include "Player.h"
+#include <iostream>
 
 namespace state{
     
@@ -16,22 +17,19 @@ namespace state{
           zonesNbr = 0;
           conquestPoints = 0;
           creaturesLeft = 0;
-          speCellsNames = new std::vector<std::string>(4);
-          
-          if (speCellsNames == NULL)
-              throw std::bad_alloc("L'attribut speCellsNames du joueur doit être instancié.");
-          
           xLastCell = 0;
           yLastCell = 0;
-          identify = 0;
           
-          allCreatures = new std::vector<CreaturesGroup>();
-          if (allCreatures == NULL)
-              throw std::bad_alloc("L'attribut allCreatures du joueur doit être instancié.");
+          try
+          {
+              speCellsNames = new std::vector<std::string>(4);
+              allCreatures = new std::vector<CreaturesGroup>();
+          }
           
-          creaturesToPlace = new std::vector<CreaturesGroup>();
-          if (creaturesToPlace == NULL)
-              throw std::bad_alloc("L'attribut creaturesToPlace du joueur doit être instancié.");
+          catch(std::bad_alloc &e)
+          {
+              std::cerr << e.what() << std::endl;
+          }
           
           std::cout << "Le joueur a été initialisé correctement." << std::endl;
       }
@@ -54,7 +52,7 @@ namespace state{
             return creaturesLeft;
         }
 
-        std::vector<std::string> Player::getSpeCellsNames() {
+        std::vector<std::string>* Player::getSpeCellsNames() {
             return speCellsNames;
         }
 
@@ -93,16 +91,17 @@ namespace state{
 
             // Si on souhaite ajouter un nom dans la liste :
             if (add)
-                speCellsNames.push_back(name);
+                speCellsNames->push_back(name);
 
                 // Si au contraire on souhaite retirer un nom de la liste :
-            else if (!add && speCellsNames.size() != 0) {
+            else if (!add && speCellsNames->size() != 0) {
                 int index = 0;
+                std::vector<std::string>::iterator Iter;
                 // On doit chercher l'index correspondant à ce nom dans la liste :
 
-                for (int i = 0; i < speCellsNames.size(); i++) {
-                    if (speCellsNames.at(i) = name) {
-                        index = i;
+                for (Iter = speCellsNames->begin(); Iter != speCellsNames->end(); Iter++) {
+                    if (speCellsNames->at(*Iter) == name) {
+                        index = *Iter;
                         // Quand on a trouvé le bon index, on sort de la boucle for :
                         break;
                     }
@@ -112,7 +111,7 @@ namespace state{
                 if (index == 0)
                     throw std::invalid_argument("Le nom que vous souhaitez supprimer de la liste ne s'y trouve pas !");
 
-                speCellsNames.erase(index);
+                speCellsNames->erase()
             }
             else {
                 // On arrive ici seulement si la liste est vide et qu'on veut supprimer un élément, on lève donc une exception :
@@ -129,15 +128,15 @@ namespace state{
             yLastCell = y;
         }
 
-        ClanNameID Player::getIdentify() const {
-            return this->identify;
+        CreaturesID Player::getClanName() const {
+            return this->clanName;
         }
 
-        void Player::setIdentify(ClanNameID Identify) {
-            this->identify = Identify;
+        void Player::setClanName(CreaturesID Identify) {
+            this->clanName = Identify;
         }
         
-        void Player::setAllCreatures (std::vector<CreaturesGroup> creaList){
+        void Player::setAllCreatures (std::vector<CreaturesGroup>* creaList){
             this->allCreatures = creaList;
         }
         

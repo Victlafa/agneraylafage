@@ -13,11 +13,6 @@ namespace state
         this->y=y;
     }
  
-    const SpecialCellID SpecialCell::getSpecialCellID(){
-        SpecialCellID id = 1;
-        return id;
-    }
-    
     SpecialCellID SpecialCell::getSpecialCellType() const{
         return specialCellType;
     }

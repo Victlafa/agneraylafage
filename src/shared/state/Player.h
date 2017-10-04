@@ -23,10 +23,10 @@ namespace state {
     int cellNbr;
     int zonesNbr;
     int conquestPoints;
-    std::vector<std::string> speCellsNames;
+    std::vector<std::string>* speCellsNames;
     int xLastCell     = 0;
     int yLastCell     = 0;
-    std::vector<CreaturesGroup> allCreatures;
+    std::vector<CreaturesGroup>* allCreatures;
     int creaturesLeft;
     // Operations
   public:
@@ -36,11 +36,11 @@ namespace state {
     int getZonesNbr ();
     int getConquestPoints ();
     int getCreaturesLeft ();
-    std::vector<std::string> getSpeCellsNames ();
+    std::vector<std::string>* getSpeCellsNames ();
     int getXLastCell ();
     int getYLastCell ();
-    std::vector<CreaturesGroup> getAllCreatures ();
-    std::vector<CreaturesGroup> getCreaturesToPlace ();
+    std::vector<CreaturesGroup>* getAllCreatures ();
+    std::vector<CreaturesGroup>* getCreaturesToPlace ();
     void setCellsNbr (int count);
     void setZonesNbr (int count);
     void setConquestPts (int count);
@@ -49,9 +49,9 @@ namespace state {
     void modifySpeCellsNames (std::string name, bool add);
     void setXLastCell (int x);
     void setYLastCell (int y);
-    void setAllCreatures (std::vector<CreaturesGroup> creaList);
+    void setAllCreatures (std::vector<CreaturesGroup>* creaList);
     void setAllCreatures (bool add, CreaturesGroup group);
-    void setCreaToPlace (std::vector<CreaturesGroup> creaList);
+    void setCreaToPlace (std::vector<CreaturesGroup>* creaList);
     void setCreaToPlace (bool add, CreaturesGroup group);
     // Setters and Getters
     CreaturesID getClanName() const;
