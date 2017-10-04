@@ -20,6 +20,7 @@ namespace state {
     // Associations
     state::CellTypeID cellType;
     state::CellState cellState;
+    state::CreaturesGroup creaturesCell;
     // Attributes
   protected:
     std::string resType;
@@ -35,6 +36,8 @@ namespace state {
     void setCellType(CellTypeID cellType);
     CellState getCellState() const;
     void setCellState(CellState cellState);
+    const CreaturesGroup& getCreaturesCell() const;
+    void setCreaturesCell(const CreaturesGroup& creaturesCell);
     const std::string& getResType() const;
     void setResType(const std::string& resType);
     int getResNbr() const;
