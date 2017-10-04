@@ -27,8 +27,20 @@ int main(int argc,char* argv[])
     
     if (argc >= 2 && (string)argv[1] == "hello")
         cout << "Bonjour tout le monde !" << endl;
+		
+	if (argc >= 2 && (string)argv[1] == "state"){
+        cout << "Création du joueur 1" << endl;
+		Player p1 = new Player();
+	}
+	
     
-    Player joueur = new Player();
 
     return 0;
 }
+
+/*
+int testState(){
+	cout << "Création du joueur 1" << endl;
+	Player p1 = new Player();	
+}*/
+
