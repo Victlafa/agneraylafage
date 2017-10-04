@@ -6,14 +6,12 @@
 
 namespace state {
   class Element;
-  class CreaturesGroup;
 }
 
 #include "TypeID.h"
 #include "Element.h"
 #include "CellTypeID.h"
 #include "CellState.h"
-#include "CreaturesGroup.h"
 
 namespace state {
 
@@ -27,6 +25,7 @@ namespace state {
   protected:
     std::string resType;
     int resNbr;
+    bool occupied     = false;
     // Operations
   public:
     Cell ();
@@ -43,6 +42,8 @@ namespace state {
     void setResType(const std::string& resType);
     int getResNbr() const;
     void setResNbr(int resNbr);
+    bool getOccupied() const;
+    void setOccupied(bool occupied);
   };
 
 };

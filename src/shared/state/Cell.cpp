@@ -10,8 +10,8 @@ namespace state
 {
     // Constructor :
     
-    Cell::Cell (){}
-    Cell::~Cell (){}
+    Cell::Cell(){}
+    Cell::~Cell(){}
     
     // Setters and Getters :
     
