@@ -20,7 +20,7 @@ namespace state {
   public:
     Element ();
     virtual ~Element ();
-    virtual TypeID const getTypeID () = 0;
+    virtual const TypeID getTypeID () = 0;
     // Setters and Getters
     TypeID getElement_type() const;
     void setElement_type(TypeID element_type);

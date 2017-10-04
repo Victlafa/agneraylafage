@@ -12,7 +12,6 @@
 #include "state/SpecialCell.h"
 #include "state/SimpleCellID.h"
 #include "state/SimpleCell.h"
-#include "state/ClanNameID.h"
 #include "state/Player.h"
 #include "state/PlayerResources.h"
 #include "state/ElementTab.h"

@@ -9,6 +9,7 @@ namespace state {
 }
 
 #include "SimpleCellID.h"
+#include "TypeID.h"
 #include "Cell.h"
 
 namespace state {
@@ -21,7 +22,7 @@ namespace state {
   public:
     SimpleCell (SimpleCellID type, std::string resType, int resNbr);
     ~SimpleCell ();
-    TypeID const getTypeID ();
+    const TypeID getTypeID ();
     // Setters and Getters
     SimpleCellID getSimpleCellType() const;
     void setSimpleCellType(SimpleCellID simpleCellType);
