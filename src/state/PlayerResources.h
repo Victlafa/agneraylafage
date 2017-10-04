@@ -14,7 +14,7 @@ namespace state {
   /// class PlayerResources - 
   class PlayerResources {
     // Associations
-    state::Player Possess;
+    state::Player possess;
     // Attributes
   public:
     int wood     = 0;
@@ -23,11 +23,13 @@ namespace state {
     int food     = 0;
     // Operations
   public:
+    PlayerResources ();
+    ~PlayerResources ();
     int getResource (string type);
     void setResource (string type, int quantity, bool increase);
     // Setters and Getters
     const Player& getPossess() const;
-    void setPossess(const Player& Possess);
+    void setPossess(const Player& possess);
   };
 
 };

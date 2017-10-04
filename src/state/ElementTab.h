@@ -17,7 +17,7 @@ namespace state {
   /// class ElementTab - 
   class ElementTab {
     // Associations
-    state::Element Compose;
+    state::Element composedOf;
     // Attributes
   private:
     size_t width;
@@ -26,16 +26,17 @@ namespace state {
     // Operations
   public:
     ElementTab (size_t width = 0, size_t height = 1);
+    ~ElementTab ();
     size_t const getWidth ();
     size_t const getHeight ();
     size_t add (Element* elem);
     void resize (size_t width, size_t height);
     Element* const get (int i, int j = 0);
     void set (int i, int j = 0, Element* elem);
-    const Element& const operator ( )  (int i, int j = 0);
+    const Element& operator ( )  (int i, int j = 0);
     // Setters and Getters
-    const Element& getCompose() const;
-    void setCompose(const Element& Compose);
+    const Element& getComposedOf() const;
+    void setComposedOf(const Element& composedOf);
   };
 
 };

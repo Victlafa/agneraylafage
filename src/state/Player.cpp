@@ -17,11 +17,22 @@ namespace state{
           conquestPoints = 0;
           creaturesLeft = 0;
           speCellsNames = new std::vector<std::string>(4);
+          
           if (speCellsNames == NULL)
-              throw std::bad_alloc("L'attribut speCellsNames du joueur doit être instanciée.");
+              throw std::bad_alloc("L'attribut speCellsNames du joueur doit être instancié.");
+          
           xLastCell = 0;
           yLastCell = 0;
-          Identify = 0;
+          identify = 0;
+          
+          allCreatures = new std::vector<CreaturesGroup>();
+          if (allCreatures == NULL)
+              throw std::bad_alloc("L'attribut allCreatures du joueur doit être instancié.");
+          
+          creaturesToPlace = new std::vector<CreaturesGroup>();
+          if (creaturesToPlace == NULL)
+              throw std::bad_alloc("L'attribut creaturesToPlace du joueur doit être instancié.");
+          
           std::cout << "Le joueur a été initialisé correctement." << std::endl;
       }
     
@@ -119,11 +130,88 @@ namespace state{
         }
 
         ClanNameID Player::getIdentify() const {
-            return Identify;
+            return this->identify;
         }
 
         void Player::setIdentify(ClanNameID Identify) {
-            Identify = Identify;
+            this->identify = Identify;
+        }
+        
+        void Player::setAllCreatures (std::vector<CreaturesGroup> creaList){
+            this->allCreatures = creaList;
+        }
+        
+        void Player::setAllCreatures (bool add, CreaturesGroup group){
+                    // Si on souhaite ajouter un groupe de créatures dans la liste :
+            if (add)
+                allCreatures.push_back(group);
+
+                // Si au contraire on souhaite retirer un groupe de la liste :
+            else if (!add && allCreatures.size() != 0) {
+                int index = 0;
+                // On doit chercher l'index correspondant à ce groupe dans la liste :
+
+                for (int i = 0; i < allCreatures.size(); i++) {
+                    if (allCreatures.at(i) = group) {
+                        index = i;
+                        // Quand on a trouvé le bon index, on sort de la boucle for :
+                        break;
+                    }
+                }
+
+                // Si on a pas trouvé d'index correspondant, on lève une exception :
+                if (index == 0)
+                    throw std::invalid_argument("Le groupe de créatures que vous souhaitez supprimer de la liste ne s'y trouve pas !");
+
+                allCreatures.erase(index);
+            }
+            else {
+                // On arrive ici seulement si la liste est vide et qu'on veut supprimer un élément, on lève donc une exception :
+                throw std::length_error("Impossible de supprimer un groupe de créatures de la liste car elle est vide !");
+            }
+        }
+        
+        void Player::setCreaToPlace (std::vector<CreaturesGroup> creaList)
+        {
+            this->creaturesToPlace = creaList;
+        }
+        
+        void Player::setCreaToPlace (bool add, CreaturesGroup group){
+            // Si on souhaite ajouter un groupe de créatures dans la liste :
+            if (add)
+                creaturesToPlace.push_back(group);
+
+                // Si au contraire on souhaite retirer un groupe de la liste :
+            else if (!add && creaturesToPlace.size() != 0) {
+                int index = 0;
+                // On doit chercher l'index correspondant à ce groupe dans la liste :
+
+                for (int i = 0; i < creaturesToPlace.size(); i++) {
+                    if (creaturesToPlace.at(i) = group) {
+                        index = i;
+                        // Quand on a trouvé le bon index, on sort de la boucle for :
+                        break;
+                    }
+                }
+
+                // Si on a pas trouvé d'index correspondant, on lève une exception :
+                if (index == 0)
+                    throw std::invalid_argument("Le groupe de créatures que vous souhaitez supprimer de la liste ne s'y trouve pas !");
+
+                creaturesToPlace.erase(index);
+            }
+            else {
+                // On arrive ici seulement si la liste est vide et qu'on veut supprimer un élément, on lève donc une exception :
+                throw std::length_error("Impossible de supprimer un groupe de créatures de la liste car elle est vide !");
+            }
+        }
+        
+        const CreaturesGroup& Player::getPossess() const{
+            return this->possess;
+        }
+        
+        void Player::setPossess(const CreaturesGroup& possess){
+            this->possess = possess;
         }
     
 };

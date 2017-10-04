@@ -4,12 +4,6 @@
 
 
 namespace state {
-  class Element;
-}
-
-#include "Element.h"
-
-namespace state {
 
   enum TypeID {
     CREATURESGROUP     = 1,
