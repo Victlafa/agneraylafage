@@ -3,10 +3,14 @@
 #define STATE__ELEMENT__H
 
 
+#include "TypeID.h"
+
 namespace state {
 
   /// class Element - 
   class Element {
+    // Associations
+    state::TypeID element_type;
     // Attributes
   protected:
     int x;
@@ -14,12 +18,12 @@ namespace state {
     int creaturesNbr;
     // Operations
   public:
-    virtual int getx () = 0;
-    virtual void setx (int x) = 0;
-    virtual int gety () = 0;
-    virtual void sety (int y) = 0;
+    Element ();
+    virtual ~Element ();
     virtual TypeID const getTypeID () = 0;
     // Setters and Getters
+    TypeID getElement_type() const;
+    void setElement_type(TypeID element_type);
     int getX() const;
     void setX(int x);
     int getY() const;

@@ -2,6 +2,7 @@
 #ifndef STATE__CELL__H
 #define STATE__CELL__H
 
+#include <string>
 
 namespace state {
   class Element;
@@ -9,6 +10,7 @@ namespace state {
 }
 
 #include "Element.h"
+#include "CellState.h"
 #include "CreaturesGroup.h"
 
 namespace state {
@@ -16,17 +18,23 @@ namespace state {
   /// class Cell - 
   class Cell : public state::Element {
     // Associations
-    state::CreaturesGroup where;
+    state::CellState cellState;
+    // Attributes
+  protected:
+    std::string resType;
+    int resNbr;
     // Operations
   public:
-    virtual int getx () = 0;
-    virtual void setx (int x) = 0;
-    virtual int gety () = 0;
-    virtual void sety (int y) = 0;
+    Cell ();
+    ~Cell ();
     virtual TypeID const getTypeID () = 0;
     // Setters and Getters
-    const CreaturesGroup& getWhere() const;
-    void setWhere(const CreaturesGroup& where);
+    CellState getCellState() const;
+    void setCellState(CellState cellState);
+    const std::string& getResType() const;
+    void setResType(const std::string& resType);
+    int getResNbr() const;
+    void setResNbr(int resNbr);
   };
 
 };

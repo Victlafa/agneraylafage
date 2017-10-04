@@ -7,31 +7,29 @@ namespace state {
   class Element;
 }
 
-#include "Element.h"
 #include "CreaturesID.h"
+#include "Element.h"
 
 namespace state {
 
   /// class CreaturesGroup - 
   class CreaturesGroup : public state::Element {
     // Associations
-    state::CreaturesID Creatures_type;
+    state::CreaturesID creaturesType;
     // Attributes
   private:
     const int stolenResourceNbr     = 2;
     bool placed;
     // Operations
   public:
-    int getx ();
-    void setx (int x);
-    int gety ();
-    void sety (int y);
+    CreaturesGroup (CreaturesID type);
+    ~CreaturesGroup ();
     TypeID const getTypeID ();
-    bool getplaced ();
-    void place (int x, int y);
+    bool getPlaced ();
+    void toPlace (int x, int y);
     // Setters and Getters
-    CreaturesID getCreatures_type() const;
-    void setCreatures_type(CreaturesID Creatures_type);
+    CreaturesID getCreaturesType() const;
+    void setCreaturesType(CreaturesID creaturesType);
   };
 
 };

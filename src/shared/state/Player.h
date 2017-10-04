@@ -17,18 +17,22 @@ namespace state {
   /// class Player - 
   class Player {
     // Associations
-    state::ClanNameID Identify;
+    state::ClanNameID identify;
     // Attributes
   private:
     int cellNbr;
     int zonesNbr;
     int conquestPoints;
-    int creaturesLeft;
     std::vector<std::string> speCellsNames;
     int xLastCell     = 0;
     int yLastCell     = 0;
+    std::vector<CreaturesGroup> allCreatures;
+    std::vector<CreaturesGroup> creaturesToPlace;
+    int creaturesLeft;
     // Operations
   public:
+    Player ();
+    ~Player ();
     int getCellsNbr ();
     int getZonesNbr ();
     int getConquestPoints ();
@@ -36,6 +40,8 @@ namespace state {
     std::vector<std::string> getSpeCellsNames ();
     int getXLastCell ();
     int getYLastCell ();
+    std::vector<CreaturesGroup> getAllCreatures ();
+    std::vector<CreaturesGroup> getCreaturesToPlace ();
     void setCellsNbr (int count);
     void setZonesNbr (int count);
     void setConquestPts (int count);
@@ -44,9 +50,13 @@ namespace state {
     void modifySpeCellsNames (std::string name, bool add);
     void setXLastCell (int x);
     void setYLastCell (int y);
+    void setAllCreatures (std::vector<CreaturesGroup> creaList);
+    void setAllCreatures (bool add, CreaturesGroup group);
+    void setCreaToPlace (std::vector<CreaturesGroup> creaList);
+    void setCreaToPlace (bool add, CreaturesGroup group);
     // Setters and Getters
     ClanNameID getIdentify() const;
-    void setIdentify(ClanNameID Identify);
+    void setIdentify(ClanNameID identify);
   };
 
 };

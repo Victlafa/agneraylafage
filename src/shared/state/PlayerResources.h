@@ -2,6 +2,7 @@
 #ifndef STATE__PLAYERRESOURCES__H
 #define STATE__PLAYERRESOURCES__H
 
+#include <string>
 
 namespace state {
   class Player;
@@ -14,7 +15,7 @@ namespace state {
   /// class PlayerResources - 
   class PlayerResources {
     // Associations
-    state::Player Possess;
+    state::Player possess;
     // Attributes
   public:
     int wood     = 0;
@@ -23,11 +24,13 @@ namespace state {
     int food     = 0;
     // Operations
   public:
-    int getResource (string type);
-    void setResource (string type, int quantity, bool increase);
+    PlayerResources ();
+    ~PlayerResources ();
+    int getResource (std::string type);
+    void setResource (std::string type, int quantity, bool increase);
     // Setters and Getters
     const Player& getPossess() const;
-    void setPossess(const Player& Possess);
+    void setPossess(const Player& possess);
   };
 
 };

@@ -4,12 +4,6 @@
 
 
 namespace state {
-  class Cell;
-}
-
-#include "Cell.h"
-
-namespace state {
 
   enum CellState {
     NORMAL     = 1,

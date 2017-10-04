@@ -39,14 +39,6 @@ namespace state
         this->resNbr = resNbr;
     }
     
-    const CreaturesGroup& Cell::getPositionedOn() const{
-        return this->positionedOn;
-    }
-    
-    void Cell::setPositionedOn(const CreaturesGroup& positionedOn){
-        this->positionedOn = positionedOn;
-    }
-    
     
 };
 
