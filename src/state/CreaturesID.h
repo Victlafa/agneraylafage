@@ -6,10 +6,10 @@
 namespace state {
 
   enum CreaturesID {
-    LUMBERJACKS     = 1,
-    MINERS     = 2,
-    BLACKSMITHS     = 3,
-    COOKERS     = 4
+    COOKERS     = 1,
+    BLACKSMITHS     = 2,
+    LUMBERJACKS     = 3,
+    MINERS     = 4
   };
 
 };

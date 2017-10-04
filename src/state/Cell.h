@@ -9,6 +9,7 @@ namespace state {
   class CreaturesGroup;
 }
 
+#include "TypeID.h"
 #include "Element.h"
 #include "CellState.h"
 #include "CreaturesGroup.h"
@@ -28,7 +29,7 @@ namespace state {
   public:
     Cell ();
     ~Cell ();
-    virtual TypeID const getTypeID () = 0;
+    virtual const TypeID getTypeID () = 0;
     // Setters and Getters
     CellState getCellState() const;
     void setCellState(CellState cellState);
