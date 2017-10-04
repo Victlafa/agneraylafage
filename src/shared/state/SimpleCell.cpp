@@ -9,57 +9,22 @@
 
 namespace state
 {
-    SimpleCell::SimpleCell(std::string res, int nbr, SimpleCellID type){
-        this->genResType = res;
-        this->genResNbr = nbr;
-        this->type = type;
+    SimpleCell::SimpleCell (SimpleCellID type, std::string resType, int resNbr, int x, int y){
+        this->simpleCellType=type;
+        this->resType=resType;
+        this->resNbr=resNbr;
+        this->x=x;
+        this->y=y;
     }
     
-    std::vector<std::string> SimpleCell::getResType (){
-        return genResType;
+    const SimpleCellID SimpleCell::getSimpleCellID (){
+        return this->simpleCellType;
+    }
+ 
+    SimpleCellID SimpleCell::getSimpleCellType() const{
+        return this->
     }
     
-    std::vector<int> SimpleCell::getResNbr (){
-        return genResNbr;
-    }
-    
-    void SimpleCell::addResType (std::string resType){
-        genResType.push_back(resType);
-    }
-    
-    void SimpleCell::addResNbr (int resNbr){
-        genResNbr = resNbr;
-    }
-    
-    TypeID const SimpleCell::getTypeID (){
-        return TypeID.SIMPLECELL;
-    }
-    
-    int SimpleCell::getx (){
-        return this->x;
-    }
-    
-    void SimpleCell::setx (int x){
-        this->x = x;
-    }
-    
-    int SimpleCell::gety (){
-        return this->y;
-    }
-    
-    void SimpleCell::sety (int y){
-        this->y = y;
-    }
-    
-    // Setters and Getters
-    SimpleCellID  SimpleCell::type() const{
-        return type;
-    }
-    
-    void SimpleCell::type(SimpleCellID type){
-        this->type = type;
-    }
-    
-    
+    void SimpleCell::setSimpleCellType(SimpleCellID simpleCellType);
 };
 

@@ -13,13 +13,18 @@ namespace state
         this->y=y;
     }
  
+<<<<<<< HEAD
     SpecialCellID SpecialCell::getSpecialCellType() const{
+=======
+    const SpecialCellID SpecialCell::getSpecialCellID(){
+>>>>>>> a3b38b0d7950c29f95b0c4db7407c3f51c009ba2
         return specialCellType;
     }
     
-    void setSpecialCellType(SpecialCellID specialCellType){
-        specialCellType=specialCellType;
+    void SpecialCell::setSpecialCellType(SpecialCellID specialCellType){
+        this->specialCellType=specialCellType;
     }
+    
 };
 
 

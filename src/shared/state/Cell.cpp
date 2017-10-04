@@ -15,7 +15,7 @@ namespace state
     
     // Setters and Getters :
     
-    CellState Cell::getCellState() const{
+    const CellState Cell::getCellState (){
         return this->cellState;
     }
     
@@ -39,6 +39,20 @@ namespace state
         this->resNbr = resNbr;
     }
     
+    CellTypeID Cell::getCellType() const{
+        return this->cellType;
+    }
     
+    void Cell::setCellType(CellTypeID cellType){
+        this->cellType = cellType;
+    }
+
+    bool Cell::getOccupied() const{
+        return this->occupied;
+    }
+    
+    void Cell::setOccupied(bool occupied){
+        this->occupied = occupied;
+    }
 };
 
