@@ -10,6 +10,7 @@ void testSFML() {
 // Fin test SFML
 
 #include "state.h"
+#include <iostream>
 
 using namespace std;
 using namespace state;
@@ -22,6 +23,7 @@ int main(int argc,char* argv[])
     cout << "It works !" << endl;
     
     Player joueur = new Player();
+    std::cout << joueur->speCellsName << std::endl;
 
     return 0;
 }
