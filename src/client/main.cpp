@@ -10,6 +10,7 @@ void testSFML() {
 // Fin test SFML
 
 #include "state.h"
+#include "Tests.h"
 
 using namespace std;
 using namespace state;
@@ -135,10 +136,49 @@ int main(int argc,char* argv[])
         }else{
             cout << "KO" << endl;
         }*/
-    
+        TestsElementTab();
  
     }
 
     return 0;
+}
+
+namespace state
+{
+void TestsElementTab()
+{
+    cout << "Création d'un tableau d'elements : ";
+    ElementTab* elemTab = new ElementTab(3,4);
+    if (NULL == elemTab)
+        cout << "KO";
+    else
+        cout << "OK";
+    
+    cout << "Test getters de hauteur et largeur du tableau : " << std::endl;
+    if (elemTab->getHeight()==4 && elemTab->getWidth()==3)
+        cout << "OK" << std::endl;
+    else
+        cout << "KO";
+    
+    cout << "Test resize du tableau : " << std::endl;
+    elemTab->resize(6,8);
+    if (elemTab->getHeight()==8 && elemTab->getWidth()==6)
+        cout << "OK" << std::endl;
+    else
+        cout << "KO";
+    
+    //cout << "Test setter/getter Element du tableau : " << std::endl;
+    //std::unique_ptr<Element> elemTest = std::unique_ptr<Element>();
+    //elemTab->set(*elemTest, 1, 1);
+    //if (elemTab->get(1,1) == *elemTest)
+        //cout << "OK" << std::endl;
+    //else
+        //cout << "KO";
+}
+
+void TestsCreaturesGroup()
+{
+    
+}
 }
 
