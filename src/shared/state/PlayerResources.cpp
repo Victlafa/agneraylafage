@@ -24,6 +24,7 @@ namespace state{
     
     /// setResource :
     /// Incrémente la ressource désignée de 1 si increase = true, sinon la décrémente de 1.
+    /// Renvoie -1 si le type de nourriture entré ne correspond pas aux quatre types présents.
     void PlayerResources::setResource (std::string type, int quantity, bool increase)
     {
         if (increase)
@@ -36,8 +37,8 @@ namespace state{
                 metal += 1;
             else if (type == "food")
                 food += 1;
-            //else
-                //throw std::runtime_error("Le nom entré n'est pas valide ! Impossible d'accéder aux ressources du joueur !");
+            else
+                return -1;
         }
         
         else
@@ -50,8 +51,8 @@ namespace state{
                 metal -= 1;
             else if (type == "food")
                 food -= 1;
-            //else
-                //throw std::runtime_error("Le nom entré n'est pas valide ! Impossible d'accéder aux ressources du joueur !");
+            else
+                return -1;
         }
 
     }
