@@ -19,7 +19,7 @@ namespace state{
             else if (type == "food")
                 return food;
             else
-                return -1;
+                throw "La ressource que vous voulez récupérer n'existe pas !";
     }
     
     /// setResource :
@@ -38,7 +38,7 @@ namespace state{
             else if (type == "food")
                 food += 1;
             else
-                return -1;
+                throw "La ressource que vous voulez mettre à jour n'existe pas !";
         }
         
         else
@@ -52,7 +52,7 @@ namespace state{
             else if (type == "food")
                 food -= 1;
             else
-                return -1;
+                throw "La ressource que vous voulez mettre à jour n'existe pas !";
         }
 
     }

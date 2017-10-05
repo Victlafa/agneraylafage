@@ -53,10 +53,10 @@ namespace state
         std::vector<std::unique_ptr<Element>>* newList = new std::vector<std::unique_ptr<Element>>();
         
         for (int cpt = 0; cpt < (int)list->size(); cpt++) {
-            //if (cpt != (int)(i*width + j))
-            //    newList->push_back(list->at(i));
-            //else
-            //    newList->push_back(&elem);
+            if (cpt != (int)(i*width + j))
+                *newList->at((int)(i*width + j)) = *std::move(list->at(cpt));
+            else
+                *newList->at(cpt) = *std::move(list->at(cpt));
         }
         
         list = newList;
