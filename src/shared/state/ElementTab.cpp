@@ -45,7 +45,7 @@ namespace state
     }
     
     const Element& ElementTab::get (int i, int j){
-        return list->at(i*width + j);
+        return *(list->at(i*width + j));
     }
     
     void ElementTab::set (Element elem, int i, int j){
@@ -53,7 +53,7 @@ namespace state
         for (auto Iter = list->begin(); Iter != list->end(); Iter++) {
             if (cpt == (int)(i * width + j)) {
                 // Quand on a trouvé la bonne position, on insère le nouvel élément dans la liste :
-                list->insert(Iter, elem);
+                list->insert(Iter, 1, elem);
                 
                 break;
             }
@@ -63,7 +63,7 @@ namespace state
     }
     
     const Element& ElementTab::operator()(int i, int j){
-        return list->at(i*width + j);
+        return *(list->at(i*width + j));
     }
     
     TypeID ElementTab::getTabType() const{
