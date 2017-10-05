@@ -44,89 +44,7 @@ int main(int argc,char* argv[])
             cout << "KO" << endl;
         }*/
         
-        cout << "Création du joueur 1 ";
-        Player* p1 = new Player();
-        if(NULL!=p1){
-            cout << "OK" << endl;
-        }else{
-            cout << "KO" << endl;
-        }
-        
-        cout << "Test Player Init NbrCells ";
-  
-        if(p1->getCellsNbr()==0){
-            cout << "OK" << endl;
-        }else{
-            cout << "KO" << endl;
-        }
-        
-        cout << "Test Player Init NbrZones ";
-        if(p1->getZonesNbr()==0){
-            cout << "OK" << endl;
-        }else{
-            cout << "KO" << endl;
-        }
-        
-        cout << "Test Player Init ConquestPoints ";
-        if(p1->getConquestPoints()==0){
-            cout << "OK" << endl;
-        }else{
-            cout << "KO" << endl;
-        }
-        
-        cout << "Test Player Init CreaturesLeft ";
-        if(p1->getCreaturesLeft()==0){
-            cout << "OK" << endl;
-        }else{
-            cout << "KO" << endl;
-        }
-        
-        cout << "Test Player Init NbrZones ";
-        if(p1->getZonesNbr()==0){
-            cout << "OK" << endl;
-        }else{
-            cout << "KO" << endl;
-        }
-        
-        cout << "Test Player Getters/Setters NbrCells ";
-        p1->setCellsNbr(12);
-        if(p1->getCellsNbr()==12){
-            cout << "OK" << endl;
-        }else{
-            cout << "KO" << endl;
-        }
-        
-        cout << "Test Player Getters/Setters NbrZones ";
-        p1->setZonesNbr(2);
-        if(p1->getZonesNbr()==2){
-            cout << "OK" << endl;
-        }else{
-            cout << "KO" << endl;
-        }
-        
-        cout << "Test Player Getters/Setters ConquestPoints ";
-        p1->setConquestPts(4);
-        if(p1->getConquestPoints()==4){
-            cout << "OK" << endl;
-        }else{
-            cout << "KO" << endl;
-        }
-        
-        cout << "Test Player Getters/Setters CreaturesLeft ";
-        p1->setCreaLeft(5);
-        if(p1->getCreaturesLeft()==5){
-            cout << "OK" << endl;
-        }else{
-            cout << "KO" << endl;
-        }
-        
-        cout << "Test Player Getters/Setters NbrZones ";
-        p1->setZonesNbr(1);
-        if(p1->getZonesNbr()==1){
-            cout << "OK" << endl;
-        }else{
-            cout << "KO" << endl;
-        }
+        TestPlayer();
         
         /*
         cout << "Test Player CreaturesId ";
@@ -180,5 +98,152 @@ void TestsCreaturesGroup()
 {
     
 }
+
+void TestPlayer()
+{
+    cout << "Création d'un joueur ";
+    Player* p1 = new Player();
+    if(NULL!=p1){
+        cout << "OK" << endl;
+    }else{
+        cout << "KO" << endl;
+    }
+        
+    cout << "Test Player Init NbrCells ";
+  
+    if(p1->getCellsNbr()==0){
+        cout << "OK" << endl;
+    }else{
+        cout << "KO" << endl;
+    }
+        
+    cout << "Test Player Init NbrZones ";
+    if(p1->getZonesNbr()==0){
+        cout << "OK" << endl;
+    }else{
+        cout << "KO" << endl;
+    }
+        
+    cout << "Test Player Init ConquestPoints ";
+    if(p1->getConquestPoints()==0){
+        cout << "OK" << endl;
+    }else{
+        cout << "KO" << endl;
+    }
+        
+    cout << "Test Player Init CreaturesLeft ";
+    if(p1->getCreaturesLeft()==0){
+        cout << "OK" << endl;
+    }else{
+        cout << "KO" << endl;
+    }
+        
+    cout << "Test Player Init NbrZones ";
+    if(p1->getZonesNbr()==0){
+        cout << "OK" << endl;
+    }else{
+        cout << "KO" << endl;
+    }
+        
+    cout << "Test Player Getters/Setters NbrCells ";
+    p1->setCellsNbr(12);
+    if(p1->getCellsNbr()==12){
+        cout << "OK" << endl;
+    }else{
+        cout << "KO" << endl;
+    }
+        
+    cout << "Test Player Getters/Setters NbrZones ";
+    p1->setZonesNbr(2);
+    if(p1->getZonesNbr()==2){
+        cout << "OK" << endl;
+    }else{
+        cout << "KO" << endl;
+    }
+        
+        cout << "Test Player Getters/Setters ConquestPoints ";
+        p1->setConquestPts(4);
+        if(p1->getConquestPoints()==4){
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
+        }
+        
+        cout << "Test Player Getters/Setters CreaturesLeft ";
+        p1->setCreaLeft(5);
+        if(p1->getCreaturesLeft()==5){
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
+        }
+        cout << "Test Player decrease CreaturesLeft ";
+        p1->decreaseCreaLeft();
+        if(p1->getCreaturesLeft()==4){
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
+        }
+        
+        cout << "Test Player Getters/Setters NbrZones ";
+        p1->setZonesNbr(1);
+        if(p1->getZonesNbr()==1){
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
+        }
+        
+    cout << "Test Player Getters/Setters xLastCell ";
+    p1->setXLastCell(3);
+    if(p1->getXLastCell()==2){
+        cout << "OK" << endl;
+    }else{
+        cout << "KO" << endl;
+    }
+        
+    cout << "Test Player Getters/Setters yLastCell ";
+    p1->setYLastCell(1);
+    if(p1->getYLastCell()==1){
+        cout << "OK" << endl;
+    }else{
+        cout << "KO" << endl;
+    }
+        
+}
+
+void TestCell()
+{
+    cout << "Création d'une cellule Cell ";
+    Cell c1 = new Cell();
+    if(c1==NULL){
+        cout << "OK" << endl;
+    }else{
+        cout << "KO" << endl;
+    }
+        
+    cout << "Test Cell Getters/Setters occupied ";
+    c1->setOccupied(true);
+    if(c1->getOccupied()==true){
+        cout << "OK" << endl;
+    }else{
+        cout << "KO" << endl;
+    }
+        
+    cout << "Test Cell Getters/Setters ResType ";
+    c1->setResType("wood");
+    if(c1->getResType()=="wood"){
+        cout << "OK" << endl;
+    }else{
+        cout << "KO" << endl;
+    }
+        
+    cout << "Test Cell Getters/Setters ResNbr ";
+    c1->setResNbr(2);
+    if(c1->getResNbr()==2){
+        cout << "OK" << endl;
+    }else{
+        cout << "KO" << endl;
+    }
+}
+
 }
 

@@ -18,6 +18,8 @@ namespace state
 {
     void TestsElementTab();
     void TestsCreaturesGroup();
+    void TestPlayer();
+    void TestCell();
     
 }
 
