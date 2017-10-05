@@ -20,16 +20,41 @@ int main(int argc,char* argv[])
     // argv est un tableau de mots dont le premier mot entre par l'utilisateur est l'element d'indice 1.
     // le tout premier element de argv est le chemin où se trouve le fichier à executer
 
-    cout << "It works !" << endl;
+    //cout << "It works !" << endl;
     
     if (argc >= 2 && (string)argv[1] == "hello")
         cout << "Bonjour tout le monde !" << endl;
 		
     if (argc >= 2 && (string)argv[1] == "state"){
-        cout << "Création du joueur 1" << endl;
+        
+        cout << "Création de l'état du jeu ";
+        State* gameState = new State();
+        if(NULL!=gameState){
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
+        }
+        
+        cout << "Nombre de cellules ";
+        int nbrCell = gameState->getCellNbr();
+        if(49==nbrCell){
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
+        }
+        
+        cout << "Création du joueur 1 ";
         Player* p1 = new Player();
         if(NULL!=p1){
-            cout <<    "Joueur 1 a bien été créé" << endl;
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
+        }
+        
+        if(p1->getCellsNbr()==0){
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
         }
     }
 
