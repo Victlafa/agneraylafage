@@ -51,7 +51,7 @@ int main(int argc,char* argv[])
             cout << "KO" << endl;
         }
         
-        cout << "Test Init Player NbrCells ";
+        cout << "Test Player Init NbrCells ";
   
         if(p1->getCellsNbr()==0){
             cout << "OK" << endl;
@@ -59,29 +59,69 @@ int main(int argc,char* argv[])
             cout << "KO" << endl;
         }
         
-        cout << "Test Init Player NbrZones ";
+        cout << "Test Player Init NbrZones ";
         if(p1->getZonesNbr()==0){
             cout << "OK" << endl;
         }else{
             cout << "KO" << endl;
         }
         
-        cout << "Test Init Player ConquestPoints ";
+        cout << "Test Player Init ConquestPoints ";
         if(p1->getConquestPoints()==0){
             cout << "OK" << endl;
         }else{
             cout << "KO" << endl;
         }
         
-        cout << "Test Init Player CreaturesLeft ";
+        cout << "Test Player Init CreaturesLeft ";
         if(p1->getCreaturesLeft()==0){
             cout << "OK" << endl;
         }else{
             cout << "KO" << endl;
         }
         
-        cout << "Test Init Player NbrZones ";
+        cout << "Test Player Init NbrZones ";
         if(p1->getZonesNbr()==0){
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
+        }
+        
+        cout << "Test Player Getters/Setters NbrCells ";
+        p1->setCellsNbr(12);
+        if(p1->getCellsNbr()==12){
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
+        }
+        
+        cout << "Test Player Getters/Setters NbrZones ";
+        p1->setZonesNbr(2);
+        if(p1->getZonesNbr()==2){
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
+        }
+        
+        cout << "Test Player Getters/Setters ConquestPoints ";
+        p1->setConquestPts(4);
+        if(p1->getConquestPoints()==4){
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
+        }
+        
+        cout << "Test Player Getters/Setters CreaturesLeft ";
+        p1->setCreaLeft(5);
+        if(p1->getCreaturesLeft()==5){
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
+        }
+        
+        cout << "Test Player Getters/Setters NbrZones ";
+        p1->setZonesNbr(1);
+        if(p1->getZonesNbr()==1){
             cout << "OK" << endl;
         }else{
             cout << "KO" << endl;
