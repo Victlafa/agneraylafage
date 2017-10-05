@@ -3,8 +3,6 @@
 #define STATE__ELEMENT__H
 
 
-#include "TypeID.h"
-
 namespace state {
 
   /// class Element - 
@@ -18,7 +16,6 @@ namespace state {
   public:
     Element ();
     virtual ~Element ();
-    virtual const TypeID getTypeID () = 0;
     // Setters and Getters
     int getX() const;
     void setX(int x);

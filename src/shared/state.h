@@ -2,7 +2,6 @@
 #ifndef __STATE__H
 #define __STATE__H
 
-#include "state/TypeID.h"
 #include "state/Element.h"
 #include "state/CellTypeID.h"
 #include "state/CellState.h"
@@ -14,6 +13,7 @@
 #include "state/CreaturesID.h"
 #include "state/CreaturesGroup.h"
 #include "state/Player.h"
+#include "state/TypeID.h"
 #include "state/PlayerResources.h"
 #include "state/ElementTab.h"
 #include "state/State.h"

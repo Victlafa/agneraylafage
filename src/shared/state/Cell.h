@@ -8,10 +8,9 @@ namespace state {
   class Element;
 }
 
-#include "TypeID.h"
-#include "Element.h"
 #include "CellTypeID.h"
 #include "CellState.h"
+#include "Element.h"
 
 namespace state {
 
@@ -20,7 +19,6 @@ namespace state {
     // Associations
     state::CellTypeID cellType;
     state::CellState cellState;
-    state::CreaturesGroup creaturesCell;
     // Attributes
   protected:
     std::string resType;
@@ -30,14 +28,12 @@ namespace state {
   public:
     Cell ();
     ~Cell ();
-    virtual const TypeID getTypeID () = 0;
+    const CellTypeID getCellTypeID ();
+    const CellState getCellState ();
     // Setters and Getters
     CellTypeID getCellType() const;
     void setCellType(CellTypeID cellType);
-    CellState getCellState() const;
     void setCellState(CellState cellState);
-    const CreaturesGroup& getCreaturesCell() const;
-    void setCreaturesCell(const CreaturesGroup& creaturesCell);
     const std::string& getResType() const;
     void setResType(const std::string& resType);
     int getResNbr() const;
