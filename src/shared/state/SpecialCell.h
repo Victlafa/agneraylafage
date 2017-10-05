@@ -21,10 +21,6 @@ namespace state {
   public:
     SpecialCell (SpecialCellID type, std::string resType, int resNbr, int x, int y);
     ~SpecialCell ();
-<<<<<<< HEAD
-    const SpecialCellID getSpecialCellID ();
-=======
->>>>>>> d389eee71b7f454716d13305b15d369de371b63e
     // Setters and Getters
     SpecialCellID getSpecialCellType() const;
     void setSpecialCellType(SpecialCellID specialCellType);

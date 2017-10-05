@@ -34,7 +34,6 @@ namespace state {
     const Element& get (int i, int j = 0);
     void set (Element elem, int i, int j = 0);
     const Element& operator ( )  (int i, int j = 0);
-    const TypeID getTypeID ();
     // Setters and Getters
     TypeID getTabType() const;
     void setTabType(TypeID tabType);

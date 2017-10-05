@@ -8,13 +8,9 @@ namespace state {
   class Element;
 }
 
-<<<<<<< HEAD
-=======
 #include "Element.h"
->>>>>>> d389eee71b7f454716d13305b15d369de371b63e
 #include "CellTypeID.h"
 #include "CellState.h"
-#include "Element.h"
 
 namespace state {
 
@@ -32,14 +28,10 @@ namespace state {
   public:
     Cell ();
     ~Cell ();
-<<<<<<< HEAD
-    const CellTypeID getCellTypeID ();
-    const CellState getCellState ();
-=======
->>>>>>> d389eee71b7f454716d13305b15d369de371b63e
     // Setters and Getters
     CellTypeID getCellType() const;
     void setCellType(CellTypeID cellType);
+    CellState getCellState() const;
     void setCellState(CellState cellState);
     const std::string& getResType() const;
     void setResType(const std::string& resType);

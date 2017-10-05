@@ -21,10 +21,6 @@ namespace state {
   public:
     SimpleCell (SimpleCellID type, std::string resType, int resNbr, int x, int y);
     ~SimpleCell ();
-<<<<<<< HEAD
-    const SimpleCellID getSimpleCellID ();
-=======
->>>>>>> d389eee71b7f454716d13305b15d369de371b63e
     // Setters and Getters
     SimpleCellID getSimpleCellType() const;
     void setSimpleCellType(SimpleCellID simpleCellType);
