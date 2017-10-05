@@ -5,6 +5,7 @@
  */
 
 #include "Player.h"
+#include <iostream>
 
 namespace state{
     
@@ -16,22 +17,19 @@ namespace state{
           zonesNbr = 0;
           conquestPoints = 0;
           creaturesLeft = 0;
-          speCellsNames = new std::vector<std::string>(4);
-          
-          if (speCellsNames == NULL)
-              throw std::bad_alloc("L'attribut speCellsNames du joueur doit être instancié.");
-          
           xLastCell = 0;
           yLastCell = 0;
-          identify = 0;
           
-          allCreatures = new std::vector<CreaturesGroup>();
-          if (allCreatures == NULL)
-              throw std::bad_alloc("L'attribut allCreatures du joueur doit être instancié.");
+          try
+          {
+              speCellsNames = new std::vector<std::string>(4);
+              allCreatures = new std::vector<CreaturesGroup>();
+          }
           
-          creaturesToPlace = new std::vector<CreaturesGroup>();
-          if (creaturesToPlace == NULL)
-              throw std::bad_alloc("L'attribut creaturesToPlace du joueur doit être instancié.");
+          catch(std::bad_alloc &e)
+          {
+              std::cerr << e.what() << std::endl;
+          }
           
           std::cout << "Le joueur a été initialisé correctement." << std::endl;
       }
@@ -54,7 +52,7 @@ namespace state{
             return creaturesLeft;
         }
 
-        std::vector<std::string> Player::getSpeCellsNames() {
+        std::vector<std::string>* Player::getSpeCellsNames() {
             return speCellsNames;
         }
 
@@ -64,6 +62,10 @@ namespace state{
 
         int Player::getYLastCell() {
             return yLastCell;
+        }
+        
+        std::vector<CreaturesGroup>* Player::getAllCreatures (){
+            return this->allCreatures;
         }
 
         void Player::setCellsNbr(int count) {
@@ -90,29 +92,29 @@ namespace state{
         /// Permet de modifier la liste des noms des cellules spéciales que le joueur détient. (ajout ou retrait)
         /// Args d'entrée : nom de la cellule (name) et un booléen (add).
         void Player::modifySpeCellsNames(std::string name, bool add) {
+            size_t initSize = speCellsNames->size();
 
             // Si on souhaite ajouter un nom dans la liste :
             if (add)
-                speCellsNames.push_back(name);
+                speCellsNames->push_back(name);
 
                 // Si au contraire on souhaite retirer un nom de la liste :
-            else if (!add && speCellsNames.size() != 0) {
-                int index = 0;
-                // On doit chercher l'index correspondant à ce nom dans la liste :
+            else if (!add && speCellsNames->size() != 0) {
+                
+                // On doit chercher le nom correspondant dans la liste :
 
-                for (int i = 0; i < speCellsNames.size(); i++) {
-                    if (speCellsNames.at(i) = name) {
-                        index = i;
-                        // Quand on a trouvé le bon index, on sort de la boucle for :
+                for (auto Iter = speCellsNames->begin(); Iter != speCellsNames->end(); Iter++) {
+                    if (*Iter == name) {
+                        // Quand on a trouvé le bon nom, on le supprime et on sort de la boucle for :
+                        speCellsNames->erase(Iter);
                         break;
                     }
                 }
 
                 // Si on a pas trouvé d'index correspondant, on lève une exception :
-                if (index == 0)
-                    throw std::invalid_argument("Le nom que vous souhaitez supprimer de la liste ne s'y trouve pas !");
+                if (speCellsNames->size() == initSize)
+                    throw std::invalid_argument("Aucun nom n'a été supprimé de la liste !");
 
-                speCellsNames.erase(index);
             }
             else {
                 // On arrive ici seulement si la liste est vide et qu'on veut supprimer un élément, on lève donc une exception :
@@ -128,90 +130,50 @@ namespace state{
         void Player::setYLastCell(int y) {
             yLastCell = y;
         }
-
-        ClanNameID Player::getIdentify() const {
-            return this->identify;
-        }
-
-        void Player::setIdentify(ClanNameID Identify) {
-            this->identify = Identify;
-        }
         
-        void Player::setAllCreatures (std::vector<CreaturesGroup> creaList){
+        void Player::setAllCreatures (std::vector<CreaturesGroup>* creaList){
             this->allCreatures = creaList;
         }
         
         void Player::setAllCreatures (bool add, CreaturesGroup group){
-                    // Si on souhaite ajouter un groupe de créatures dans la liste :
-            if (add)
-                allCreatures.push_back(group);
+            size_t initSize = allCreatures->size();
 
-                // Si au contraire on souhaite retirer un groupe de la liste :
-            else if (!add && allCreatures.size() != 0) {
-                int index = 0;
-                // On doit chercher l'index correspondant à ce groupe dans la liste :
-
-                for (int i = 0; i < allCreatures.size(); i++) {
-                    if (allCreatures.at(i) = group) {
-                        index = i;
-                        // Quand on a trouvé le bon index, on sort de la boucle for :
-                        break;
-                    }
-                }
-
-                // Si on a pas trouvé d'index correspondant, on lève une exception :
-                if (index == 0)
-                    throw std::invalid_argument("Le groupe de créatures que vous souhaitez supprimer de la liste ne s'y trouve pas !");
-
-                allCreatures.erase(index);
-            }
-            else {
-                // On arrive ici seulement si la liste est vide et qu'on veut supprimer un élément, on lève donc une exception :
-                throw std::length_error("Impossible de supprimer un groupe de créatures de la liste car elle est vide !");
-            }
-        }
-        
-        void Player::setCreaToPlace (std::vector<CreaturesGroup> creaList)
-        {
-            this->creaturesToPlace = creaList;
-        }
-        
-        void Player::setCreaToPlace (bool add, CreaturesGroup group){
             // Si on souhaite ajouter un groupe de créatures dans la liste :
             if (add)
-                creaturesToPlace.push_back(group);
+                allCreatures->push_back(group);
 
-                // Si au contraire on souhaite retirer un groupe de la liste :
-            else if (!add && creaturesToPlace.size() != 0) {
-                int index = 0;
-                // On doit chercher l'index correspondant à ce groupe dans la liste :
+            // Si au contraire on souhaite retirer un groupe de la liste :
+            else if (!add && allCreatures->size() != 0) {
+                
+                // On doit chercher le groupe correspondant dans la liste :
 
-                for (int i = 0; i < creaturesToPlace.size(); i++) {
-                    if (creaturesToPlace.at(i) = group) {
-                        index = i;
-                        // Quand on a trouvé le bon index, on sort de la boucle for :
+                for (auto Iter = allCreatures->begin(); Iter != allCreatures->end(); Iter++) {
+                    if (*Iter == group) {
+                        // Quand on a trouvé le bon groupe, on le supprime et on sort de la boucle for :
+                        allCreatures->erase(Iter);
                         break;
                     }
                 }
 
                 // Si on a pas trouvé d'index correspondant, on lève une exception :
-                if (index == 0)
-                    throw std::invalid_argument("Le groupe de créatures que vous souhaitez supprimer de la liste ne s'y trouve pas !");
+                if (allCreatures->size() == initSize)
+                    throw std::invalid_argument("Aucun groupe n'a été supprimé de la liste !");
 
-                creaturesToPlace.erase(index);
             }
             else {
                 // On arrive ici seulement si la liste est vide et qu'on veut supprimer un élément, on lève donc une exception :
-                throw std::length_error("Impossible de supprimer un groupe de créatures de la liste car elle est vide !");
+                throw std::length_error("Impossible de supprimer un groupe de la liste car elle est vide !");
             }
+
         }
         
-        const CreaturesGroup& Player::getPossess() const{
-            return this->possess;
-        }
         
-        void Player::setPossess(const CreaturesGroup& possess){
-            this->possess = possess;
+        CreaturesID Player::getClanName() const {
+            return this->clanName;
+        }
+
+        void Player::setClanName(CreaturesID Identify) {
+            this->clanName = Identify;
         }
     
 };

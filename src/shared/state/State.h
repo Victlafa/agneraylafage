@@ -8,8 +8,8 @@ namespace state {
   class Player;
 }
 
-#include "ElementTab.h"
 #include "Player.h"
+#include "ElementTab.h"
 
 namespace state {
 
@@ -19,15 +19,15 @@ namespace state {
     state::Player player;
     // Attributes
   private:
-    ElementTab grid;
-    ElementTab characters;
+    ElementTab* grid;
+    ElementTab* characters;
     int totalCellNbr;
     // Operations
   public:
     State ();
     ~State ();
-    ElementTab& getGrid ();
-    ElementTab& getCharacters ();
+    ElementTab* getGrid ();
+    ElementTab* getCharacters ();
     int getCellNbr ();
     // Setters and Getters
     const Player& getPlayer() const;

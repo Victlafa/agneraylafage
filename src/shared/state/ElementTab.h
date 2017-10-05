@@ -10,8 +10,8 @@ namespace state {
   class Element;
 }
 
-#include "TypeID.h"
 #include "Element.h"
+#include "TypeID.h"
 
 namespace state {
 
@@ -23,17 +23,16 @@ namespace state {
   private:
     size_t width;
     size_t height;
-    std::vector<std::unique_ptr<Element>> list;
+    std::vector<std::unique_ptr<Element>>* list;
     // Operations
   public:
     ElementTab (size_t width = 0, size_t height = 1);
     ~ElementTab ();
-    size_t const getWidth ();
-    size_t const getHeight ();
-    size_t add (Element* elem);
+    size_t getWidth ();
+    size_t getHeight ();
     void resize (size_t width, size_t height);
-    Element* const get (int i, int j = 0);
-    void set (int i, int j = 0);
+    const Element& get (int i, int j = 0);
+    void set (Element elem, int i, int j = 0);
     const Element& operator ( )  (int i, int j = 0);
     const TypeID getTypeID ();
     // Setters and Getters

@@ -12,9 +12,14 @@ namespace state
         this->x=x;
         this->y=y;
     }
- 
-    const SpecialCellID SpecialCell::getSpecialCellID(){
-        return specialCellType;
+    
+    SpecialCell::~SpecialCell()
+    {
+        delete this;
+    }
+
+    SpecialCellID SpecialCell::getSpecialCellType() const{
+        return this->specialCellType;
     }
     
     void SpecialCell::setSpecialCellType(SpecialCellID specialCellType){

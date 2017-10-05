@@ -17,14 +17,17 @@ namespace state
         this->y=y;
     }
     
-    const SimpleCellID SimpleCell::getSimpleCellID (){
-        return this->simpleCellType;
-    }
- 
-    SimpleCellID SimpleCell::getSimpleCellType() const{
-        return this->
+    SimpleCell::~SimpleCell()
+    {
+        delete this;
     }
     
-    void SimpleCell::setSimpleCellType(SimpleCellID simpleCellType);
+    SimpleCellID SimpleCell::getSimpleCellType() const{
+        return this->simpleCellType;
+    }
+    
+    void SimpleCell::setSimpleCellType(SimpleCellID simpleCellType){
+        this->simpleCellType = simpleCellType;
+    }
 };
 
