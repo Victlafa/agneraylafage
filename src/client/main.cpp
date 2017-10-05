@@ -68,22 +68,22 @@ void TestsElementTab()
     cout << "Création d'un tableau d'elements : ";
     ElementTab* elemTab = new ElementTab(3,4);
     if (NULL == elemTab)
-        cout << "KO";
+        cout << "KO" << std::endl;
     else
-        cout << "OK";
+        cout << "OK" << std::endl;
     
-    cout << "Test getters de hauteur et largeur du tableau : " << std::endl;
+    cout << "Test getters de hauteur et largeur du tableau : ";
     if (elemTab->getHeight()==4 && elemTab->getWidth()==3)
         cout << "OK" << std::endl;
     else
-        cout << "KO";
+        cout << "KO" << std::endl;
     
-    cout << "Test resize du tableau : " << std::endl;
+    cout << "Test resize du tableau : ";
     elemTab->resize(6,8);
     if (elemTab->getHeight()==8 && elemTab->getWidth()==6)
         cout << "OK" << std::endl;
     else
-        cout << "KO";
+        cout << "KO"<< std::endl;
     
     //cout << "Test setter/getter Element du tableau : " << std::endl;
     //std::unique_ptr<Element> elemTest = std::unique_ptr<Element>();
@@ -96,7 +96,26 @@ void TestsElementTab()
 
 void TestsCreaturesGroup()
 {
+    cout << "Création d'un groupe de créatures : ";
+    //state::CreaturesID creaTypes; 
+    CreaturesGroup* group = new CreaturesGroup(CreaturesID::COOKER);
+    if (NULL == group)
+        cout << "KO";
+    else
+        cout << "OK";
     
+    cout << "Test getter du type de créatures : " << std::endl;
+    if (group->getCreaturesType() == CreaturesID::COOKER)
+        cout << "OK" << std::endl;
+    else
+        cout << "KO";
+    
+    cout << "Test getter/setter de placed : " << std::endl;
+    group->toPlace(2,2);
+    if (group->getPlaced() == true)
+        cout << "OK";
+    else
+        cout << "KO";
 }
 
 void TestPlayer()
@@ -244,6 +263,5 @@ void TestCell()
         cout << "KO" << endl;
     }
 }
-
 }
 
