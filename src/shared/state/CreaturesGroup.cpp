@@ -15,7 +15,7 @@ namespace state
     // Constructors :
     CreaturesGroup::CreaturesGroup (CreaturesID type){
         placed = false;
-        this->creaturesType = type;
+        *(this->creaturesType) = type;
     }
     
     CreaturesGroup::~CreaturesGroup (){
@@ -32,12 +32,25 @@ namespace state
         this->x = x;
         this->y = y;
     }
+
+    bool CreaturesGroup::operator== (CreaturesGroup otherGroup) {
+        bool creaNbr = this->creaturesNbr == otherGroup.getCreaturesNbr();
+        bool type = *(this->creaturesType) == otherGroup.getCreaturesType();
+        bool onMap = this->placed == otherGroup.getPlaced();
+        bool posX = this->x == otherGroup.getX();
+        bool posY = this->y == otherGroup.getY();
+
+        if (creaNbr && type && onMap && posX && posY)
+            return true;
+        else
+            return false;
+    }
     
     CreaturesID CreaturesGroup::getCreaturesType() const{
-        return this->creaturesType;
+        return *(this->creaturesType);
     }
     
     void CreaturesGroup::setCreaturesType(CreaturesID Creatures_type){
-        this->creaturesType = Creatures_type;
+        *(this->creaturesType) = Creatures_type;
     }
 };

@@ -4,6 +4,7 @@
 
 
 namespace state {
+  class CreaturesGroup;
   class Element;
 }
 
@@ -15,7 +16,7 @@ namespace state {
   /// class CreaturesGroup - 
   class CreaturesGroup : public state::Element {
     // Associations
-    state::CreaturesID creaturesType;
+    state::CreaturesID* creaturesType;
     // Attributes
   public:
     static int stolenResourceNbr;
@@ -27,6 +28,7 @@ namespace state {
     ~CreaturesGroup ();
     bool getPlaced ();
     void toPlace (int x, int y);
+    bool operator== (CreaturesGroup otherGroup);
     // Setters and Getters
     CreaturesID getCreaturesType() const;
     void setCreaturesType(CreaturesID creaturesType);
