@@ -49,16 +49,17 @@ namespace state
     }
     
     void ElementTab::set (Element elem, int i, int j){
-        int cpt = 0;
-        for (auto Iter = list->begin(); Iter != list->end(); Iter++) {
-            if (cpt == (int)(i * width + j)) {
-                // Quand on a trouvé la bonne position, on insère le nouvel élément dans la liste :
-                list->insert(Iter, 1, elem);
-                
-                break;
-            }
-            cpt += 1;
+        
+        std::vector<std::unique_ptr<Element>>* newList = new std::vector<std::unique_ptr<Element>>();
+        
+        for (int cpt = 0; cpt < (int)list->size(); cpt++) {
+            //if (cpt != (int)(i*width + j))
+            //    newList->push_back(list->at(i));
+            //else
+            //    newList->push_back(&elem);
         }
+        
+        list = newList;
         
     }
     

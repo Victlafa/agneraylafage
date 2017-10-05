@@ -15,7 +15,7 @@ namespace state
     
     // Setters and Getters :
     
-    const CellState Cell::getCellState (){
+    CellState Cell::getCellState () const{
         return this->cellState;
     }
     

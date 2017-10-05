@@ -3,7 +3,13 @@
 namespace state
 {
     // Constructor :
-    Element::Element(){}
+    Element::Element(){
+        x = 0;
+        y = 0;
+        creaturesNbr = 0;
+    }
+    
+    Element::~Element() {}
     
     // Getters and setters :
     int Element::getX() const{
