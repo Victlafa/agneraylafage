@@ -27,7 +27,7 @@ int main(int argc,char* argv[])
 		
     if (argc >= 2 && (string)argv[1] == "state"){
         
-        cout << "Création de l'état du jeu ";
+        /*cout << "Création de l'état du jeu ";
         State* gameState = new State();
         if(NULL!=gameState){
             cout << "OK" << endl;
@@ -41,7 +41,7 @@ int main(int argc,char* argv[])
             cout << "OK" << endl;
         }else{
             cout << "KO" << endl;
-        }
+        }*/
         
         cout << "Création du joueur 1 ";
         Player* p1 = new Player();
@@ -51,11 +51,52 @@ int main(int argc,char* argv[])
             cout << "KO" << endl;
         }
         
+        cout << "Test Init Player NbrCells ";
+  
         if(p1->getCellsNbr()==0){
             cout << "OK" << endl;
         }else{
             cout << "KO" << endl;
         }
+        
+        cout << "Test Init Player NbrZones ";
+        if(p1->getZonesNbr()==0){
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
+        }
+        
+        cout << "Test Init Player ConquestPoints ";
+        if(p1->getConquestPoints()==0){
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
+        }
+        
+        cout << "Test Init Player CreaturesLeft ";
+        if(p1->getCreaturesLeft()==0){
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
+        }
+        
+        cout << "Test Init Player NbrZones ";
+        if(p1->getZonesNbr()==0){
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
+        }
+        
+        /*
+        cout << "Test Player CreaturesId ";
+        p1->setClanName(CreaturesID.BLACKSMITH);
+        if(CreaturesID.BLACKSMITH==p1->getClanName()){
+            cout << "OK" << endl;
+        }else{
+            cout << "KO" << endl;
+        }*/
+    
+ 
     }
 
     return 0;

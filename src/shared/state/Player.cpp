@@ -31,8 +31,12 @@ namespace state{
               std::cerr << e.what() << std::endl;
           }
           
-          std::cout << "Le joueur a été initialisé correctement." << std::endl;
+          //std::cout << "Le joueur a été initialisé correctement." << std::endl;
       }
+      
+        Player::~Player(){
+            delete this;
+        }
     
     /// Setters and Getters :
       
