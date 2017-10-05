@@ -232,7 +232,7 @@ void TestPlayer()
 void TestCell()
 {
     cout << "Création d'une cellule Cell ";
-    Cell c1 = new Cell();
+    Cell *c1 = new Cell();
     if(c1==NULL){
         cout << "OK" << endl;
     }else{

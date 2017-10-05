@@ -20,6 +20,7 @@ namespace state
     void TestsCreaturesGroup();
     void TestPlayer();
     void TestCell();
+    void TestSimpleCell();
     
 }
 
