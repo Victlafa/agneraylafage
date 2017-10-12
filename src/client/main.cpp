@@ -28,33 +28,13 @@ int main(int argc,char* argv[])
 		
     if (argc >= 2 && (string)argv[1] == "state"){
         
-        /*cout << "Création de l'état du jeu ";
-        State* gameState = new State();
-        if(NULL!=gameState){
-            cout << "OK" << endl;
-        }else{
-            cout << "KO" << endl;
-        }
-        
-        cout << "Nombre de cellules ";
-        int nbrCell = gameState->getCellNbr();
-        if(49==nbrCell){
-            cout << "OK" << endl;
-        }else{
-            cout << "KO" << endl;
-        }*/
-        
         TestPlayer();
-        
-        /*
-        cout << "Test Player CreaturesId ";
-        p1->setClanName(CreaturesID.BLACKSMITH);
-        if(CreaturesID.BLACKSMITH==p1->getClanName()){
-            cout << "OK" << endl;
-        }else{
-            cout << "KO" << endl;
-        }*/
+
         TestsElementTab();
+        
+        TestCell();
+        
+        //TestsCreaturesGroup();
  
     }
 
@@ -213,7 +193,7 @@ void TestPlayer()
         
     cout << "Test Player Getters/Setters xLastCell ";
     p1->setXLastCell(3);
-    if(p1->getXLastCell()==2){
+    if(p1->getXLastCell()==3){
         cout << "OK" << endl;
     }else{
         cout << "KO" << endl;
@@ -233,7 +213,7 @@ void TestCell()
 {
     cout << "Création d'une cellule Cell ";
     Cell *c1 = new Cell();
-    if(c1==NULL){
+    if(c1!=NULL){
         cout << "OK" << endl;
     }else{
         cout << "KO" << endl;
@@ -259,9 +239,12 @@ void TestCell()
     c1->setResNbr(2);
     if(c1->getResNbr()==2){
         cout << "OK" << endl;
+        cout << "fin testcell";
     }else{
         cout << "KO" << endl;
     }
+    
 }
+
 }
 
