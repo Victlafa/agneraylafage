@@ -27,7 +27,9 @@ namespace state
         
         for (int i = 0; i < (int)(width*height); i++)
         {
+            //std::cout << new Element() << std::endl;
             this->list->push_back(std::unique_ptr<Element>(new Element()));
+            //std::cout << list->at(i)->getX() << std::endl;
         }
     }
     
@@ -55,7 +57,7 @@ namespace state
     
     void ElementTab::set (Element elem, int i, int j){
         
-        std::vector<std::unique_ptr<Element>>* newList = new std::vector<std::unique_ptr<Element>>();
+        std::vector<std::unique_ptr<Element>>* newList = new std::vector<std::unique_ptr<Element>>(width*height);
         
         for (int cpt = 0; cpt < (int)list->size(); cpt++) {
             if (cpt != (int)(i*width + j))
