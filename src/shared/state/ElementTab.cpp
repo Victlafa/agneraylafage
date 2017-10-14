@@ -17,12 +17,17 @@ namespace state
         
         try
         {
-            this->list = new std::vector<std::unique_ptr<Element>>();
+            this->list = new std::vector<std::unique_ptr<Element>>(width*height);
         }
         
         catch(std::bad_alloc &e)
         {
             std::cerr << e.what() << std::endl;
+        }
+        
+        for (int i = 0; i < (int)(width*height); i++)
+        {
+            this->list->push_back(std::unique_ptr<Element>(new Element()));
         }
     }
     
