@@ -46,7 +46,7 @@ namespace state
 void TestsElementTab()
 {
     ElementTab* elemTab = new ElementTab(3,4);
-    std::unique_ptr<Element> elemTest = std::unique_ptr<Element>();
+    Element* elemTest = new Element();
     
     cout << "Test ElementTab - Init tableau : ";
     (NULL == elemTab) ? cout << "KO" << std::endl : cout << "OK" << std::endl;
@@ -58,9 +58,10 @@ void TestsElementTab()
     elemTab->resize(6,8);
     (elemTab->getHeight()==8 && elemTab->getWidth()==6) ? cout << "OK" << std::endl : cout << "KO"<< std::endl;
     
-//    cout << "Test ElementTab - Setter/Getter Element du tableau : " << std::endl;
-//    elemTab->set(*elemTest, 1, 1);
-//    (elemTab->get(1,1) == *elemTest) ? cout << "OK" << std::endl : cout << "KO";
+    cout << "Test ElementTab - Setter/Getter Element du tableau : " << std::endl;
+    elemTab->set(*elemTest, 1, 1);
+    cout << "Set OK";
+    (elemTab->get(1,1) == *elemTest) ? cout << "OK" << std::endl : cout << "KO";
 }
 
 void TestsCreaturesGroup()
