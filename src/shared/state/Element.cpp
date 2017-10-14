@@ -11,6 +11,18 @@ namespace state
     
     Element::~Element() {}
     
+    bool Element::operator== (Element otherElement)
+    {
+        bool coordX = (this->x == otherElement.getX());
+        bool coordY = (this->y == otherElement.getY());
+        bool creaNbr = (this->creaturesNbr == otherElement.getCreaturesNbr());
+        
+        if (coordX && coordY && creaNbr)
+            return true;
+        else
+            return false;
+    }
+    
     // Getters and setters :
     int Element::getX() const{
         return this->x;

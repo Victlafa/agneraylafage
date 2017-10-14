@@ -4,6 +4,11 @@
 
 
 namespace state {
+  class Element;
+}
+
+
+namespace state {
 
   /// class Element - 
   class Element {
@@ -16,6 +21,7 @@ namespace state {
   public:
     Element ();
     virtual ~Element ();
+    bool operator== (Element otherElement);
     // Setters and Getters
     int getX() const;
     void setX(int x);

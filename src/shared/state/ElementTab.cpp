@@ -44,7 +44,7 @@ namespace state
         this->height = height;
     }
     
-    const Element& ElementTab::get (int i, int j){
+    Element& ElementTab::get (int i, int j) const{
         return *(list->at(i*width + j));
     }
     

@@ -31,7 +31,7 @@ namespace state {
     size_t getWidth ();
     size_t getHeight ();
     void resize (size_t width, size_t height);
-    const Element& get (int i, int j = 0);
+    Element& get (int i, int j = 0) const;
     void set (Element elem, int i, int j = 0);
     const Element& operator ( )  (int i, int j = 0);
     // Setters and Getters
