@@ -28,11 +28,11 @@ int main(int argc,char* argv[])
 		
     if (argc >= 2 && (string)argv[1] == "state"){
         
-        TestPlayer();
+        //TestPlayer();
 
         TestsElementTab();
         
-        TestCell();
+        //TestCell();
         
         //TestsCreaturesGroup();
  
@@ -45,33 +45,22 @@ namespace state
 {
 void TestsElementTab()
 {
-    cout << "Création d'un tableau d'elements : ";
     ElementTab* elemTab = new ElementTab(3,4);
-    if (NULL == elemTab)
-        cout << "KO" << std::endl;
-    else
-        cout << "OK" << std::endl;
+    std::unique_ptr<Element> elemTest = std::unique_ptr<Element>();
     
-    cout << "Test getters de hauteur et largeur du tableau : ";
-    if (elemTab->getHeight()==4 && elemTab->getWidth()==3)
-        cout << "OK" << std::endl;
-    else
-        cout << "KO" << std::endl;
+    cout << "Test ElementTab - Init tableau : ";
+    (NULL == elemTab) ? cout << "KO" << std::endl : cout << "OK" << std::endl;
     
-    cout << "Test resize du tableau : ";
+    cout << "Test ElementTab - Getters hauteur et largeur du tableau : ";
+    (elemTab->getHeight()==4 && elemTab->getWidth()==3) ? cout << "OK" << std::endl : cout << "KO" << std::endl;
+    
+    cout << "Test ElementTab - Methode resize du tableau : ";
     elemTab->resize(6,8);
-    if (elemTab->getHeight()==8 && elemTab->getWidth()==6)
-        cout << "OK" << std::endl;
-    else
-        cout << "KO"<< std::endl;
+    (elemTab->getHeight()==8 && elemTab->getWidth()==6) ? cout << "OK" << std::endl : cout << "KO"<< std::endl;
     
-    //cout << "Test setter/getter Element du tableau : " << std::endl;
-    //std::unique_ptr<Element> elemTest = std::unique_ptr<Element>();
-    //elemTab->set(*elemTest, 1, 1);
-    //if (elemTab->get(1,1) == *elemTest)
-        //cout << "OK" << std::endl;
-    //else
-        //cout << "KO";
+//    cout << "Test ElementTab - Setter/Getter Element du tableau : " << std::endl;
+//    elemTab->set(*elemTest, 1, 1);
+//    (elemTab->get(1,1) == *elemTest) ? cout << "OK" << std::endl : cout << "KO";
 }
 
 void TestsCreaturesGroup()
