@@ -26,7 +26,7 @@ namespace state {
   public:
     PlayerResources ();
     ~PlayerResources ();
-    int getResource (std::string type);
+    int getResource (std::string type) const;
     void setResource (std::string type, int quantity, bool increase);
     // Setters and Getters
     const Player& getPlayerResources() const;

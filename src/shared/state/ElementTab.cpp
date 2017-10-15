@@ -38,11 +38,11 @@ namespace state
     
     // Getters and setters :
     
-    size_t ElementTab::getWidth (){
+    size_t ElementTab::getWidth () const{
         return this->width;
     }
     
-    size_t ElementTab::getHeight (){
+    size_t ElementTab::getHeight () const{
         return this->height;
     }
     
@@ -75,7 +75,7 @@ namespace state
         
     }
     
-    const Element& ElementTab::operator()(int i, int j){
+    Element& ElementTab::operator()(int i, int j) const{
         return *(list->at(i*width + j));
     }
     

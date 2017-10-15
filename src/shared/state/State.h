@@ -26,9 +26,9 @@ namespace state {
   public:
     State ();
     ~State ();
-    ElementTab* getGrid ();
-    ElementTab* getCharacters ();
-    int getCellNbr ();
+    ElementTab* getGrid () const;
+    ElementTab* getCharacters () const;
+    int getCellNbr () const;
     // Setters and Getters
     const Player& getPlayer() const;
     void setPlayer(const Player& player);

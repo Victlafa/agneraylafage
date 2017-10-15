@@ -40,35 +40,35 @@ namespace state{
     
     /// Setters and Getters :
       
-        int Player::getCellsNbr() {
+        int Player::getCellsNbr() const{
             return cellNbr;
         }
 
-        int Player::getZonesNbr() {
+        int Player::getZonesNbr() const{
             return zonesNbr;
         }
 
-        int Player::getConquestPoints() {
+        int Player::getConquestPoints() const{
             return conquestPoints;
         }
 
-        int Player::getCreaturesLeft() {
+        int Player::getCreaturesLeft() const{
             return creaturesLeft;
         }
 
-        std::vector<std::string>* Player::getSpeCellsNames() {
+        std::vector<std::string>* Player::getSpeCellsNames() const{
             return speCellsNames;
         }
 
-        int Player::getXLastCell() {
+        int Player::getXLastCell() const{
             return xLastCell;
         }
 
-        int Player::getYLastCell() {
+        int Player::getYLastCell() const{
             return yLastCell;
         }
         
-        std::vector<CreaturesGroup>* Player::getAllCreatures (){
+        std::vector<CreaturesGroup>* Player::getAllCreatures () const{
             return this->allCreatures;
         }
 

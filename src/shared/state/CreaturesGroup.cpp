@@ -25,7 +25,7 @@ namespace state
     
     // Setters and getters :
 
-    bool CreaturesGroup::getPlaced (){
+    bool CreaturesGroup::getPlaced () const{
         return placed;
     }
     

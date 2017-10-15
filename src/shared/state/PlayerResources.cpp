@@ -8,7 +8,7 @@
 
 namespace state{
         
-    int PlayerResources::getResource(std::string type)
+    int PlayerResources::getResource(std::string type) const
     {
             if (type == "wood")
                 return wood;

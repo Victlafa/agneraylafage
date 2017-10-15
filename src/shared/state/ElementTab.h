@@ -28,12 +28,12 @@ namespace state {
   public:
     ElementTab (size_t width = 0, size_t height = 1);
     ~ElementTab ();
-    size_t getWidth ();
-    size_t getHeight ();
+    size_t getWidth () const;
+    size_t getHeight () const;
     void resize (size_t width, size_t height);
     Element& get (int i, int j = 0) const;
     void set (Element elem, int i, int j = 0);
-    const Element& operator ( )  (int i, int j = 0);
+    Element& operator ( )  (int i, int j = 0) const;
     // Setters and Getters
     TypeID getTabType() const;
     void setTabType(TypeID tabType);

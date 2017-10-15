@@ -32,14 +32,14 @@ namespace state {
   public:
     Player ();
     ~Player ();
-    int getCellsNbr ();
-    int getZonesNbr ();
-    int getConquestPoints ();
-    int getCreaturesLeft ();
-    std::vector<std::string>* getSpeCellsNames ();
-    int getXLastCell ();
-    int getYLastCell ();
-    std::vector<CreaturesGroup>* getAllCreatures ();
+    int getCellsNbr () const;
+    int getZonesNbr () const;
+    int getConquestPoints () const;
+    int getCreaturesLeft () const;
+    std::vector<std::string>* getSpeCellsNames () const;
+    int getXLastCell () const;
+    int getYLastCell () const;
+    std::vector<CreaturesGroup>* getAllCreatures () const;
     void setCellsNbr (int count);
     void setZonesNbr (int count);
     void setConquestPts (int count);

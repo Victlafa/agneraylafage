@@ -8,7 +8,7 @@ namespace state
 {
 
     State::State (){
-        this->totalCellNbr = 7*7;
+        this->totalCellNbr = 29;
         this->grid = new ElementTab();
         this->characters = new ElementTab();
         this->player = *(new Player());
@@ -19,15 +19,15 @@ namespace state
     }
     
     // Setters and Getters
-    ElementTab* State::getGrid (){
+    ElementTab* State::getGrid() const{
         return grid;
     }
     
-    ElementTab* State::getCharacters (){
+    ElementTab* State::getCharacters () const{
         return characters;
     }
     
-    int State::getCellNbr (){
+    int State::getCellNbr () const{
         return totalCellNbr;
     }
     
