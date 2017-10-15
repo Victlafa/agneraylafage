@@ -6,6 +6,7 @@
 
 #include "CreaturesGroup.h"
 #include "TypeID.h"
+#include <iostream>
 
 namespace state
 {
@@ -15,7 +16,7 @@ namespace state
     // Constructors :
     CreaturesGroup::CreaturesGroup (CreaturesID type){
         placed = false;
-        *(this->creaturesType) = type;
+        this->creaturesType = &type;
     }
     
     CreaturesGroup::~CreaturesGroup (){
@@ -31,6 +32,7 @@ namespace state
     void CreaturesGroup::toPlace (int x, int y){
         this->x = x;
         this->y = y;
+        placed = true;
     }
 
     bool CreaturesGroup::operator== (CreaturesGroup otherGroup) {

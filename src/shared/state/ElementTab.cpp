@@ -58,12 +58,17 @@ namespace state
     void ElementTab::set (Element elem, int i, int j){
         
         std::vector<std::unique_ptr<Element>>* newList = new std::vector<std::unique_ptr<Element>>(width*height);
+        std::unique_ptr<Element>* pelem = newList->data();
         
         for (int cpt = 0; cpt < (int)list->size(); cpt++) {
             if (cpt != (int)(i*width + j))
-                *newList->at((int)(i*width + j)) = *std::move(list->at(cpt));
+                //newList->at((int)(i*width + j)) = *std::move(list->at(cpt));
+                *(pelem + (int)(i*width + j)) = std::move(list->at(cpt));
+
             else
-                *newList->at(cpt) = *std::move(list->at(cpt));
+                //newList->at(cpt) = *std::move(list->at(cpt));
+                *(pelem + cpt) = std::move(list->at(cpt));
+
         }
         
         list = newList;
