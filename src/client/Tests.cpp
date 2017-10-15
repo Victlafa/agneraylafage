@@ -29,6 +29,10 @@ void TestsElementTab()
     elemTab->resize(6,8);
     std::cout << ((elemTab->getHeight()==8 && elemTab->getWidth()==6) ? "OK" : "KO") << std::endl;
     
+    std::cout << "Test ElementTab - Getters/Setters type de tableau : ";
+    elemTab->setTabType(TypeID::CREATURESGROUP);
+    std::cout << ((elemTab->getTabType()==TypeID::CREATURESGROUP) ? "OK" : "KO") << std::endl;
+    
     std::cout << "Test ElementTab - Setter/Getter Element du tableau : ";
     elemTab->set(*elemTest, 1, 1);
     std::cout << ((elemTab->get(1,1) == *elemTest) ? "OK" : "KO") << std::endl << std::endl;
@@ -60,7 +64,7 @@ void TestsCreaturesGroup()
 
 void TestsPlayer()
 {   
-    std::cout << "DEBUT TESTS JOUEUR" << std::endl << std::endl;
+    std::cout << "DEBUT TESTS PLAYER" << std::endl << std::endl;
     Player* p1 = new Player();
    
     std::cout << "Création d'un joueur : ";
@@ -109,7 +113,7 @@ void TestsPlayer()
     p1->setYLastCell(1);
     std::cout << ((p1->getYLastCell()==1) ? "OK" : "KO") << std::endl<< std::endl;
    
-    std::cout << "FIN TESTS JOUEUR"  << std::endl<< std::endl;
+    std::cout << "FIN TESTS PLAYER"  << std::endl<< std::endl;
 }
 
 void TestsCell()
@@ -119,6 +123,14 @@ void TestsCell()
     std::cout << "Création d'une cellule Cell : ";
     Cell *c1 = new Cell();
     std::cout << ((c1!=NULL) ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test Cell Getters/Setters type : ";
+    c1->setCellType(CellTypeID::SIMPLE);
+    std::cout << ((c1->getCellType()==CellTypeID::SIMPLE) ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test Cell Getters/Setters state : ";
+    c1->setCellState(CellState::POISONED);
+    std::cout << ((c1->getCellState()==CellState::POISONED) ? "OK" : "KO") << std::endl;
         
     std::cout << "Test Cell Getters/Setters occupied : ";
     c1->setOccupied(true);
@@ -134,6 +146,30 @@ void TestsCell()
     
     std::cout << "FIN TESTS CELL" << std::endl << std::endl;
     
+}
+
+void TestsState()
+{
+    State* etat = new State();
+    
+    std::cout << "DEBUT TESTS STATE" << std::endl << std::endl;
+   
+    std::cout << "Création d'un état : ";
+    std::cout << ((NULL!=etat) ? "OK" : "KO") << std::endl;
+        
+    std::cout << "Test State Init player : ";
+    std::cout << (NULL != &(etat->getPlayer()) ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test State Init grid : ";
+    std::cout << (NULL != etat->getGrid() ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test State Init characters : ";
+    std::cout << (NULL != etat->getCharacters() ? "OK" : "KO") << std::endl;
+
+    std::cout << "Test State Init totalCellNbr : ";
+    std::cout << (etat->getCellNbr() == 29 ? "OK" : "KO") << std::endl<< std::endl;
+
+    std::cout << "FIN TESTS STATE" << std::endl << std::endl;
 }
 
 }

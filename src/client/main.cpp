@@ -35,6 +35,7 @@ int main(int argc,char* argv[])
             TestsCreaturesGroup();
             TestsCell();
             TestsPlayer();
+            TestsState();
 
         }
         
