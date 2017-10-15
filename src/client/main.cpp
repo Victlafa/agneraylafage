@@ -23,20 +23,26 @@ int main(int argc,char* argv[])
 
     //cout << "It works !" << endl;
     
-    if (argc >= 2 && (string)argv[1] == "hello")
-        cout << "Bonjour tout le monde !" << endl;
-		
-    if (argc >= 2 && (string)argv[1] == "state"){
-        
-        //TestPlayer();
+    try {
 
-        TestsElementTab();
         
-        //TestCell();
+        if (argc >= 2 && (string) argv[1] == "hello")
+            cout << "Bonjour tout le monde !" << endl;
+
+        if (argc >= 2 && (string) argv[1] == "state") {
+
+            //TestsElementTab();
+            TestsCreaturesGroup();
+            //TestCell();
+            //TestPlayer();
+
+        }
         
-        //TestsCreaturesGroup();
- 
+    } catch (...) {
+        int pouet = 5;
     }
+            
+
 
     return 0;
 }
@@ -58,37 +64,30 @@ void TestsElementTab()
     elemTab->resize(6,8);
     (elemTab->getHeight()==8 && elemTab->getWidth()==6) ? cout << "OK" << std::endl : cout << "KO"<< std::endl;
     
-    cout << "Test ElementTab - Setter/Getter Element du tableau : " << std::endl;
-    //cout << &elemTab->get(0,0) << endl;
-    //cout << &elemTab->get(0,1) << endl;
-
+    cout << "Test ElementTab - Setter/Getter Element du tableau : ";
     elemTab->set(*elemTest, 1, 1);
-    cout << "set ok";
-    //(elemTab->get(1,1) == *elemTest) ? cout << "OK" << std::endl : cout << "KO";
+    (elemTab->get(1,1) == *elemTest) ? cout << "OK" << std::endl : cout << "KO";
 }
 
 void TestsCreaturesGroup()
 {
+    CreaturesGroup* group = new CreaturesGroup(CreaturesID::COOKER);
+    cout << CreaturesID::COOKER;
+    group->toPlace(2,2);
+    
     cout << "Création d'un groupe de créatures : ";
     //state::CreaturesID creaTypes; 
-    CreaturesGroup* group = new CreaturesGroup(CreaturesID::COOKER);
-    if (NULL == group)
-        cout << "KO";
-    else
-        cout << "OK";
+    (NULL == group) ? cout << "KO" << endl : cout << "OK" << endl;
     
-    cout << "Test getter du type de créatures : " << std::endl;
-    if (group->getCreaturesType() == CreaturesID::COOKER)
-        cout << "OK" << std::endl;
-    else
-        cout << "KO";
+    cout << "Test getter du type de créatures : ";
+    cout << group->getCreaturesType();
+    (group->getCreaturesType() == CreaturesID::COOKER) ? cout << "OK" << std::endl : cout << "KO" << endl;
     
-    cout << "Test getter/setter de placed : " << std::endl;
-    group->toPlace(2,2);
-    if (group->getPlaced() == true)
-        cout << "OK";
-    else
-        cout << "KO";
+    cout << "Test getter/setter de placed : ";
+    (group->getPlaced() == true) ? cout << "OK" << endl : cout << "KO" << endl;
+    
+    cout << "Test getter coordonnees : ";
+    (group->getX() == 2 && group->getY() == 2) ? cout << "OK" << endl : cout << "KO" << endl;
 }
 
 void TestPlayer()
