@@ -31,10 +31,10 @@ int main(int argc,char* argv[])
 
         if (argc >= 2 && (string) argv[1] == "state") {
 
-            //TestsElementTab();
-            //TestsCreaturesGroup();
-            //TestCell();
-            TestPlayer();
+            TestsElementTab();
+            TestsCreaturesGroup();
+            TestsCell();
+            TestsPlayer();
 
         }
         

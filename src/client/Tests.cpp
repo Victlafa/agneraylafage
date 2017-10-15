@@ -14,58 +14,59 @@ namespace state
     
 void TestsElementTab()
 {
+    std::cout << "DEBUT TESTS ELEMENTTAB" << std::endl << std::endl;
+    
     ElementTab* elemTab = new ElementTab(3,4);
     Element* elemTest = new Element();
     
     std::cout << "Test ElementTab - Init tableau : ";
-    (NULL == elemTab) ? std::cout << "KO" << std::endl : std::cout << "OK" << std::endl;
+    std::cout << ((NULL != elemTab) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test ElementTab - Getters hauteur et largeur du tableau : ";
-    (elemTab->getHeight()==4 && elemTab->getWidth()==3) ? std::cout << "OK" << std::endl : std::cout << "KO" << std::endl;
+    std::cout << ((elemTab->getHeight()==4 && elemTab->getWidth()==3) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test ElementTab - Methode resize du tableau : ";
     elemTab->resize(6,8);
-    (elemTab->getHeight()==8 && elemTab->getWidth()==6) ? std::cout << "OK" << std::endl : std::cout << "KO"<< std::endl;
+    std::cout << ((elemTab->getHeight()==8 && elemTab->getWidth()==6) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test ElementTab - Setter/Getter Element du tableau : ";
     elemTab->set(*elemTest, 1, 1);
-    (elemTab->get(1,1) == *elemTest) ? std::cout << "OK" << std::endl : std::cout << "KO";
+    std::cout << ((elemTab->get(1,1) == *elemTest) ? "OK" : "KO") << std::endl << std::endl;
+    
+    std::cout << "FIN TESTS ELEMENTTAB" << std::endl << std::endl;
 }
 
 void TestsCreaturesGroup()
 {
+    std::cout << "DEBUT TESTS CREATURESGROUP" << std::endl << std::endl;
+    
     CreaturesGroup* group = new CreaturesGroup(CreaturesID::COOKER);
     group->toPlace(2,2);
     
     std::cout << "Création d'un groupe de créatures : ";
-    (NULL == group) ? std::cout << "KO" << std::endl : std::cout << "OK" << std::endl;
+    std::cout << ((NULL != group) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test getter du type de créatures : ";
-    (group->getCreaturesType() == CreaturesID::COOKER) ? std::cout << "OK" << std::endl : std::cout << "KO" << std::endl;
+    std::cout << ((group->getCreaturesType() == CreaturesID::COOKER) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test getter/setter de placed : ";
-    (group->getPlaced() == true) ? std::cout << "OK" << std::endl : std::cout << "KO" << std::endl;
+    std::cout << ((group->getPlaced() == true) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test getter coordonnees : ";
-    (group->getX() == 2 && group->getY() == 2) ? std::cout << "OK" << std::endl : std::cout << "KO" << std::endl;
+    std::cout << ((group->getX() == 2 && group->getY() == 2) ? "OK" : "KO") << std::endl<< std::endl;
+    
+    std::cout << "FIN TESTS CREATURESGROUP" << std::endl << std::endl;
 }
 
-void TestPlayer()
+void TestsPlayer()
 {   
+    std::cout << "DEBUT TESTS JOUEUR" << std::endl << std::endl;
     Player* p1 = new Player();
-    p1->setCellsNbr(12);
-    p1->setZonesNbr(2);
-    p1->setConquestPts(4);
-    p1->setCreaLeft(5);
-    p1->setZonesNbr(1);
-    p1->setXLastCell(3);
-    p1->setYLastCell(1);
-    
+   
     std::cout << "Création d'un joueur : ";
     std::cout << ((NULL!=p1) ? "OK" : "KO") << std::endl;
         
     std::cout << "Test Player Init NbrCells : ";
-    std::cout << p1->getCellsNbr() << std::endl;
     std::cout << ((p1->getCellsNbr()==0) ? "OK" : "KO") << std::endl;
         
     std::cout << "Test Player Init NbrZones ";
@@ -81,67 +82,57 @@ void TestPlayer()
     std::cout << ((p1->getZonesNbr()==0) ? "OK" : "KO") << std::endl;
      
     std::cout << "Test Player Getters/Setters NbrCells : ";
+    p1->setCellsNbr(12);
     std::cout << ((p1->getCellsNbr()==12) ? "OK" : "KO") << std::endl;
       
-    std::cout << "Test Player Getters/Setters NbrZones ";
+    std::cout << "Test Player Getters/Setters NbrZones : ";
+    p1->setZonesNbr(2);
     std::cout << ((p1->getZonesNbr()==2) ? "OK" : "KO") << std::endl;
 
-    std::cout << "Test Player Getters/Setters ConquestPoints ";
+    std::cout << "Test Player Getters/Setters ConquestPoints : ";
+    p1->setConquestPts(4);
     std::cout << ((p1->getConquestPoints() == 4) ? "OK" : "KO") << std::endl;
     
-    std::cout << "Test Player Getters/Setters CreaturesLeft ";
+    std::cout << "Test Player Getters/Setters CreaturesLeft : ";
+    p1->setCreaLeft(5);
     std::cout << ((p1->getCreaturesLeft() == 5) ? "OK" : "KO") << std::endl;
     
-    std::cout << "Test Player decrease CreaturesLeft ";
+    std::cout << "Test Player decrease CreaturesLeft : ";
     p1->decreaseCreaLeft();
     std::cout << ((p1->getCreaturesLeft() == 4) ? "OK" : "KO") << std::endl;
      
-    std::cout << "Test Player Getters/Setters NbrZones ";
-    std::cout << ((p1->getZonesNbr() == 1) ? "OK" : "KO") << std::endl;
-     
-    std::cout << "Test Player Getters/Setters xLastCell ";
+    std::cout << "Test Player Getters/Setters xLastCell : ";
+    p1->setXLastCell(3);
     std::cout << ((p1->getXLastCell() == 3) ? "OK" : "KO") << std::endl;
     
-    std::cout << "Test Player Getters/Setters yLastCell ";
-    std::cout << ((p1->getYLastCell()==1) ? "OK" : "KO") << std::endl;
+    std::cout << "Test Player Getters/Setters yLastCell : ";
+    p1->setYLastCell(1);
+    std::cout << ((p1->getYLastCell()==1) ? "OK" : "KO") << std::endl<< std::endl;
    
+    std::cout << "FIN TESTS JOUEUR"  << std::endl<< std::endl;
 }
 
-void TestCell()
+void TestsCell()
 {
-    std::cout << "Création d'une cellule Cell ";
-    Cell *c1 = new Cell();
-    if(c1!=NULL){
-        std::cout << "OK" << std::endl;
-    }else{
-        std::cout << "KO" << std::endl;
-    }
-        
-    std::cout << "Test Cell Getters/Setters occupied ";
-    c1->setOccupied(true);
-    if(c1->getOccupied()==true){
-        std::cout << "OK" << std::endl;
-    }else{
-        std::cout << "KO" << std::endl;
-    }
-        
-    std::cout << "Test Cell Getters/Setters ResType ";
-    c1->setResType("wood");
-    if(c1->getResType()=="wood"){
-        std::cout << "OK" << std::endl;
-    }else{
-        std::cout << "KO" << std::endl;
-    }
-        
-    std::cout << "Test Cell Getters/Setters ResNbr ";
-    c1->setResNbr(2);
-    if(c1->getResNbr()==2){
-        std::cout << "OK" << std::endl;
-    }else{
-        std::cout << "KO" << std::endl;
-    }
+    std::cout << "DEBUT TESTS CELL" << std::endl << std::endl;
     
-    std::cout << "Fin tests cell" << std::endl;
+    std::cout << "Création d'une cellule Cell : ";
+    Cell *c1 = new Cell();
+    std::cout << ((c1!=NULL) ? "OK" : "KO") << std::endl;
+        
+    std::cout << "Test Cell Getters/Setters occupied : ";
+    c1->setOccupied(true);
+    std::cout << ((c1->getOccupied()==true) ? "OK" : "KO") << std::endl;
+        
+    std::cout << "Test Cell Getters/Setters ResType : ";
+    c1->setResType("wood");
+    std::cout << ((c1->getResType()=="wood") ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test Cell Getters/Setters ResNbr : ";
+    c1->setResNbr(2);
+    std::cout << ((c1->getResNbr()==2) ? "OK" : "KO") << std::endl << std::endl;
+    
+    std::cout << "FIN TESTS CELL" << std::endl << std::endl;
     
 }
 
