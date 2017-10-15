@@ -17,6 +17,7 @@
 #include "state/PlayerResources.h"
 #include "state/ElementTab.h"
 #include "state/State.h"
-#include "state/AElementAlloc.h"
-#include "state/ElementAlloc.h"
+#include "state/AElementTabAlloc.h"
+#include "state/ElementTabAlloc.h"
+#include "state/ElementTabFactory.h"
 #endif
