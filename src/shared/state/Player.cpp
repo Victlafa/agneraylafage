@@ -173,11 +173,11 @@ namespace state{
         
         
         CreaturesID Player::getClanName() const {
-            return *(this->clanName);
+            return this->clanName;
         }
 
         void Player::setClanName(CreaturesID Identify) {
-            *(this->clanName) = Identify;
+            this->clanName = Identify;
         }
     
 };

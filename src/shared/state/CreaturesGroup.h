@@ -16,7 +16,7 @@ namespace state {
   /// class CreaturesGroup - 
   class CreaturesGroup : public state::Element {
     // Associations
-    state::CreaturesID* creaturesType;
+    state::CreaturesID creaturesType;
     // Attributes
   public:
     static int stolenResourceNbr;

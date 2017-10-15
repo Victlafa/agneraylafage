@@ -17,7 +17,7 @@ namespace state {
   /// class Player - 
   class Player {
     // Associations
-    state::CreaturesID* clanName;
+    state::CreaturesID clanName;
     // Attributes
   private:
     int cellNbr;
