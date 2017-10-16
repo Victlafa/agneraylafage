@@ -179,6 +179,7 @@ void TestsCell()
 
 void TestsSpecialCell()
 {
+    std::cout << "DEBUT TESTS SPECIALCELL" << std::endl << std::endl;
 	
     std::cout << "Création d'une cellule spéciale SpecialCell : ";
     SpecialCell *cs = new SpecialCell(SpecialCellID::SKY, "stone", 2, 4, 4);
@@ -201,12 +202,14 @@ void TestsSpecialCell()
     
     std::cout << "Test SpecialCell Getters/Setters SpecialCellType : ";
     cs->setSpecialCellType(SpecialCellID::POOL);
-    std::cout << ((cs->getSpecialCellType()==SpecialCellID::POOL) ? "OK" : "KO") << std::endl;
+    std::cout << ((cs->getSpecialCellType()==SpecialCellID::POOL) ? "OK" : "KO") << std::endl << std::endl;
 	
+    std::cout << "FIN TESTS SPECIALCELL" << std::endl << std::endl;
 }
 
 void TestsSimpleCell()
 {
+    std::cout << "DEBUT TESTS SIMPLECELL" << std::endl << std::endl;
 	
     std::cout << "Création d'une cellule simple SimpleCell : ";
     SimpleCell *cs = new SimpleCell(SimpleCellID::GRASS, "stone", 2, 4, 4);
@@ -229,7 +232,9 @@ void TestsSimpleCell()
     
     std::cout << "Test SimpleCell Getters/Setters SimpleCellType : ";
     cs->setSimpleCellType(SimpleCellID::DIRT);
-    std::cout << ((cs->getSimpleCellType()==SimpleCellID::DIRT) ? "OK" : "KO") << std::endl;
+    std::cout << ((cs->getSimpleCellType()==SimpleCellID::DIRT) ? "OK" : "KO") << std::endl<< std::endl;
+    
+    std::cout << "FIN TESTS SIMPLECELL" << std::endl << std::endl;
 	
 }
 
