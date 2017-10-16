@@ -34,8 +34,8 @@ int main(int argc,char* argv[])
             TestsElementTab();
             TestsCreaturesGroup();
             TestsCell();
-            //TestsSimpleCell();
-            //TestsSpecialCell();
+            TestsSimpleCell();
+            TestsSpecialCell();
             TestsPlayer();
             TestsState();
 

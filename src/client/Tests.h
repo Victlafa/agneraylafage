@@ -20,8 +20,8 @@ namespace state
     void TestsCreaturesGroup();
     void TestsPlayer();
     void TestsCell();
-    //void TestsSpecialCell();
-    //void TestsSimpleCell();
+    void TestsSpecialCell();
+    void TestsSimpleCell();
     void TestsState();
 }
 

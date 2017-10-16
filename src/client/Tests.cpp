@@ -176,7 +176,7 @@ void TestsCell()
     std::cout << "FIN TESTS CELL" << std::endl << std::endl;
     
 }
-/*
+
 void TestsSpecialCell()
 {
 	
@@ -232,7 +232,7 @@ void TestsSimpleCell()
     std::cout << ((cs->getSimpleCellType()==SimpleCellType::DIRT) ? "OK" : "KO") << std::endl;
 	
 }
-*/
+
 void TestsState()
 {
     State* etat = new State();
