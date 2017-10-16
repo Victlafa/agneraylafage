@@ -111,7 +111,6 @@ namespace state{
                     if (speCellsNames->at(i) == name) {
                         // Quand on a trouvé le bon nom, on le remplace par "" et on sort de la boucle for :
                         speCellsNames->erase(speCellsNames->begin()+(i-1),speCellsNames->begin()+i);
-                        std::cout << "Un element a ete retire de la liste" << std::endl;
                         break;
                     }
                 }
