@@ -83,10 +83,10 @@ void TestsPlayer()
     std::cout << ((p1->getCreaturesLeft()==0) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test Player Init speCellsNames : ";
-    std::cout << ((NULL != p1->getSpeCellsNames()) ? "OK" : "KO") << std::endl;
+    std::cout << ((p1->getSpeCellsNames().size() == 0) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test Player Init allCreatures : ";
-    std::cout << ((NULL != p1->getAllCreatures()) ? "OK" : "KO") << std::endl;
+    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test Player Init NbrZones : ";
     std::cout << ((p1->getZonesNbr()==0) ? "OK" : "KO") << std::endl;
@@ -121,16 +121,16 @@ void TestsPlayer()
     
     std::cout << "Test Player modifySpeCellsNames - ajout nom : ";
     p1->modifySpeCellsNames("NomCellule",true);
-    std::cout << ((p1->getSpeCellsNames()->at(0) == "NomCellule") ? "OK" : "KO") << std::endl;
+    std::cout << ((p1->getSpeCellsNames().at(0) == "NomCellule") ? "OK" : "KO") << std::endl;
     
     std::cout << "Test Player modifySpeCellsNames - retrait nom : ";
-    size_t listSize = p1->getSpeCellsNames()->size();
+    size_t listSize = p1->getSpeCellsNames().size();
     p1->modifySpeCellsNames("NomCellule",false);
-    std::cout << ((p1->getSpeCellsNames()->size() == listSize - 1) ? "OK" : "KO") << std::endl;
+    std::cout << ((p1->getSpeCellsNames().size() == listSize - 1) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test Player Getter/Setter allCreatures - liste complete : ";
-    p1->setAllCreatures(new std::vector<CreaturesGroup>());
-    std::cout << ((NULL != p1->getAllCreatures()) ? "OK" : "KO") << std::endl<< std::endl;
+    p1->setAllCreatures(std::vector<CreaturesGroup>());
+    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl<< std::endl;
     
 //    std::cout << "Test Player Getter/Setter allCreatures - ajout d'un element : ";
 //    CreaturesGroup* group = new CreaturesGroup();
