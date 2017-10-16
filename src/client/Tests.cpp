@@ -181,7 +181,7 @@ void TestsSpecialCell()
 {
 	
     std::cout << "Création d'une cellule spéciale SpecialCell : ";
-    Cell *cs = new SpecialCell(SpecialCellID::SKY, "stone", 2, 4, 4);
+    SpecialCell *cs = new SpecialCell(SpecialCellID::SKY, "stone", 2, 4, 4);
     std::cout << ((cs!=NULL) ? "OK" : "KO") << std::endl;
 
     std::cout << "Test SpecialCell Initialisation id : ";
@@ -209,7 +209,7 @@ void TestsSimpleCell()
 {
 	
     std::cout << "Création d'une cellule simple SimpleCell : ";
-    Cell *cs = new SpecialCell(SimpleCellID::GRASS, "stone", 2, 4, 4);
+    SimpleCell *cs = new SimpleCell(SimpleCellID::GRASS, "stone", 2, 4, 4);
     std::cout << ((cs!=NULL) ? "OK" : "KO") << std::endl;
 
     std::cout << "Test SimpleCell Initialisation id : ";
