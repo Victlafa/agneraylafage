@@ -117,17 +117,31 @@ void TestsPlayer()
     
     std::cout << "Test Player Getters/Setters yLastCell : ";
     p1->setYLastCell(1);
-    std::cout << ((p1->getYLastCell()==1) ? "OK" : "KO") << std::endl<< std::endl;
+    std::cout << ((p1->getYLastCell()==1) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test Player modifySpeCellsNames - ajout nom : ";
     p1->modifySpeCellsNames("NomCellule",true);
-    std::cout << ((p1->getSpeCellsNames()->at(0) == "NomCellule") ? "OK" : "KO") << std::endl<< std::endl;
+    std::cout << ((p1->getSpeCellsNames()->at(0) == "NomCellule") ? "OK" : "KO") << std::endl;
     
     std::cout << "Test Player modifySpeCellsNames - retrait nom : ";
     size_t listSize = p1->getSpeCellsNames()->size();
     p1->modifySpeCellsNames("NomCellule",false);
-    std::cout << ((p1->getSpeCellsNames()->size() == listSize - 1) ? "OK" : "KO") << std::endl<< std::endl;
+    std::cout << ((p1->getSpeCellsNames()->size() == listSize - 1) ? "OK" : "KO") << std::endl;
     
+    std::cout << "Test Player Getter/Setter allCreatures - liste complete : ";
+    p1->setAllCreatures(new std::vector<CreaturesGroup>());
+    std::cout << ((NULL != p1->getAllCreatures()) ? "OK" : "KO") << std::endl<< std::endl;
+    
+//    std::cout << "Test Player Getter/Setter allCreatures - ajout d'un element : ";
+//    CreaturesGroup* group = new CreaturesGroup();
+//    p1->setAllCreatures(true, group);
+//    std::cout << ((NULL != p1->getAllCreatures()->at(0)) ? "OK" : "KO") << std::endl<< std::endl;
+//    
+//    std::cout << "Test Player Getter/Setter allCreatures - retrait d'un element : ";
+//    size_t listSize2 = p1->getAllCreatures()->size();
+//    p1->setAllCreatures(false, group);
+//    std::cout << ((p1->getSpeCellsNames()->size() == listSize2 - 1) ? "OK" : "KO") << std::endl<< std::endl;
+//    
     std::cout << "FIN TESTS PLAYER"  << std::endl<< std::endl;
 }
 
