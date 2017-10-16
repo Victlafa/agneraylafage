@@ -22,7 +22,7 @@ namespace state{
           
           try
           {
-              speCellsNames = new std::vector<std::string>(4);
+              speCellsNames = new std::vector<std::string>();
               allCreatures = new std::vector<CreaturesGroup>();
           }
           
@@ -102,15 +102,16 @@ namespace state{
             if (add)
                 speCellsNames->push_back(name);
 
-                // Si au contraire on souhaite retirer un nom de la liste :
+            // Si au contraire on souhaite retirer un nom de la liste :
             else if (!add && speCellsNames->size() != 0) {
                 
                 // On doit chercher le nom correspondant dans la liste :
 
-                for (auto Iter = speCellsNames->begin(); Iter != speCellsNames->end(); Iter++) {
-                    if (*Iter == name) {
-                        // Quand on a trouvé le bon nom, on le supprime et on sort de la boucle for :
-                        speCellsNames->erase(Iter);
+                for (int i = 0; i < (int)initSize; i++) {
+                    if (speCellsNames->at(i) == name) {
+                        // Quand on a trouvé le bon nom, on le remplace par "" et on sort de la boucle for :
+                        speCellsNames->erase(speCellsNames->begin()+(i-1),speCellsNames->begin()+i);
+                        std::cout << "Un element a ete retire de la liste" << std::endl;
                         break;
                     }
                 }
