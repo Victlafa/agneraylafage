@@ -41,13 +41,59 @@ int main(int argc,char* argv[])
 
         }
         
+        if (argc >= 2 && (string) argv[1] == "render") {
+
+            sf::Vertex p1(sf::Vector2f(20,0), sf::Color::Green, sf::Vector2f(20,0));
+            sf::Vertex p2(sf::Vector2f(0,20), sf::Color::Green, sf::Vector2f(20,0));
+            sf::Vertex p3(sf::Vector2f(20,40), sf::Color::Green, sf::Vector2f(20,0));
+            sf::Vertex p4(sf::Vector2f(40,40), sf::Color::Green, sf::Vector2f(20,0));
+            sf::Vertex p5(sf::Vector2f(60,20), sf::Color::Green, sf::Vector2f(20,0));
+            sf::Vertex p6(sf::Vector2f(40,0), sf::Color::Green, sf::Vector2f(20,0));
+            
+            
+            sf::VertexArray t1(sf::Triangles, 3);
+            sf::VertexArray t2(sf::Triangles, 3);
+            sf::VertexArray t3(sf::Triangles, 3);
+            sf::VertexArray t4(sf::Triangles, 3);
+            sf::RenderWindow window(sf::VideoMode(512,256),"Test Vertex");
+
+            t1[0]=p1;
+            t1[1]=p2;
+            t1[2]=p3;
+            
+            t2[0]=p1;
+            t2[1]=p3;
+            t2[2]=p4;
+           
+            t3[0]=p1;
+            t3[1]=p4;
+            t3[2]=p6;
+            
+            t4[0]=p4;
+            t4[1]=p5;
+            t4[2]=p6;
+            
+            while(window.isOpen()){
+                sf::Event event;
+                while(window.pollEvent(event)){
+                if(event.type==sf::Event::Closed) window.close();
+                }
+                window.clear();
+                window.draw(t1);
+                window.draw(t2);
+                window.draw(t3);
+                window.draw(t4);
+                window.display();
+            }
+
+        }
+        
     } catch (...) {
         int pouet = 5;
         cout << "erreur";
         cout << pouet << endl;
     }
             
-
 
     return 0;
 }
