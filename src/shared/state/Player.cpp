@@ -22,8 +22,8 @@ namespace state{
           
           try
           {
-              speCellsNames = new std::vector<std::string>();
-              allCreatures = new std::vector<CreaturesGroup>();
+              speCellsNames = std::vector<std::string>();
+              allCreatures = std::vector<CreaturesGroup>();
           }
           
           catch(std::bad_alloc &e)
@@ -56,7 +56,7 @@ namespace state{
             return creaturesLeft;
         }
 
-        std::vector<std::string>* Player::getSpeCellsNames() const{
+        std::vector<std::string> Player::getSpeCellsNames() const{
             return speCellsNames;
         }
 
@@ -68,7 +68,7 @@ namespace state{
             return yLastCell;
         }
         
-        std::vector<CreaturesGroup>* Player::getAllCreatures () const{
+        std::vector<CreaturesGroup> Player::getAllCreatures () const{
             return this->allCreatures;
         }
 
@@ -135,7 +135,7 @@ namespace state{
             yLastCell = y;
         }
         
-        void Player::setAllCreatures (std::vector<CreaturesGroup>* creaList){
+        void Player::setAllCreatures (std::vector<CreaturesGroup> creaList){
             this->allCreatures = creaList;
         }
         
