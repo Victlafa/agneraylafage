@@ -34,6 +34,8 @@ int main(int argc,char* argv[])
             TestsElementTab();
             TestsCreaturesGroup();
             TestsCell();
+            //TestsSimpleCell();
+            //TestsSpecialCell();
             TestsPlayer();
             TestsState();
 
@@ -41,6 +43,8 @@ int main(int argc,char* argv[])
         
     } catch (...) {
         int pouet = 5;
+        cout << "erreur";
+        cout << pouet << endl;
     }
             
 
