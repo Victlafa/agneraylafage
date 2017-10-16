@@ -176,7 +176,63 @@ void TestsCell()
     std::cout << "FIN TESTS CELL" << std::endl << std::endl;
     
 }
+/*
+void TestsSpecialCell()
+{
+	
+    std::cout << "Création d'une cellule spéciale SpecialCell : ";
+    Cell *cs = new SpecialCell(SpecialCellID::SKY, "stone", 2, 4, 4);
+    std::cout << ((cs!=NULL) ? "OK" : "KO") << std::endl;
 
+    std::cout << "Test SpecialCell Initialisation id : ";
+    std::cout << ((cs->getSpecialCellType()==SpecialCellTypeID::SKY) ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test SpecialCell Initialisation resType : ";
+    std::cout << ((cs->getResType()=="stone") ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test SpecialCell Initialisation resNbr : ";
+    std::cout << ((cs->getResNbr()==2) ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test SpecialCell Initialisation x : ";
+    std::cout << ((cs->getX()==4) ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test SpecialCell Initialisation y : ";
+    std::cout << ((cs->getY()==4) ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test SpecialCell Getters/Setters SpecialCellType : ";
+    cs->setSpecialCellType(SpecialCellType::POOL);
+    std::cout << ((cs->getSpecialCellType()==SpecialCellType::POOL) ? "OK" : "KO") << std::endl;
+	
+}
+
+void TestsSimpleCell()
+{
+	
+    std::cout << "Création d'une cellule simple SimpleCell : ";
+    Cell *cs = new SpecialCell(SimpeCellID::GRASS, "stone", 2, 4, 4);
+    std::cout << ((cs!=NULL) ? "OK" : "KO") << std::endl;
+
+    std::cout << "Test SimpleCell Initialisation id : ";
+    std::cout << ((cs->getSimpleCellType()==SimpleCellTypeID::GRASS) ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test SimpleCell Initialisation resType : ";
+    std::cout << ((cs->getResType()=="stone") ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test SimpleCell Initialisation resNbr : ";
+    std::cout << ((cs->getResNbr()==2) ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test SimpleCell Initialisation x : ";
+    std::cout << ((cs->getX()==4) ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test SimpleCell Initialisation y : ";
+    std::cout << ((cs->getY()==4) ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test SimpleCell Getters/Setters SimpleCellType : ";
+    cs->setSimpleCellType(SimpleCellType::DIRT);
+    std::cout << ((cs->getSimpleCellType()==SimpleCellType::DIRT) ? "OK" : "KO") << std::endl;
+	
+}
+*/
 void TestsState()
 {
     State* etat = new State();
