@@ -4,6 +4,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 namespace state {
   class CreaturesGroup;
@@ -26,7 +27,7 @@ namespace state {
     std::vector<std::string> speCellsNames;
     int xLastCell     = 0;
     int yLastCell     = 0;
-    std::vector<CreaturesGroup> allCreatures;
+    std::vector<std::shared_ptr<CreaturesGroup>> allCreatures;
     int creaturesLeft;
     // Operations
   public:
@@ -36,10 +37,10 @@ namespace state {
     int getZonesNbr () const;
     int getConquestPoints () const;
     int getCreaturesLeft () const;
-    std::vector<std::string> getSpeCellsNames () const;
+    std::vector<std::string>& getSpeCellsNames () const;
     int getXLastCell () const;
     int getYLastCell () const;
-    std::vector<CreaturesGroup> getAllCreatures () const;
+    std::vector<shared_ptr<CreaturesGroup>>& getAllCreatures () const;
     void setCellsNbr (int count);
     void setZonesNbr (int count);
     void setConquestPts (int count);
@@ -48,8 +49,8 @@ namespace state {
     void modifySpeCellsNames (std::string name, bool add);
     void setXLastCell (int x);
     void setYLastCell (int y);
-    void setAllCreatures (std::vector<CreaturesGroup> creaList);
-    void setAllCreatures (bool add, CreaturesGroup group);
+    void setAllCreatures (std::vector<std::shared_ptr<CreaturesGroup>> creaList);
+    void setAllCreatures (bool add, shared_ptr<CreaturesGroup> group);
     // Setters and Getters
     CreaturesID getClanName() const;
     void setClanName(CreaturesID clanName);
