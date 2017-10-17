@@ -59,6 +59,12 @@ int main(int argc,char* argv[])
 
             sf::Texture text1;
             if(!text1.loadFromFile("hexa.pgn",sf::IntRect(20,20,101,121))) cout<< " erreur chargement text1"<<endl;
+            sf::Texture text2;
+            if(!text2.loadFromFile("hexa.pgn",sf::IntRect(20,20,101,121))) cout<< " erreur chargement text2"<<endl;
+            sf::Texture text3;
+            if(!text3.loadFromFile("hexa.pgn",sf::IntRect(20,20,101,121))) cout<< " erreur chargement text3"<<endl;
+            sf::Texture text4;
+            if(!text4.loadFromFile("hexa.pgn",sf::IntRect(20,20,101,121))) cout<< " erreur chargement text4"<<endl;
             //sf::RenderStates etat1;
             //etat1.texture = &text1;
             
@@ -74,9 +80,9 @@ int main(int argc,char* argv[])
                 }
                 window.clear();
                 window.draw(t1,&text1);
-                window.draw(t2);
-                window.draw(t3);
-                window.draw(t4);
+                window.draw(t2,&text1);
+                window.draw(t3,&text1);
+                window.draw(t4,&text1);
                 window.display();
             }
 
