@@ -15,7 +15,6 @@ namespace state
     }
     
     State::~State (){
-        delete this;
     }
     
     // Setters and Getters

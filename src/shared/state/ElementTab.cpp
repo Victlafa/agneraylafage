@@ -33,8 +33,10 @@ namespace state
         }
     }
     
-    ElementTab::~ElementTab() 
-    { delete this; }
+    ElementTab::~ElementTab() {
+//        for (auto elem : list)     
+//            delete elem;
+    }
     
     // Getters and setters :
     
@@ -51,12 +53,12 @@ namespace state
         this->height = height;
     }
     
-    Element& ElementTab::get (int i, int j) const{
-        return *(this->list.at(i*width + j));
+    const std::unique_ptr<Element>& ElementTab::get (int i, int j) const{
+        return this->list.at(i*width + j);
     }
     
-    void ElementTab::set (Element elem, int i, int j){
-        this->list.at(i*width + j) = std::unique_ptr<Element>(&elem);
+    void ElementTab::set (Element* elem, int i, int j){
+        this->list.at(i*width + j) = std::unique_ptr<Element>(elem);
     }
     
     Element& ElementTab::operator()(int i, int j) const{

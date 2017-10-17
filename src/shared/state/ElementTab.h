@@ -10,8 +10,8 @@ namespace state {
   class Element;
 }
 
-#include "Element.h"
 #include "TypeID.h"
+#include "Element.h"
 
 namespace state {
 
@@ -31,8 +31,8 @@ namespace state {
     size_t getWidth () const;
     size_t getHeight () const;
     void resize (size_t width, size_t height);
-    Element& get (int i, int j = 0) const;
-    void set (Element elem, int i, int j = 0);
+    const std::unique_ptr<Element>& get (int i, int j = 0) const;
+    void set (Element* elem, int i, int j = 0);
     Element& operator ( )  (int i, int j = 0) const;
     // Setters and Getters
     TypeID getTabType() const;

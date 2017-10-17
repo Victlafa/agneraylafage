@@ -19,7 +19,6 @@ namespace state
     
     SimpleCell::~SimpleCell()
     {
-        delete this;
     }
     
     SimpleCellID SimpleCell::getSimpleCellType() const{

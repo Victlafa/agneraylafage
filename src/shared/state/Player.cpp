@@ -34,13 +34,7 @@ namespace state{
           //std::cout << "Le joueur a été initialisé correctement." << std::endl;
       }
       
-        Player::~Player(){
-            for (auto group : allCreatures)
-            {
-                group.reset(new CreaturesGroup(clanName));
-            }
-            delete this;
-        }
+        Player::~Player(){ }
     
     /// Setters and Getters :
       
@@ -114,7 +108,7 @@ namespace state{
                 for (int i = 0; i < (int)initSize; i++) {
                     if (speCellsNames.at(i) == name) {
                         // Quand on a trouvé le bon nom, on le remplace par "" et on sort de la boucle for :
-                        speCellsNames.erase(speCellsNames.begin()+(i-1),speCellsNames.begin()+i);
+                        speCellsNames.erase(speCellsNames.begin()+i);
                         break;
                     }
                 }
