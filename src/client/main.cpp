@@ -26,7 +26,7 @@ int main(int argc,char* argv[])
     
     try {
         
-        TestsPlayer();
+        //TestsPlayer();
         
         if (argc >= 2 && (string) argv[1] == "hello")
             cout << "Bonjour tout le monde !" << endl;
