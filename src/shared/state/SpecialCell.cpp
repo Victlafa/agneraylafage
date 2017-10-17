@@ -15,7 +15,6 @@ namespace state
     
     SpecialCell::~SpecialCell()
     {
-        delete this;
     }
 
     SpecialCellID SpecialCell::getSpecialCellType() const{

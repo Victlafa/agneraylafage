@@ -22,7 +22,10 @@ int main(int argc,char* argv[])
     // le tout premier element de argv est le chemin où se trouve le fichier à executer
 
     //cout << "It works !" << endl;
+<<<<<<< HEAD
     //TestsPlayer();
+=======
+>>>>>>> 167213987c1264037932effe24d62f7aed584e75
     
     try {
         
