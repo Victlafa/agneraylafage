@@ -9,20 +9,19 @@ namespace state
 
     State::State (){
         this->totalCellNbr = 29;
-        this->grid = new ElementTab();
-        this->characters = new ElementTab();
-        this->player = *(new Player());
+        this->grid = std::unique_ptr<ElementTab>(new ElementTab());
+        this->characters = std::unique_ptr<ElementTab>(new ElementTab());
+        this->player = std::unique_ptr<Player>(new Player());
     }
     
-    State::~State (){
-    }
+    State::~State (){ }
     
     // Setters and Getters
-    ElementTab* State::getGrid() const{
+    const std::unique_ptr<ElementTab>& State::getGrid() const{
         return grid;
     }
     
-    ElementTab* State::getCharacters () const{
+    const std::unique_ptr<ElementTab>& State::getCharacters () const{
         return characters;
     }
     
@@ -30,12 +29,8 @@ namespace state
         return totalCellNbr;
     }
     
-    const Player& State::getPlayer() const{
+    const std::unique_ptr<Player>& State::getPlayer() const{
         return player;
-    }
-    
-    void State::setPlayer(const Player& player){
-        this->player = player;
     }
     
 };

@@ -17,7 +17,7 @@ void TestsElementTab()
     std::cout << "DEBUT TESTS ELEMENTTAB" << std::endl << std::endl;
     
     std::unique_ptr<ElementTab> elemTab ( new ElementTab(3,4) );
-    std::unique_ptr<Element> elemTest(new Element());
+    Element* elemTest = new Element();
     
     std::cout << "Test ElementTab - Init tableau : ";
     std::cout << ((NULL != elemTab) ? "OK" : "KO") << std::endl;
@@ -34,14 +34,10 @@ void TestsElementTab()
     std::cout << ((elemTab->getTabType()==TypeID::CREATURESGROUP) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test ElementTab - Setter/Getter Element du tableau : ";
-    elemTab->set(elemTest.get(), 1, 1);
-    std::cout << ((elemTab->get(1,1) == elemTest) ? "OK" : "KO") << std::endl << std::endl;
+    elemTab->set(elemTest, 1, 1);
+    std::cout << ((elemTab->get(1,1).get() == elemTest) ? "OK" : "KO") << std::endl << std::endl;
     
     std::cout << "FIN TESTS ELEMENTTAB" << std::endl << std::endl;
-    
-    //elemTest.reset(new Element());
-    //delete &(elemTab->get(1,1));
-    elemTab.reset(new ElementTab(1,1));
     
 }
 
