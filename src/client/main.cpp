@@ -22,7 +22,7 @@ int main(int argc,char* argv[])
     // le tout premier element de argv est le chemin où se trouve le fichier à executer
 
     //cout << "It works !" << endl;
-    TestsPlayer();
+    //TestsPlayer();
     
     try {
         
@@ -36,7 +36,7 @@ int main(int argc,char* argv[])
             TestsCell();
             TestsSimpleCell();
             TestsSpecialCell();
-            TestsPlayer();
+            //TestsPlayer();
             TestsState();
 
         }
@@ -57,21 +57,15 @@ int main(int argc,char* argv[])
             sf::VertexArray t4(sf::Triangles, 3);
             sf::RenderWindow window(sf::VideoMode(512,256),"Test Vertex");
 
-            t1[0]=p1;
-            t1[1]=p2;
-            t1[2]=p3;
+            sf::Texture text1;
+            if(!text1.loadFromFile("hexa.pgn",sf::IntRect(20,20,101,121))) cout<< " erreur chargement text1"<<endl;
+            //sf::RenderStates etat1;
+            //etat1.texture = &text1;
             
-            t2[0]=p1;
-            t2[1]=p3;
-            t2[2]=p4;
-           
-            t3[0]=p1;
-            t3[1]=p4;
-            t3[2]=p6;
-            
-            t4[0]=p4;
-            t4[1]=p5;
-            t4[2]=p6;
+            t1[0]=p1;t1[1]=p2;t1[2]=p3;
+            t2[0]=p1;t2[1]=p3;t2[2]=p4;
+            t3[0]=p1;t3[1]=p4;t3[2]=p6;
+            t4[0]=p4;t4[1]=p5;t4[2]=p6;
             
             while(window.isOpen()){
                 sf::Event event;
@@ -79,7 +73,7 @@ int main(int argc,char* argv[])
                 if(event.type==sf::Event::Closed) window.close();
                 }
                 window.clear();
-                window.draw(t1);
+                window.draw(t1,&text1);
                 window.draw(t2);
                 window.draw(t3);
                 window.draw(t4);
