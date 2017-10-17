@@ -37,7 +37,7 @@ int main(int argc,char* argv[])
             TestsCell();
             TestsSimpleCell();
             TestsSpecialCell();
-            //TestsPlayer();
+            TestsPlayer();
             TestsState();
 
         }
