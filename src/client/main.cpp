@@ -22,9 +22,11 @@ int main(int argc,char* argv[])
     // le tout premier element de argv est le chemin où se trouve le fichier à executer
 
     //cout << "It works !" << endl;
-    TestsPlayer();
+    
     
     try {
+        
+        TestsPlayer();
         
         if (argc >= 2 && (string) argv[1] == "hello")
             cout << "Bonjour tout le monde !" << endl;
