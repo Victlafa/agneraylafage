@@ -37,10 +37,10 @@ namespace state {
     int getZonesNbr () const;
     int getConquestPoints () const;
     int getCreaturesLeft () const;
-    std::vector<std::string>& getSpeCellsNames () const;
+    const std::vector<std::string>& getSpeCellsNames () const;
     int getXLastCell () const;
     int getYLastCell () const;
-    std::vector<shared_ptr<CreaturesGroup>>& getAllCreatures () const;
+    const std::vector<std::shared_ptr<CreaturesGroup>>& getAllCreatures () const;
     void setCellsNbr (int count);
     void setZonesNbr (int count);
     void setConquestPts (int count);
@@ -50,7 +50,7 @@ namespace state {
     void setXLastCell (int x);
     void setYLastCell (int y);
     void setAllCreatures (std::vector<std::shared_ptr<CreaturesGroup>> creaList);
-    void setAllCreatures (bool add, shared_ptr<CreaturesGroup> group);
+    void setAllCreatures (bool add, std::shared_ptr<CreaturesGroup> group);
     // Setters and Getters
     CreaturesID getClanName() const;
     void setClanName(CreaturesID clanName);
