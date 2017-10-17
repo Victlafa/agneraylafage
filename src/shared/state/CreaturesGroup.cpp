@@ -19,8 +19,8 @@ namespace state
         this->creaturesType = type;
     }
     
-    CreaturesGroup::~CreaturesGroup (){
-        delete this;
+    CreaturesGroup::~CreaturesGroup ()
+    {
     }
     
     // Setters and getters :

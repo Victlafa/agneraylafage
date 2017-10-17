@@ -23,7 +23,7 @@ namespace state{
           try
           {
               speCellsNames = std::vector<std::string>();
-              allCreatures = std::vector<CreaturesGroup*>();
+              allCreatures = std::vector<std::shared_ptr<CreaturesGroup>>();
           }
           
           catch(std::bad_alloc &e)
@@ -35,6 +35,10 @@ namespace state{
       }
       
         Player::~Player(){
+            for (auto group : allCreatures)
+            {
+                group.reset(new CreaturesGroup(clanName));
+            }
             delete this;
         }
     
@@ -56,7 +60,7 @@ namespace state{
             return creaturesLeft;
         }
 
-        std::vector<std::string> Player::getSpeCellsNames() const{
+        const std::vector<std::string>& Player::getSpeCellsNames() const{
             return speCellsNames;
         }
 
@@ -68,7 +72,7 @@ namespace state{
             return yLastCell;
         }
         
-        std::vector<CreaturesGroup*> Player::getAllCreatures () const{
+        const std::vector<std::shared_ptr<CreaturesGroup>>& Player::getAllCreatures () const{
             return this->allCreatures;
         }
 
@@ -135,11 +139,11 @@ namespace state{
             yLastCell = y;
         }
         
-        void Player::setAllCreatures (std::vector<CreaturesGroup*> creaList){
+        void Player::setAllCreatures (std::vector<std::shared_ptr<CreaturesGroup>> creaList){
             this->allCreatures = creaList;
         }
         
-        void Player::setAllCreatures (bool add, CreaturesGroup* group){
+        void Player::setAllCreatures (bool add, std::shared_ptr<CreaturesGroup> group){
             size_t initSize = allCreatures.size();
 
             // Si on souhaite ajouter un groupe de créatures dans la liste :
