@@ -44,11 +44,11 @@ int main(int argc,char* argv[])
         if (argc >= 2 && (string) argv[1] == "render") {
 
             sf::Vertex p1(sf::Vector2f(20,0), sf::Color::Green, sf::Vector2f(20,0));
-            sf::Vertex p2(sf::Vector2f(0,20), sf::Color::Green, sf::Vector2f(20,0));
-            sf::Vertex p3(sf::Vector2f(20,40), sf::Color::Green, sf::Vector2f(20,0));
-            sf::Vertex p4(sf::Vector2f(40,40), sf::Color::Green, sf::Vector2f(20,0));
-            sf::Vertex p5(sf::Vector2f(60,20), sf::Color::Green, sf::Vector2f(20,0));
-            sf::Vertex p6(sf::Vector2f(40,0), sf::Color::Green, sf::Vector2f(20,0));
+            sf::Vertex p2(sf::Vector2f(0,20), sf::Color::Green, sf::Vector2f(0,20));
+            sf::Vertex p3(sf::Vector2f(20,40), sf::Color::Green, sf::Vector2f(20,40));
+            sf::Vertex p4(sf::Vector2f(40,40), sf::Color::Green, sf::Vector2f(40,40));
+            sf::Vertex p5(sf::Vector2f(60,20), sf::Color::Green, sf::Vector2f(60,20));
+            sf::Vertex p6(sf::Vector2f(40,0), sf::Color::Green, sf::Vector2f(40,0));
             
             
             sf::VertexArray t1(sf::Triangles, 3);
