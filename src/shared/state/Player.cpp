@@ -23,7 +23,7 @@ namespace state{
           try
           {
               speCellsNames = std::vector<std::string>();
-              allCreatures = std::vector<CreaturesGroup>();
+              allCreatures = std::vector<CreaturesGroup*>();
           }
           
           catch(std::bad_alloc &e)
@@ -68,7 +68,7 @@ namespace state{
             return yLastCell;
         }
         
-        std::vector<CreaturesGroup> Player::getAllCreatures () const{
+        std::vector<CreaturesGroup*> Player::getAllCreatures () const{
             return this->allCreatures;
         }
 
@@ -135,11 +135,11 @@ namespace state{
             yLastCell = y;
         }
         
-        void Player::setAllCreatures (std::vector<CreaturesGroup> creaList){
+        void Player::setAllCreatures (std::vector<CreaturesGroup*> creaList){
             this->allCreatures = creaList;
         }
         
-        void Player::setAllCreatures (bool add, CreaturesGroup group){
+        void Player::setAllCreatures (bool add, CreaturesGroup* group){
             size_t initSize = allCreatures.size();
 
             // Si on souhaite ajouter un groupe de créatures dans la liste :

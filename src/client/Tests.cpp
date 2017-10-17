@@ -129,18 +129,17 @@ void TestsPlayer()
     std::cout << ((p1->getSpeCellsNames().size() == listSize - 1) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test Player Getter/Setter allCreatures - liste complete : ";
-    p1->setAllCreatures(std::vector<CreaturesGroup>());
+    p1->setAllCreatures(std::vector<CreaturesGroup*>());
     std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl<< std::endl;
     
-//    std::cout << "Test Player Getter/Setter allCreatures - ajout d'un element : ";
-//    CreaturesGroup* group = new CreaturesGroup();
-//    p1->setAllCreatures(true, group);
-//    std::cout << ((NULL != p1->getAllCreatures()->at(0)) ? "OK" : "KO") << std::endl<< std::endl;
-//    
+    std::cout << "Test Player Getter/Setter allCreatures - ajout d'un element : ";
+    CreaturesGroup* group = new CreaturesGroup(CreaturesID::BLACKSMITH);
+    p1->setAllCreatures(true, group);
+    std::cout << ((p1->getAllCreatures().size() == 1) ? "OK" : "KO") << std::endl<< std::endl;
+    
 //    std::cout << "Test Player Getter/Setter allCreatures - retrait d'un element : ";
-//    size_t listSize2 = p1->getAllCreatures()->size();
 //    p1->setAllCreatures(false, group);
-//    std::cout << ((p1->getSpeCellsNames()->size() == listSize2 - 1) ? "OK" : "KO") << std::endl<< std::endl;
+//    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl<< std::endl;
 //    
     std::cout << "FIN TESTS PLAYER"  << std::endl<< std::endl;
 }
