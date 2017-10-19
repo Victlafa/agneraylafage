@@ -49,12 +49,11 @@ int main(int argc,char* argv[])
             sf::Vertex p5(sf::Vector2f(120,206), sf::Color::White, sf::Vector2f(21,106));
             sf::Vertex p6(sf::Vector2f(120,155), sf::Color::White, sf::Vector2f(21,55));
             
-            sf::Vertex pt1(sf::Vector2f(70,20), sf::Color::Green, sf::Vector2f(70,20));
-            sf::Vertex pt2(sf::Vector2f(20,55), sf::Color::Green, sf::Vector2f(20,55));
-            sf::Vertex pt3(sf::Vector2f(70,55), sf::Color::Green, sf::Vector2f(70,55));
-            
+//            sf::Vertex pt1(sf::Vector2f(70,20), sf::Color::Green, sf::Vector2f(70,20));
+//            sf::Vertex pt2(sf::Vector2f(20,55), sf::Color::Green, sf::Vector2f(20,55));
+//            sf::Vertex pt3(sf::Vector2f(70,55), sf::Color::Green, sf::Vector2f(70,55));
+//            
             sf::VertexArray t1(sf::Triangles, 3);
-            //sf::VertexArray tt1(sf::Triangles, 4);
             sf::VertexArray t2(sf::Triangles, 3);
             sf::VertexArray t3(sf::Triangles, 3);
             sf::VertexArray t4(sf::Triangles, 3);
