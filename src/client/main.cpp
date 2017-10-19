@@ -20,12 +20,6 @@ int main(int argc,char* argv[])
     // argc correspond au nombre de mots entres en arguments lors de l'execution incremente de 1.
     // argv est un tableau de mots dont le premier mot entre par l'utilisateur est l'element d'indice 1.
     // le tout premier element de argv est le chemin où se trouve le fichier à executer
-
-    //cout << "It works !" << endl;
-<<<<<<< HEAD
-    //TestsPlayer();
-=======
->>>>>>> 167213987c1264037932effe24d62f7aed584e75
     
     try {
         
