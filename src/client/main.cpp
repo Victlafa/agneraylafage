@@ -47,12 +47,12 @@ int main(int argc,char* argv[])
             // On créé les six sommets de l'hexagone. Pour cela on doit préciser 
             // leurs coordonnées dans l'image de sortie et leurs coordonnées dans 
             // le fichier source de la texture.
-            sf::Vertex p1(sf::Vector2f(170,120), sf::Color::White, sf::Vector2f(70,21));
-            sf::Vertex p2(sf::Vector2f(221,155), sf::Color::White, sf::Vector2f(121,55));
-            sf::Vertex p3(sf::Vector2f(221,206), sf::Color::White, sf::Vector2f(121,106));
-            sf::Vertex p4(sf::Vector2f(170,241), sf::Color::White, sf::Vector2f(70,141));
-            sf::Vertex p5(sf::Vector2f(120,206), sf::Color::White, sf::Vector2f(21,106));
-            sf::Vertex p6(sf::Vector2f(120,155), sf::Color::White, sf::Vector2f(21,55));
+            sf::Vertex p1(sf::Vector2f(170,120), sf::Vector2f(70,21));
+            sf::Vertex p2(sf::Vector2f(221,155), sf::Vector2f(121,55));
+            sf::Vertex p3(sf::Vector2f(221,206), sf::Vector2f(121,106));
+            sf::Vertex p4(sf::Vector2f(170,241), sf::Vector2f(70,141));
+            sf::Vertex p5(sf::Vector2f(120,206), sf::Vector2f(21,106));
+            sf::Vertex p6(sf::Vector2f(120,155), sf::Vector2f(21,55));
             
             // On créé quatre triangles qui vont nous permettre de former l'hexagone :
             sf::VertexArray t1(sf::Triangles, 3);
