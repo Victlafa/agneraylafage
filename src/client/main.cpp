@@ -10,7 +10,7 @@ void testSFML() {
 // Fin test SFML
 
 #include "state.h"
-#include "Tests.h"
+#include "TestsState.h"
 
 using namespace std;
 using namespace state;
