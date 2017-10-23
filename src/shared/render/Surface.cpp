@@ -8,13 +8,30 @@
 
 namespace render 
 {
-    void Surface::loadTexture (const std::string& imgFile);
-    void Surface::setSpriteLocation (int index, int x, int y);
-    void Surface::setSpriteTexture (int index, const Tile& tex);
-    void Surface::draw (sf::RenderTarget& target, sf::RenderStates states) const;
-    void Surface::initCells (int count);
-    // Setters and Getters
-    const CellDraw& Surface::getTraceCell() const;
-    void Surface::setTraceCell(const CellDraw& traceCell);
+    void Surface::loadTexture (const std::string& imgFile)
+    {
+        if( !this->texture.loadFromFile("./res/" + imgFile) ) 
+            std::cout << "Erreur chargement texture !\n" << std::endl;
+    }
+    
+    void Surface::setSpriteLocation (int index, int x, int y)
+    {
+        
+    }
+    void Surface::setSpriteTexture (int index, const Tile& tex)
+    {
+        
+    }
+    
+    void Surface::draw (sf::RenderTarget& target, sf::RenderStates states) const
+    {
+//        for (int i = 0; i < cellsList; i++)
+//            target.draw(cellsList[i],states);
+    }
+    
+    void Surface::initCells (int count)
+    {
+        //this->cellsList = std::vector<std::unique_ptr<CellDraw>>(count);
+    }
 }
 
