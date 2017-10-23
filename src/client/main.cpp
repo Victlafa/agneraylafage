@@ -102,8 +102,8 @@ int main(int argc,char* argv[])
                 window.display();
             }
 
-            render::Layer::ElementTabLayer tab;
-            tab.initSurface(0);
+            //render::Layer::ElementTabLayer tab;
+            //tab.initSurface(0);
             
         }
         
