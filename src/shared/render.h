@@ -2,14 +2,16 @@
 #ifndef __RENDER__H
 #define __RENDER__H
 
-#include "render/CellDraw.h"
 #include "render/Surface.h"
 #include "render/Tile.h"
 #include "render/TileSet.h"
 #include "render/Layer.h"
 #include "render/StateLayer.h"
 #include "render/ElementTabLayer.h"
+#include "render/CellDraw.h"
 #include "render/StateTileSet.h"
 #include "render/GridTileSet.h"
 #include "render/CharsTileSet.h"
+#include "render/CellSurface.h"
+#include "render/CreaturesSurface.h"
 #endif
