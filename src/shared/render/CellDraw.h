@@ -16,7 +16,7 @@ namespace render {
     sf::VertexArray vertexArray4;
   private:
     int number;
-    // Coordonnées du coin supérieur gauche 
+    /// 		
     const int firstXSprite     = 21;
     const int firstYSprite     = 55;
     const int firstXRender     = 120;
