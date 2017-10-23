@@ -7,10 +7,7 @@ namespace render{
         this->state = state;
     }
 
-    void initSurface(){
-        //Ajouter dans les textures un alphabet pour pouvori afficher 
-        //l'état du joueur...
-    
+    void StateLayer::initSurface(){
     }
     
 }
