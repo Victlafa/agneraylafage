@@ -70,8 +70,6 @@ int main(int argc,char* argv[])
             // Initialisation de la texture de notre hexagone :
             sf::Texture text;
             if(!text.loadFromFile("./res/hexa.png")) cout<< " erreur chargement text1"<<endl;
-            //sf::RenderStates etat1;
-            //etat1.texture = &text1;
             
             // On associe les triangles aux sommets de l'hexagone :
             t1[0]=p1;t1[1]=p2;t1[2]=p6;
@@ -88,6 +86,18 @@ int main(int argc,char* argv[])
             message.setColor(sf::Color::White);
             message.setPosition(300,300);
             
+            sf::VertexArray vertexA(sf::LinesStrip,7);
+            vertexA[0] = p1;
+            vertexA[1] = p2;
+            vertexA[2] = p3;
+            vertexA[3] = p4;
+            vertexA[4] = p5;
+            vertexA[5] = p6;
+            vertexA[6] = p1;
+            
+            sf::CircleShape hexagone(120,6);
+            hexagone.setTexture(&text,false);
+            
             while(window.isOpen()){
                 sf::Event event;
                 while(window.pollEvent(event)){
@@ -98,6 +108,8 @@ int main(int argc,char* argv[])
                 window.draw(t2,&text);
                 window.draw(t3,&text);
                 window.draw(t4,&text);
+                //window.draw(vertexA,&text);
+                //window.draw(hexagone);
                 window.draw(message);
                 window.display();
             }
