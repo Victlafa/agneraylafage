@@ -116,6 +116,9 @@ int main(int argc,char* argv[])
 
             //render::Layer::ElementTabLayer tab;
             //tab.initSurface(0);
+            std::unique_ptr<ElementTab> grid ( new ElementTab(7,5) );
+            ElementTabLayer gridLayer(*grid);
+            gridLayer.initSurface(0);
             
         }
         
