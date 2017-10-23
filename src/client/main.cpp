@@ -2,6 +2,8 @@
 
 // Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/System/Utf.hpp>
 
 void testSFML() {
     sf::Texture texture;
@@ -75,6 +77,14 @@ int main(int argc,char* argv[])
             t3[0]=p2;t3[1]=p5;t3[2]=p6;
             t4[0]=p3;t4[1]=p4;t4[2]=p5;
 
+            sf::Font myFont;
+            if (!myFont.loadFromFile("./res/HPS_Extrabold_trial.ttf"))
+                std::cout << "Erreur chargement police\n" << std::endl;
+            
+            sf::Text message("Bonjour !",myFont,80.f);
+            message.setStyle(sf::Text::Bold);
+            message.setColor(sf::Color::White);
+            message.setPosition(300,300);
             
             while(window.isOpen()){
                 sf::Event event;
@@ -86,6 +96,7 @@ int main(int argc,char* argv[])
                 window.draw(t2,&text);
                 window.draw(t3,&text);
                 window.draw(t4,&text);
+                window.draw(message);
                 window.display();
             }
 
