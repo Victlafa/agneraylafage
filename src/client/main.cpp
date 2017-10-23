@@ -12,10 +12,12 @@ void testSFML() {
 // Fin test SFML
 
 #include "state.h"
+#include "render.h"
 #include "TestsState.h"
 
 using namespace std;
 using namespace state;
+using namespace render;
 
 int main(int argc,char* argv[]) 
 {
@@ -100,6 +102,9 @@ int main(int argc,char* argv[])
                 window.display();
             }
 
+            render::Layer::ElementTabLayer tab;
+            tab.initSurface(0);
+            
         }
         
     } catch (...) {

@@ -1,7 +1,8 @@
-#include <SFML/Graphics.hpp>
 #include <iostream>
-#include "ElementTabLayer.h"
 #include <cstdlib>
+#include <SFML/Graphics.hpp>
+#include "ElementTabLayer.h"
+
 
 namespace render{
     
@@ -24,12 +25,12 @@ namespace render{
                 std::vector<int> c(2);
                 c[0]=rand(0,7)%7;
                 c[1]=rand(0,5)%5;
-                while((std::find(lforbid.begin(),lforbid.end(),c)!=lforbid.end())&&(std::find(lcoordonees.begin(),lcoordonees.end(),c)!=lcoordonnees.end())){
+                while((std::find(lforbid.begin(),lforbid.end(),c)!=lforbid.end())&&(std::find(lcoordonees.begin(),lcoordonees.end(),c)!=lcoordonees.end())){
                     c[0]=rand(0,7)%7;
                     c[1]=rand(0,5)%5;
                 }
                 lcoordonees.push_back(c);
-                cout << "x : "+c[0]+" y : "+c[1] << endl;
+                std::cout << "x : "+c[0]+" y : "+c[1] << std::endl;
             }
         }
         
