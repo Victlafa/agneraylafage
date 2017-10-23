@@ -26,7 +26,7 @@ namespace render {
     int getCellWidth () const;
     int getCellHeight () const;
     const std::string getImageFile () const;
-    const Tile& getTile (const state::Element& elem) const;
+    const Tile& getTile (const state::ElementTab& elemTab) const;
     // Setters and Getters
   };
 
