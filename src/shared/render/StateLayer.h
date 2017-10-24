@@ -10,8 +10,8 @@ namespace render {
   class Layer;
 }
 
-#include "Layer.h"
 #include "state/State.h"
+#include "Layer.h"
 
 namespace render {
 
@@ -19,7 +19,7 @@ namespace render {
   class StateLayer : public render::Layer {
     // Attributes
   private:
-    const state::State& state;
+    state::State state;
     // Operations
   public:
     StateLayer (const state::State& state);
