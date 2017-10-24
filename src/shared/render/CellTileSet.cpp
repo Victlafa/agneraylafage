@@ -35,12 +35,9 @@ namespace render
         return "./res/hexa.png";
     }
     
-    const Tile& CellTileSet::getTile (const state::ElementTab& elemTab) const
+    const Tile& CellTileSet::getTile (int index, int player) const
     {
-        if (elemTab.getTabType() == state::TypeID::CELL) {
-            return *(new Tile(0,0,102,122));
-        } else
-            return *(new Tile());
+        return this->cells[index];
     }
 }
 

@@ -9,7 +9,7 @@
 namespace render
 {
     TileSet::~TileSet () {}
-    const Tile& TileSet::getTile (const state::Element& elem) const
+    const Tile& TileSet::getTile (int index, int player) const
     {
         Tile* tuile = new Tile();
         return *tuile;

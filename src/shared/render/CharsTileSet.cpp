@@ -32,12 +32,15 @@ namespace render
         return "./res/groupes.png";
     }
     
-    const Tile& CharsTileSet::getTile (const state::ElementTab& elemTab) const
+    const Tile& CharsTileSet::getTile (int index, int player = 1) const
     {
-        if (elemTab.getTabType() == state::TypeID::CREATURESGROUP) {
-            return *(new Tile(0,0,100,100));
-        } else
+        if (player == 1)
+            return this->creaturesPlayer1[index];
+        else if (player == 2)
+            return this->creaturesPlayer2[index];
+        else
             return *(new Tile());
+            
     }
 }
 
