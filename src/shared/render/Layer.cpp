@@ -12,7 +12,7 @@ namespace render
     Layer::Layer ()
     {
         this->surface = std::unique_ptr<Surface>(new Surface());
-        this->tileset = std::shared_ptr<TileSet>(new TileSet());
+        
     }
     
     const std::unique_ptr<Surface>& Layer::getSurface () const

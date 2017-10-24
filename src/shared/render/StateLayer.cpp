@@ -4,6 +4,7 @@
 namespace render{
 
     StateLayer::StateLayer(const state::State& state){
+        this->tileset = std::shared_ptr<TileSet>(new StateTileSet());
         this->state = state;
     }
 
