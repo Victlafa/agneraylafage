@@ -3,11 +3,15 @@
 #define RENDER__STATELAYER__H
 
 
+namespace state {
+  class State;
+};
 namespace render {
   class Layer;
 }
 
 #include "Layer.h"
+#include "state/State.h"
 
 namespace render {
 
