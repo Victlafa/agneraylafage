@@ -5,7 +5,7 @@
  */
 
 #include "CharsTileSet.h"
-#include "state/TypeID.h"
+#include "state.h"
 
 namespace render
 {
