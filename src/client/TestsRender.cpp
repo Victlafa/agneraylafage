@@ -43,14 +43,27 @@ namespace render
         grid = std::shared_ptr<state::ElementTab>(new state::ElementTab(7, 5));
         ElementTabLayer *gridLayer = new ElementTabLayer(grid,0);
         gridLayer->initSurface();
+        sf::RenderWindow window(sf::VideoMode(1024,720),"Affichage d'une ligne d'hexagones :)");
+        while(window.isOpen())
+        {
+            sf::Event event;
+            while(window.pollEvent(event)){
+                if(event.type==sf::Event::Closed) window.close();
+            }
+            window.clear();
+            gridLayer->getSurface()->draw(window,sf::RenderStates::Default);
+            window.display();
+        }
 
-        std::cout << "Test ElementTabLayer - Init ElementTabLayer : ";
-        std::cout << ((NULL != gridLayer) ? "OK" : "KO") << std::endl;
 
-        std::cout << "Test ElementTabLayer - Getter/Setter surface : ";
-        gridLayer->setSurface(new Surface());
-        std::cout << ((NULL != gridLayer->getSurface()) ? "OK" : "KO") << std::endl;
-        
-        
+//        std::cout << "Test ElementTabLayer - Init ElementTabLayer : ";
+//        std::cout << ((NULL != gridLayer) ? "OK" : "KO") << std::endl;
+//
+//        std::cout << "Test ElementTabLayer - Getter/Setter surface : ";
+//        gridLayer->setSurface(new Surface());
+//        std::cout << ((NULL != gridLayer->getSurface()) ? "OK" : "KO") << std::endl;
+//        
+//        
     }
+    
 }
