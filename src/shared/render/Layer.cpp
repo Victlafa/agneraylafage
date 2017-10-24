@@ -27,7 +27,7 @@ namespace render
             this->surface = std::unique_ptr<Surface>(surface);
     }
     
-    void Layer::printText (int x, int y, const std::string& msg, size_t tileMinIdx, size_t tileMaxIdx)
+    void Layer::printText (int x, int y, const std::string& msg)
     {
         sf::Font myFont;
         if (!myFont.loadFromFile("./res/HPS_Extrabold_trial.ttf"))

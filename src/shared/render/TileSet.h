@@ -6,8 +6,12 @@
 
 namespace render {
   class Tile;
+};
+namespace state {
+  class Element;
 }
 
+#include "state/Element.h"
 #include "Tile.h"
 
 namespace render {
