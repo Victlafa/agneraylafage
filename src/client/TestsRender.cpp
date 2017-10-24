@@ -51,7 +51,7 @@ namespace render
                 if(event.type==sf::Event::Closed) window.close();
             }
             window.clear();
-            gridLayer->getSurface()->draw(window,sf::RenderStates::Default);
+            gridLayer->getSurface()->draw(window,&gridLayer->getSurface()->getTexture());
             window.display();
         }
 
