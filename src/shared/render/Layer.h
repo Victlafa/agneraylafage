@@ -4,7 +4,6 @@
 
 #include <memory>
 #include <string>
-#include <stdlib.h>
 
 namespace render {
   class Surface;
@@ -30,7 +29,7 @@ namespace render {
     const std::unique_ptr<Surface>& getSurface () const;
     void setSurface (Surface* surface);
     virtual void initSurface (int type) = 0;
-    void printText (int x, int y, const std::string& msg, size_t tileMinIdx, size_t tileMaxIdx);
+    void printText (int x, int y, const std::string& msg);
     // Setters and Getters
     const std::shared_ptr<TileSet>& getTileset() const;
     void setTileset(const std::shared_ptr<TileSet>& tileset);
