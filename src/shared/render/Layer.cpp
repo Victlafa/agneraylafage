@@ -26,7 +26,17 @@ namespace render
             this->surface = std::unique_ptr<Surface>(surface);
     }
     
-    //void Layer::printText (int x, int y, const std::string& msg, size_t tileMinIdx, size_t tileMaxIdx);
+    void Layer::printText (int x, int y, const std::string& msg, size_t tileMinIdx, size_t tileMaxIdx)
+    {
+        sf::Font myFont;
+        if (!myFont.loadFromFile("./res/HPS_Extrabold_trial.ttf"))
+            std::cout << "Erreur chargement police\n" << std::endl;
+        
+        sf::Text message(msg,myFont,50.f);
+        message.setColor(sf::Color::White);
+        message.setPosition(x,y);
+    }
+    
     // Setters and Getters
     const std::shared_ptr<TileSet>& Layer::getTileset() const
     {
