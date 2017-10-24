@@ -41,8 +41,8 @@ namespace render
         
         std::shared_ptr<state::ElementTab> grid;
         grid = std::shared_ptr<state::ElementTab>(new state::ElementTab(7, 5));
-        ElementTabLayer *gridLayer = new ElementTabLayer(grid);
-        gridLayer->initSurface(0);
+        ElementTabLayer *gridLayer = new ElementTabLayer(grid,0);
+        gridLayer->initSurface();
 
         std::cout << "Test ElementTabLayer - Init ElementTabLayer : ";
         std::cout << ((NULL != gridLayer) ? "OK" : "KO") << std::endl;
