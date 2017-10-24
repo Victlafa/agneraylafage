@@ -38,7 +38,7 @@ namespace render
     const Tile& CellTileSet::getTile (const state::ElementTab& elemTab) const
     {
         Tile tuile();
-        return Tile;
+        return tuile;
     }
 }
 
