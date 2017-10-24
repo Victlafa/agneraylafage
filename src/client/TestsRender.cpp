@@ -44,6 +44,7 @@ namespace render
         ElementTabLayer *gridLayer = new ElementTabLayer(grid,0);
         gridLayer->initSurface();
         sf::RenderWindow window(sf::VideoMode(1024,720),"Affichage d'une ligne d'hexagones :)");
+        
         while(window.isOpen())
         {
             sf::Event event;
