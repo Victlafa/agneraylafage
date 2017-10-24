@@ -37,13 +37,8 @@ namespace render
     
     const Tile& CellTileSet::getTile (const state::ElementTab& elemTab) const
     {
-        if (elemTab.getTabType() == state::TypeID::CELL)
-        {
-            Tile tuile();
-            return &tuile;
-        }
-        else
-            return NULL;
+        Tile tuile();
+        return Tile;
     }
 }
 
