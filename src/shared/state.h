@@ -3,21 +3,4 @@
 #define __STATE__H
 
 #include "state/Element.h"
-#include "state/CellTypeID.h"
-#include "state/CellState.h"
-#include "state/Cell.h"
-#include "state/SpecialCellID.h"
-#include "state/SpecialCell.h"
-#include "state/SimpleCellID.h"
-#include "state/SimpleCell.h"
-#include "state/CreaturesID.h"
-#include "state/CreaturesGroup.h"
-#include "state/Player.h"
-#include "state/TypeID.h"
-#include "state/PlayerResources.h"
-#include "state/ElementTab.h"
-#include "state/State.h"
-#include "state/AElementTabAlloc.h"
-#include "state/ElementTabAlloc.h"
-#include "state/ElementTabFactory.h"
 #endif
