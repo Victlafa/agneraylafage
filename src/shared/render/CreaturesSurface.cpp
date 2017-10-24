@@ -5,6 +5,7 @@
  */
 
 #include "CreaturesSurface.h"
+using namespace std;
 
 namespace render
 {
