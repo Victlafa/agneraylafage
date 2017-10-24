@@ -2,17 +2,23 @@
 #include <cstdlib>
 #include <SFML/Graphics.hpp>
 #include "ElementTabLayer.h"
+#include "CellTileSet.h"
+#include "CharsTileSet.h"
 
 
 namespace render{
     
     ElementTabLayer::ElementTabLayer(const std::shared_ptr<state::ElementTab>& tab, int type){
-        this->tileset = std::shared_ptr<TileSet>(new TileSet());
+        if (!type)
+            this->tileset = std::shared_ptr<CellTileSet>(new CellTileSet());
+        else
+            this->tileset = std::shared_ptr<CharsTileSet>(new CharsTileSet());
+
         this->tab = tab;
         this->type = type;
     }
     
-    virtual void ElementTabLayer::initSurface() override {
+    void ElementTabLayer::initSurface() {
         
         this->surface->loadTexture("hexa.png");
         this->surface->initQuads(5);
