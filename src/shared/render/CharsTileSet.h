@@ -29,7 +29,6 @@ namespace render {
     // Operations
   public:
     CharsTileSet ();
-    ~CharsTileSet ();
     int getCellWidth () const;
     int getCellHeight () const;
     const std::string getImageFile () const;
