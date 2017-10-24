@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+#include "state.h"
 #include "StateTileSet.h"
 
 namespace render
