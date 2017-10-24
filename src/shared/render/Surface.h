@@ -14,7 +14,7 @@ namespace render {
   /// class Surface - 
   class Surface {
     // Attributes
-  private:
+  protected:
     sf::Texture texture;
     // Operations
   public:
@@ -23,6 +23,8 @@ namespace render {
     virtual void setSpriteTexture (int index, const Tile& tex) = 0;
     virtual void draw (sf::RenderTarget& target, sf::RenderStates states) const = 0;
     // Setters and Getters
+    const sf::Texture& getTexture() const;
+    void setTexture(const sf::Texture& texture);
   };
 
 };

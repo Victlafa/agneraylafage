@@ -7,7 +7,8 @@ namespace render{
         this->state = state;
     }
 
-    void StateLayer::initSurface(){
+    void StateLayer::initSurface(int type){
+        //this->surface = 
     }
     
 }
