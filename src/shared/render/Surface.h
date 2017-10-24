@@ -3,6 +3,7 @@
 #define RENDER__SURFACE__H
 
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include <string>
 
 namespace render {
@@ -16,15 +17,19 @@ namespace render {
     // Attributes
   protected:
     sf::Texture texture;
+    std::vector<sf::VertexArray> quadsList;
     // Operations
   public:
-    virtual void loadTexture (const std::string& imgFile) = 0;
-    virtual void setSpriteLocation (int index, int x, int y) = 0;
-    virtual void setSpriteTexture (int index, const Tile& tex) = 0;
-    virtual void draw (sf::RenderTarget& target, sf::RenderStates states) const = 0;
+    void loadTexture (const std::string& imgFile);
+    void setSpriteLocation (int index, int x, int y);
+    void setSpriteTexture (int index, const Tile& tex);
+    void draw (sf::RenderTarget& target, sf::RenderStates states) const;
+    void initQuads (int count);
     // Setters and Getters
     const sf::Texture& getTexture() const;
     void setTexture(const sf::Texture& texture);
+    const std::vector<sf::VertexArray>& getQuadsList() const;
+    void setQuadsList(const std::vector<sf::VertexArray>& quadsList);
   };
 
 };
