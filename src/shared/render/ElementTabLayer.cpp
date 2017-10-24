@@ -7,6 +7,7 @@
 namespace render{
     
     ElementTabLayer::ElementTabLayer(const std::shared_ptr<state::ElementTab>& tab){
+        this->tileset = std::shared_ptr<TileSet>(new TileSet());
         this->tab = tab;
     }
     
