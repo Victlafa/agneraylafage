@@ -7,11 +7,14 @@ namespace state {
   class Element;
 }
 
+#include "TypeID.h"
 
 namespace state {
 
   /// class Element - 
   class Element {
+    // Associations
+    state::TypeID elemType;
     // Attributes
   protected:
     int x;
@@ -23,6 +26,8 @@ namespace state {
     virtual ~Element ();
     bool operator== (Element otherElement);
     // Setters and Getters
+    TypeID getElemType() const;
+    void setElemType(TypeID elemType);
     int getX() const;
     void setX(int x);
     int getY() const;
