@@ -10,24 +10,24 @@
 
 namespace render
 {
-    CellTileSet::CellTileSet () { cells = std::vector<Tile>(); }
+    CellTileSet::CellTileSet () { /*cells = std::vector<Tile>();*/ }
     
     // Renvoie l'épaisseur d'une cellule si la liste est non vide. Renvoie -1 si la liste est vide.
     int CellTileSet::getCellWidth () const
     {
-        if (cells.size() != 0)
-            return this->cell.getWidth();
-        else
-            return -1;
+//        /*if (cells.size() != 0)
+//            return this->cell.getWidth();
+//        else
+//            return -1;*/
     }
     
     // Renvoie la hauteur d'une cellule si la liste est non vide. Renvoie -1 si la liste est vide.
     int CellTileSet::getCellHeight () const
     {
-        if (cells.size() != 0)
-            return this->cell.getHeight();
-        else
-            return -1;
+//        /*if (cells.size() != 0)
+//            return this->cell.getHeight();
+//        else
+//            return -1;*/
     }
     
     const std::string CellTileSet::getImageFile () const
@@ -37,8 +37,8 @@ namespace render
     
     const Tile& CellTileSet::getTile (const state::ElementTab& elemTab) const
     {
-        Tile tuile();
-        return tuile;
+        Tile* = new tuile();
+        return *tuile;
     }
 }
 

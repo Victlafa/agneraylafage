@@ -30,11 +30,10 @@ namespace render
     
     const std::string StateTileSet::getImageFile () const
     {
-        // PENSER A DEFINIR UNE IMAGE POUR LES ETATS !!
+        return "Definir une image pour les etats !";
     }
     
     const Tile& StateTileSet::getCharTile (char c) const
     {
-        // PENSER A DEFINIR UNE IMAGE POUR LES ETATS !!
+        return "Definir une image pour les etats !";    }
     }
-}
