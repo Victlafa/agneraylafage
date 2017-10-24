@@ -41,4 +41,9 @@ namespace render
         else
             return Tile();
     }
+    
+    const Tile& StateTileSet::getTile (const state::Element& elem) const
+    {
+        return Tile();
+    }
 }
