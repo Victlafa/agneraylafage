@@ -24,7 +24,7 @@ namespace render{
             state::Element elem;
             Tile tuile = this->tileset->getTile(elem);
             this->surface->setTextureLocation(i,tuile);
-            this->surface->setFinalLocation(i,260+(i+1)*51,126+(i+1)*61,tuile);
+            this->surface->setFinalLocation(i,260+51+i*102,126+61,tuile);
         }
         
         
