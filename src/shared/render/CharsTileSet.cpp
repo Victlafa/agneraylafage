@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-#include "CharsTileSet.h"
 #include "state.h"
+#include "CharsTileSet.h"
+
 
 namespace render
 {
