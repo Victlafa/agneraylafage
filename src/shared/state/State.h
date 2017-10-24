@@ -2,11 +2,35 @@
 #ifndef STATE__STATE__H
 #define STATE__STATE__H
 
+#include <memory>
+
+namespace state {
+  class ElementTab;
+  class Player;
+}
+
+#include "ElementTab.h"
+#include "Player.h"
 
 namespace state {
 
   /// class State - 
   class State {
+    // Associations
+    // Attributes
+  private:
+    std::unique_ptr<ElementTab> grid;
+    std::unique_ptr<ElementTab> characters;
+    std::unique_ptr<Player> player;
+    int totalCellNbr;
+    // Operations
+  public:
+    State ();
+    ~State ();
+    const std::unique_ptr<ElementTab>& getGrid () const;
+    const std::unique_ptr<ElementTab>& getCharacters () const;
+    int getCellNbr () const;
+    const std::unique_ptr<Player>& getPlayer () const;
     // Setters and Getters
   };
 
