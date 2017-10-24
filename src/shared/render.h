@@ -10,7 +10,7 @@
 #include "render/ElementTabLayer.h"
 #include "render/CellDraw.h"
 #include "render/StateTileSet.h"
-#include "render/GridTileSet.h"
+#include "render/CellTileSet.h"
 #include "render/CharsTileSet.h"
 #include "render/CellSurface.h"
 #include "render/CreaturesSurface.h"

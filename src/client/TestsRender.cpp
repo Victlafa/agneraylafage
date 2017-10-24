@@ -11,9 +11,10 @@
  * Created on 22 octobre 2017, 11:28
  */
 
+#include <iostream>
 #include "TestsRender.h"
-#include "state/State.h"
-#include "render/Layer.h"
+#include "state.h"
+#include "render.h"
 
 namespace render
 {
@@ -39,15 +40,15 @@ namespace render
         std::cout << "DEBUT TESTS ELEMENTTABLAYER" << std::endl << std::endl;
         
         std::unique_ptr<state::ElementTab> grid(new state::ElementTab(7, 5));
-        ElementTabLayer gridLayer(*grid);
-        gridLayer.initSurface(0);
+        ElementTabLayer *gridLayer(*grid);
+        *gridLayer.initSurface(0);
 
         std::cout << "Test ElementTabLayer - Init ElementTabLayer : ";
         std::cout << ((NULL != gridLayer) ? "OK" : "KO") << std::endl;
 
         std::cout << "Test ElementTabLayer - Getter/Setter surface : ";
-        gridLayer.setSurface(new Surface());
-        std::cout << ((NULL != gridLayer.getSurface()) ? "OK" : "KO") << std::endl;
+        *gridLayer.setSurface(new Surface());
+        std::cout << ((NULL != *gridLayer.getSurface()) ? "OK" : "KO") << std::endl;
         
         
     }
