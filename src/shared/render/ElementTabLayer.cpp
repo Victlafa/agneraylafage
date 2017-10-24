@@ -6,12 +6,13 @@
 
 namespace render{
     
-    ElementTabLayer::ElementTabLayer(const std::shared_ptr<state::ElementTab>& tab){
+    ElementTabLayer::ElementTabLayer(const std::shared_ptr<state::ElementTab>& tab, int type){
         this->tileset = std::shared_ptr<TileSet>(new TileSet());
         this->tab = tab;
+        this->type = type;
     }
     
-    void ElementTabLayer::initSurface(int type){
+    void ElementTabLayer::initSurface(){
         
         this->surface->loadTexture("hexa.png");
         this->surface->initQuads(5);
