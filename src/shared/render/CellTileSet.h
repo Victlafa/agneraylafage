@@ -28,6 +28,7 @@ namespace render {
     // Operations
   public:
     CellTileSet ();
+    ~CellTileSet ();
     int getCellWidth () const;
     int getCellHeight () const;
     const std::string getImageFile () const;

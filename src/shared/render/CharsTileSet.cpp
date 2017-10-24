@@ -11,6 +11,7 @@
 namespace render
 {
     CharsTileSet::CharsTileSet (){}
+    CharsTileSet::~CharsTileSet(){}
     
     int CharsTileSet::getCellWidth () const
     {
