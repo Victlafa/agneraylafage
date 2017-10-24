@@ -35,5 +35,5 @@ namespace render
     
     const Tile& StateTileSet::getCharTile (char c) const
     {
-        return "Definir une image pour les etats !";    }
+        return &(new Tile());
     }

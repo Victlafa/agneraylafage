@@ -39,8 +39,9 @@ namespace render
     {
         std::cout << "DEBUT TESTS ELEMENTTABLAYER" << std::endl << std::endl;
         
-        std::unique_ptr<state::ElementTab> grid(new state::ElementTab(7, 5));
-        ElementTabLayer* gridLayer = new ElementTabLayer(*grid);
+        std::shared_ptr<state::ElementTab> grid;
+        grid = std::shared_ptr<state::ElementTab>(new state::ElementTab(7, 5));
+        ElementTabLayer *gridLayer = new ElementTabLayer(grid);
         gridLayer->initSurface(0);
 
         std::cout << "Test ElementTabLayer - Init ElementTabLayer : ";

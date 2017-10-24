@@ -16,7 +16,10 @@ void TestsElementTab()
 {
     std::cout << "DEBUT TESTS ELEMENTTAB" << std::endl << std::endl;
     
-    std::unique_ptr<ElementTab> elemTab ( new ElementTab(3,4) );
+    size_t a, b;
+    a=3;b=4;
+    
+    std::shared_ptr<ElementTab> elemTab ( new ElementTab(a,b) );
     Element* elemTest = new Element();
     
     std::cout << "Test ElementTab - Init tableau : ";
