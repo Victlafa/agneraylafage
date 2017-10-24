@@ -23,14 +23,14 @@ namespace render{
             for(int i=0; i<4; i++){
             //On remplit la map de cellules simples aléatoires (pour le moment)
                 std::vector<int> c(2);
-                c[0]=rand(0,7)%7;
-                c[1]=rand(0,5)%5;
+                c[0]=rand()%7;
+                c[1]=rand()%5;
                 while((std::find(lforbid.begin(),lforbid.end(),c)!=lforbid.end())&&(std::find(lcoordonees.begin(),lcoordonees.end(),c)!=lcoordonees.end())){
-                    c[0]=rand(0,7)%7;
-                    c[1]=rand(0,5)%5;
+                    c[0]=rand()%7;
+                    c[1]=rand()%5;
                 }
                 lcoordonees.push_back(c);
-                std::cout << "x : "+c[0]+" y : "+c[1] << std::endl;
+                std::cout << "x : " << c[0] << " y : " << c[1] << std::endl;
             }
         }
         
