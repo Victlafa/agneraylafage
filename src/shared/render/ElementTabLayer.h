@@ -20,7 +20,7 @@ namespace render {
   class ElementTabLayer : public render::Layer {
     // Attributes
   private:
-    std::shared_ptr<state::ElementTab> tab;
+    const std::shared_ptr<state::ElementTab>& tab;
     int type;
     // Operations
   public:

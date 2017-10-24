@@ -8,14 +8,11 @@
 
 namespace render{
     
-    ElementTabLayer::ElementTabLayer(const std::shared_ptr<state::ElementTab>& tab, int type){
+    ElementTabLayer::ElementTabLayer(const std::shared_ptr<state::ElementTab>& tab, int type) : tab(tab), type(type){
         if (!type)
             this->tileset = std::shared_ptr<CellTileSet>(new CellTileSet());
         else
             this->tileset = std::shared_ptr<CharsTileSet>(new CharsTileSet());
-
-        this->tab = tab;
-        this->type = type;
     }
     
     void ElementTabLayer::initSurface() {
