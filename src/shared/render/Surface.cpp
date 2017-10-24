@@ -16,10 +16,20 @@ namespace render
     
     void Surface::setSpriteLocation (int index, int x, int y){ }
     void Surface::setSpriteTexture (int index, const Tile& tex){ }
-//    void Surface::draw (sf::RenderTarget& target, sf::RenderStates states) const { }
+    
+    void Surface::draw (sf::RenderTarget& target, sf::RenderStates states) const
+    {
+        for (auto elem : quadsList)
+            target.draw(elem,states);
+    }
+    
     void Surface::initQuads (int count)
     {
         this->quadsList.reserve(count);
+        for (int i = 0; i < count; i ++)
+        {
+            
+        }
     }
 //    // Setters and Getters
     const sf::Texture& Surface::getTexture() const
