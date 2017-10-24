@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+#include <iostream>
 #include "state.h"
 #include "Layer.h"
 
@@ -12,7 +13,7 @@ namespace render
     Layer::Layer ()
     {
         this->surface = std::unique_ptr<Surface>(new Surface());
-        this->tileset = std::shared_ptr<TileSet>(new TileSet());
+        
     }
     
     const std::unique_ptr<Surface>& Layer::getSurface () const
@@ -43,11 +44,12 @@ namespace render
     {
         return this->tileset;
     }
+    
     void Layer::setTileset(const std::shared_ptr<TileSet>& tileset)
     {
-        if (tileset)
-            this->tileset.reset(tileset);
+        if (tileset.get())
+            this->tileset.reset(tileset.get());
         else
-            this->tileset = std::shared_ptr<TileSet>(tileset);
+            this->tileset = std::shared_ptr<TileSet>(tileset.get());
     }
 }

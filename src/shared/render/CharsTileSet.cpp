@@ -34,14 +34,10 @@ namespace render
     
     const Tile& CharsTileSet::getTile (const state::ElementTab& elemTab) const
     {
-        Tile tuile;
-        
         if (elemTab.getTabType() == state::TypeID::CREATURESGROUP) {
-            tuile = Tile(0,0,100,100);
+            return Tile(0,0,100,100);
         } else
-            tuile = Tile();
-        
-        return tuile;
+            return Tile();
     }
 }
 

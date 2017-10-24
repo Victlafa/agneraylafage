@@ -5,9 +5,6 @@
 #include <vector>
 #include <string>
 
-namespace state {
-  class Cell;
-};
 namespace render {
   class Tile;
 };
@@ -18,8 +15,7 @@ namespace render {
   class TileSet;
 }
 
-#include "state/Cell.h"
-#include "state/ElementTab.h"
+#include "Tile.h"
 #include "TileSet.h"
 
 namespace render {
@@ -28,14 +24,14 @@ namespace render {
   class CellTileSet : public render::TileSet {
     // Attributes
   private:
-    std::vector<state::Cell> cell;
+    std::vector<Tile> cells;
     // Operations
   public:
     CellTileSet ();
     int getCellWidth () const;
     int getCellHeight () const;
     const std::string getImageFile () const;
-    const Tile& getTile (const std::vector<state::ElementTab> elemTab) const;
+    const Tile& getTile (const state::ElementTab& elemTab) const;
     // Setters and Getters
   };
 
