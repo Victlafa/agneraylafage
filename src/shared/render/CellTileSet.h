@@ -13,15 +13,10 @@ namespace state {
 };
 namespace render {
   class TileSet;
-};
-namespace state {
-  class Cell;
 }
 
 #include "Tile.h"
-#include "state/ElementTab.h"
 #include "TileSet.h"
-#include "state/Cell.h"
 
 namespace render {
 
@@ -36,7 +31,7 @@ namespace render {
     int getCellWidth () const;
     int getCellHeight () const;
     const std::string getImageFile () const;
-    const Tile& getTile (const std::vector<state::ElementTab> elemTab) const;
+    const Tile& getTile (const state::ElementTab& elemTab) const;
     // Setters and Getters
   };
 
