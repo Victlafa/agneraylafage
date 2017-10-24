@@ -6,11 +6,6 @@
 
 namespace render {
   class Tile;
-};
-namespace state {
-  class ElementTab;
-};
-namespace render {
   class TileSet;
 }
 
