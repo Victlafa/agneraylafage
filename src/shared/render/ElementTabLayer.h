@@ -20,10 +20,10 @@ namespace render {
   class ElementTabLayer : public render::Layer {
     // Attributes
   private:
-    const std::shared_ptr<state::ElementTab> tab;
+    std::shared_ptr<state::ElementTab> tab;
     // Operations
   public:
-    ElementTabLayer (const std::shared_ptr<state::ElementTab> tab);
+    ElementTabLayer (const std::shared_ptr<state::ElementTab>& tab);
     void initSurface (int type);
     // Setters and Getters
   };
