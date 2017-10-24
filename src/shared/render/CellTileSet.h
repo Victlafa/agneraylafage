@@ -2,7 +2,6 @@
 #ifndef RENDER__CELLTILESET__H
 #define RENDER__CELLTILESET__H
 
-
 #include <string>
 
 namespace render {
