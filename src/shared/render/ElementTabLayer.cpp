@@ -6,8 +6,8 @@
 
 namespace render{
     
-    ElementTabLayer::ElementTabLayer(const state::ElementTab& tab){
-        this->tab = tab;
+    ElementTabLayer::ElementTabLayer(const state::ElementTab etab){
+        this->tab = etab;
     }
     
     void initSurface(int type){
