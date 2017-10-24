@@ -5,9 +5,6 @@
 #include <vector>
 #include <string>
 
-namespace state {
-  class Cell;
-};
 namespace render {
   class Tile;
 };
@@ -16,11 +13,15 @@ namespace state {
 };
 namespace render {
   class TileSet;
+};
+namespace state {
+  class Cell;
 }
 
-#include "state/Cell.h"
+#include "Tile.h"
 #include "state/ElementTab.h"
 #include "TileSet.h"
+#include "state/Cell.h"
 
 namespace render {
 
@@ -28,7 +29,7 @@ namespace render {
   class CellTileSet : public render::TileSet {
     // Attributes
   private:
-    std::vector<state::Cell> cell;
+    std::vector<Tile> cells;
     // Operations
   public:
     CellTileSet ();
