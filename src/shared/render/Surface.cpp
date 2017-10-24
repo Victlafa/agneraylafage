@@ -5,6 +5,7 @@
  */
 
 #include "Surface.h"
+#include "Tile.h"
 
 namespace render
 {
@@ -15,20 +16,27 @@ namespace render
         
     }
     
-    void Surface::setSpriteLocation (int index, int x, int y)
+    void Surface::setFinalLocation (int index, int x, int y, const Tile& tex)
     { 
-        this->quadsList[i][0].position = sf::Vector2f(260 + 102 * i, 126);
-        this->quadsList[i][1].position = sf::Vector2f(361 + 102 * i, 126);
-        this->quadsList[i][2].position = sf::Vector2f(260 + 102 * i, 248);
-        this->quadsList[i][3].position = sf::Vector2f(361 + 102 * i, 248);
+        int halfHeight = tex.getHeight()/2;
+        int halfWidth = tex.getWidth()/2;
+        this->quadsList[index][0].position = sf::Vector2f(x - halfWidth, y + halfHeight);
+        this->quadsList[index][1].position = sf::Vector2f(x + halfWidth, y + halfHeight);
+        this->quadsList[index][2].position = sf::Vector2f(x - halfWidth, y - halfHeight);
+        this->quadsList[index][3].position = sf::Vector2f(x + halfWidth, y - halfHeight);
     }
     
-    void Surface::setSpriteTexture (int index, const Tile& tex)
+    void Surface::setTextureLocation (int index, const Tile& tex)
     { 
-        this->quadsList[index][0].texCoords = sf::Vector2f(x - 51,y + 61);
-        this->quadsList[index][1].texCoords = sf::Vector2f(x + 51,y + 61);
-        this->quadsList[index][2].texCoords = sf::Vector2f(x - 51,y - 61);
-        this->quadsList[index][3].texCoords = sf::Vector2f(x + 51,y - 61);
+        int halfHeight = tex.getHeight()/2;
+        int halfWidth = tex.getWidth()/2;
+        int x = tex.getX();
+        int y = tex.getY();
+        
+        this->quadsList[index][0].texCoords = sf::Vector2f(x - halfWidth, y + halfHeight);
+        this->quadsList[index][1].texCoords = sf::Vector2f(x + halfWidth, y + halfHeight);
+        this->quadsList[index][2].texCoords = sf::Vector2f(x - halfWidth, y - halfHeight);
+        this->quadsList[index][3].texCoords = sf::Vector2f(x + halfWidth, y - halfHeight);
     }
     
     void Surface::draw (sf::RenderTarget& target, sf::RenderStates states) const
@@ -44,7 +52,6 @@ namespace render
         {
             // Preparation de la première ligne d'hexagones  :
             this->quadsList.push_back(sf::VertexArray(sf::Quads,4));
-            
         }
     }
 //    // Setters and Getters
