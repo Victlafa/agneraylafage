@@ -3,7 +3,7 @@
 
 namespace render{
 
-    StateLayer::StateLayer(const state::State& state){
+    StateLayer::StateLayer(state::State state){
         this->state = state;
     }
 

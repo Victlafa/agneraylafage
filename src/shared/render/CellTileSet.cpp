@@ -35,9 +35,9 @@ namespace render
         return "./res/hexa.png";
     }
     
-    const Tile& CellTileSet::getTile (const state::ElementTab& elemTab) const
+    const Tile& CellTileSet::getTile (const std::vector<state::ElementTab> elemTab) const
     {
-        Tile* = new tuile();
+        Tile* tuile = new Tile();
         return *tuile;
     }
 }
