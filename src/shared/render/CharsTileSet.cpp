@@ -35,9 +35,9 @@ namespace render
     const Tile& CharsTileSet::getTile (const state::ElementTab& elemTab) const
     {
         if (elemTab.getTabType() == state::TypeID::CREATURESGROUP) {
-            return Tile(0,0,100,100);
+            return *(new Tile(0,0,100,100));
         } else
-            return Tile();
+            return *(new Tile());
     }
 }
 

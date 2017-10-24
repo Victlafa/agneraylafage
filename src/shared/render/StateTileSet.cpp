@@ -37,13 +37,13 @@ namespace render
     {
         //arrangé pour compilation, ne signifie rien
         if (c=='c')
-            return Tile(0,0,100,100);
+            return *(new Tile(0,0,100,100));
         else
-            return Tile();
+            return *(new Tile());
     }
     
     const Tile& StateTileSet::getTile (const state::Element& elem) const
     {
-        return Tile();
+        return *(new Tile());
     }
 }

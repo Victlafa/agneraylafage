@@ -11,7 +11,8 @@ namespace render
     TileSet::~TileSet () {}
     const Tile& TileSet::getTile (const state::Element& elem) const
     {
-        return Tile();
+        Tile* tuile = new Tile();
+        return *tuile;
     }
 }
 
