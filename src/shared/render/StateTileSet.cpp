@@ -35,5 +35,13 @@ namespace render
     
     const Tile& StateTileSet::getCharTile (char c) const
     {
-        return &(new Tile());
+        Tile tuile;
+        //arrangé ppur compilation, ne signifie rien
+        if (c=='c') {
+            tuile = Tile(0,0,100,100);
+        } else
+            tuile = Tile();
+        
+        return tuile;
     }
+}
