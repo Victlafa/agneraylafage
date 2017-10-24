@@ -16,6 +16,8 @@ namespace render
         
     }
     
+    Layer::~Layer() {}
+    
     const std::unique_ptr<Surface>& Layer::getSurface () const
     {
         return surface;

@@ -12,8 +12,6 @@ namespace render
     StateTileSet::StateTileSet () 
     { this->chars = std::vector<Tile>(); }
     
-    StateTileSet::~StateTileSet(){}
-    
     int StateTileSet::getCellWidth () const
     {
         if (chars.size() != 0)
