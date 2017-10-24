@@ -10,7 +10,14 @@
 
 namespace render
 {
-    CellTileSet::CellTileSet () { cells = std::vector<Tile>(); }
+    CellTileSet::CellTileSet () 
+    { 
+        cells = std::vector<Tile>(29); 
+        for (int i = 0; i < 29; i++)
+        {
+            cells.push_back(Tile(20,20,102,122));
+        }
+    }
     
     // Renvoie l'épaisseur d'une cellule si la liste est non vide. Renvoie -1 si la liste est vide.
     int CellTileSet::getCellWidth () const

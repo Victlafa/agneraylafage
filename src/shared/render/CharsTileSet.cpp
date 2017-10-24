@@ -32,15 +32,27 @@ namespace render
         return "./res/groupes.png";
     }
     
-    const Tile& CharsTileSet::getTile (int index, int player = 1) const
+    const Tile& CharsTileSet::getTile (const state::Element& elem) const
     {
-        if (player == 1)
-            return this->creaturesPlayer1[index];
-        else if (player == 2)
-            return this->creaturesPlayer2[index];
+        if (elem.getElemType() == state::TypeID::CREATURESGROUP)
+        {
+            if ((state::CreaturesGroup)elem.getCreaturesNbr() == 1)
+                return *(new Tile(50,50,100,100));
+            else if ((state::CreaturesGroup)elem.getCreaturesNbr() == 2)
+                return *(new Tile(150,150,100,100));
+            else if ((state::CreaturesGroup)elem.getCreaturesNbr() == 3)
+                return *(new Tile(250,250,100,100));
+            else if ((state::CreaturesGroup)elem.getCreaturesNbr() == 4)
+                return *(new Tile(350,350,100,100));
+            else if ((state::CreaturesGroup)elem.getCreaturesNbr() == 5)
+                return *(new Tile(450,450,100,100));
+            else
+                return *(new Tile(-1,-1,-1,-1));
+                
+        }
+        
         else
-            return *(new Tile());
-            
+            return *(new Tile(-1,-1,-1,-1));
     }
 }
 
