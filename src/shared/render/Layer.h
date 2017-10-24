@@ -28,7 +28,7 @@ namespace render {
     virtual ~Layer ();
     const std::unique_ptr<Surface>& getSurface () const;
     void setSurface (Surface* surface);
-    virtual void initSurface (int type) = 0;
+    virtual void initSurface () = 0;
     void printText (int x, int y, const std::string& msg);
     // Setters and Getters
     const std::shared_ptr<TileSet>& getTileset() const;

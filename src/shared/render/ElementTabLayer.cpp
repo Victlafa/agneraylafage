@@ -12,7 +12,7 @@ namespace render{
         this->type = type;
     }
     
-    void ElementTabLayer::initSurface(){
+    virtual void ElementTabLayer::initSurface() override {
         
         this->surface->loadTexture("hexa.png");
         this->surface->initQuads(5);

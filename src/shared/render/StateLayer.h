@@ -23,7 +23,7 @@ namespace render {
     // Operations
   public:
     StateLayer (const state::State& state);
-    void initSurface (int type = -1);
+    void initSurface ();
     // Setters and Getters
   };
 
