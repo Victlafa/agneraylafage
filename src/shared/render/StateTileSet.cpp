@@ -42,9 +42,9 @@ namespace render
             return *(new Tile());
     }
     
-    const Tile& StateTileSet::getTile (int index, int player) const
+    const Tile& StateTileSet::getTile (const state::Element& elem) const
     {
-        return this->chars[index];
-            
+        Tile* tuile = new Tile();
+        return *tuile;
     }
 }

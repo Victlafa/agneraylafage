@@ -9,10 +9,10 @@
 namespace render
 {
     TileSet::~TileSet () {}
-    const Tile& TileSet::getTile (const state::Element& elem) const
-    {
-        Tile* tuile = new Tile();
-        return *tuile;
-    }
+//    const Tile& TileSet::getTile (const state::Element& elem) const
+//    {
+//        Tile* tuile = new Tile();
+//        return *tuile;
+//    }
 }
 

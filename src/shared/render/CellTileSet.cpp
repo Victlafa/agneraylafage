@@ -42,9 +42,29 @@ namespace render
         return "./res/hexa.png";
     }
     
-    const Tile& CellTileSet::getTile (int index, int player) const
+    const Tile& CellTileSet::getTile (const state::Element& elem) const
     {
-        return this->cells[index];
+//        if (elem.getElemType() == state::TypeID::CELL)
+//        {
+//            state::Cell cellule = dynamic_cast<const state::Cell&>(elem);
+//            
+//            if (cellule.getCellType() == state::CellTypeID::SIMPLE)
+//            {
+//                state::SimpleCell simpleCellule = dynamic_cast<const state::SimpleCell&>(cellule);
+//                
+//                if (simpleCellule.getSimpleCellType() == state::SimpleCellID::SAND)
+//                    return *(new Tile(71,81,102,122));
+//                else
+//                    return *(new Tile(-1,-1,-1,-1));
+//            }
+//            
+//            else
+//                return *(new Tile(-1,-1,-1,-1));
+//        }
+        
+        return *(new Tile(71,81,102,122));
+        
+        
     }
 }
 

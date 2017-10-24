@@ -34,25 +34,27 @@ namespace render
     
     const Tile& CharsTileSet::getTile (const state::Element& elem) const
     {
-        if (elem.getElemType() == state::TypeID::CREATURESGROUP)
-        {
-            if ((state::CreaturesGroup)elem.getCreaturesNbr() == 1)
-                return *(new Tile(50,50,100,100));
-            else if ((state::CreaturesGroup)elem.getCreaturesNbr() == 2)
-                return *(new Tile(150,150,100,100));
-            else if ((state::CreaturesGroup)elem.getCreaturesNbr() == 3)
-                return *(new Tile(250,250,100,100));
-            else if ((state::CreaturesGroup)elem.getCreaturesNbr() == 4)
-                return *(new Tile(350,350,100,100));
-            else if ((state::CreaturesGroup)elem.getCreaturesNbr() == 5)
-                return *(new Tile(450,450,100,100));
-            else
-                return *(new Tile(-1,-1,-1,-1));
-                
-        }
+        return *(new Tile(50,50,100,100));
         
-        else
-            return *(new Tile(-1,-1,-1,-1));
+//        if (elem.getElemType() == state::TypeID::CREATURESGROUP)
+//        {
+//            if (elem.getCreaturesNbr() == 1)
+//                return *(new Tile(50,50,100,100));
+//            else if (elem.getCreaturesNbr() == 2)
+//                return *(new Tile(150,150,100,100));
+//            else if (elem.getCreaturesNbr() == 3)
+//                return *(new Tile(250,250,100,100));
+//            else if (elem.getCreaturesNbr() == 4)
+//                return *(new Tile(350,350,100,100));
+//            else if (elem.getCreaturesNbr() == 5)
+//                return *(new Tile(450,450,100,100));
+//            else
+//                return *(new Tile(-1,-1,-1,-1));
+//                
+//        }
+//        
+//        else
+//            return *(new Tile(-1,-1,-1,-1));
     }
 }
 

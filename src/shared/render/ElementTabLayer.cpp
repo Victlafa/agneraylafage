@@ -22,7 +22,7 @@ namespace render{
         for (int i = 0; i < 5; i++)
         {
             state::Element elem;
-            Tile tuile = this->tileset->getTile(i);
+            Tile tuile = this->tileset->getTile(elem);
             this->surface->setTextureLocation(i,tuile);
             this->surface->setFinalLocation(i,260+51+i*102,126+61,tuile);
         }
