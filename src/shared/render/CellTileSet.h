@@ -2,13 +2,20 @@
 #ifndef RENDER__CELLTILESET__H
 #define RENDER__CELLTILESET__H
 
+#include <vector>
 #include <string>
 
 namespace render {
   class Tile;
+};
+namespace state {
+  class ElementTab;
+};
+namespace render {
   class TileSet;
 }
 
+#include "state/ElementTab.h"
 #include "TileSet.h"
 
 namespace render {
@@ -17,14 +24,14 @@ namespace render {
   class CellTileSet : public render::TileSet {
     // Attributes
   private:
-    state::Cell cell;
+    std::vector<state::Cell> cell;
     // Operations
   public:
     CellTileSet ();
     int getCellWidth () const;
     int getCellHeight () const;
     const std::string getImageFile () const;
-    const Tile& getTile (const state::ElementTab& elemTab) const;
+    const Tile& getTile (const std::vector<state::ElementTab> elemTab) const;
     // Setters and Getters
   };
 
