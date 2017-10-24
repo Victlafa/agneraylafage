@@ -21,8 +21,8 @@ namespace render {
     // Operations
   public:
     void loadTexture (const std::string& imgFile);
-    void setSpriteLocation (int index, int x, int y);
-    void setSpriteTexture (int index, const Tile& tex);
+    void setFinalLocation (int index, int x, int y, const Tile& tex);
+    void setTextureLocation (int index, const Tile& tex);
     void draw (sf::RenderTarget& target, sf::RenderStates states) const;
     void initQuads (int count);
     // Setters and Getters

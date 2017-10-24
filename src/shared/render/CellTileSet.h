@@ -5,6 +5,9 @@
 #include <vector>
 #include <string>
 
+namespace state {
+  class Cell;
+};
 namespace render {
   class Tile;
 };
@@ -15,6 +18,7 @@ namespace render {
   class TileSet;
 }
 
+#include "state/Cell.h"
 #include "state/ElementTab.h"
 #include "TileSet.h"
 

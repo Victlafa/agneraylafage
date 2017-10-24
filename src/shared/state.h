@@ -5,4 +5,5 @@
 #include "state/Element.h"
 #include "state/State.h"
 #include "state/ElementTab.h"
+#include "state/Cell.h"
 #endif
