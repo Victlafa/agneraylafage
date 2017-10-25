@@ -67,6 +67,7 @@ namespace render
 //        
     }
     
+    // Affichage souhaite
     void TestAffichage()
     {
         
@@ -89,56 +90,38 @@ namespace render
 
             int halfHeight = 61;
             int halfWidth = 51;
-            int x = 300;
-            int y = 300;
+            int x = 311;
+            int y = 187;
             int xText = 71;
             int yText = 81;
-            sf::VertexArray hexagon = sf::VertexArray(sf::Quads,4);
 
-            std::vector<sf::VertexArray> *listHexagones = new std::vector<sf::VertexArray>(5);
+            std::vector<sf::VertexArray> listHexagones = std::vector<sf::VertexArray>();
+            listHexagones.reserve(5);
 
             for (int i = 0; i < 5; i++)
             {
+                listHexagones.push_back(sf::VertexArray(sf::Quads,4));
                 
-                // définition des coordonnées des 4 points du quad
-                // ie position de l'hexagone dans la fenêtre
-                sf::Vertex p1(sf::Vector2f(200 + 2*i*halfWidth,200), sf::Vector2f(20,20));
-                sf::Vertex p2(sf::Vector2f(302 + 2*i*halfWidth,200), sf::Vector2f(122,20));
-                sf::Vertex p3(sf::Vector2f(200 + 2*i*halfWidth,322), sf::Vector2f(20,142));
-                sf::Vertex p4(sf::Vector2f(302 + 2*i*halfWidth,322), sf::Vector2f(122,142));
-                
-                hexagon[0] = p1;
-                hexagon[1] = p2;
-                hexagon[2] = p3;
-                hexagon[3] = p4;
-//                hexagon[0].position = sf::Vector2f(x - halfWidth + i*2*halfWidth, y + halfHeight);
-//                hexagon[1].position = sf::Vector2f(x + halfWidth + i*2*halfWidth, y + halfHeight);
-//                hexagon[2].position = sf::Vector2f(x - halfWidth + i*2*halfWidth, y - halfHeight);
-//                hexagon[3].position = sf::Vector2f(x + halfWidth + i*2*halfWidth, y - halfHeight);
+                listHexagones[i][0].position = sf::Vector2f(x - halfWidth + i*2*halfWidth, y + halfHeight);
+                listHexagones[i][1].position = sf::Vector2f(x + halfWidth + i*2*halfWidth, y + halfHeight);
+                listHexagones[i][2].position = sf::Vector2f(x - halfWidth + i*2*halfWidth, y - halfHeight);
+                listHexagones[i][3].position = sf::Vector2f(x + halfWidth + i*2*halfWidth, y - halfHeight);
 
-                // définition de la partie de la texture correspondante
-//                hexagon[0].texCoords = sf::Vector2f(xText - halfWidth, yText + halfHeight);
-//                hexagon[1].texCoords = sf::Vector2f(xText + halfWidth, yText + halfHeight);
-//                hexagon[2].texCoords = sf::Vector2f(xText - halfWidth, yText - halfHeight);
-//                hexagon[3].texCoords = sf::Vector2f(xText + halfWidth, yText - halfHeight);
-//                hexagon[0].texCoords = sf::Vector2f(20,20);
-//                hexagon[1].texCoords = sf::Vector2f(122,20);
-//                hexagon[2].texCoords = sf::Vector2f(20,142);
-//                hexagon[3].texCoords = sf::Vector2f(122,142);
+                listHexagones[i][0].texCoords = sf::Vector2f(xText - halfWidth, yText + halfHeight);
+                listHexagones[i][1].texCoords = sf::Vector2f(xText + halfWidth, yText + halfHeight);
+                listHexagones[i][2].texCoords = sf::Vector2f(xText - halfWidth, yText - halfHeight);
+                listHexagones[i][3].texCoords = sf::Vector2f(xText + halfWidth, yText - halfHeight);
 
-                listHexagones->push_back(hexagon);
-                hexagon = sf::VertexArray(sf::Quads,4);
             }
             
-            if (&listHexagones->at(0) == NULL)
-                std::cout << "PROBLEME";
-            //for (int i = 0; i < 5; i++)
-            //    window.draw(listHexagones[i],&hexagonesTexture);
-            window.draw(listHexagones->at(0),&hexaTexture);
+            for (int i = 0; i < 5; i++)
+                window.draw(listHexagones[i],&hexaTexture);
+            
             window.display();
         }
     }
     
+    // Brouillon
     void TestAffichage2()
     {
          //On créé les six sommets de l'hexagone. Pour cela on doit préciser 
@@ -199,6 +182,7 @@ namespace render
             }
     }
     
+    // Brouillon
     void TestAffichage3()
     {
         sf::VertexArray hexagon = sf::VertexArray(sf::Quads,4);
@@ -210,9 +194,9 @@ namespace render
         sf::Vertex p4(sf::Vector2f(302,322), sf::Color(255,255,255,255), sf::Vector2f(122,142));
         
         sf::Vertex p5(sf::Vector2f(302,200), sf::Vector2f(140,20));
-        sf::Vertex p6(sf::Vector2f(424,200), sf::Vector2f(262,20));
+        sf::Vertex p6(sf::Vector2f(404,200), sf::Vector2f(242,20));
         sf::Vertex p7(sf::Vector2f(302,322), sf::Vector2f(140,142));
-        sf::Vertex p8(sf::Vector2f(424,322), sf::Vector2f(262,142));
+        sf::Vertex p8(sf::Vector2f(404,322), sf::Vector2f(242,142));
 
         hexagon[0] = p1;
         hexagon[1] = p2;
@@ -222,8 +206,6 @@ namespace render
         hexagon2[1] = p6;
         hexagon2[2] = p7;
         hexagon2[3] = p8;
-        
-        
 
         // On paramètre la fenêtre qui sera affichée en sortie :
         sf::RenderWindow window(sf::VideoMode(1024,720),"Affichage d'un hexagone :)");

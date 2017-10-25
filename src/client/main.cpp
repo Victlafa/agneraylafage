@@ -49,7 +49,7 @@ int main(int argc,char* argv[])
 
             // On cherche à afficher une ligne de cinq hexagones :
             //TestsElementTabLayer();
-            TestAffichage3();
+            TestAffichage();
             
 
         }
