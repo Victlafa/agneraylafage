@@ -12,10 +12,10 @@ namespace render
 {
     CellTileSet::CellTileSet () 
     { 
-        cells = std::vector<Tile>(29); 
-        for (int i = 0; i < 29; i++)
+        cells = std::vector<Tile>(7); 
+        for (int i = 0; i < 7; i++)
         {
-            cells.push_back(Tile(20,20,102,122));
+            cells.push_back(Tile(71,81,102,122));
         }
     }
     
