@@ -94,56 +94,74 @@ namespace render
             int y = 187;
             int xText = 71;
             int yText = 81;
-
+/*
             std::vector<sf::VertexArray> listHexagones = std::vector<sf::VertexArray>();
             listHexagones.reserve(5);
 
             for (int i = 0; i < 5; i++)
             {
-                listHexagones.push_back(sf::VertexArray(sf::Quads,4));
-                listHexagones[i][0].position = sf::Vector2f(40 + i*2*halfWidth, 120);
-                listHexagones[i][1].position = sf::Vector2f(100 + i*2*halfWidth, 120);
-                listHexagones[i][2].position = sf::Vector2f(40 + i*2*halfWidth, 60);
-                listHexagones[i][3].position = sf::Vector2f(100 + i*2*halfWidth, 60);
-
-                listHexagones[i][0].texCoords = sf::Vector2f(40, yText + halfHeight);
-                listHexagones[i][1].texCoords = sf::Vector2f(120, yText + halfHeight);
-                listHexagones[i][2].texCoords = sf::Vector2f(40, yText - halfHeight);
-                listHexagones[i][3].texCoords = sf::Vector2f(120, yText - halfHeight);
-                /*
-                listHexagones[i][0].position = sf::Vector2f(x - halfWidth + i*2*halfWidth, y + halfHeight);
-                listHexagones[i][1].position = sf::Vector2f(x + halfWidth + i*2*halfWidth, y + halfHeight);
+                std::cout<< i << std::endl;
+                listHexagones[i][0].position = sf::Vector2f(x + halfWidth + i*2*halfWidth, y + halfHeight);
+                listHexagones[i][1].position = sf::Vector2f(x + halfWidth + i*2*halfWidth, y - halfHeight);
                 listHexagones[i][2].position = sf::Vector2f(x - halfWidth + i*2*halfWidth, y - halfHeight);
-                listHexagones[i][3].position = sf::Vector2f(x + halfWidth + i*2*halfWidth, y - halfHeight);
+                listHexagones[i][3].position = sf::Vector2f(x - halfWidth + i*2*halfWidth, y + halfHeight);
 
-                listHexagones[i][0].texCoords = sf::Vector2f(xText - halfWidth, yText + halfHeight);
-                listHexagones[i][1].texCoords = sf::Vector2f(xText + halfWidth, yText + halfHeight);
+                listHexagones[i][0].texCoords = sf::Vector2f(xText + halfWidth, yText + halfHeight);
+                listHexagones[i][1].texCoords = sf::Vector2f(xText + halfWidth, yText - halfHeight);
                 listHexagones[i][2].texCoords = sf::Vector2f(xText - halfWidth, yText - halfHeight);
-                listHexagones[i][3].texCoords = sf::Vector2f(xText + halfWidth, yText - halfHeight);
-*/
+                listHexagones[i][3].texCoords = sf::Vector2f(xText - halfWidth, yText + halfHeight);
+
             }
             
             for (int i = 0; i < 5; i++){
                 
                 window.draw(listHexagones[i],&hexaTexture);
-            }
+            }*/
+ 
             sf::VertexArray tab_v(sf::Quads, 4);
 
-            tab_v[0].position = sf::Vector2f(600,400);
-            tab_v[1].position = sf::Vector2f(600,300);
-            tab_v[2].position = sf::Vector2f(500,300);
-            tab_v[3].position = sf::Vector2f(500,400);
+            tab_v[0].position = sf::Vector2f(x + halfWidth + 2*halfWidth, y + halfHeight);
+            tab_v[1].position = sf::Vector2f(x + halfWidth + 2*halfWidth, y - halfHeight);
+            tab_v[2].position = sf::Vector2f(x - halfWidth + 2*halfWidth, y - halfHeight);
+            tab_v[3].position = sf::Vector2f(x - halfWidth + 2*halfWidth, y + halfHeight);
+
+            tab_v[0].texCoords = sf::Vector2f(xText + halfWidth, yText + halfHeight);
+            tab_v[1].texCoords = sf::Vector2f(xText + halfWidth, yText - halfHeight);
+            tab_v[2].texCoords = sf::Vector2f(xText - halfWidth, yText - halfHeight);
+            tab_v[3].texCoords = sf::Vector2f(xText - halfWidth, yText + halfHeight);
             
+            
+            window.draw(tab_v,&hexaTexture);
+            
+            //sf::VertexArray tab_v(sf::Quads, 4);
+/*
+            tab_v[0].position = sf::Vector2f(700,500);
+            tab_v[1].position = sf::Vector2f(700,400);
+            tab_v[2].position = sf::Vector2f(600,400);
+            tab_v[3].position = sf::Vector2f(600,500);
+           
             tab_v[0].color = sf::Color::Red;
             tab_v[1].color = sf::Color::Blue;
             tab_v[2].color = sf::Color::Green;
             
-            tab_v[0].texCoords = sf::Vector2f(xText - halfWidth, yText + halfHeight);
-            tab_v[1].texCoords = sf::Vector2f(xText + halfWidth, yText + halfHeight);
-            tab_v[2].texCoords = sf::Vector2f(xText - halfWidth, yText - halfHeight);
-            tab_v[3].texCoords = sf::Vector2f(xText + halfWidth, yText - halfHeight);
+            tab_v[0].texCoords = sf::Vector2f(360, 281);
+            tab_v[1].texCoords = sf::Vector2f(360, 161);
+            tab_v[2].texCoords = sf::Vector2f(259, 161);
+            tab_v[3].texCoords = sf::Vector2f(259, 281);
 
-            window.draw(tab_v,&hexaTexture);
+            window.draw(tab_v,&hexaTexture);*/
+            /*
+            tab_v[0].position = sf::Vector2f(600,500);
+            tab_v[1].position = sf::Vector2f(700,500);
+            tab_v[2].position = sf::Vector2f(600,400);
+            tab_v[3].position = sf::Vector2f(700,400);
+           
+            tab_v[0].color = sf::Color::Red;
+            tab_v[1].color = sf::Color::Blue;
+            tab_v[2].color = sf::Color::Green;
+            
+            window.draw(tab_v,&hexaTexture);*/
+            
             window.display();
         }
     }
