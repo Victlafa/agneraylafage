@@ -94,13 +94,16 @@ namespace render
             int y = 187;
             int xText = 71;
             int yText = 81;
-/*
+
             std::vector<sf::VertexArray> listHexagones = std::vector<sf::VertexArray>();
             listHexagones.reserve(5);
 
             for (int i = 0; i < 5; i++)
             {
                 std::cout<< i << std::endl;
+                
+                listHexagones.push_back(sf::VertexArray(sf::Quads, 4));
+                
                 listHexagones[i][0].position = sf::Vector2f(x + halfWidth + i*2*halfWidth, y + halfHeight);
                 listHexagones[i][1].position = sf::Vector2f(x + halfWidth + i*2*halfWidth, y - halfHeight);
                 listHexagones[i][2].position = sf::Vector2f(x - halfWidth + i*2*halfWidth, y - halfHeight);
@@ -116,8 +119,8 @@ namespace render
             for (int i = 0; i < 5; i++){
                 
                 window.draw(listHexagones[i],&hexaTexture);
-            }*/
- 
+            }
+ /*
             sf::VertexArray tab_v(sf::Quads, 4);
 
             tab_v[0].position = sf::Vector2f(x + halfWidth + 2*halfWidth, y + halfHeight);
@@ -134,7 +137,7 @@ namespace render
             window.draw(tab_v,&hexaTexture);
             
             //sf::VertexArray tab_v(sf::Quads, 4);
-/*
+
             tab_v[0].position = sf::Vector2f(700,500);
             tab_v[1].position = sf::Vector2f(700,400);
             tab_v[2].position = sf::Vector2f(600,400);
