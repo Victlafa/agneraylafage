@@ -5,6 +5,7 @@
 #include <string>
 
 namespace state {
+  class Element;
   class Cell;
 }
 
@@ -20,6 +21,7 @@ namespace state {
     // Operations
   public:
     SimpleCell (SimpleCellID type, std::string resType, int resNbr, int x, int y);
+    SimpleCell (const Element& elem);
     ~SimpleCell ();
     // Setters and Getters
     SimpleCellID getSimpleCellType() const;

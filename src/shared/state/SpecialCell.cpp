@@ -15,7 +15,7 @@ namespace state
     
     SpecialCell::~SpecialCell(){};
     
-    SpecialCell::SpecialCell(const state::Element elem){
+    SpecialCell::SpecialCell(const state::Element& elem){
         this->x=elem.getX();
         this->y=elem.getY();
         this->creaturesNbr=elem.getCreaturesNbr();

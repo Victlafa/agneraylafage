@@ -27,6 +27,7 @@ namespace state {
     // Operations
   public:
     Cell ();
+    Cell (const Element& elem);
     ~Cell ();
     // Setters and Getters
     CellTypeID getCellType() const;

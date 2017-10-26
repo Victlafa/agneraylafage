@@ -5,6 +5,7 @@
 #include <string>
 
 namespace state {
+  class Element;
   class Cell;
 }
 
@@ -20,6 +21,7 @@ namespace state {
     // Operations
   public:
     SpecialCell (SpecialCellID type, std::string resType, int resNbr, int x, int y);
+    SpecialCell (const Element& elem);
     ~SpecialCell ();
     // Setters and Getters
     SpecialCellID getSpecialCellType() const;
