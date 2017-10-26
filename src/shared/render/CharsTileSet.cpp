@@ -44,7 +44,7 @@ namespace render
         
         if (elem.getElemType() == state::TypeID::CREATURESGROUP)
         {
-            const state::CreaturesGroup group = dynamic_cast<const state::CreaturesGroup&>(elem);
+            const state::CreaturesGroup group = (const state::CreaturesGroup)elem;
             
             if (group.getCreaturesType() == state::CreaturesID::COOKER)
                 return creatures[0][group.getCreaturesNbr()];
