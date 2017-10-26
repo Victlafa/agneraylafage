@@ -39,12 +39,18 @@ namespace render
     {
         std::cout << "DEBUT TESTS ELEMENTTABLAYER" << std::endl << std::endl;
         
+        // On déclare et initialise un tableau d'éléments :
         std::shared_ptr<state::ElementTab> grid;
         grid = std::shared_ptr<state::ElementTab>(new state::ElementTab(7, 5));
+        
+        // On initialise un plan pour ce tableau, de type Cell:
         ElementTabLayer *gridLayer = new ElementTabLayer(grid,0);
+        // Initialisation de sa surface :
         gridLayer->initSurface();
+        // Initialisation de la fenêtre :
         sf::RenderWindow window(sf::VideoMode(1024,720),"Affichage d'une ligne d'hexagones :)");
         
+        // Paramétrage de l'affichage :
         while(window.isOpen())
         {
             sf::Event event;
@@ -84,7 +90,7 @@ namespace render
 
             sf::Texture hexaTexture;
 
-            if (!hexaTexture.loadFromFile("../res/hexa.png"))
+            if (!hexaTexture.loadFromFile("./res/hexa.png"))
                 std::cout << "Erreur chargement texture !\n" << std::endl;
                 //throw std::runtime_error("Impossible de lire le fichier");
 
