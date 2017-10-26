@@ -39,7 +39,7 @@ namespace render {
 
         // On déclare et initialise un tableau d'éléments :
         std::shared_ptr<state::ElementTab> grid;
-        grid = std::shared_ptr<state::ElementTab>(new state::ElementTab(7, 5));
+        grid = std::shared_ptr<state::ElementTab>(new state::ElementTab(state::TypeID::CELL,7, 5));
 
         // On initialise un plan pour ce tableau, de type Cell:
         ElementTabLayer *gridLayer = new ElementTabLayer(grid, 0);
@@ -76,10 +76,11 @@ namespace render {
     {
         
         std::cout << "Initialisation map_cell & map_creatures" << std::endl;
-        state::ElementTab map_cell((size_t)5,(size_t)7,state::TypeID::CELL);
-        state::ElementTab map_creatures((size_t)5,(size_t)7,state::TypeID::CREATURESGROUP);
+        state::ElementTab map_cell(state::TypeID::CELL,(size_t)5,(size_t)7);
+        state::ElementTab map_creatures(state::TypeID::CREATURESGROUP,(size_t)5,(size_t)7);
         
         
+        std::cout << "Positionnement des Cellules Spéciales" << std::endl;
         //Positionnement des Cellules Spéciales
         std::vector<state::SpecialCell> l_SpeC;
         std::vector<state::SpecialCellID> l_SpeCID = {state::SpecialCellID::BARBECUE, state::SpecialCellID::CANDY, state::SpecialCellID::POOL, state::SpecialCellID::SKY};
@@ -104,7 +105,7 @@ namespace render {
                 
             }
 
-                                
+            
             std::string restype = "wood";
             state::SpecialCell *spec = new state::SpecialCell(l_SpeCID[sc], restype, 2, i, j);
             l_SpeC.push_back(*spec);
@@ -116,18 +117,79 @@ namespace render {
             std::cout << j << std::endl;
         }
         
+        
+        std::cout << "Positionnement des Cellules Simples" << std::endl;
         // On remplit map_cell avec des cellules simples
         std::vector<state::SimpleCellID> l_SimCID = {state::SimpleCellID::DIRT,state::SimpleCellID::GRASS,state::SimpleCellID::SAND};
         
         for(int i=0; i<5; i++){
             for(int j=0; j<7; j++){
-                if(!((i==0&&j==0) || (i==0&&j==1) || (i==1&&j==0) || (i==4&&j==6) || (i==4&&j==5) || (i==3&&j==6) || (i==li[0]&&j==lj[0]) || i==li[1]&&j==lj[1] || i==li[2]&&j==lj[2] || i==li[3]&&j==lj[3])){
+                if(!((i==0&&j==0) || (i==0&&j==1) || (i==1&&j==0) || (i==4&&j==6) || (i==4&&j==5) || (i==3&&j==6) || (i==li[0]&&j==lj[0]) || (i==li[1]&&j==lj[1]) || (i==li[2]&&j==lj[2]) || (i==li[3]&&j==lj[3]))){
                     std::string restype = "wood";
-                    map_cell(i,j)=  state::SimpleCell(l_SimCID[rand()%3],restype,4,i,j);
+                    //map_cell(i,j)= state::SimpleCell(l_SimCID[rand()%3],restype,4,i,j);
                 }
-                else
-                    map_cell(i,j)=NULL;
+                //else
+                    //map_cell(i,j) = NULL;
             }
+        }
+        
+        
+        std::cout << "Initialisation map_creature" << std::endl;
+        //On initialise map_creature
+        
+        std::vector<int> li1 = {0,0,0};
+        std::vector<int> li2 = {0,0,0};
+        std::vector<int> lj1 = {0,0,0};
+        std::vector<int> lj2 = {0,0,0};
+        
+        for(int cr=0; cr<3; cr++){
+            int i = 0;
+            int j = 0;
+               
+            state::CreaturesGroup crg(state::CreaturesID::BLACKSMITH);
+                    
+            bool trouve = true;
+                    
+            while(((i==0&&j==0) || (i==0&&j==1) || (i==1&&j==0) || (i==4&&j==6) || (i==4&&j==5) || (i==3&&j==6) || (i==li[0]&&j==lj[0]) || (i==li[1]&&j==lj[1]) || (i==li[2]&&j==lj[2]) || (i==li[3]&&j==lj[3]))||trouve){
+                i=rand()%5;
+                j=rand()%7;
+                trouve=false;
+                for(int k=0; k<3; k++){
+                    if((i==li1[k]&&j==lj1[k])&&(i==li2[k]&&j==lj2[k]))
+                        trouve=true;
+                }
+            }
+            
+            li1[cr]=i;
+            lj1[cr]=j;
+            //map_creatures(i,j)=crg;
+            crg.toPlace(i,j);
+                
+        }
+        
+        for(int cr=0; cr<3; cr++){
+            int i = 0;
+            int j = 0;
+               
+            state::CreaturesGroup crg(state::CreaturesID::COOKER); 
+            
+            bool trouve = true;
+                    
+            while(((i==0&&j==0) || (i==0&&j==1) || (i==1&&j==0) || (i==4&&j==6) || (i==4&&j==5) || (i==3&&j==6) || (i==li[0]&&j==lj[0]) || (i==li[1]&&j==lj[1]) || (i==li[2]&&j==lj[2]) || (i==li[3]&&j==lj[3]))||trouve){
+                i=rand()%5;
+                j=rand()%7;
+                trouve=false;
+                for(int k=0; k<3; k++){
+                    if((i==li1[k]&&j==lj1[k])&&(i==li2[k]&&j==lj2[k]))
+                        trouve=true;
+                }
+            }
+            
+            li2[cr]=i;
+            lj2[cr]=j;
+            //map_creatures(i,j)=crg;
+            crg.toPlace(i,j);
+                
         }
         
         
