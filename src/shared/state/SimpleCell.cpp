@@ -19,7 +19,7 @@ namespace state
     
     SimpleCell::~SimpleCell(){};
     
-    SimpleCell::SimpleCell(const state::Element elem){
+    SimpleCell::SimpleCell(const state::Element& elem){
         this->x=elem.getX();
         this->y=elem.getY();
         this->creaturesNbr=elem.getCreaturesNbr();
