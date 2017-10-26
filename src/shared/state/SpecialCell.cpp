@@ -13,8 +13,12 @@ namespace state
         this->y=y;
     }
     
-    SpecialCell::~SpecialCell()
-    {
+    SpecialCell::~SpecialCell(){};
+    
+    SpecialCell::SpecialCell(const state::Element elem){
+        this->x=elem.getX();
+        this->y=elem.getY();
+        this->creaturesNbr=elem.getCreaturesNbr();
     }
 
     SpecialCellID SpecialCell::getSpecialCellType() const{
