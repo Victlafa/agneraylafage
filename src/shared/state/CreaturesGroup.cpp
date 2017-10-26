@@ -19,6 +19,15 @@ namespace state
         this->creaturesType = type;
     }
     
+    CreaturesGroup::CreaturesGroup (const Element& elem)
+    {
+        this->creaturesType = CreaturesID::BLACKSMITH;
+        this->placed = false;
+        this->x = elem.getX();
+        this->y = elem.getY();
+        this->creaturesNbr = elem.getCreaturesNbr();
+    }
+    
     CreaturesGroup::~CreaturesGroup (){ }
     
     // Setters and getters :
