@@ -10,22 +10,29 @@
 
 namespace render
 {
-    CharsTileSet::CharsTileSet (){}
+    CharsTileSet::CharsTileSet (){
+        
+        creatures = new Tile*[5];
+        
+        for (int i = 0; i < 5; i++)
+        {
+            creatures[i] = new Tile[5];
+            
+            for (int j = 0; j < 5; j++)
+            {
+                creatures[i][j] = Tile(50*(i+1),50*(j+1),100,100);
+            }
+        }
+    }
     
     int CharsTileSet::getCellWidth () const
     {
-        if (this->creaturesPlayer1.size() != 0)
-            return this->creaturesPlayer1[0].getWidth();
-        else
-            return -1;
+        return this->creatures[0][0].getWidth();
     }
     
     int CharsTileSet::getCellHeight () const
     {
-        if (this->creaturesPlayer1.size() != 0)
-            return this->creaturesPlayer1[0].getHeight();
-        else
-            return -1;
+        return this->creatures[0][0].getHeight();
     }
     
     const std::string CharsTileSet::getImageFile () const{
@@ -34,27 +41,27 @@ namespace render
     
     const Tile& CharsTileSet::getTile (const state::Element& elem) const
     {
-        return *(new Tile(50,50,100,100));
         
-//        if (elem.getElemType() == state::TypeID::CREATURESGROUP)
-//        {
-//            if (elem.getCreaturesNbr() == 1)
-//                return *(new Tile(50,50,100,100));
-//            else if (elem.getCreaturesNbr() == 2)
-//                return *(new Tile(150,150,100,100));
-//            else if (elem.getCreaturesNbr() == 3)
-//                return *(new Tile(250,250,100,100));
-//            else if (elem.getCreaturesNbr() == 4)
-//                return *(new Tile(350,350,100,100));
-//            else if (elem.getCreaturesNbr() == 5)
-//                return *(new Tile(450,450,100,100));
-//            else
-//                return *(new Tile(-1,-1,-1,-1));
-//                
-//        }
-//        
-//        else
-//            return *(new Tile(-1,-1,-1,-1));
+        if (elem.getElemType() == state::TypeID::CREATURESGROUP)
+        {
+            const state::CreaturesGroup group = dynamic_cast<const state::CreaturesGroup&>(elem);
+            
+            if (group.getCreaturesType() == state::CreaturesID::COOKER)
+                return creatures[0][group.getCreaturesNbr()];
+            else if (group.getCreaturesType() == state::CreaturesID::BLACKSMITH)
+                return creatures[1][group.getCreaturesNbr()];
+            else if (group.getCreaturesType() == state::CreaturesID::LUMBERJACK)
+                return creatures[2][group.getCreaturesNbr()];
+            else if (group.getCreaturesType() == state::CreaturesID::MINER)
+                return creatures[3][group.getCreaturesNbr()];
+            else
+                return *(new Tile(-1,-1,-1,-1));
+                
+        }
+        
+        else
+            return *(new Tile(-1,-1,-1,-1));
+        
     }
 }
 
