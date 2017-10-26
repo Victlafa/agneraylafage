@@ -5,15 +5,22 @@
  */
 
 #include "Cell.h"
+#include "SimpleCellID.h"
 
 namespace state
 {
     // Constructor :
     
-    Cell::Cell(){}
+    Cell::Cell(){
+        this->cellType = CellTypeID::SIMPLE;
+        this->cellState = CellState::NORMAL;
+    }
+    
     Cell::~Cell(){}
     
     Cell::Cell(const state::Element& elem){
+        this->cellType = CellTypeID::SIMPLE;
+        this->cellState = CellState::NORMAL;
         this->x=elem.getX();
         this->y=elem.getY();
         this->creaturesNbr=elem.getCreaturesNbr();
