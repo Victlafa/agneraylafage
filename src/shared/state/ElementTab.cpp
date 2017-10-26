@@ -43,24 +43,29 @@ namespace state
         else if (type == TypeID::CREATURESGROUP)
         {
             this->list.reserve(width*height);
-            int* intRand1 = new int[3];
-            int* intRand2 = new int[3];
-            int rand1;
-            int rand2;
+            int** intRand1 = new int*[3];
+            int rand11;
+            int rand12;
             
+            // On va tirer au sort des coordonnees pour placer des creatures :
             for (int j = 0; j < 3; j++)
             {
+                intRand1[j] = new int[2];
+                
                 do
                 {
-                    rand1 = rand()%29;
-                    rand2 = rand()%29;
+                    rand11 = rand()%height;
+                    rand12 = rand()%width;
                 }
-                while (rand1 == intRand1[0] || rand2 == intRand2[0] || rand1 == intRand1[1] || rand2 == intRand2[1]);
-                
-                intRand1[j] = rand1;
-                intRand2[j] = rand2;
-                
+                while (rand11 == intRand1[j][0] || rand12 == intRand1[j][1]);
+
+                intRand1[j][0] = rand11;
+                intRand1[j][1] = rand12;
+
+                this->set(std::unique_ptr<Element>(new Element()).get(),rand11,rand12);
             }
+            
+            
             
         }
             
