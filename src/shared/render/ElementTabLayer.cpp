@@ -29,70 +29,11 @@ namespace render{
             int halfWidth = 51;
             
             // Affichage des cellules de la map :
-            for (int i = 0; i < 5; i++) {
-                
-                //state::Element elem = this->tab->get(i,0).get(); 
-                Tile tuile = this->tileset->getTile(*(this->tab->get(i,0).get()));
-                
-                if (i == 5 || i == 11) {
-                    x -= halfWidth;
-                    y += 86;
-
-                    switch (i) {
-                        case 5:
-                            shift = i - 5;
-                            break;
-                        case 11:
-                            shift = i - 11;
-                            break;
-                        default:
-                            shift = i;
-                    }
-                }
-                
-                else if (i == 18 || i == 24) {
-                    
-                    x += halfWidth;
-                    y += 86;
-
-                    switch (i) {
-                        case 18:
-                            shift = i - 18;
-                            break;
-                        case 24:
-                            shift = i - 24;
-                            break;
-                        default:
-                            shift = i;
-                    }
-                }
-                
-                else
-                    shift = shift;
-
-                
-                this->surface->setTextureLocation(i, tuile);
-                this->surface->setFinalLocation(i, x + shift*2*halfWidth, y, tuile);
-           
-                shift += 1;
-            }
-        }
-        
-        else if (type)
-        {
-            this->surface->loadTexture("groupes.png");
-            this->surface->initQuads(29);
-            int halfWidth = 50;
-            
-            // Affichage des cellules de la map :
-            for (int i = 0; i < 5; i++) {
-                
-                std::cout << "pointeur : " << this->tab->get(i,0).get() << std::endl;
-                
-                if (this->tab->get(i,0).get() != NULL)
+            for (int i = 0; i < (int)this->tab->getHeight(); i++) {
+                for (int j = 0; j < (int)this->tab->getWidth(); j++)
                 {
                         //state::Element elem = this->tab->get(i,0).get(); 
-                    Tile tuile = this->tileset->getTile(*(this->tab->get(i,0).get()));
+                    Tile tuile = this->tileset->getTile(*(this->tab->get(i,j).get()));
 
                     if (i == 5 || i == 11) {
                         x -= halfWidth;
@@ -135,6 +76,72 @@ namespace render{
                     this->surface->setFinalLocation(i, x + shift*2*halfWidth, y, tuile);
 
                     shift += 1;
+                }
+                
+            }
+        }
+        
+        else if (type)
+        {
+            this->surface->loadTexture("groupes.png");
+            this->surface->initQuads(29);
+            int halfWidth = 50;
+            
+            // Affichage des cellules de la map :
+            for (int i = 0; i < (int)this->tab->getHeight(); i++) {
+                for (int j = 0; j < (int)this->tab->getWidth(); j++)
+                {
+                   
+                std::cout << "pointeur : " << this->tab->get(i,j).get() << std::endl;
+                
+                if (this->tab->get(i,0).get() != NULL)
+                {
+                        //state::Element elem = this->tab->get(i,0).get(); 
+                    Tile tuile = this->tileset->getTile(*(this->tab->get(i,j).get()));
+
+                    if (i == 5 || i == 11) {
+                        x -= halfWidth;
+                        y += 86;
+
+                        switch (i) {
+                            case 5:
+                                shift = i - 5;
+                                break;
+                            case 11:
+                                shift = i - 11;
+                                break;
+                            default:
+                                shift = i;
+                        }
+                    }
+
+                    else if (i == 18 || i == 24) {
+
+                        x += halfWidth;
+                        y += 86;
+
+                        switch (i) {
+                            case 18:
+                                shift = i - 18;
+                                break;
+                            case 24:
+                                shift = i - 24;
+                                break;
+                            default:
+                                shift = i;
+                        }
+                    }
+
+                    else
+                        shift = shift;
+
+
+                    this->surface->setTextureLocation(i, tuile);
+                    this->surface->setFinalLocation(i, x + shift*2*halfWidth, y, tuile);
+
+                    shift += 1; 
+                }
+                
                 }
                 
             }

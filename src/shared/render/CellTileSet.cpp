@@ -51,12 +51,12 @@ namespace render
         // Erreur de segementation quand on appelle getElemType !
         if (elem.getElemType() == state::TypeID::CELL)
         {
-            const state::Cell cellule = static_cast<const state::Cell&>(elem);
+            const state::Cell cellule = (const state::Cell&)elem;
             //const state::Cell cellule = (const state::Cell)elem;
 
             if (cellule.getCellType() == state::CellTypeID::SIMPLE)
             {
-                const state::SimpleCell simpleCellule = static_cast<const state::SimpleCell&>(cellule);
+                const state::SimpleCell simpleCellule = (const state::SimpleCell&)cellule;
                 
                 if (simpleCellule.getSimpleCellType() == state::SimpleCellID::SAND)
                     return this->cells[0];
@@ -70,7 +70,7 @@ namespace render
             
             else if (cellule.getCellType() == state::CellTypeID::SPECIAL)
             {
-                const state::SpecialCell specialCellule = static_cast<const state::SpecialCell&>(cellule);
+                const state::SpecialCell specialCellule = (const state::SpecialCell&)cellule;
                 
                 if (specialCellule.getSpecialCellType() == state::SpecialCellID::BARBECUE)
                     return this->cells[3];
