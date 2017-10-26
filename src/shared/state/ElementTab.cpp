@@ -31,12 +31,18 @@ namespace state
         if (type == TypeID::CELL)
         {
             for (int i = 0; i < (int)(width*height); i++)
-                this->list.push_back(std::unique_ptr<Cell>(new Cell()));
+            {
+                //this->list.push_back(std::move(std::unique_ptr<Element>(new Element())));
+                this->list.at(i) = std::unique_ptr<Element>(new Element());
+                std::cout << list[i].get() << std::endl;
+            }
+                
+            
         }
         
         else if (type == TypeID::CREATURESGROUP)
         {
-            this->list.reserve(29);
+            this->list.reserve(width*height);
             int* intRand1 = new int[3];
             int* intRand2 = new int[3];
             int rand1;

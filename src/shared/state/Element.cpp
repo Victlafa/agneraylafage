@@ -1,4 +1,5 @@
 #include "Element.h"
+#include <iostream>
 
 namespace state
 {
@@ -8,6 +9,7 @@ namespace state
         y = 0;
         creaturesNbr = 0;
         elemType = TypeID::CELL;
+        std::cout << this << std::endl;
     }
     
     Element::~Element() {}
