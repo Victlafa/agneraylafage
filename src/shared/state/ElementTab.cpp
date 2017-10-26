@@ -33,7 +33,7 @@ namespace state
             for (int i = 0; i < (int)(width*height); i++)
             {
                 //this->list.push_back(std::move(std::unique_ptr<Element>(new Element())));
-                this->list.at(i) = std::unique_ptr<Element>(new Element());
+                this->list.at(i) = std::unique_ptr<Cell>(new Cell());
                 std::cout << list[i].get() << std::endl;
             }
                 
@@ -62,7 +62,7 @@ namespace state
                 intRand1[j][0] = rand11;
                 intRand1[j][1] = rand12;
 
-                this->set(std::unique_ptr<Element>(new Element()).get(),rand11,rand12);
+                this->set(std::unique_ptr<CreaturesGroup>(new CreaturesGroup(CreaturesID::BLACKSMITH)).get(),rand11,rand12);
             }
             
             
