@@ -31,8 +31,8 @@ namespace render{
             // Affichage des cellules de la map :
             for (int i = 0; i < 29; i++) {
                 
-                state::Element elem = *(this->tab->get(i,0)); 
-                Tile tuile = this->tileset->getTile(elem);
+                //state::Element elem = this->tab->get(i,0).get(); 
+                Tile tuile = this->tileset->getTile(*(this->tab->get(i,0)));
                 
                 if (i == 5 || i == 11) {
                     x -= halfWidth;

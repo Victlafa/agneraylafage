@@ -21,8 +21,7 @@ namespace render {
     // Attributes
   private:
     const std::shared_ptr<state::ElementTab>& tab;
-    int type; 
-    
+    int type;
     // Operations
   public:
     ElementTabLayer (const std::shared_ptr<state::ElementTab>& tab, int type);

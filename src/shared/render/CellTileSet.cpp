@@ -48,6 +48,7 @@ namespace render
     
     const Tile& CellTileSet::getTile (const state::Element& elem) const
     {
+        // Erreur de segementation quand on appelle getElemType !
         if (elem.getElemType() == state::TypeID::CELL)
         {
             const state::Cell cellule = dynamic_cast<const state::Cell&>(elem);
