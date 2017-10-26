@@ -21,10 +21,10 @@ namespace render
     { 
         int halfHeight = tex.getHeight()/2;
         int halfWidth = tex.getWidth()/2;
-        this->quadsList[index][0].position = sf::Vector2f(x - halfWidth, y + halfHeight);
-        this->quadsList[index][1].position = sf::Vector2f(x + halfWidth, y + halfHeight);
+        this->quadsList[index][0].position = sf::Vector2f(x + halfWidth, y + halfHeight);
+        this->quadsList[index][1].position = sf::Vector2f(x + halfWidth, y - halfHeight);
         this->quadsList[index][2].position = sf::Vector2f(x - halfWidth, y - halfHeight);
-        this->quadsList[index][3].position = sf::Vector2f(x + halfWidth, y - halfHeight);
+        this->quadsList[index][3].position = sf::Vector2f(x - halfWidth, y + halfHeight);
     }
     
     void Surface::setTextureLocation (int index, const Tile& tex)
@@ -34,10 +34,10 @@ namespace render
         int x = tex.getX();
         int y = tex.getY();
         
-        this->quadsList[index][0].texCoords = sf::Vector2f(x - halfWidth, y + halfHeight);
-        this->quadsList[index][1].texCoords = sf::Vector2f(x + halfWidth, y + halfHeight);
+        this->quadsList[index][0].texCoords = sf::Vector2f(x + halfWidth, y + halfHeight);
+        this->quadsList[index][1].texCoords = sf::Vector2f(x + halfWidth, y - halfHeight);
         this->quadsList[index][2].texCoords = sf::Vector2f(x - halfWidth, y - halfHeight);
-        this->quadsList[index][3].texCoords = sf::Vector2f(x + halfWidth, y - halfHeight);
+        this->quadsList[index][3].texCoords = sf::Vector2f(x - halfWidth, y + halfHeight);
     }
     
     void Surface::draw (sf::RenderTarget& target, sf::RenderStates states) const

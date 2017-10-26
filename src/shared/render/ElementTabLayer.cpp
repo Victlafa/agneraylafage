@@ -4,8 +4,9 @@
 #include "ElementTabLayer.h"
 #include "CellTileSet.h"
 #include "CharsTileSet.h"
+#include "../state/SimpleCell.h"
 
-
+// Type : 0 = Cellules, 1 = Creatures
 namespace render{
     
     ElementTabLayer::ElementTabLayer(const std::shared_ptr<state::ElementTab>& tab, int type) : tab(tab), type(type){
@@ -17,17 +18,63 @@ namespace render{
     
     void ElementTabLayer::initSurface() {
         
+        int x = (!type) ? 311 : 0;
+        int y = (!type) ? 187 : 0;
+        int shift = 0;
+        
         if (!type) 
 {
             this->surface->loadTexture("hexa.png");
-            this->surface->initQuads(5);
-
-            // Affichage d'une première ligne :
-            for (int i = 0; i < 5; i++) {
-                state::Element elem;
+            this->surface->initQuads(29);
+            int halfWidth = 51;
+            
+            // Affichage des cellules de la map :
+            for (int i = 0; i < 29; i++) {
+                
+                state::Element elem = *(this->tab->get(i,0)); 
                 Tile tuile = this->tileset->getTile(elem);
+                
+                if (i == 5 || i == 11) {
+                    x -= halfWidth;
+                    y += 86;
+
+                    switch (i) {
+                        case 5:
+                            shift = i - 5;
+                            break;
+                        case 11:
+                            shift = i - 11;
+                            break;
+                        default:
+                            shift = i;
+                    }
+                }
+                
+                else if (i == 18 || i == 24) {
+                    
+                    x += halfWidth;
+                    y += 86;
+
+                    switch (i) {
+                        case 18:
+                            shift = i - 18;
+                            break;
+                        case 24:
+                            shift = i - 24;
+                            break;
+                        default:
+                            shift = i;
+                    }
+                }
+                
+                else
+                    shift = shift;
+
+                
                 this->surface->setTextureLocation(i, tuile);
-                this->surface->setFinalLocation(i, 260 + 51 + i * 102, 126 + 61, tuile);
+                this->surface->setFinalLocation(i, x + shift*2*halfWidth, y, tuile);
+           
+                shift += 1;
             }
         }
         
