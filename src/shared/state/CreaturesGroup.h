@@ -4,8 +4,8 @@
 
 
 namespace state {
-  class CreaturesGroup;
   class Element;
+  class CreaturesGroup;
 }
 
 #include "CreaturesID.h"
@@ -25,6 +25,7 @@ namespace state {
     // Operations
   public:
     CreaturesGroup (CreaturesID type);
+    CreaturesGroup (const Element& elem);
     ~CreaturesGroup ();
     bool getPlaced () const;
     void toPlace (int x, int y);

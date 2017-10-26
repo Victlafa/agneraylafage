@@ -51,8 +51,9 @@ namespace render
         // Erreur de segementation quand on appelle getElemType !
         if (elem.getElemType() == state::TypeID::CELL)
         {
-            const state::Cell cellule = (const state::Cell)elem;
-            
+            const state::Cell cellule = static_cast<const state::Cell&>(elem);
+            //const state::Cell cellule = (const state::Cell)elem;
+
             if (cellule.getCellType() == state::CellTypeID::SIMPLE)
             {
                 const state::SimpleCell simpleCellule = static_cast<const state::SimpleCell&>(cellule);
