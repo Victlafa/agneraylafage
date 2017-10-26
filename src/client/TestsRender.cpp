@@ -12,6 +12,7 @@
  */
 
 #include <iostream>
+#include <time.h>
 #include "TestsRender.h"
 #include "state.h"
 #include "render.h"
@@ -81,6 +82,8 @@ namespace render {
         
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
+        srand(time(NULL));
+        
         int halfHeight = 61;
         int halfWidth = 51;
         int x = 311;
@@ -251,30 +254,13 @@ namespace render {
 
         }
         
-        while (window.isOpen()) {
-            sf::Event event;
-            while (window.pollEvent(event)) {
-                if (event.type == sf::Event::Closed) window.close();
-            }
-
-            window.clear();
-
-            sf::Texture hexaTexture;
-
-            //Le premier cas marche chez Victoire, le second chez Aurore
-            if (!hexaTexture.loadFromFile("../res/hexa.png"))
-                std::cout << "Erreur chargement texture !\n" << std::endl;
-            //throw std::runtime_error("Impossible de lire le fichier");
-          
-            
-            for (int i = 0; i < 29; i++)
-                window.draw(listHexagones[i], &hexaTexture);
-
-            window.display();
-        }
         
+        /*
         std::cout << "Initialisation map_creature" << std::endl;
         //On initialise map_creature
+        
+        std::map<int,state::CreaturesGroup> map_creature;
+        std::map<int,int> map_creature_text;
         
         std::vector<int> li1 = {0,0,0};
         std::vector<int> li2 = {0,0,0};
@@ -286,7 +272,8 @@ namespace render {
             int j = 0;
                
             state::CreaturesGroup crg(state::CreaturesID::BLACKSMITH);
-                    
+       
+            
             bool trouve = true;
                     
             while(((i==0&&j==0) || (i==0&&j==1) || (i==1&&j==0) || (i==4&&j==6) || (i==4&&j==5) || (i==3&&j==6) || (i==li[0]&&j==lj[0]) || (i==li[1]&&j==lj[1]) || (i==li[2]&&j==lj[2]) || (i==li[3]&&j==lj[3]))||trouve){
@@ -302,7 +289,9 @@ namespace render {
             li1[cr]=i;
             lj1[cr]=j;
             //map_creatures(i,j)=crg;
-            crg.toPlace(i,j);
+            map_creature[i*7+j]= crg;
+            map_creature_text[i*7+j]=1;
+            //crg.toPlace(i,j);
                 
         }
         
@@ -327,10 +316,113 @@ namespace render {
             li2[cr]=i;
             lj2[cr]=j;
             //map_creatures(i,j)=crg;
+            map_creature[i*7+j]=crg;
+            map_creature_text[i*7+j]=2;
             crg.toPlace(i,j);
                 
         }
         
+        
+        
+        std::vector<sf::VertexArray> listHexagonesCrea = std::vector<sf::VertexArray>();
+        listHexagonesCrea.reserve(29);
+        
+        for (int i = 0; i < 29; i++) {
+
+            listHexagonesCrea.push_back(sf::VertexArray(sf::Quads, 4));
+            
+            if (i == 5 || i == 11) {
+                x -= halfWidth;
+                y += 86;
+                switch (i) {
+                    case 5:
+                        shift = i - 5;
+                        break;
+                    case 11:
+                        shift = i - 11;
+                        break;
+                    default:
+                        shift = i;
+                }
+            }
+                
+            else if (i == 18 || i == 24) {
+                
+                x += halfWidth;
+                y += 86;
+            switch (i) {
+                    case 18:
+                        shift = i - 18;
+                        break;
+                    case 24:
+                        shift = i - 24;
+                        break;
+                    default:
+                        shift = i;
+                }
+            }
+                
+            else
+            {
+                shift = shift;
+            }
+
+            listHexagonesCrea[i][0].position = sf::Vector2f(x + halfWidth + shift * 2 * halfWidth, y + halfHeight);
+            listHexagonesCrea[i][1].position = sf::Vector2f(x + halfWidth + shift * 2 * halfWidth, y - halfHeight);
+            listHexagonesCrea[i][2].position = sf::Vector2f(x - halfWidth + shift * 2 * halfWidth, y - halfHeight);
+            listHexagonesCrea[i][3].position = sf::Vector2f(x - halfWidth + shift * 2 * halfWidth, y + halfHeight);
+
+            switch(map_creature_text[i]){
+                case 2 :
+                    xText=100;
+                    yText=100;
+                    break;
+                case 1 :
+                    xText=100;
+                    yText=200;
+                    break;
+                default:
+                    xText=100;
+                    yText=300;
+                    break;
+        }
+            
+            
+            listHexagonesCrea[i][0].texCoords = sf::Vector2f(xText + halfWidth, yText + halfHeight);
+            listHexagonesCrea[i][1].texCoords = sf::Vector2f(xText + halfWidth, yText - halfHeight);
+            listHexagonesCrea[i][2].texCoords = sf::Vector2f(xText - halfWidth, yText - halfHeight);
+            listHexagonesCrea[i][3].texCoords = sf::Vector2f(xText - halfWidth, yText + halfHeight);
+
+            shift += 1;
+
+        }*/
+        
+        while (window.isOpen()) {
+            sf::Event event;
+            while (window.pollEvent(event)) {
+                if (event.type == sf::Event::Closed) window.close();
+            }
+
+            window.clear();
+
+            sf::Texture hexaTexture;
+            sf::Texture creaTexture;
+
+            //Le premier cas marche chez Victoire, le second chez Aurore
+            if (!hexaTexture.loadFromFile("../res/hexa.png"))
+                std::cout << "Erreur chargement texture !\n" << std::endl;
+            //throw std::runtime_error("Impossible de lire le fichier");
+            if (!creaTexture.loadFromFile("../res/groupes.png"))
+                std::cout << "Erreur chargement texture !\n" << std::endl;
+            
+            
+            for (int i = 0; i < 29; i++){
+                window.draw(listHexagones[i], &hexaTexture);
+                //window.draw(listHexagonesCrea[i], &creaTexture);
+            }
+
+            window.display();
+        }
         
     }
     
