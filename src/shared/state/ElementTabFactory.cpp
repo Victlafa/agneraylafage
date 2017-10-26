@@ -14,7 +14,7 @@ namespace state
     
     ElementTab* ElementTabFactory::newInstance (char id, size_t height, size_t width) const
     {
-        return new ElementTab(width,height);
+        return new ElementTab(TypeID::CELL,width,height);
         
     }
     

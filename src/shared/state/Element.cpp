@@ -7,6 +7,7 @@ namespace state
         x = 0;
         y = 0;
         creaturesNbr = 0;
+        elemType = TypeID::CELL;
     }
     
     Element::~Element() {}
@@ -16,8 +17,9 @@ namespace state
         bool coordX = (this->x == otherElement.getX());
         bool coordY = (this->y == otherElement.getY());
         bool creaNbr = (this->creaturesNbr == otherElement.getCreaturesNbr());
+        bool type = (this->elemType == otherElement.getElemType());
         
-        if (coordX && coordY && creaNbr)
+        if (coordX && coordY && creaNbr && type)
             return true;
         else
             return false;
