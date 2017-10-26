@@ -87,9 +87,13 @@ namespace render {
         std::vector<int> li = {0,0,0,0};
         std::vector<int> lj = {0,0,0,0};
         
+        int i = 0;
+        int j = 0;
+        
         for(int sc=0; sc<4; sc++){
-            int i = 0;
-            int j = 0;
+            
+            i = 0;
+            j = 0;
                
             bool trouve = true;
                     
