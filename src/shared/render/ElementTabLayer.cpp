@@ -137,7 +137,7 @@ namespace render{
 
 
                     this->surface->setTextureLocation(i, tuile);
-                    this->surface->setFinalLocation(i, x + shift*2*halfWidth, y, tuile);
+                    this->surface->setFinalLocation(i, x /*+ shift*2*halfWidth*/, y, tuile);
 
                     shift += 1; 
                 }
