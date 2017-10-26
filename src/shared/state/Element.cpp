@@ -48,5 +48,13 @@ namespace state
         this->creaturesNbr = creaturesNbr;
     }
     
+    TypeID Element::getElemType() const{
+        return this->elemType;
+    }
+    void Element::setElemType(TypeID elemType)
+    {
+        this->elemType = elemType;
+    }
+    
     
 };
