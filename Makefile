@@ -24,7 +24,7 @@ configure:
 build: bin/client 
 
 bin/client:
-	@make -s -j4 -C build client
+	@make -Wall -Werror -Wextra -s -j4 -C build client
 
 bin/server:
 	@make -s -j4 -C build server
