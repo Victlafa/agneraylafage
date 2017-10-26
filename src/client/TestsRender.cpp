@@ -152,7 +152,7 @@ namespace render {
                     if((i==li1[k]&&j==lj1[k])&&(i==li2[k]&&j==lj2[k]))
                         trouve=true;
                 }
-                map(i,j)=state::CreaturesGroup()
+                //map(i,j)=state::CreaturesGroup()
             }
         }
         
