@@ -40,10 +40,10 @@ namespace render {
 
         // On déclare et initialise un tableau d'éléments :
         std::shared_ptr<state::ElementTab> grid;
-        grid = std::shared_ptr<state::ElementTab>(new state::ElementTab(state::TypeID::CELL,7, 5));
+        grid = std::shared_ptr<state::ElementTab>(new state::ElementTab(state::TypeID::CREATURESGROUP,7, 5));
 
         // On initialise un plan pour ce tableau, de type Cell:
-        ElementTabLayer *gridLayer = new ElementTabLayer(grid, 0);
+        ElementTabLayer *gridLayer = new ElementTabLayer(grid, 1);
         // Initialisation de sa surface :
         gridLayer->initSurface();
         // Initialisation de la fenêtre :
@@ -113,7 +113,7 @@ namespace render {
                
             bool trouve = true;
                     
-            while(((i==0&&j==0) || (i==0&&j==1) || (i==1&&j==0) || (i==4&&j==6) || (i==4&&j==5) || (i==3&&j==6))||trouve){
+            while(((i==0 && j==0) || (i==0 && j==1) || (i==1&&j==0) || (i==4&&j==6) || (i==4&&j==5) || (i==3&&j==6))||trouve){
                 trouve=false;
                 for(int k =0; k<4; k++){
                     if(i==li[k]&&j==lj[k]){
@@ -434,10 +434,14 @@ namespace render {
 
         int halfHeight = 61;
         int halfWidth = 51;
+        int halfHeightCrea = 50;
+        int halfWidthCrea = 50;
         int x = 311;
         int y = 187;
         int xText = 71;
         int yText = 81;
+        int xTextCrea = 50;
+        int yTextCrea = 50;
         int shift = 0;
         
         std::vector<sf::VertexArray> listHexagones = std::vector<sf::VertexArray>();
@@ -508,7 +512,9 @@ namespace render {
             sf::Texture hexaTexture;
 
             //Le premier cas marche chez Victoire, le second chez Aurore
-            if (!hexaTexture.loadFromFile("../res/hexa.png"))
+            if (!hexaTexture.loadFromFile("../res/hexa.png")) 
+                hexaTexture.loadFromFile("./res/hexa.png");
+            else
                 std::cout << "Erreur chargement texture !\n" << std::endl;
             //throw std::runtime_error("Impossible de lire le fichier");
           

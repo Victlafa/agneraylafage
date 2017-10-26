@@ -18,8 +18,8 @@ namespace render{
     
     void ElementTabLayer::initSurface() {
         
-        int x = (!type) ? 311 : 0;
-        int y = (!type) ? 187 : 0;
+        int x = 311;
+        int y = 187;
         int shift = 0;
         
         if (!type) 
@@ -137,7 +137,7 @@ namespace render{
 
 
                     this->surface->setTextureLocation(i, tuile);
-                    this->surface->setFinalLocation(i, x + shift*2*halfWidth, y, tuile);
+                    this->surface->setFinalLocation(i, x /*+ shift*2*halfWidth*/, y, tuile);
 
                     shift += 1; 
                 }
