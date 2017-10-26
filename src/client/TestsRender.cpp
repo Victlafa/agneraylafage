@@ -406,14 +406,14 @@ namespace render {
             window.clear();
 
             sf::Texture hexaTexture;
-            sf::Texture creaTexture;
+            //sf::Texture creaTexture;
 
             //Le premier cas marche chez Victoire, le second chez Aurore
             if (!hexaTexture.loadFromFile("../res/hexa.png"))
                 std::cout << "Erreur chargement texture !\n" << std::endl;
             //throw std::runtime_error("Impossible de lire le fichier");
-            if (!creaTexture.loadFromFile("../res/groupes.png"))
-                std::cout << "Erreur chargement texture !\n" << std::endl;
+           // if (!creaTexture.loadFromFile("../res/groupes.png"))
+             //   std::cout << "Erreur chargement texture !\n" << std::endl;
             
             
             for (int i = 0; i < 29; i++){
