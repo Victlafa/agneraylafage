@@ -13,6 +13,12 @@ namespace state
     Cell::Cell(){}
     Cell::~Cell(){}
     
+    Cell::Cell(const state::Element elem){
+        this->x=elem.getX();
+        this->y=elem.getY();
+        this->creaturesNbr=elem.getCreaturesNbr();
+    }
+    
     // Setters and Getters :
     
     CellState Cell::getCellState () const{
