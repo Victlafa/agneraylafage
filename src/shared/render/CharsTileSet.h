@@ -2,7 +2,6 @@
 #ifndef RENDER__CHARSTILESET__H
 #define RENDER__CHARSTILESET__H
 
-#include <vector>
 #include <string>
 
 namespace render {
@@ -15,7 +14,6 @@ namespace render {
   class TileSet;
 }
 
-#include "Tile.h"
 #include "TileSet.h"
 
 namespace render {
@@ -24,8 +22,7 @@ namespace render {
   class CharsTileSet : public render::TileSet {
     // Attributes
   private:
-    std::vector<Tile> creaturesPlayer1;
-    std::vector<Tile> creaturesPlayer2;
+    Tile** creatures;
     // Operations
   public:
     CharsTileSet ();
