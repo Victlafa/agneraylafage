@@ -5,12 +5,15 @@
  */
 
 #include "ElementTab.h"
+#include "CreaturesID.h"
+#include "Cell.h"
+#include "CreaturesGroup.h"
 #include <iostream>
 
 namespace state
 {
     // Constructor :
-    ElementTab::ElementTab (size_t width, size_t height)
+    ElementTab::ElementTab (TypeID type, size_t width, size_t height)
     {
         this->width = width;
         this->height = height;
@@ -25,12 +28,37 @@ namespace state
             std::cerr << e.what() << std::endl;
         }
         
-        for (int i = 0; i < (int)(width*height); i++)
+        if (type == TypeID::CELL)
         {
-            //std::cout << new Element() << std::endl;
-            this->list.push_back(std::unique_ptr<Element>(new Element()));
-            //std::cout << list->at(i)->getX() << std::endl;
+            for (int i = 0; i < (int)(width*height); i++)
+                this->list.push_back(std::unique_ptr<Cell>(new Cell()));
         }
+        
+        else if (type == TypeID::CREATURESGROUP)
+        {
+            this->list.reserve(29);
+            int* intRand1 = new int[3];
+            int* intRand2 = new int[3];
+            int rand1;
+            int rand2;
+            
+            for (int j = 0; j < 3; j++)
+            {
+                do
+                {
+                    rand1 = rand()%29;
+                    rand2 = rand()%29;
+                }
+                while (rand1 == intRand1[0] || rand2 == intRand2[0] || rand1 == intRand1[1] || rand2 == intRand2[1]);
+                
+                intRand1[j] = rand1;
+                intRand2[j] = rand2;
+                
+            }
+            
+        }
+            
+        
     }
     
     ElementTab::~ElementTab() {

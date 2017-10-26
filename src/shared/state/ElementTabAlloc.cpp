@@ -15,7 +15,7 @@ namespace state
     
     template <class E,typename ID> ElementTab* ElementTabAlloc<E,ID>::newInstance (size_t height, size_t width)
     {
-        return new ElementTab(height*width);
+        return new ElementTab(TypeID::CELL,width,height);
     }
     
     template <class E,typename ID> const ID& ElementTabAlloc<E,ID>::getId() const

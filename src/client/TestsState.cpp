@@ -19,7 +19,7 @@ void TestsElementTab()
     size_t a, b;
     a=3;b=4;
     
-    std::shared_ptr<ElementTab> elemTab ( new ElementTab(a,b) );
+    std::shared_ptr<ElementTab> elemTab ( new ElementTab(TypeID::CELL,a,b) );
     Element* elemTest = new Element();
     
     std::cout << "Test ElementTab - Init tableau : ";

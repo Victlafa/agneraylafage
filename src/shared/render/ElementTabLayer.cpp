@@ -32,7 +32,7 @@ namespace render{
             for (int i = 0; i < 29; i++) {
                 
                 //state::Element elem = this->tab->get(i,0).get(); 
-                Tile tuile = this->tileset->getTile(*(this->tab->get(i,0)));
+                Tile tuile = this->tileset->getTile(*(this->tab->get(i,0).get()));
                 
                 if (i == 5 || i == 11) {
                     x -= halfWidth;

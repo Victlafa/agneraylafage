@@ -9,8 +9,8 @@ namespace state
 
     State::State (){
         this->totalCellNbr = 29;
-        this->grid = std::unique_ptr<ElementTab>(new ElementTab());
-        this->characters = std::unique_ptr<ElementTab>(new ElementTab());
+        this->grid = std::unique_ptr<ElementTab>(new ElementTab(TypeID::CELL));
+        this->characters = std::unique_ptr<ElementTab>(new ElementTab(TypeID::CREATURESGROUP,5,7));
         this->player = std::unique_ptr<Player>(new Player());
     }
     
