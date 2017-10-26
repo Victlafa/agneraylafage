@@ -76,27 +76,59 @@ namespace render {
     {
         
         std::cout << "Initialisation map_cell & map_creatures" << std::endl;
-        state::ElementTab map_cell(5,7,0);
-        state::ElementTab map_creatures(5,7,1);
-
+        state::ElementTab map_cell((size_t)5,(size_t)7,state::TypeID::CELL);
+        state::ElementTab map_creatures((size_t)5,(size_t)7,state::TypeID::CREATURESGROUP);
         
+        
+        //Positionnement des Cellules Spéciales
         std::vector<state::SpecialCell> l_SpeC;
-        std::vector<int> li;
-        std::vector<int> lj;
+        std::vector<state::SpecialCellID> l_SpeCID = {state::SpecialCellID::BARBECUE, state::SpecialCellID::CANDY, state::SpecialCellID::POOL, state::SpecialCellID::SKY};
+        std::vector<int> li = {0,0,0,0};
+        std::vector<int> lj = {0,0,0,0};
         
         for(int sc=0; sc<4; sc++){
-            int i = rand()%7;
-            int j = rand()%5;
-            
-            if(!((i==0&&j==0) || (i==0&&j==1) || (i==1&&j==0) || (i==4&&j==6) || (i==4&&j==5) || (i==3&&j==6))
-            while(){
-            
+            int i = 0;
+            int j = 0;
+               
+            bool trouve = true;
+                    
+            while(((i==0&&j==0) || (i==0&&j==1) || (i==1&&j==0) || (i==4&&j==6) || (i==4&&j==5) || (i==3&&j==6))||trouve){
+                trouve=false;
+                for(int k =0; k<4; k++){
+                    if(i==li[k]&&j==lj[k]){
+                        trouve=true;
+                    }
+                }
+                i = rand()%7;
+                j = rand()%5;
+                
             }
+
+                                
+            std::string restype = "wood";
+            state::SpecialCell *spec = new state::SpecialCell(l_SpeCID[sc], restype, 2, i, j);
+            l_SpeC.push_back(*spec);
+            li[sc]=i;lj[sc]=j;
             
-            state::SpecialCell sc(state::SpecialCellID::0,"wood");
+            //map_cell(i,j)=*spec;
+            
+            std::cout << i << std::endl;
+            std::cout << j << std::endl;
         }
         
+        // On remplit map_cell avec des cellules simples
+        std::vector<state::SimpleCellID> l_SimCID = {state::SimpleCellID::DIRT,state::SimpleCellID::GRASS,state::SimpleCellID::SAND};
         
+        for(int i=0; i<5; i++){
+            for(int j=0; j<7; j++){
+                if(!((i==0&&j==0) || (i==0&&j==1) || (i==1&&j==0) || (i==4&&j==6) || (i==4&&j==5) || (i==3&&j==6) || (i==li[0]&&j==lj[0]) || i==li[1]&&j==lj[1] || i==li[2]&&j==lj[2] || i==li[3]&&j==lj[3])){
+                    std::string restype = "wood";
+                    map_cell(i,j)=  state::SimpleCell(l_SimCID[rand()%3],restype,4,i,j);
+                }
+                else
+                    map_cell(i,j)=NULL;
+            }
+        }
         
         
     }
