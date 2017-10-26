@@ -13,10 +13,14 @@ namespace render
     CellTileSet::CellTileSet () 
     { 
         cells = std::vector<Tile>(7); 
-        for (int i = 0; i < 7; i++)
-        {
-            cells.push_back(Tile(71,81,102,122));
-        }
+        
+        cells.push_back(Tile(71,81,102,122));
+        cells.push_back(Tile(191,81,102,122));
+        cells.push_back(Tile(311,81,102,122));
+        cells.push_back(Tile(71,221,102,122));
+        cells.push_back(Tile(191,221,102,122));
+        cells.push_back(Tile(311,221,102,122));
+        cells.push_back(Tile(431,221,102,122));
     }
     
     // Renvoie l'épaisseur d'une cellule si la liste est non vide. Renvoie -1 si la liste est vide.
@@ -44,25 +48,46 @@ namespace render
     
     const Tile& CellTileSet::getTile (const state::Element& elem) const
     {
-//        if (elem.getElemType() == state::TypeID::CELL)
-//        {
-//            state::Cell cellule = dynamic_cast<const state::Cell&>(elem);
-//            
-//            if (cellule.getCellType() == state::CellTypeID::SIMPLE)
-//            {
-//                state::SimpleCell simpleCellule = dynamic_cast<const state::SimpleCell&>(cellule);
-//                
-//                if (simpleCellule.getSimpleCellType() == state::SimpleCellID::SAND)
-//                    return *(new Tile(71,81,102,122));
-//                else
-//                    return *(new Tile(-1,-1,-1,-1));
-//            }
-//            
-//            else
-//                return *(new Tile(-1,-1,-1,-1));
-//        }
+        if (elem.getElemType() == state::TypeID::CELL)
+        {
+            const state::Cell cellule = dynamic_cast<const state::Cell&>(elem);
+            
+            if (cellule.getCellType() == state::CellTypeID::SIMPLE)
+            {
+                const state::SimpleCell simpleCellule = static_cast<const state::SimpleCell&>(cellule);
+                
+                if (simpleCellule.getSimpleCellType() == state::SimpleCellID::SAND)
+                    return this->cells[0];
+                else if (simpleCellule.getSimpleCellType() == state::SimpleCellID::GRASS)
+                    return this->cells[1];
+                else if (simpleCellule.getSimpleCellType() == state::SimpleCellID::DIRT)
+                    return this->cells[2];
+                else
+                    return *(new Tile(-1,-1,-1,-1));
+            }
+            
+            else if (cellule.getCellType() == state::CellTypeID::SPECIAL)
+            {
+                const state::SpecialCell specialCellule = static_cast<const state::SpecialCell&>(cellule);
+                
+                if (specialCellule.getSpecialCellType() == state::SpecialCellID::BARBECUE)
+                    return this->cells[3];
+                else if (specialCellule.getSpecialCellType() == state::SpecialCellID::SKY)
+                    return this->cells[4];
+                else if (specialCellule.getSpecialCellType() == state::SpecialCellID::POOL)
+                    return this->cells[5];
+                else if (specialCellule.getSpecialCellType() == state::SpecialCellID::CANDY)
+                    return this->cells[6];
+                else
+                    return *(new Tile(-1,-1,-1,-1));
+            }
+            
+            else
+                return *(new Tile(-1,-1,-1,-1));
+        }
         
-        return *(new Tile(71,81,102,122));
+        else
+            return *(new Tile(-1,-1,-1,-1));
         
         
     }
