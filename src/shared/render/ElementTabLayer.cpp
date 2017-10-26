@@ -17,15 +17,28 @@ namespace render{
     
     void ElementTabLayer::initSurface() {
         
-        this->surface->loadTexture("hexa.png");
-        this->surface->initQuads(5);
-        for (int i = 0; i < 5; i++)
-        {
-            state::Element elem;
-            Tile tuile = this->tileset->getTile(elem);
-            this->surface->setTextureLocation(i,tuile);
-            this->surface->setFinalLocation(i,260+51+i*102,126+61,tuile);
+        if (!type) 
+{
+            this->surface->loadTexture("hexa.png");
+            this->surface->initQuads(5);
+
+            // Affichage d'une première ligne :
+            for (int i = 0; i < 5; i++) {
+                state::Element elem;
+                Tile tuile = this->tileset->getTile(elem);
+                this->surface->setTextureLocation(i, tuile);
+                this->surface->setFinalLocation(i, 260 + 51 + i * 102, 126 + 61, tuile);
+            }
         }
+        
+        else if (type)
+        {
+            
+        }
+        
+        else
+            std::cout << "Le type d'ElementTabLayer n'a pas été choisi correctement !\n" << std::endl;
+
         
         
 //        //Initialisation des cellules
