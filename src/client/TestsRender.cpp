@@ -70,12 +70,108 @@ namespace render {
         //        
     }
 
+    // Initialise la map
+    
+    void TestInitMap()
+    {
+        
+        std::cout << "Initialisation map_cell & map_creatures" << std::endl;
+        state::ElementTab map_cell(5,7,0);
+        state::ElementTab map_creatures(5,7,1);
+
+        
+        std::vector<state::SpecialCell> l_SpeC;
+        std::vector<int> li;
+        std::vector<int> lj;
+        
+        for(int sc=0; sc<4; sc++){
+            int i = rand()%7;
+            int j = rand()%5;
+            
+            if(!((i==0&&j==0) || (i==0&&j==1) || (i==1&&j==0) || (i==4&&j==6) || (i==4&&j==5) || (i==3&&j==6))
+            while(){
+            
+            }
+            
+            state::SpecialCell sc(state::SpecialCellID::0,"wood");
+        }
+        
+        
+        
+        
+    }
+    
     // Affichage souhaite
 
     void TestAffichage() {
 
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
+        int halfHeight = 61;
+        int halfWidth = 51;
+        int x = 311;
+        int y = 187;
+        int xText = 71;
+        int yText = 81;
+        int shift = 0;
+        
+        std::vector<sf::VertexArray> listHexagones = std::vector<sf::VertexArray>();
+        listHexagones.reserve(29);
+        
+        for (int i = 0; i < 29; i++) {
+
+            listHexagones.push_back(sf::VertexArray(sf::Quads, 4));
+            
+            if (i == 5 || i == 11) {
+                x -= halfWidth;
+                y += 86;
+                switch (i) {
+                    case 5:
+                        shift = i - 5;
+                        break;
+                    case 11:
+                        shift = i - 11;
+                        break;
+                    default:
+                        shift = i;
+                }
+            }
+                
+            else if (i == 18 || i == 24) {
+                
+                x += halfWidth;
+                y += 86;
+            switch (i) {
+                    case 18:
+                        shift = i - 18;
+                        break;
+                    case 24:
+                        shift = i - 24;
+                        break;
+                    default:
+                        shift = i;
+                }
+            }
+                
+            else
+            {
+                shift = shift;
+            }
+
+            listHexagones[i][0].position = sf::Vector2f(x + halfWidth + shift * 2 * halfWidth, y + halfHeight);
+            listHexagones[i][1].position = sf::Vector2f(x + halfWidth + shift * 2 * halfWidth, y - halfHeight);
+            listHexagones[i][2].position = sf::Vector2f(x - halfWidth + shift * 2 * halfWidth, y - halfHeight);
+            listHexagones[i][3].position = sf::Vector2f(x - halfWidth + shift * 2 * halfWidth, y + halfHeight);
+
+            listHexagones[i][0].texCoords = sf::Vector2f(xText + halfWidth, yText + halfHeight);
+            listHexagones[i][1].texCoords = sf::Vector2f(xText + halfWidth, yText - halfHeight);
+            listHexagones[i][2].texCoords = sf::Vector2f(xText - halfWidth, yText - halfHeight);
+            listHexagones[i][3].texCoords = sf::Vector2f(xText - halfWidth, yText + halfHeight);
+
+            shift += 1;
+
+        }
+        
         while (window.isOpen()) {
             sf::Event event;
             while (window.pollEvent(event)) {
@@ -86,76 +182,11 @@ namespace render {
 
             sf::Texture hexaTexture;
 
-            if (!hexaTexture.loadFromFile("./res/hexa.png"))
+            //Le premier cas marche chez Victoire, le second chez Aurore
+            if (!hexaTexture.loadFromFile("../res/hexa.png"))
                 std::cout << "Erreur chargement texture !\n" << std::endl;
             //throw std::runtime_error("Impossible de lire le fichier");
-
-            int halfHeight = 61;
-            int halfWidth = 51;
-            int x = 311;
-            int y = 187;
-            int xText = 71;
-            int yText = 81;
-            int shift = 0;
-
-            std::vector<sf::VertexArray> listHexagones = std::vector<sf::VertexArray>();
-            listHexagones.reserve(29);
-
-            for (int i = 0; i < 29; i++) {
-
-                listHexagones.push_back(sf::VertexArray(sf::Quads, 4));
-
-                if (i == 5 || i == 11) {
-                    x -= halfWidth;
-                    y += 86;
-
-                    switch (i) {
-                        case 5:
-                            shift = i - 5;
-                            break;
-                        case 11:
-                            shift = i - 11;
-                            break;
-                        default:
-                            shift = i;
-                    }
-                }
-                
-                else if (i == 18 || i == 24) {
-                    
-                    x += halfWidth;
-                    y += 86;
-
-                    switch (i) {
-                        case 18:
-                            shift = i - 18;
-                            break;
-                        case 24:
-                            shift = i - 24;
-                            break;
-                        default:
-                            shift = i;
-                    }
-                }
-                
-                else
-                {
-                    shift = shift;
-                }
-
-                listHexagones[i][0].position = sf::Vector2f(x + halfWidth + shift * 2 * halfWidth, y + halfHeight);
-                listHexagones[i][1].position = sf::Vector2f(x + halfWidth + shift * 2 * halfWidth, y - halfHeight);
-                listHexagones[i][2].position = sf::Vector2f(x - halfWidth + shift * 2 * halfWidth, y - halfHeight);
-                listHexagones[i][3].position = sf::Vector2f(x - halfWidth + shift * 2 * halfWidth, y + halfHeight);
-
-                listHexagones[i][0].texCoords = sf::Vector2f(xText + halfWidth, yText + halfHeight);
-                listHexagones[i][1].texCoords = sf::Vector2f(xText + halfWidth, yText - halfHeight);
-                listHexagones[i][2].texCoords = sf::Vector2f(xText - halfWidth, yText - halfHeight);
-                listHexagones[i][3].texCoords = sf::Vector2f(xText - halfWidth, yText + halfHeight);
-
-                shift += 1;
-
-            }
+          
             
             for (int i = 0; i < 29; i++)
                 window.draw(listHexagones[i], &hexaTexture);
