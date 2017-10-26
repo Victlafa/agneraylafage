@@ -130,12 +130,17 @@ namespace render {
                         case 18:
                             shift = i - 18;
                             break;
-                        case 11:
+                        case 24:
                             shift = i - 24;
                             break;
                         default:
                             shift = i;
                     }
+                }
+                
+                else
+                {
+                    shift = shift;
                 }
 
                 listHexagones[i][0].position = sf::Vector2f(x + halfWidth + shift * 2 * halfWidth, y + halfHeight);
@@ -151,7 +156,7 @@ namespace render {
                 shift += 1;
 
             }
-
+            
             for (int i = 0; i < 29; i++)
                 window.draw(listHexagones[i], &hexaTexture);
 
