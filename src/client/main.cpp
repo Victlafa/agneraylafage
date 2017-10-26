@@ -48,17 +48,17 @@ int main(int argc,char* argv[])
         if (argc >= 2 && (string) argv[1] == "render") {
 
             // On cherche à afficher une ligne de cinq hexagones :
-            TestInitMap();
-            //TestsElementTabLayer();
+            //TestInitMap();
+            TestsElementTabLayer();
             //TestAffichage();
             
 
         }
         
-    } catch (...) {
-        int pouet = 5;
-        cout << "erreur";
-        cout << pouet << endl;
+    } catch (const std::exception &e) {
+        
+        cout << "Erreur, catch du main" << endl;
+        std::cerr << e.what();
     }
             
 
