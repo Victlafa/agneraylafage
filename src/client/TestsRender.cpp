@@ -410,6 +410,8 @@ namespace render {
 
             //Le premier cas marche chez Victoire, le second chez Aurore
             if (!hexaTexture.loadFromFile("../res/hexa.png"))
+                hexaTexture.loadFromFile("./res/hexa.png");
+            else
                 std::cout << "Erreur chargement texture !\n" << std::endl;
             //throw std::runtime_error("Impossible de lire le fichier");
            // if (!creaTexture.loadFromFile("../res/groupes.png"))
