@@ -76,8 +76,8 @@ namespace render {
     {
         
         std::cout << "Initialisation map_cell & map_creatures" << std::endl;
-        state::ElementTab map_cell((size_t)5,(size_t)7,state::TypeID::CELL);
-        state::ElementTab map_creatures((size_t)5,(size_t)7,state::TypeID::CREATURESGROUP);
+        state::ElementTab map_cell(state::TypeID::CELL,(size_t)5,(size_t)7);
+        state::ElementTab map_creatures(state::TypeID::CREATURESGROUP,(size_t)5,(size_t)7);
         
         
         //Positionnement des Cellules Spéciales
@@ -104,7 +104,7 @@ namespace render {
                 
             }
 
-                                
+            
             std::string restype = "wood";
             state::SpecialCell *spec = new state::SpecialCell(l_SpeCID[sc], restype, 2, i, j);
             l_SpeC.push_back(*spec);
@@ -129,6 +129,33 @@ namespace render {
                     map_cell(i,j)=NULL;
             }
         }
+        
+        
+        //On initialise map_creature
+        
+        std::vector<int> li1 = {0,0,0};
+        std::vector<int> li2 = {0,0,0};
+        std::vector<int> lj1 = {0,0,0};
+        std::vector<int> lj2 = {0,0,0};
+        
+        for(int cr=0; cr<4; cr++){
+            int i = 0;
+            int j = 0;
+               
+            bool trouve = true;
+                    
+            while(((i==0&&j==0) || (i==0&&j==1) || (i==1&&j==0) || (i==4&&j==6) || (i==4&&j==5) || (i==3&&j==6) || (i==li[0]&&j==lj[0]) || i==li[1]&&j==lj[1] || i==li[2]&&j==lj[2] || i==li[3]&&j==lj[3])||trouve){
+                i=rand()%5;
+                j=rand()%7;
+                trouve=false;
+                for(int k=0; k<3; k++){
+                    if((i==li1[k]&&j==lj1[k])&&(i==li2[k]&&j==lj2[k]))
+                        trouve=true;
+                }
+                map(i,j)=state::CreaturesGroup()
+            }
+        }
+        
         
         
     }
