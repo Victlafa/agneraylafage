@@ -100,7 +100,6 @@ namespace render
 
             for (int i = 0; i < 5; i++)
             {
-                std::cout<< i << std::endl;
                 
                 listHexagones.push_back(sf::VertexArray(sf::Quads, 4));
                 
@@ -117,53 +116,43 @@ namespace render
             }
             
             for (int i = 0; i < 5; i++){
-                
                 window.draw(listHexagones[i],&hexaTexture);
             }
- /*
-            sf::VertexArray tab_v(sf::Quads, 4);
 
-            tab_v[0].position = sf::Vector2f(x + halfWidth + 2*halfWidth, y + halfHeight);
-            tab_v[1].position = sf::Vector2f(x + halfWidth + 2*halfWidth, y - halfHeight);
-            tab_v[2].position = sf::Vector2f(x - halfWidth + 2*halfWidth, y - halfHeight);
-            tab_v[3].position = sf::Vector2f(x - halfWidth + 2*halfWidth, y + halfHeight);
+            halfHeight = 61;
+            halfWidth = 51;
+            x = 311-halfWidth;
+            y = 187+86;
+            xText = 71;
+            yText = 81;
 
-            tab_v[0].texCoords = sf::Vector2f(xText + halfWidth, yText + halfHeight);
-            tab_v[1].texCoords = sf::Vector2f(xText + halfWidth, yText - halfHeight);
-            tab_v[2].texCoords = sf::Vector2f(xText - halfWidth, yText - halfHeight);
-            tab_v[3].texCoords = sf::Vector2f(xText - halfWidth, yText + halfHeight);
-            
-            
-            window.draw(tab_v,&hexaTexture);
-            
-            //sf::VertexArray tab_v(sf::Quads, 4);
+            std::vector<sf::VertexArray> listHexagones2 = std::vector<sf::VertexArray>();
+            listHexagones2.reserve(6);
 
-            tab_v[0].position = sf::Vector2f(700,500);
-            tab_v[1].position = sf::Vector2f(700,400);
-            tab_v[2].position = sf::Vector2f(600,400);
-            tab_v[3].position = sf::Vector2f(600,500);
-           
-            tab_v[0].color = sf::Color::Red;
-            tab_v[1].color = sf::Color::Blue;
-            tab_v[2].color = sf::Color::Green;
-            
-            tab_v[0].texCoords = sf::Vector2f(360, 281);
-            tab_v[1].texCoords = sf::Vector2f(360, 161);
-            tab_v[2].texCoords = sf::Vector2f(259, 161);
-            tab_v[3].texCoords = sf::Vector2f(259, 281);
+            for (int i = 0; i < 6; i++)
+            {
+                
+                listHexagones2.push_back(sf::VertexArray(sf::Quads, 4));
+                
+                listHexagones2[i][0].position = sf::Vector2f(x + halfWidth + i*2*halfWidth, y + halfHeight);
+                listHexagones2[i][1].position = sf::Vector2f(x + halfWidth + i*2*halfWidth, y - halfHeight);
+                listHexagones2[i][2].position = sf::Vector2f(x - halfWidth + i*2*halfWidth, y - halfHeight);
+                listHexagones2[i][3].position = sf::Vector2f(x - halfWidth + i*2*halfWidth, y + halfHeight);
 
-            window.draw(tab_v,&hexaTexture);*/
-            /*
-            tab_v[0].position = sf::Vector2f(600,500);
-            tab_v[1].position = sf::Vector2f(700,500);
-            tab_v[2].position = sf::Vector2f(600,400);
-            tab_v[3].position = sf::Vector2f(700,400);
-           
-            tab_v[0].color = sf::Color::Red;
-            tab_v[1].color = sf::Color::Blue;
-            tab_v[2].color = sf::Color::Green;
+                listHexagones2[i][0].texCoords = sf::Vector2f(xText + halfWidth, yText + halfHeight);
+                listHexagones2[i][1].texCoords = sf::Vector2f(xText + halfWidth, yText - halfHeight);
+                listHexagones2[i][2].texCoords = sf::Vector2f(xText - halfWidth, yText - halfHeight);
+                listHexagones2[i][3].texCoords = sf::Vector2f(xText - halfWidth, yText + halfHeight);
+
+            }
             
-            window.draw(tab_v,&hexaTexture);*/
+            for (int i = 0; i < 5; i++){
+                window.draw(listHexagones[i],&hexaTexture);
+
+            }
+            for (int i = 0; i < 6; i++){
+                window.draw(listHexagones2[i],&hexaTexture);
+            }
             
             window.display();
         }
