@@ -39,10 +39,10 @@ namespace render {
 
         // On déclare et initialise un tableau d'éléments :
         std::shared_ptr<state::ElementTab> grid;
-        grid = std::shared_ptr<state::ElementTab>(new state::ElementTab(state::TypeID::CELL,7, 5));
+        grid = std::shared_ptr<state::ElementTab>(new state::ElementTab(state::TypeID::CREATURESGROUP,7, 5));
 
         // On initialise un plan pour ce tableau, de type Cell:
-        ElementTabLayer *gridLayer = new ElementTabLayer(grid, 0);
+        ElementTabLayer *gridLayer = new ElementTabLayer(grid, 1);
         // Initialisation de sa surface :
         gridLayer->initSurface();
         // Initialisation de la fenêtre :
