@@ -123,8 +123,8 @@ namespace render {
                         trouve=true;
                     }
                 }
-                i = rand()%7;
-                j = rand()%5;
+                i = rand()%5;
+                j = rand()%7;
                 
             }
 
@@ -138,8 +138,8 @@ namespace render {
             map_cell[i*7+j]=*spec;
             map_cell_text[i*7+j]=sc+3;
             
-            std::cout << i << std::endl;
-            std::cout << j << std::endl;
+            std::cout << "i:" << i << " j:" << j << " sc:" << sc << " i*7+j:"<< i*7+j << std::endl;
+            
         }
         
         
