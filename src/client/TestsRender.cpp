@@ -100,19 +100,22 @@ namespace render {
         //Positionnement des Cellules Spéciales
         std::vector<state::SpecialCell> l_SpeC;
         std::vector<state::SpecialCellID> l_SpeCID = {state::SpecialCellID::BARBECUE, state::SpecialCellID::CANDY, state::SpecialCellID::POOL, state::SpecialCellID::SKY};
-        std::vector<int> li = {0,0,0,0};
-        std::vector<int> lj = {0,0,0,0};
+        std::vector<int> li = {0,0,0,0};//liste des ordonnées des cellules spéciales
+        std::vector<int> lj = {0,0,0,0};//liste des absisses des cellules simples
         
         int i = 0;
         int j = 0;
         
+        //On détermine les coordonnées des 4 cellules spéciales
         for(int sc=0; sc<4; sc++){
             
             i = 0;
             j = 0;
                
             bool trouve = true;
-                    
+                   
+            // On s'assure que les coordonnées trouvées sont dans la grille voulue
+            // et qu'elle ne se superpose pas à une autre cellule spéciale
             while(((i==0 && j==0) || (i==0 && j==1) || (i==1&&j==0) || (i==4&&j==6) || (i==4&&j==5) || (i==3&&j==6))||trouve){
                 trouve=false;
                 for(int k =0; k<4; k++){
@@ -411,8 +414,8 @@ namespace render {
             //Le premier cas marche chez Victoire, le second chez Aurore
             if (!hexaTexture.loadFromFile("../res/hexa.png"))
                 hexaTexture.loadFromFile("./res/hexa.png");
-            else
-                std::cout << "Erreur chargement texture !\n" << std::endl;
+            //else
+              //  std::cout << "Erreur chargement texture !\n" << std::endl;
             //throw std::runtime_error("Impossible de lire le fichier");
            // if (!creaTexture.loadFromFile("../res/groupes.png"))
              //   std::cout << "Erreur chargement texture !\n" << std::endl;
