@@ -118,13 +118,13 @@ namespace render {
             // et qu'elle ne se superpose pas à une autre cellule spéciale
             while(((i==0 && j==0) || (i==0 && j==1) || (i==1&&j==0) || (i==4&&j==6) || (i==4&&j==5) || (i==3&&j==6))||trouve){
                 trouve=false;
+                i = rand()%5;
+                j = rand()%7;
                 for(int k =0; k<4; k++){
                     if(i==li[k]&&j==lj[k]){
                         trouve=true;
                     }
                 }
-                i = rand()%5;
-                j = rand()%7;
                 
             }
 
@@ -135,8 +135,28 @@ namespace render {
             li[sc]=i;lj[sc]=j;
             
             //map_cell(i,j)=*spec;
-            map_cell[i*7+j]=*spec;
-            map_cell_text[i*7+j]=sc+3;
+            //on adapte les coordonnées de la cellule à la liste des textures
+            if(i*7+j<7){
+                map_cell[i*7+j-2]=*spec;
+                map_cell_text[i*7+j-2]=sc+3;
+            }else 
+                if(i*7+j<27){
+                    map_cell[i*7+j-3]=*spec;
+                    map_cell_text[i*7+j-3]=sc+3;
+            }else 
+                if(i*7+j<33){
+                    map_cell[i*7+j-4]=*spec;
+                    map_cell_text[i*7+j-4]=sc+3;
+            }else 
+                if(i*7+j<34){
+                    map_cell[i*7+j-5]=*spec;
+                    map_cell_text[i*7+j-5]=sc+3;
+            }else{
+                map_cell[i*7+j-6]=*spec;
+                map_cell_text[i*7+j-6]=sc+3;
+            }
+            
+            
             
             std::cout << "i:" << i << " j:" << j << " sc:" << sc << " i*7+j:"<< i*7+j << std::endl;
             
@@ -154,8 +174,27 @@ namespace render {
                     //map_cell(i,j)= state::SimpleCell(l_SimCID[rand()%3],restype,4,i,j);
                     int iid = rand()%3;
                     state::SimpleCellID id = l_SimCID[iid];
-                    map_cell[i*7+j]=state::SimpleCell(id,restype,4,i,j);
-                    map_cell_text[i*7+j]=iid;
+                    //on adapte les coordonnées de la cellule à la liste des textures
+                    if(i*7+j<7){
+                        map_cell[i*7+j-2]=state::SimpleCell(id,restype,4,i,j);
+                        map_cell_text[i*7+j-2]=iid;
+                    }else 
+                        if(i*7+j<27){
+                            map_cell[i*7+j-3]=state::SimpleCell(id,restype,4,i,j);
+                            map_cell_text[i*7+j-3]=iid;
+                    }else 
+                        if(i*7+j<33){
+                            map_cell[i*7+j-4]=state::SimpleCell(id,restype,4,i,j);
+                            map_cell_text[i*7+j-4]=iid;
+                    }else 
+                        if(i*7+j<34){
+                            map_cell[i*7+j-5]=state::SimpleCell(id,restype,4,i,j);
+                            map_cell_text[i*7+j-5]=iid;
+                    }else{
+                        map_cell[i*7+j-6]=state::SimpleCell(id,restype,4,i,j);
+                        map_cell_text[i*7+j-6]=iid;
+                    }
+
                 }
                 //else
                     //map_cell(i,j) = NULL;
