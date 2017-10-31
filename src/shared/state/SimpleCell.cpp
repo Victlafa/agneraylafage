@@ -6,6 +6,7 @@
 
 #include "SimpleCell.h"
 #include "TypeID.h"
+#include <iostream>
 
 namespace state
 {
@@ -26,6 +27,7 @@ namespace state
     }
     
     SimpleCellID SimpleCell::getSimpleCellType() const{
+        std::cout << "Type de cellule simple : "<< this->simpleCellType << std::endl;
         return this->simpleCellType;
     }
     
