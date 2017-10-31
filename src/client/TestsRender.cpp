@@ -40,10 +40,10 @@ namespace render {
 
         // On déclare et initialise un tableau d'éléments :
         std::shared_ptr<state::ElementTab> grid;
-        grid = std::shared_ptr<state::ElementTab>(new state::ElementTab(state::TypeID::CREATURESGROUP,7, 5));
+        grid = std::shared_ptr<state::ElementTab>(new state::ElementTab(state::TypeID::CELL,7, 5));
 
         // On initialise un plan pour ce tableau, de type Cell:
-        ElementTabLayer *gridLayer = new ElementTabLayer(grid, 1);
+        ElementTabLayer *gridLayer = new ElementTabLayer(grid, 0);
         // Initialisation de sa surface :
         gridLayer->initSurface();
         // Initialisation de la fenêtre :
@@ -478,14 +478,14 @@ namespace render {
 
         int halfHeight = 61;
         int halfWidth = 51;
-        int halfHeightCrea = 50;
-        int halfWidthCrea = 50;
+        //int halfHeightCrea = 50;
+        //int halfWidthCrea = 50;
         int x = 311;
         int y = 187;
         int xText = 71;
         int yText = 81;
-        int xTextCrea = 50;
-        int yTextCrea = 50;
+        //int xTextCrea = 50;
+        //int yTextCrea = 50;
         int shift = 0;
         
         std::vector<sf::VertexArray> listHexagones = std::vector<sf::VertexArray>();
