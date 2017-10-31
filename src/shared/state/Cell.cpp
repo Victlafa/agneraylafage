@@ -11,8 +11,8 @@ namespace state
 {
     // Constructor :
     
-    Cell::Cell(){
-        this->cellType = CellTypeID::SIMPLE;
+    Cell::Cell(CellTypeID type){
+        setCellType(type);
         this->cellState = CellState::NORMAL;
     }
     

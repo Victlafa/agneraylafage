@@ -8,8 +8,8 @@ namespace state {
   class Element;
 }
 
-#include "Element.h"
 #include "CellTypeID.h"
+#include "Element.h"
 #include "CellState.h"
 
 namespace state {
@@ -26,7 +26,7 @@ namespace state {
     bool occupied     = false;
     // Operations
   public:
-    Cell ();
+    Cell (CellTypeID type);
     Cell (const Element& elem);
     ~Cell ();
     // Setters and Getters
