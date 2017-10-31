@@ -39,55 +39,60 @@ namespace render{
         else
             std::cout << "Le type d'ElementTabLayer n'a pas été choisi correctement !\n" << std::endl;
 
+        Tile tuile = this->tileset->getTile(*(this->tab->get(0,0).get()));
+        this->surface->setTextureLocation(0, tuile);
+        this->surface->setFinalLocation(0, x + shift * 2 * halfWidth, y, tuile);
+        
         // Affichage des cellules de la map :
-        for (int i = 0; i < (int) this->tab->getHeight(); i++) {
-            for (int j = 0; j < (int) this->tab->getWidth(); j++) {
-                
-                if (this->tab->get(i, 0).get() != NULL) {
-                    Tile tuile = this->tileset->getTile(*(this->tab->get(i, j).get()));
-
-                    if (i == 5 || i == 11) {
-                        x -= halfWidth;
-                        y += 86;
-
-                        switch (i) {
-                            case 5:
-                                shift = i - 5;
-                                break;
-                            case 11:
-                                shift = i - 11;
-                                break;
-                            default:
-                                shift = i;
-                        }
-                    }
-                    else if (i == 18 || i == 24) {
-
-                        x += halfWidth;
-                        y += 86;
-
-                        switch (i) {
-                            case 18:
-                                shift = i - 18;
-                                break;
-                            case 24:
-                                shift = i - 24;
-                                break;
-                            default:
-                                shift = i;
-                        }
-                    }
-                    else
-                        shift = shift;
-
-
-                    this->surface->setTextureLocation(i, tuile);
-                    this->surface->setFinalLocation(i, x + shift * 2 * halfWidth, y, tuile);
-
-                    shift += 1;
-                }
-            }
-        }
+//        for (int i = 0; i < (int) this->tab->getHeight(); i++) {
+//            for (int j = 0; j < (int) this->tab->getWidth(); j++) {
+//                
+//                if (this->tab->get(i, 0).get() != NULL) {
+//                    Tile tuile = this->tileset->getTile(*(this->tab->get(i, j).get()));
+//
+//                    if (i == 5 || i == 11) {
+//                        x -= halfWidth;
+//                        y += 86;
+//
+//                        switch (i) {
+//                            case 5:
+//                                shift = i - 5;
+//                                break;
+//                            case 11:
+//                                shift = i - 11;
+//                                break;
+//                            default:
+//                                shift = i;
+//                        }
+//                    }
+//                    else if (i == 18 || i == 24) {
+//
+//                        x += halfWidth;
+//                        y += 86;
+//
+//                        switch (i) {
+//                            case 18:
+//                                shift = i - 18;
+//                                break;
+//                            case 24:
+//                                shift = i - 24;
+//                                break;
+//                            default:
+//                                shift = i;
+//                        }
+//                    }
+//                    else
+//                        shift = shift;
+//
+//
+//                    this->surface->setTextureLocation(i, tuile);
+//                    this->surface->setFinalLocation(i, x + shift * 2 * halfWidth, y, tuile);
+//
+//                    shift += 1;
+//                }
+//            }
+//        }
+        
     }
 }
 
