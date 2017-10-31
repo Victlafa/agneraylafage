@@ -10,7 +10,7 @@
 
 namespace state
 {
-    SimpleCell::SimpleCell (SimpleCellID type, std::string resType, int resNbr, int x, int y){
+    SimpleCell::SimpleCell (SimpleCellID type, std::string resType, int resNbr, int x, int y) : Cell(CellTypeID::SIMPLE) {
         this->simpleCellType=type;
         this->resType=resType;
         this->resNbr=resNbr;

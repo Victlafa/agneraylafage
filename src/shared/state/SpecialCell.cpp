@@ -5,7 +5,7 @@
 namespace state
 {
 
-    SpecialCell::SpecialCell (SpecialCellID type, std::string resType, int resNbr, int x, int y){
+    SpecialCell::SpecialCell (SpecialCellID type, std::string resType, int resNbr, int x, int y) : Cell(CellTypeID::SPECIAL) {
         this->resNbr=resNbr;
         this->resType=resType;
         this->specialCellType=type;
