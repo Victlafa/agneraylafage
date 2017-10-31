@@ -26,6 +26,7 @@ namespace state {
     bool occupied     = false;
     // Operations
   public:
+    Cell ();
     Cell (CellTypeID type);
     Cell (const Element& elem);
     ~Cell ();
