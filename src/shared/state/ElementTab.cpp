@@ -7,6 +7,7 @@
 #include "ElementTab.h"
 #include "CreaturesID.h"
 #include "Cell.h"
+#include "SimpleCell.h"
 #include "CreaturesGroup.h"
 #include <iostream>
 
@@ -33,8 +34,9 @@ namespace state
             for (int i = 0; i < (int)(width*height); i++)
             {
                 //this->list.push_back(std::move(std::unique_ptr<Element>(new Element())));
-                this->list.at(i) = std::unique_ptr<Cell>(new Cell());
-                std::cout << list[i].get() << std::endl;
+                this->list.at(i) = std::unique_ptr<SimpleCell>(new SimpleCell(SimpleCellID::SAND, "wood", 0, 0, 0));
+                //this->list.at(i) = std::unique_ptr<Cell>(new Cell());
+                //std::cout << list[i].get() << std::endl;
             }
                 
             
