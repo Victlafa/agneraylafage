@@ -43,12 +43,12 @@ namespace state
 
         if (type == TypeID::CELL) {
 
-            std::map<int, state::Cell> map_cell;
-            std::map<int, int> map_cell_text;
+            //std::map<int, state::Cell> map_cell;
+            //std::map<int, int> map_cell_text;
 
             std::cout << "Positionnement des Cellules Speciales" << std::endl;
             //Positionnement des Cellules Speciales
-            std::vector<SpecialCell> l_SpeC;
+            std::vector<SpecialCell*> l_SpeC;
             std::vector<SpecialCellID> l_SpeCID = {SpecialCellID::BARBECUE, SpecialCellID::CANDY, SpecialCellID::POOL, SpecialCellID::SKY};
             std::vector<int> li = {0, 0, 0, 0}; //liste des ordonnées des cellules speciales
             std::vector<int> lj = {0, 0, 0, 0}; //liste des absisses des cellules simples
@@ -59,8 +59,7 @@ namespace state
             //On détermine les coordonnées des 4 cellules speciales
             for (int sc = 0; sc < 4; sc++) {
 
-                i = 0;
-                j = 0;
+                i = 0;j = 0;
                 bool trouve = true;
 
                 // On s'assure que les coordonnées trouvées sont dans la grille voulue
@@ -78,60 +77,11 @@ namespace state
                 }
 
 
-                std::string restype;
-                int resNbr;
-                switch (sc) {
-                    case 0:
-                        restype = "stone";
-                        resNbr = 3;
-                        break;
-                    case 1:
-                        restype = "wood";
-                        resNbr = 3;
-                        break;
-                    case 2:
-                        restype = "wood";
-                        resNbr = 3;
-                        break;
-                    case 3:
-                        restype = "wood";
-                        resNbr = 5;
-                        break;
-                    default:
-                        std::cout << "erreur ElementTab restype" << std::endl;
-                        break;
-                }
-
-                SpecialCell *spec = new SpecialCell(l_SpeCID[sc], restype, resNbr, i, j);
-                l_SpeC.push_back(*spec);
+                
                 li[sc] = i;
                 lj[sc] = j;
 
-                //map_cell(i,j)=*spec;
-                //on adapte les coordonnées de la cellule à la liste des textures
-                if (i * 7 + j < 7) {
-                    map_cell[i * 7 + j - 2] = *spec;
-                    map_cell_text[i * 7 + j - 2] = sc + 3;
-                } else
-                    if (i * 7 + j < 27) {
-                    map_cell[i * 7 + j - 3] = *spec;
-                    map_cell_text[i * 7 + j - 3] = sc + 3;
-                } else
-                    if (i * 7 + j < 33) {
-                    map_cell[i * 7 + j - 4] = *spec;
-                    map_cell_text[i * 7 + j - 4] = sc + 3;
-                } else
-                    if (i * 7 + j < 34) {
-                    map_cell[i * 7 + j - 5] = *spec;
-                    map_cell_text[i * 7 + j - 5] = sc + 3;
-                } else {
-                    map_cell[i * 7 + j - 6] = *spec;
-                    map_cell_text[i * 7 + j - 6] = sc + 3;
-                }
-
-
-
-                std::cout << "i:" << i << " j:" << j << " sc:" << sc << " i*7+j:" << i * 7 + j << std::endl;
+                
 
             }
 
@@ -139,36 +89,35 @@ namespace state
             std::cout << "Positionnement des Cellules Simples" << std::endl;
             // On remplit map_cell avec des cellules simples
             std::vector<state::SimpleCellID> l_SimCID = {state::SimpleCellID::DIRT, state::SimpleCellID::GRASS, state::SimpleCellID::SAND};
-
+            std::vector<std::string> l_Res = {"stone","food","wood","metal"};
+            
             for (int i = 0; i < 5; i++) {
                 for (int j = 0; j < 7; j++) {
-                    if (!((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == 4 && j == 6) || (i == 4 && j == 5) || (i == 3 && j == 6) || (i == li[0] && j == lj[0]) || (i == li[1] && j == lj[1]) || (i == li[2] && j == lj[2]) || (i == li[3] && j == lj[3]))) {
-                        std::string restype = "wood";
-                        //map_cell(i,j)= state::SimpleCell(l_SimCID[rand()%3],restype,4,i,j);
-                        int iid = rand() % 3;
-                        state::SimpleCellID id = l_SimCID[iid];
-                        //on adapte les coordonnées de la cellule à la liste des textures
-                        if (i * 7 + j < 7) {
-                            map_cell[i * 7 + j - 2] = state::SimpleCell(id, restype, 4, i, j);
-                            map_cell_text[i * 7 + j - 2] = iid;
-                        } else
-                            if (i * 7 + j < 27) {
-                            map_cell[i * 7 + j - 3] = state::SimpleCell(id, restype, 4, i, j);
-                            map_cell_text[i * 7 + j - 3] = iid;
-                        } else
-                            if (i * 7 + j < 33) {
-                            map_cell[i * 7 + j - 4] = state::SimpleCell(id, restype, 4, i, j);
-                            map_cell_text[i * 7 + j - 4] = iid;
-                        } else
-                            if (i * 7 + j < 34) {
-                            map_cell[i * 7 + j - 5] = state::SimpleCell(id, restype, 4, i, j);
-                            map_cell_text[i * 7 + j - 5] = iid;
-                        } else {
-                            map_cell[i * 7 + j - 6] = state::SimpleCell(id, restype, 4, i, j);
-                            map_cell_text[i * 7 + j - 6] = iid;
-                        }
+                    // On vérifie que la cellule visée est bien dans le tableau 
+                    // voulu et ne se superpose pas à une cellule spéciale
+                    if (!((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == 4 && j == 6) || (i == 4 && j == 5) || (i == 3 && j == 6))) {
 
+                        std::unique_ptr<Cell> cell;
+                        
+                        if(i == li[0] && j == lj[0])
+                            *cell = *(new SpecialCell(l_SpeCID[0], l_Res[0], 3, li[0], lj[0]));
+                        if(i == li[1] && j == lj[1])
+                            *cell = *(new SpecialCell(l_SpeCID[1], l_Res[1], 3, li[1], lj[1]));
+                        if(i == li[2] && j == lj[2])
+                            *cell = *(new SpecialCell(l_SpeCID[2], l_Res[2], 3, li[2], lj[2]));
+                        if(i == li[3] && j == lj[3])
+                            *cell = *(new SpecialCell(l_SpeCID[3], l_Res[3], 5, li[3], lj[3]));
+                        if(!((i == li[0] && j == lj[0]) || (i == li[1] && j == lj[1]) || (i == li[2] && j == lj[2]) || (i == li[3] && j == lj[3]))){
+                            int ind = rand();
+                            *cell = *(new SimpleCell(l_SimCID[ind%3],l_Res[ind%4],rand()%3,j,i));
+                        }
+                        
+                        list[i*7+j].reset(cell.get());
+                    
+                        
                     }
+                        
+
                 }
             }
         }
