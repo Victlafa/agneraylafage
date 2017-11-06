@@ -21,10 +21,8 @@ namespace state
         this->width = width;
         this->height = height;
         tabType = type;
-        list = std::vector<std::unique_ptr < Element >> (width * height);
+        list = std::vector<std::unique_ptr < Element >> ();
         list.resize(width * height);
-
-        
 
         srand(time(NULL));
 
@@ -35,10 +33,21 @@ namespace state
 
             std::cout << "Positionnement des Cellules Speciales" << std::endl;
             //Positionnement des Cellules Speciales
-            std::vector<SpecialCellID> l_SpeCID = {SpecialCellID::BARBECUE, SpecialCellID::CANDY, SpecialCellID::POOL, SpecialCellID::SKY};
-            std::vector<int> li = {0, 0, 0, 0}; //liste des ordonnées des cellules speciales
-            std::vector<int> lj = {0, 0, 0, 0}; //liste des absisses des cellules simples
-
+            std::vector<SpecialCellID> l_SpeCID = std::vector<SpecialCellID>();
+            l_SpeCID.push_back(SpecialCellID::BARBECUE);
+            l_SpeCID.push_back(SpecialCellID::CANDY);
+            l_SpeCID.push_back(SpecialCellID::POOL);
+            l_SpeCID.push_back(SpecialCellID::SKY);
+            
+            std::vector<int> li = std::vector<int>(); //liste des ordonnées des cellules speciales
+            std::vector<int> lj = std::vector<int>(); //liste des abscisses des cellules speciales
+            
+            for (int gh=0; gh < 4; gh++)
+            {
+                li.push_back(0);
+                lj.push_back(0);
+            }
+            
             int i = 0;int j = 0;
 
             //On détermine les coordonnées des 4 cellules speciales
@@ -71,8 +80,16 @@ namespace state
 
             std::cout << "Positionnement des Cellules Simples" << std::endl;
             // On remplit map_cell avec des cellules simples
-            std::vector<state::SimpleCellID> l_SimCID = {state::SimpleCellID::DIRT, state::SimpleCellID::GRASS, state::SimpleCellID::SAND};
-            std::vector<std::string> l_Res = {"stone","food","wood","metal"};
+            std::vector<state::SimpleCellID> l_SimCID = std::vector<state::SimpleCellID>();
+            l_SimCID.push_back(state::SimpleCellID::DIRT);
+            l_SimCID.push_back(state::SimpleCellID::GRASS);
+            l_SimCID.push_back(state::SimpleCellID::SAND);
+            
+            std::vector<std::string> l_Res = std::vector<std::string>();
+            l_Res.push_back("stone");
+            l_Res.push_back("food");
+            l_Res.push_back("wood");
+            l_Res.push_back("metal");
             
             for (int i = 0; i < 5; i++) {
                 for (int j = 0; j < 7; j++) {
@@ -82,15 +99,18 @@ namespace state
 
                         std::unique_ptr<Cell> cell;
                         
+                        // Cas où on tombe sur les cellules speciales :
                         if(i == li[0] && j == lj[0])
                             cell.reset(new SpecialCell(l_SpeCID[0], l_Res[0], 3, li[0], lj[0]));
-                        if(i == li[1] && j == lj[1])
+                        else if(i == li[1] && j == lj[1])
                             cell.reset(new SpecialCell(l_SpeCID[1], l_Res[1], 3, li[1], lj[1]));
-                        if(i == li[2] && j == lj[2])
+                        else if(i == li[2] && j == lj[2])
                             cell.reset(new SpecialCell(l_SpeCID[2], l_Res[2], 3, li[2], lj[2]));
-                        if(i == li[3] && j == lj[3])
+                        else if(i == li[3] && j == lj[3])
                             cell.reset(new SpecialCell(l_SpeCID[3], l_Res[3], 5, li[3], lj[3]));
-                        if(!((i == li[0] && j == lj[0]) || (i == li[1] && j == lj[1]) || (i == li[2] && j == lj[2]) || (i == li[3] && j == lj[3]))){
+                        
+                        // Autres cas :
+                        else if(!((i == li[0] && j == lj[0]) || (i == li[1] && j == lj[1]) || (i == li[2] && j == lj[2]) || (i == li[3] && j == lj[3]))){
                             int ind = rand();
                             cell.reset(new SimpleCell(l_SimCID[ind%3],l_Res[ind%4],rand()%3,j,i));
                         }
