@@ -18,6 +18,7 @@ namespace state
     {
         this->width = width;
         this->height = height;
+        tabType = type;
        
         list.resize(width*height);
         
