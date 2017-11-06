@@ -36,10 +36,10 @@ namespace state
             std::cout << "Positionnement des Cellules Speciales" << std::endl;
             //Positionnement des Cellules Speciales
             std::vector<SpecialCellID> l_SpeCID = {SpecialCellID::BARBECUE, SpecialCellID::CANDY, SpecialCellID::POOL, SpecialCellID::SKY};
-            std::vector<int> li = {0, 0, 0, 0}; //liste des ordonnées des cellules speciales
-            std::vector<int> lj = {0, 0, 0, 0}; //liste des absisses des cellules simples
+            std::vector<unsigned int> li = {0, 0, 0, 0}; //liste des ordonnées des cellules speciales
+            std::vector<unsigned int> lj = {0, 0, 0, 0}; //liste des absisses des cellules simples
 
-            int i = 0;int j = 0;
+            unsigned int i = 0, j = 0;
 
             //On détermine les coordonnées des 4 cellules speciales
             for (int sc = 0; sc < 4; sc++) {
@@ -49,11 +49,11 @@ namespace state
 
                 // On s'assure que les coordonnées trouvées sont dans la grille voulue
                 // et qu'elle ne se superpose pas à une autre cellule spéciale
-                while (((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == 4 && j == 6) || (i == 4 && j == 5) || (i == 3 && j == 6)) || trouve) {
+                while (((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == height-1 && j == width-1) || (i == height-1 && j == width-2) || (i == height-2 && j == width-1)) || trouve) {
                     // Sinon on détermine de nouvelles coordonnées
                     trouve = false;
-                    i = rand() % 5;
-                    j = rand() % 7;
+                    i = rand() % height;
+                    j = rand() % width;
                     for (int k = 0; k < 4; k++) {
                         if (i == li[k] && j == lj[k]) {
                             trouve = true;
@@ -74,11 +74,11 @@ namespace state
             std::vector<state::SimpleCellID> l_SimCID = {state::SimpleCellID::DIRT, state::SimpleCellID::GRASS, state::SimpleCellID::SAND};
             std::vector<std::string> l_Res = {"stone","food","wood","metal"};
             
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 7; j++) {
+            for (unsigned int i = 0; i < height; i++) {
+                for (unsigned int j = 0; j < width; j++) {
                     // On vérifie que la cellule visée est bien dans le tableau 
                     // voulu et ne se superpose pas à une cellule spéciale
-                    if (!((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == 4 && j == 6) || (i == 4 && j == 5) || (i == 3 && j == 6))) {
+                    if (!((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == height-1 && j == width-1) || (i == height-1 && j == width-2) || (i == height-2 && j == width-1))) {
 
                         std::unique_ptr<Cell> cell;
                         
