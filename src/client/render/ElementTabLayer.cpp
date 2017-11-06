@@ -4,7 +4,7 @@
 #include "ElementTabLayer.h"
 #include "CellTileSet.h"
 #include "CharsTileSet.h"
-#include "../state/SimpleCell.h"
+#include "state/SimpleCell.h"
 
 // Type : 0 = Cellules, 1 = Creatures
 namespace render{

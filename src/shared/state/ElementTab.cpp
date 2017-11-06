@@ -95,9 +95,8 @@ namespace state
                             cell.reset(new SimpleCell(l_SimCID[ind%3],l_Res[ind%4],rand()%3,j,i));
                         }
                         
-                        list[i*7+j].reset(cell.get());
+                        this->set(cell.get(),i,j);
                     
-                        
                     }
                         
 
@@ -122,8 +121,8 @@ namespace state
 
                 intRand1[j][0] = rand11;
                 intRand1[j][1] = rand12;
-
-                this->set(std::unique_ptr<CreaturesGroup>(new CreaturesGroup(CreaturesID::BLACKSMITH)).get(), rand11, rand12);
+                
+                this->set(new CreaturesGroup(CreaturesID::BLACKSMITH),rand11,rand12);
             }
         }
         
@@ -159,7 +158,7 @@ namespace state
     }
     
     void ElementTab::set (Element* elem, int i, int j){
-        this->list.at(i*width + j) = std::unique_ptr<Element>(elem);
+        list[i*width + j].reset(elem);
     }
     
     Element& ElementTab::operator()(int i, int j) const{
