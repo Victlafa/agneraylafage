@@ -21,23 +21,10 @@ namespace state
         this->width = width;
         this->height = height;
         tabType = type;
-
-        this->list = std::vector<std::unique_ptr < Element >> (width * height);
-
+        list = std::vector<std::unique_ptr < Element >> (width * height);
         list.resize(width * height);
 
-        /*
-        if (type == TypeID::CELL)
-        {
-            for (int i = 0; i < (int)(width*height); i++)
-            {
-                //this->list.push_back(std::move(std::unique_ptr<Element>(new Element())));
-                list.at(i).reset(new SimpleCell(SimpleCellID::SAND, "wood", 0, 0, 0));
-                //this->list.at(i) = std::unique_ptr<Cell>(new Cell());
-                //std::cout << list[i].get() << std::endl;
-            }
-                
-        }*/
+        
 
         srand(time(NULL));
 
@@ -48,13 +35,11 @@ namespace state
 
             std::cout << "Positionnement des Cellules Speciales" << std::endl;
             //Positionnement des Cellules Speciales
-            std::vector<SpecialCell*> l_SpeC;
             std::vector<SpecialCellID> l_SpeCID = {SpecialCellID::BARBECUE, SpecialCellID::CANDY, SpecialCellID::POOL, SpecialCellID::SKY};
             std::vector<int> li = {0, 0, 0, 0}; //liste des ordonnées des cellules speciales
             std::vector<int> lj = {0, 0, 0, 0}; //liste des absisses des cellules simples
 
-            int i = 0;
-            int j = 0;
+            int i = 0;int j = 0;
 
             //On détermine les coordonnées des 4 cellules speciales
             for (int sc = 0; sc < 4; sc++) {
@@ -76,12 +61,10 @@ namespace state
                     }
                 }
 
-
-                
+                //Une fois un couple de coordonnées trouvées, on les ajoute à
+                // la liste d'indices
                 li[sc] = i;
                 lj[sc] = j;
-
-                
 
             }
 
@@ -100,16 +83,16 @@ namespace state
                         std::unique_ptr<Cell> cell;
                         
                         if(i == li[0] && j == lj[0])
-                            *cell = *(new SpecialCell(l_SpeCID[0], l_Res[0], 3, li[0], lj[0]));
+                            cell.reset(new SpecialCell(l_SpeCID[0], l_Res[0], 3, li[0], lj[0]));
                         if(i == li[1] && j == lj[1])
-                            *cell = *(new SpecialCell(l_SpeCID[1], l_Res[1], 3, li[1], lj[1]));
+                            cell.reset(new SpecialCell(l_SpeCID[1], l_Res[1], 3, li[1], lj[1]));
                         if(i == li[2] && j == lj[2])
-                            *cell = *(new SpecialCell(l_SpeCID[2], l_Res[2], 3, li[2], lj[2]));
+                            cell.reset(new SpecialCell(l_SpeCID[2], l_Res[2], 3, li[2], lj[2]));
                         if(i == li[3] && j == lj[3])
-                            *cell = *(new SpecialCell(l_SpeCID[3], l_Res[3], 5, li[3], lj[3]));
+                            cell.reset(new SpecialCell(l_SpeCID[3], l_Res[3], 5, li[3], lj[3]));
                         if(!((i == li[0] && j == lj[0]) || (i == li[1] && j == lj[1]) || (i == li[2] && j == lj[2]) || (i == li[3] && j == lj[3]))){
                             int ind = rand();
-                            *cell = *(new SimpleCell(l_SimCID[ind%3],l_Res[ind%4],rand()%3,j,i));
+                            cell.reset(new SimpleCell(l_SimCID[ind%3],l_Res[ind%4],rand()%3,j,i));
                         }
                         
                         list[i*7+j].reset(cell.get());
@@ -123,7 +106,7 @@ namespace state
         }
 
         else if (type == TypeID::CREATURESGROUP) {
-            this->list.reserve(width * height);
+            list.reserve(width * height);
             int** intRand1 = new int*[3];
             int rand11;
             int rand12;
