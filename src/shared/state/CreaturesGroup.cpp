@@ -14,12 +14,12 @@ namespace state
     int CreaturesGroup::stolenResourceNbr = 2;
     
     // Constructors :
-    CreaturesGroup::CreaturesGroup (CreaturesID type){
+    CreaturesGroup::CreaturesGroup (CreaturesID type) : Element(TypeID::CREATURESGROUP){
         placed = false;
         this->creaturesType = type;
     }
     
-    CreaturesGroup::CreaturesGroup (const Element& elem)
+    CreaturesGroup::CreaturesGroup (const Element& elem) : Element(TypeID::CREATURESGROUP)
     {
         this->creaturesType = CreaturesID::BLACKSMITH;
         this->placed = false;

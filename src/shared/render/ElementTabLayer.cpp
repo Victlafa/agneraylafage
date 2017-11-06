@@ -39,7 +39,7 @@ namespace render{
         else
             std::cout << "Le type d'ElementTabLayer n'a pas été choisi correctement !\n" << std::endl;
 
-        Tile tuile = this->tileset->getTile(*(this->tab->get(0,0).get()));
+        const Tile& tuile = this->tileset->getTile(*tab->get(0,0));
         this->surface->setTextureLocation(0, tuile);
         this->surface->setFinalLocation(0, x + shift * 2 * halfWidth, y, tuile);
         

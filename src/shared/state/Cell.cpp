@@ -11,12 +11,12 @@ namespace state
 {
     // Constructor :
     
-    Cell::Cell() {
+    Cell::Cell(): Element(TypeID::CELL){
         this->cellType = CellTypeID::SIMPLE;
         this->cellState = CellState::NORMAL;
     }
     
-    Cell::Cell(CellTypeID type){
+    Cell::Cell(CellTypeID type) : Element(TypeID::CELL) {
         setCellType(type);
         this->cellState = CellState::NORMAL;
     }

@@ -21,8 +21,8 @@ namespace state {
     state::TypeID tabType;
     // Attributes
   private:
-    size_t width;
-    size_t height;
+    size_t width     = 7;
+    size_t height     = 5;
     std::vector<std::unique_ptr<Element>> list;
     // Operations
   public:

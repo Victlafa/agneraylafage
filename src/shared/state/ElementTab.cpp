@@ -18,18 +18,36 @@ namespace state
     {
         this->width = width;
         this->height = height;
+        tabType = type;
+
+        this->list = std::vector<std::unique_ptr<Element>>(width*height);
+        list.resize(width*height);
+        
+        /*
+        if (type == TypeID::CELL)
+        {
+            for (int i = 0; i < (int)(width*height); i++)
+            {
+                //this->list.push_back(std::move(std::unique_ptr<Element>(new Element())));
+                list.at(i).reset(new SimpleCell(SimpleCellID::SAND, "wood", 0, 0, 0));
+                //this->list.at(i) = std::unique_ptr<Cell>(new Cell());
+                //std::cout << list[i].get() << std::endl;
+
+            }
+                
+        }*/
         
         srand(time(NULL));
-        
+        /*
         try
         {
-            this->list = std::vector<std::unique_ptr<Element>>(width*height);
+            
         }
         
         catch(std::bad_alloc &e)
         {
             std::cerr << e.what() << std::endl;
-        }
+        }*/
         
         if (type == TypeID::CELL)
         {
@@ -159,15 +177,9 @@ namespace state
 
                     }
                 }
-            }
+
+       
         
-        
-            //for (int i = 0; i < (int)(width*height); i++)
-            //{
-                //this->list.at(i) = std::unique_ptr<SimpleCell>(new SimpleCell(SimpleCellID::SAND, "wood", 0, 0, 0));
-            //}
-                
-        }
         
         else if (type == TypeID::CREATURESGROUP)
         {

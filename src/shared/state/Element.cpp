@@ -8,8 +8,15 @@ namespace state
         x = 0;
         y = 0;
         creaturesNbr = 0;
-        elemType = TypeID::CELL;
-        std::cout << this << std::endl;
+        //elemType = TypeID::CELL;
+        //std::cout << this << std::endl;
+    }
+    
+    Element::Element (TypeID type){
+        x = 0;
+        y = 0;
+        creaturesNbr = 0;
+        elemType = type;
     }
     
     Element::~Element() {}

@@ -40,12 +40,12 @@ namespace render {
 
         // On déclare et initialise un tableau d'éléments :
         std::shared_ptr<state::ElementTab> grid;
-        grid = std::shared_ptr<state::ElementTab>(new state::ElementTab(state::TypeID::CELL,7, 5));
+        grid.reset(new state::ElementTab(state::TypeID::CELL,7, 5));
 
         // On initialise un plan pour ce tableau, de type Cell:
-        ElementTabLayer *gridLayer = new ElementTabLayer(grid, 0);
+        ElementTabLayer gridLayer(grid, 0);
         // Initialisation de sa surface :
-        gridLayer->initSurface();
+        gridLayer.initSurface();
         // Initialisation de la fenêtre :
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Affichage d'une ligne d'hexagones :)");
 
@@ -56,7 +56,7 @@ namespace render {
                 if (event.type == sf::Event::Closed) window.close();
             }
             window.clear();
-            gridLayer->getSurface()->draw(window, &gridLayer->getSurface()->getTexture());
+            gridLayer.getSurface()->draw(window, &gridLayer.getSurface()->getTexture());
             window.display();
         }
 
