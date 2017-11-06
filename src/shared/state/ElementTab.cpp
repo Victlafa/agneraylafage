@@ -18,10 +18,10 @@ namespace state
     {
         this->width = width;
         this->height = height;
-        tabType = type;
+        this->tabType = type;
 
         this->list = std::vector<std::unique_ptr<Element>>(width*height);
-        list.resize(width*height);
+        this->list.resize(width*height);
         
         /*
         if (type == TypeID::CELL)
