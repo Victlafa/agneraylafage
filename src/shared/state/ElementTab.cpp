@@ -8,8 +8,10 @@
 #include "CreaturesID.h"
 #include "Cell.h"
 #include "SimpleCell.h"
+#include "SpecialCell.h"
 #include "CreaturesGroup.h"
 #include <iostream>
+#include <map>
 
 namespace state
 {
@@ -45,17 +47,17 @@ namespace state
             std::map<int, state::Cell> map_cell;
             std::map<int, int> map_cell_text;
 
-            std::cout << "Positionnement des Cellules Spéciales" << std::endl;
-            //Positionnement des Cellules Spéciales
-            std::vector<state::SpecialCell> l_SpeC;
-            std::vector<state::SpecialCellID> l_SpeCID = {state::SpecialCellID::BARBECUE, state::SpecialCellID::CANDY, state::SpecialCellID::POOL, state::SpecialCellID::SKY};
-            std::vector<int> li = {0, 0, 0, 0}; //liste des ordonnées des cellules spéciales
+            std::cout << "Positionnement des Cellules Speciales" << std::endl;
+            //Positionnement des Cellules Speciales
+            std::vector<SpecialCell> l_SpeC;
+            std::vector<SpecialCellID> l_SpeCID = {SpecialCellID::BARBECUE, SpecialCellID::CANDY, SpecialCellID::POOL, SpecialCellID::SKY};
+            std::vector<int> li = {0, 0, 0, 0}; //liste des ordonnées des cellules speciales
             std::vector<int> lj = {0, 0, 0, 0}; //liste des absisses des cellules simples
 
             int i = 0;
             int j = 0;
 
-            //On détermine les coordonnées des 4 cellules spéciales
+            //On détermine les coordonnées des 4 cellules speciales
             for (int sc = 0; sc < 4; sc++) {
 
                 i = 0;
@@ -101,7 +103,7 @@ namespace state
                         break;
                 }
 
-                state::SpecialCell *spec = new state::SpecialCell(l_SpeCID[sc], restype, resNbr, i, j);
+                SpecialCell *spec = new SpecialCell(l_SpeCID[sc], restype, resNbr, i, j);
                 l_SpeC.push_back(*spec);
                 li[sc] = i;
                 lj[sc] = j;
