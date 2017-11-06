@@ -23,6 +23,7 @@ namespace state {
     // Operations
   public:
     Element ();
+    Element (TypeID type);
     virtual ~Element ();
     bool operator== (Element otherElement);
     // Setters and Getters

@@ -18,23 +18,15 @@ namespace state
     {
         this->width = width;
         this->height = height;
-        
-        try
-        {
-            this->list = std::vector<std::unique_ptr<Element>>(width*height);
-        }
-        
-        catch(std::bad_alloc &e)
-        {
-            std::cerr << e.what() << std::endl;
-        }
+       
+        list.resize(width*height);
         
         if (type == TypeID::CELL)
         {
             for (int i = 0; i < (int)(width*height); i++)
             {
                 //this->list.push_back(std::move(std::unique_ptr<Element>(new Element())));
-                this->list.at(i) = std::unique_ptr<SimpleCell>(new SimpleCell(SimpleCellID::SAND, "wood", 0, 0, 0));
+                list.at(i).reset(new SimpleCell(SimpleCellID::SAND, "wood", 0, 0, 0));
                 //this->list.at(i) = std::unique_ptr<Cell>(new Cell());
                 //std::cout << list[i].get() << std::endl;
             }
