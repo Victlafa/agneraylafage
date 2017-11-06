@@ -44,8 +44,8 @@ namespace render{
 //        this->surface->setFinalLocation(0, x + shift * 2 * halfWidth, y, tuile);
         
         // Affichage des cellules de la map :
-        for (int i = 0; i < (int) this->tab->getHeight(); i++) {
-            for (int j = 0; j < (int) this->tab->getWidth(); j++) {
+        for (int i = 0; i < (int)tab->getHeight(); i++) {
+            for (int j = 0; j < (int)tab->getWidth(); j++) {
                 
                 if (tab->get(i, j) != NULL) {
                     Tile tuile = this->tileset->getTile(*(tab->get(i, j)));
