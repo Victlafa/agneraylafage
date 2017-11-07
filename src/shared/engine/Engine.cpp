@@ -23,9 +23,8 @@ namespace engine
     }
     void Engine::update (){
         // On execute les commandes par ordre de priorite 
-//        for (std::unique_ptr<Command> commande : currentCommands)
-//            commande->execute(state);
-//        // On vide la liste des commandes
-//        currentCommands.clear();
+        for (std::map<int,std::unique_ptr<Command> >::iterator mapIt = currentCommands.begin(); mapIt != currentCommands.end(); mapIt ++)
+            mapIt->second->execute(currentState);
+        currentCommands.clear();
     }
 }
