@@ -476,6 +476,9 @@ namespace render {
 
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
+        ElementTabLayer tabLayer(tab,0);
+        tabLayer.initSurface();
+        
         int halfHeight = 61;
         int halfWidth = 51;
         //int halfHeightCrea = 50;

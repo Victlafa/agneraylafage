@@ -90,8 +90,7 @@ namespace state
             l_Res.push_back("food");
             l_Res.push_back("wood");
             l_Res.push_back("metal");
-            
-            
+          
             
             for (unsigned int i = 0; i < height; i++) {
 
@@ -116,6 +115,7 @@ namespace state
                             int ind = rand();
                             this->set(new SimpleCell(l_SimCID[ind%3],l_Res[ind%4],rand()%3,j,i),i,j);
                         }
+
                     }
                     
                 }
@@ -129,6 +129,7 @@ namespace state
             int** intRand = new int*[3];
             unsigned int rand_i;
             unsigned int rand_j;
+
 
             // On va tirer au sort des coordonnees pour placer 3 groupes de creatures :
             for (int j = 0; j < 3; j++) {
@@ -146,6 +147,7 @@ namespace state
                 
                 this->set(new CreaturesGroup(CreaturesID::BLACKSMITH),rand_i,rand_j);
             }
+
         }
         
         else
@@ -156,13 +158,11 @@ namespace state
     }
     
     ElementTab::~ElementTab() {
-        /*for(unsigned int i=0; i<height*width; i++){
-            list[i] = nullptr;
-            delete list[i];
+        for(unsigned int i=0; i<height*width; i++){
             std::cout << "i=" << i << std::endl;
-        }*/
-        
-
+            list[i] = nullptr;
+            //delete list[i];
+        }
     }
     
     // Getters and setters :
