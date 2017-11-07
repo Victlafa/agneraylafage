@@ -40,8 +40,8 @@ namespace state
             l_SpeCID.push_back(SpecialCellID::POOL);
             l_SpeCID.push_back(SpecialCellID::SKY);
             
-            std::vector<int> li = std::vector<int>(); //liste des ordonnées des cellules speciales
-            std::vector<int> lj = std::vector<int>(); //liste des abscisses des cellules speciales
+            std::vector<unsigned int> li = std::vector<unsigned int>(); //liste des ordonnées des cellules speciales
+            std::vector<unsigned int> lj = std::vector<unsigned int>(); //liste des abscisses des cellules speciales
             
             for (int gh=0; gh < 4; gh++)
             {
@@ -92,8 +92,12 @@ namespace state
             l_Res.push_back("wood");
             l_Res.push_back("metal");
             
+            
+            
             for (unsigned int i = 0; i < height; i++) {
+
                 for (unsigned int j = 0; j < width; j++) {
+
                     // On vérifie que la cellule visée est bien dans le tableau 
                     // voulu et ne se superpose pas à une cellule spéciale
                     if (!((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == height-1 && j == width-1) || (i == height-1 && j == width-2) || (i == height-2 && j == width-1))) {
@@ -117,12 +121,13 @@ namespace state
                         }
                         
                         this->set(cell.get(),i,j);
-                    
-                    }
                         
-
+                    }
+                    
                 }
+                
             }
+            std::cout << "fin boucles" << std::endl;
         }
 
         else if (type == TypeID::CREATURESGROUP) {
@@ -138,7 +143,7 @@ namespace state
                 do {
                     rand11 = rand() % height;
                     rand12 = rand() % width;
-                } while (rand11 == intRand1[j][0] || rand12 == intRand1[j][1] || );
+                } while (rand11 == intRand1[j][0] || rand12 == intRand1[j][1]);
 
                 intRand1[j][0] = rand11;
                 intRand1[j][1] = rand12;
@@ -155,8 +160,13 @@ namespace state
     }
     
     ElementTab::~ElementTab() {
-//        for (auto elem : list)     
-//            delete elem;
+        /*for(unsigned int i=0; i<height*width; i++){
+            list[i] = nullptr;
+            delete list[i];
+            std::cout << "i=" << i << std::endl;
+        }*/
+        
+
     }
     
     // Getters and setters :

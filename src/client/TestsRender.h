@@ -14,12 +14,15 @@
 #ifndef TESTSRENDER_H
 #define TESTSRENDER_H
 
+#include "state.h"
+using namespace state;
+
 namespace render
 {
     //void TestsStateLayer();
     void TestsElementTabLayer();
     void TestInitMap();
-    void TestAffichage();
+    void TestAffichage(state::ElementTab tab);
     void TestAffichage2();
     void TestAffichage3();
 }

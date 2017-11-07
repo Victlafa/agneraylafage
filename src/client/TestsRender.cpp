@@ -472,7 +472,7 @@ namespace render {
     
     // Affichage souhaite
 
-    void TestAffichage() {
+    void TestAffichage(state::ElementTab tab) {
 
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
@@ -490,6 +490,8 @@ namespace render {
         
         std::vector<sf::VertexArray> listHexagones = std::vector<sf::VertexArray>();
         listHexagones.reserve(29);
+        
+        std::cout << "création variables" << std::endl;
         
         for (int i = 0; i < 29; i++) {
 
