@@ -20,14 +20,20 @@ namespace engine {
     // Attributes
   protected:
     int creatures;
+    int newX;
+    int newY;
     // Operations
   public:
-    MoveCharCommand (int c);
+    MoveCharCommand (int creatures, int newX, int newY);
     CommandTypeID getTypeID () const;
     void execute (state::State& state);
     // Setters and Getters
     int getCreatures() const;
     void setCreatures(int creatures);
+    int getNewX() const;
+    void setNewX(int newX);
+    int getNewY() const;
+    void setNewY(int newY);
   };
 
 };

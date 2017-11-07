@@ -23,14 +23,14 @@ namespace engine
     {
         srand(time(NULL));
         
-        state::CreaturesGroup group1 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl1).get();
-        state::CreaturesGroup group2 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl2).get();
+        int nbGroupes1 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl1)->getCreaturesNbr();
+        int nbGroupes2 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl2)->getCreaturesNbr();
         int totalPlayer1 = 0;
         int totalPlayer2 = 0;
         
-        for (int i = 0 ; i < group1.getCreaturesNbr() ; i ++)
+        for (int i = 0 ; i < nbGroupes1 ; i ++)
             totalPlayer1 += rand()%6 + 1;
-        for (int i = 0 ; i < group2.getCreaturesNbr() ; i ++)
+        for (int i = 0 ; i < nbGroupes2 ; i ++)
             totalPlayer2 += rand()%6 + 1;
                     
         if (totalPlayer1 > totalPlayer2)
