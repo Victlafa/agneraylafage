@@ -57,13 +57,25 @@ namespace render
             if (cellule.getCellType() == state::CellTypeID::SIMPLE)
             {
                 const state::SimpleCell simpleCellule = (const state::SimpleCell)cellule;
-                
-                if (simpleCellule.getSimpleCellType() == state::SimpleCellID::SAND)
-                    return this->cells[0];
-                else if (simpleCellule.getSimpleCellType() == state::SimpleCellID::GRASS)
-                    return this->cells[1];
-                else if (simpleCellule.getSimpleCellType() == state::SimpleCellID::DIRT)
-                    return this->cells[2];
+                switch(((state::SimpleCell) cellule).getSimpleCellType()){
+                    case state::SimpleCellID::SAND :
+                        return this->cells[0];
+                        break;
+                    case state::SimpleCellID::GRASS :
+                        return this->cells[1];
+                        break;
+                    case state::SimpleCellID::DIRT :
+                        return this->cells[2];
+                        break;
+                    default :
+                        std::cout << "erreur attribtuion CellTileSet" << std::endl;
+                }
+                if (simpleCellule.getSimpleCellType() == )
+                    
+                else if (simpleCellule.getSimpleCellType() == )
+                    
+                else if (simpleCellule.getSimpleCellType() == )
+                    
                 else
                     return *(new Tile(-1,-1,-1,-1));
             }

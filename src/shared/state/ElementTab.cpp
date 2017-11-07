@@ -90,8 +90,7 @@ namespace state
             l_Res.push_back("food");
             l_Res.push_back("wood");
             l_Res.push_back("metal");
-            
-            
+          
             
             for (unsigned int i = 0; i < height; i++) {
 
@@ -101,25 +100,21 @@ namespace state
                     // voulu et ne se superpose pas à une cellule spéciale
                     if (!((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == height-1 && j == width-1) || (i == height-1 && j == width-2) || (i == height-2 && j == width-1))) {
 
-                        std::unique_ptr<Cell> cell;
-                        
                         // Cas où on tombe sur les cellules speciales :
                         if(i == li[0] && j == lj[0])
-                            cell.reset(new SpecialCell(l_SpeCID[0], l_Res[0], 3, li[0], lj[0]));
+                            this->set(new SpecialCell(l_SpeCID[0], l_Res[0], 3, li[0], lj[0]),i,j);
                         else if(i == li[1] && j == lj[1])
-                            cell.reset(new SpecialCell(l_SpeCID[1], l_Res[1], 3, li[1], lj[1]));
+                            this->set(new SpecialCell(l_SpeCID[1], l_Res[1], 3, li[1], lj[1]),i,j);
                         else if(i == li[2] && j == lj[2])
-                            cell.reset(new SpecialCell(l_SpeCID[2], l_Res[2], 3, li[2], lj[2]));
+                            this->set(new SpecialCell(l_SpeCID[2], l_Res[2], 3, li[2], lj[2]),i,j);
                         else if(i == li[3] && j == lj[3])
-                            cell.reset(new SpecialCell(l_SpeCID[3], l_Res[3], 5, li[3], lj[3]));
+                            this->set(new SpecialCell(l_SpeCID[3], l_Res[3], 5, li[3], lj[3]),i,j);
                         
                         // Autres cas :
                         else if(!((i == li[0] && j == lj[0]) || (i == li[1] && j == lj[1]) || (i == li[2] && j == lj[2]) || (i == li[3] && j == lj[3]))){
                             int ind = rand();
-                            cell.reset(new SimpleCell(l_SimCID[ind%3],l_Res[ind%4],rand()%3,j,i));
+                            this->set(new SimpleCell(l_SimCID[ind%3],l_Res[ind%4],rand()%3,j,i),i,j);
                         }
-                        
-                        this->set(cell.get(),i,j);
                         
                     }
                     
@@ -129,26 +124,28 @@ namespace state
             std::cout << "fin boucles" << std::endl;
         }
 
-        else if (type == TypeID::CREATURESGROUP) {
+        else if (type == TypeID::CREATURESGROUP) {/*
             list.reserve(width * height);
             int** intRand1 = new int*[3];
             int rand11;
             int rand12;
 
             // On va tirer au sort des coordonnees pour placer des creatures :
-            for (int j = 0; j < 6; j++) {
-                intRand1[j] = new int[2];
-
+            for (int k = 0; k < 6; k++) {
+                intRand1[k] = new int[2];
+                int i, j;
                 do {
                     rand11 = rand() % height;
                     rand12 = rand() % width;
+                    i=rand11;
+                    j=rand12;
                 } while ((rand11 == intRand1[j][0] && rand12 == intRand1[j][1]) || (i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == height-1 && j == width-1) || (i == height-1 && j == width-2) || (i == height-2 && j == width-1));
 
-                intRand1[j][0] = rand11;
-                intRand1[j][1] = rand12;
+                intRand1[k][0] = rand11;
+                intRand1[k][1] = rand12;
                 
                 this->set(new CreaturesGroup(CreaturesID::BLACKSMITH),rand11,rand12);
-            }
+            }*/
         }
         
         else
@@ -159,13 +156,11 @@ namespace state
     }
     
     ElementTab::~ElementTab() {
-        /*for(unsigned int i=0; i<height*width; i++){
-            list[i] = nullptr;
-            delete list[i];
+        for(unsigned int i=0; i<height*width; i++){
             std::cout << "i=" << i << std::endl;
-        }*/
-        
-
+            list[i] = nullptr;
+            //delete list[i];
+        }
     }
     
     // Getters and setters :

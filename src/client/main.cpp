@@ -52,8 +52,7 @@ int main(int argc,char* argv[])
             //TestsElementTabLayer();
             //state::Element el;
             state::ElementTab tabCell(state::TypeID::CELL, 7, 5);
-            cout << tabCell.getHeight() << endl;
-            //TestAffichage(tabCell);
+            TestAffichage(tabCell);
             
 
         }
