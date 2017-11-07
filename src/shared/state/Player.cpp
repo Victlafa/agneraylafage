@@ -11,7 +11,7 @@ namespace state{
     
     /// Builder :
       
-      Player::Player()
+      Player::Player() : speCellsNames(), allCreatures(35)
       {
           cellNbr = 0;
           zonesNbr = 0;
@@ -19,27 +19,13 @@ namespace state{
           creaturesLeft = 0;
           xLastCell = 0;
           yLastCell = 0;
-          
-          try
-          {
-              speCellsNames = std::vector<std::string>();
-              allCreatures = std::vector<std::shared_ptr<CreaturesGroup>>();
-              allCreatures.resize(35);
-          }
-          
-          catch(std::bad_alloc &e)
-          {
-              std::cerr << e.what() << std::endl;
-          }
-          
-          //std::cout << "Le joueur a été initialisé correctement." << std::endl;
       }
       
         Player::~Player(){ }
     
     /// Setters and Getters :
       
-        int Player::getCellsNbr() const{
+        int Player::getCellNbr() const{
             return cellNbr;
         }
 
@@ -67,17 +53,20 @@ namespace state{
             return yLastCell;
         }
         
-        const std::vector<std::shared_ptr<CreaturesGroup>>& Player::getAllCreatures () const{
+        const std::vector<int>& Player::getAllCreatures () const{
             return this->allCreatures;
         }
         
-        const std::shared_ptr<CreaturesGroup>& Player::getOneCreatures (int number) const
+        bool Player::isThereCreatures (int number)
         {
-            return allCreatures.at(number);
+            if (allCreatures.at(number) == 1)
+                return true;
+            else
+                return false;
         }
 
 
-        void Player::setCellsNbr(int count) {
+        void Player::setCellNbr(int count) {
             cellNbr = count;
         }
 
@@ -85,11 +74,11 @@ namespace state{
             zonesNbr = count;
         }
 
-        void Player::setConquestPts(int count) {
+        void Player::setConquestPoints(int count) {
             conquestPoints = count;
         }
 
-        void Player::setCreaLeft(int count) {
+        void Player::setCreaturesLeft(int count) {
             creaturesLeft = count;
         }
 
@@ -140,16 +129,12 @@ namespace state{
             yLastCell = y;
         }
         
-        void Player::setAllCreatures (std::vector<std::shared_ptr<CreaturesGroup>> creaList){
-            this->allCreatures = creaList;
-        }
-        
-        void Player::setAllCreatures (bool add, CreaturesGroup* group, int number){
-            size_t initSize = allCreatures.size();
+        void Player::setAllCreatures (bool add, int number){
+            int initSize = allCreatures.size();
 
             // Si on souhaite ajouter un groupe de créatures dans la liste :
             if (add)
-                allCreatures[number].reset(group);
+                allCreatures[number] = 1;
                 
 
             // Si au contraire on souhaite retirer un groupe de la liste :
@@ -160,13 +145,13 @@ namespace state{
                 for (int i = 0 ; i < initSize; i++) {
                     if (i == number) {
                         // Quand on a trouvé le bon groupe, on le supprime et on sort de la boucle for :
-                        allCreatures[number].reset(NULL);
+                        allCreatures[number] = 0;
                         break;
                     }
                 }
 
                 // Si on a pas trouvé d'index correspondant, on lève une exception :
-                if (allCreatures.size() == initSize)
+                if ((int)allCreatures.size() == initSize)
                     throw std::invalid_argument("Aucun groupe n'a été supprimé de la liste !");
 
             }
