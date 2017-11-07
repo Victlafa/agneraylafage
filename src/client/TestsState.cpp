@@ -139,21 +139,21 @@ void TestsPlayer()
     std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test Player Getter/Setter allCreatures - ajout d'un element : ";
-    std::shared_ptr<CreaturesGroup> group(new CreaturesGroup(CreaturesID::BLACKSMITH));
-    std::shared_ptr<CreaturesGroup> group2 = group;
-    p1->setAllCreatures(true, group2);
+    CreaturesGroup *group = new CreaturesGroup(CreaturesID::BLACKSMITH);
+    //std::shared_ptr<CreaturesGroup> group2 = group;
+    p1->setAllCreatures(true, group, 3);
     std::cout << ((p1->getAllCreatures().size() == 1) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test Player Getter/Setter allCreatures - retrait d'un element : ";
-    std::shared_ptr<CreaturesGroup> group3 = group;
-    p1->setAllCreatures(false, group3);
+    //CreaturesGroup group3 = group;
+    p1->setAllCreatures(false, group, 17);
     std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl<< std::endl;
 
     std::cout << "FIN TESTS PLAYER"  << std::endl<< std::endl;
     
-    group.reset(new CreaturesGroup(CreaturesID::BLACKSMITH) );
-    group2.reset(new CreaturesGroup(CreaturesID::BLACKSMITH));
-    group3.reset(new CreaturesGroup(CreaturesID::BLACKSMITH));
+    //group.reset(new CreaturesGroup(CreaturesID::BLACKSMITH) );
+    //group2.reset(new CreaturesGroup(CreaturesID::BLACKSMITH));
+    //group3.reset(new CreaturesGroup(CreaturesID::BLACKSMITH));
 
     p1.reset(new Player());
     
@@ -268,7 +268,7 @@ void TestsState()
     std::cout << ((NULL!=etat) ? "OK" : "KO") << std::endl;
         
     std::cout << "Test State Init player : ";
-    std::cout << (NULL != &(etat->getPlayer()) ? "OK" : "KO") << std::endl;
+    std::cout << (NULL != &(etat->getPlayer(0)) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test State Init grid : ";
     std::cout << (NULL != etat->getGrid() ? "OK" : "KO") << std::endl;
