@@ -138,7 +138,7 @@ namespace state
                 do {
                     rand11 = rand() % height;
                     rand12 = rand() % width;
-                } while (rand11 == intRand1[j][0] || rand12 == intRand1[j][1]);
+                } while (rand11 == intRand1[j][0] || rand12 == intRand1[j][1] || );
 
                 intRand1[j][0] = rand11;
                 intRand1[j][1] = rand12;
