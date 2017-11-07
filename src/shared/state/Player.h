@@ -27,7 +27,7 @@ namespace state {
     std::vector<std::string> speCellsNames;
     int xLastCell     = 0;
     int yLastCell     = 0;
-    std::vector<std::shared_ptr<CreaturesGroup>> allCreatures;
+    std::vector<std::shared_ptr<CreaturesGroup> > allCreatures;
     int creaturesLeft;
     // Operations
   public:
@@ -40,7 +40,8 @@ namespace state {
     const std::vector<std::string>& getSpeCellsNames () const;
     int getXLastCell () const;
     int getYLastCell () const;
-    const std::vector<std::shared_ptr<CreaturesGroup>>& getAllCreatures () const;
+    const std::vector<std::shared_ptr<CreaturesGroup> >& getAllCreatures () const;
+    const std::shared_ptr<CreaturesGroup>& getOneCreatures (int number) const;
     void setCellsNbr (int count);
     void setZonesNbr (int count);
     void setConquestPts (int count);
@@ -49,7 +50,7 @@ namespace state {
     void modifySpeCellsNames (std::string name, bool add);
     void setXLastCell (int x);
     void setYLastCell (int y);
-    void setAllCreatures (std::vector<std::shared_ptr<CreaturesGroup>> creaList);
+    void setAllCreatures (std::vector<std::shared_ptr<CreaturesGroup> > creaList);
     void setAllCreatures (bool add, std::shared_ptr<CreaturesGroup> group);
     // Setters and Getters
     CreaturesID getClanName() const;

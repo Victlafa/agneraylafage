@@ -21,7 +21,8 @@ namespace state {
   private:
     std::unique_ptr<ElementTab> grid;
     std::unique_ptr<ElementTab> characters;
-    std::unique_ptr<Player> player;
+    std::unique_ptr<Player> player1;
+    std::unique_ptr<Player> player2;
     int totalCellNbr;
     // Operations
   public:
