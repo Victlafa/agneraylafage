@@ -135,6 +135,7 @@ void TestsPlayer()
     std::cout << ((p1->getSpeCellsNames().size() == listSize - 1) ? "OK" : "KO") << std::endl;
 
     
+
 //    std::cout << "Test Player Getter/Setter allCreatures - liste complete : ";
 //    p1->setAllCreatures(std::vector<std::shared_ptr<CreaturesGroup>>());
 //    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl;
@@ -149,6 +150,23 @@ void TestsPlayer()
 //    //CreaturesGroup group3 = group;
 //    p1->setAllCreatures(false, group, 17);
 //    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl<< std::endl;
+
+    std::cout << "Test Player Getter/Setter allCreatures - liste complete : ";
+    //std::vector<std::shared_ptr<CreaturesGroup>> group1;
+    //group1.push_back(new CreaturesGroup(CreaturesID::BLACKSMITH));
+    p1->setAllCreatures(true,0);
+    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test Player Getter/Setter allCreatures - ajout d'un element : ";
+    //std::shared_ptr<CreaturesGroup> group2 = group;
+    p1->setAllCreatures(true, 3);
+    std::cout << ((p1->getAllCreatures().size() == 1) ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test Player Getter/Setter allCreatures - retrait d'un element : ";
+    //CreaturesGroup group3 = group;
+    p1->setAllCreatures(false, 17);
+    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl<< std::endl;
+
 
     std::cout << "FIN TESTS PLAYER"  << std::endl<< std::endl;
     

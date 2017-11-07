@@ -136,13 +136,13 @@ namespace state
             int rand12;
 
             // On va tirer au sort des coordonnees pour placer des creatures :
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < 6; j++) {
                 intRand1[j] = new int[2];
 
                 do {
                     rand11 = rand() % height;
                     rand12 = rand() % width;
-                } while (rand11 == intRand1[j][0] || rand12 == intRand1[j][1]);
+                } while ((rand11 == intRand1[j][0] && rand12 == intRand1[j][1]) || (i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == height-1 && j == width-1) || (i == height-1 && j == width-2) || (i == height-2 && j == width-1));
 
                 intRand1[j][0] = rand11;
                 intRand1[j][1] = rand12;
