@@ -23,7 +23,9 @@ namespace state{
               allCreatures[i] = 0;
       }
       
-        Player::~Player(){ }
+        Player::~Player(){
+        std::cout << "Appel du destructeur de Player" << std::endl;
+        }
     
     /// Setters and Getters :
       

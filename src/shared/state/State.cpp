@@ -3,19 +3,22 @@
 #include "ElementTab.h"
 #include "Cell.h"
 #include "CreaturesGroup.h"
+#include <iostream>
 
 namespace state
 {
 
     State::State (){
         this->totalCellNbr = 29;
-        this->grid = std::unique_ptr<ElementTab>(new ElementTab(TypeID::CELL));
-        this->characters = std::unique_ptr<ElementTab>(new ElementTab(TypeID::CREATURESGROUP));
-        this->player1 = std::unique_ptr<Player>(new Player());
-        this->player2 = std::unique_ptr<Player>(new Player());
+        this->grid.reset(new ElementTab(TypeID::CELL));
+        this->characters.reset(new ElementTab(TypeID::CREATURESGROUP));
+        this->player1.reset(new Player());
+        this->player2.reset(new Player());
     }
     
-    State::~State (){ }
+    State::~State (){ 
+        std::cout << "Appel destructeur de State" << std::endl;
+    }
     
     // Setters and Getters
     const std::unique_ptr<ElementTab>& State::getGrid() const{
