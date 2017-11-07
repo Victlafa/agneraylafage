@@ -11,7 +11,8 @@ namespace state
         this->totalCellNbr = 29;
         this->grid = std::unique_ptr<ElementTab>(new ElementTab(TypeID::CELL));
         this->characters = std::unique_ptr<ElementTab>(new ElementTab(TypeID::CREATURESGROUP,5,7));
-        this->player = std::unique_ptr<Player>(new Player());
+        this->player1 = std::unique_ptr<Player>(new Player());
+        this->player2 = std::unique_ptr<Player>(new Player());
     }
     
     State::~State (){ }
@@ -29,8 +30,11 @@ namespace state
         return totalCellNbr;
     }
     
-    const std::unique_ptr<Player>& State::getPlayer() const{
-        return player;
+    const std::unique_ptr<Player>& State::getPlayer(int number) const{
+        if (number == 2)
+            return player2;
+        else
+            return player1;
     }
     
 };

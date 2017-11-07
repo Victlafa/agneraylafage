@@ -21,7 +21,8 @@ namespace state {
   private:
     std::unique_ptr<ElementTab> grid;
     std::unique_ptr<ElementTab> characters;
-    std::unique_ptr<Player> player;
+    std::unique_ptr<Player> player1;
+    std::unique_ptr<Player> player2;
     int totalCellNbr;
     // Operations
   public:
@@ -30,7 +31,7 @@ namespace state {
     const std::unique_ptr<ElementTab>& getGrid () const;
     const std::unique_ptr<ElementTab>& getCharacters () const;
     int getCellNbr () const;
-    const std::unique_ptr<Player>& getPlayer () const;
+    const std::unique_ptr<Player>& getPlayer (int number) const;
     // Setters and Getters
   };
 

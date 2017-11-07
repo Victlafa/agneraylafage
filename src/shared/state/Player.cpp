@@ -24,6 +24,7 @@ namespace state{
           {
               speCellsNames = std::vector<std::string>();
               allCreatures = std::vector<std::shared_ptr<CreaturesGroup>>();
+              allCreatures.resize(35);
           }
           
           catch(std::bad_alloc &e)
@@ -69,6 +70,12 @@ namespace state{
         const std::vector<std::shared_ptr<CreaturesGroup>>& Player::getAllCreatures () const{
             return this->allCreatures;
         }
+        
+        const std::shared_ptr<CreaturesGroup>& Player::getOneCreatures (int number) const
+        {
+            return allCreatures.at(number);
+        }
+
 
         void Player::setCellsNbr(int count) {
             cellNbr = count;
@@ -176,6 +183,14 @@ namespace state{
 
         void Player::setClanName(CreaturesID Identify) {
             this->clanName = Identify;
+        }
+        
+        bool Player::getIsStriker() const
+        {
+            return isStriker;
+        }
+        void Player::setIsStriker(bool isStriker){
+            this->isStriker = isStriker;
         }
     
 };

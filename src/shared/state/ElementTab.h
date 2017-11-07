@@ -23,7 +23,7 @@ namespace state {
   private:
     size_t width     = 7;
     size_t height     = 5;
-    std::vector<std::unique_ptr<Element>> list;
+    std::vector<std::unique_ptr<Element> > list;
     // Operations
   public:
     ElementTab (TypeID type, size_t width = 7, size_t height = 5);
