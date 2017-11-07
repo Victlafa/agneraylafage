@@ -29,6 +29,8 @@ namespace state {
     int yLastCell     = 0;
     std::vector<std::shared_ptr<CreaturesGroup> > allCreatures;
     int creaturesLeft;
+  protected:
+    bool isStriker;
     // Operations
   public:
     Player ();
@@ -55,6 +57,8 @@ namespace state {
     // Setters and Getters
     CreaturesID getClanName() const;
     void setClanName(CreaturesID clanName);
+    bool getIsStriker() const;
+    void setIsStriker(bool isStriker);
   };
 
 };

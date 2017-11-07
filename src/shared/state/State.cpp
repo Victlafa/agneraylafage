@@ -30,8 +30,11 @@ namespace state
         return totalCellNbr;
     }
     
-    const std::unique_ptr<Player>& State::getPlayer() const{
-        return player;
+    const std::unique_ptr<Player>& State::getPlayer(int number) const{
+        if (number == 2)
+            return player2;
+        else
+            return player1;
     }
     
 };
