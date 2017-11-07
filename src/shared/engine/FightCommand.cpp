@@ -23,8 +23,8 @@ namespace engine
     {
         srand(time(NULL));
         
-        state::CreaturesGroup group1 = state->getPlayer(1)->getOneCreatures(creaPl1);
-        state::CreaturesGroup group2 = state->getPlayer(2)->getOneCreatures(creaPl2);
+        state::CreaturesGroup group1 = state->getCharacters()->get(creaPl1);
+        state::CreaturesGroup group2 = state->getCharacters()->get(creaPl2);
         int totalPlayer1 = 0;
         int totalPlayer2 = 0;
         
@@ -44,9 +44,9 @@ namespace engine
     {
         // Si le joueur attaquant gagne le combat, il remporte un point de conquete
         if (state->getPlayer(1)->getIsStriker() && fightProcess(state))
-            state->getPlayer(1)->setConquestPts(state->getPlayer(1)->getConquestPoints() + 1);
+            state->getPlayer(1)->setConquestPoints(state->getPlayer(1)->getConquestPoints() + 1);
         else if (state->getPlayer(2)->getIsStriker() && !fightProcess(state))
-            state->getPlayer(2)->setConquestPts(state->getPlayer(2)->getConquestPoints() + 1);
+            state->getPlayer(2)->setConquestPoints(state->getPlayer(2)->getConquestPoints() + 1);
         else
             std::cout << "Aucun des joueurs n'a été défini comme attaquant ou le combat s'est mal deroule !" << std::endl;
         
@@ -55,7 +55,10 @@ namespace engine
     CommandTypeID FightCommand::getTypeID () const { return CommandTypeID::FIGHT; }
     void FightCommand::execute (state::State& state)
     {
+        std::cout << "Debut du combat" << std::endl;
         gainConquest(state);
+        std::cout << "Fin du combat" << std::endl;
+        
     }
     
     // Setters and Getters

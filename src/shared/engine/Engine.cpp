@@ -14,6 +14,7 @@ namespace engine
     
     Engine::~Engine (){}
     const state::State& Engine::getState () const {return state;}
+    void Engine::setState(const state::State& state) {this->state = state;}
     void Engine::addPassiveCommands () {}
     void Engine::addCommand (int priority, Command* cmd) {
         // On ajoute une commande :
@@ -22,8 +23,7 @@ namespace engine
         
     }
     void Engine::update (){
-        for (int i = 0 ; i < currentCommands.size() ; i++){
-            
-        }
+        for (std::unique_ptr<Command> commande : currentCommands)
+            commande->execute(state);
     }
 }
