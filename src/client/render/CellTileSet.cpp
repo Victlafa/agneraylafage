@@ -5,6 +5,7 @@
  */
 #include "state.h"
 #include "CellTileSet.h"
+#include <iostream>
 //#include "state/ElementTab.h"
 
 
@@ -68,16 +69,9 @@ namespace render
                         return this->cells[2];
                         break;
                     default :
-                        std::cout << "erreur attribtuion CellTileSet" << std::endl;
+                        return *(new Tile(-1,-1,-1,-1));
+                        break;
                 }
-                if (simpleCellule.getSimpleCellType() == )
-                    
-                else if (simpleCellule.getSimpleCellType() == )
-                    
-                else if (simpleCellule.getSimpleCellType() == )
-                    
-                else
-                    return *(new Tile(-1,-1,-1,-1));
             }
             
             else if (cellule.getCellType() == state::CellTypeID::SPECIAL)
