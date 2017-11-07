@@ -23,8 +23,8 @@ namespace engine
     {
         srand(time(NULL));
         
-        state::CreaturesGroup group1 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl1);
-        state::CreaturesGroup group2 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl2);
+        state::CreaturesGroup group1 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl1).get();
+        state::CreaturesGroup group2 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl2).get();
         int totalPlayer1 = 0;
         int totalPlayer2 = 0;
         
