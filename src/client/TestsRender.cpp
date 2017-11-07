@@ -478,6 +478,7 @@ namespace render {
 
         ElementTabLayer tabLayer(tab,0);
         tabLayer.initSurface();
+        Surface surf();
         
         int halfHeight = 61;
         int halfWidth = 51;
@@ -598,7 +599,6 @@ namespace render {
             }
                 
             else if (i == 18 || i == 24) {
-                
                 x += halfWidth;
                 y += 86;
             switch (i) {
@@ -636,6 +636,20 @@ namespace render {
 
         }
         
+        sf::Texture hexaTexture;
+        //Le premier cas marche chez Victoire, le second chez Aurore
+        if (!hexaTexture.loadFromFile("../res/hexa.png")) 
+            hexaTexture.loadFromFile("./res/hexa.png");
+        else
+            std::cout << "Erreur chargement texture !\n" << std::endl;
+        //throw std::runtime_error("Impossible de lire le fichier");
+          
+        
+        surf.setQuadsList(listHexagones);
+        surf.setTexture(hexaTexture);
+        CellTileSet cts;
+        
+        
         while (window.isOpen()) {
             sf::Event event;
             while (window.pollEvent(event)) {
@@ -644,15 +658,9 @@ namespace render {
 
             window.clear();
 
-            sf::Texture hexaTexture;
+            
 
-            //Le premier cas marche chez Victoire, le second chez Aurore
-            if (!hexaTexture.loadFromFile("../res/hexa.png")) 
-                hexaTexture.loadFromFile("./res/hexa.png");
-            else
-                std::cout << "Erreur chargement texture !\n" << std::endl;
-            //throw std::runtime_error("Impossible de lire le fichier");
-          
+            
             
             for (int i = 0; i < 29; i++)
                 window.draw(listHexagones[i], &hexaTexture);

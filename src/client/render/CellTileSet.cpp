@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+#include <iostream>
 #include "state.h"
 #include "CellTileSet.h"
 //#include "state/ElementTab.h"
@@ -56,7 +57,6 @@ namespace render
 
             if (cellule.getCellType() == state::CellTypeID::SIMPLE)
             {
-                const state::SimpleCell simpleCellule = (const state::SimpleCell)cellule;
                 switch(((state::SimpleCell) cellule).getSimpleCellType()){
                     case state::SimpleCellID::SAND :
                         return this->cells[0];
@@ -68,32 +68,34 @@ namespace render
                         return this->cells[2];
                         break;
                     default :
-                        std::cout << "erreur attribtuion CellTileSet" << std::endl;
+                        return *(new Tile(-1,-1,-1,-1));
+                        std::cout << "erreur attribution CellTileSet" << std::endl;
+                        break;
                 }
-                if (simpleCellule.getSimpleCellType() == )
-                    
-                else if (simpleCellule.getSimpleCellType() == )
-                    
-                else if (simpleCellule.getSimpleCellType() == )
-                    
-                else
-                    return *(new Tile(-1,-1,-1,-1));
+
             }
             
             else if (cellule.getCellType() == state::CellTypeID::SPECIAL)
             {
-                const state::SpecialCell specialCellule = (const state::SpecialCell)cellule;
+                switch(((state::SpecialCell) cellule).getSpecialCellType()){
+                    case state::SpecialCellID::BARBECUE :
+                        return this->cells[3];
+                        break;
+                    case state::SpecialCellID::SKY :
+                        return this->cells[4];
+                        break;
+                    case state::SpecialCellID::POOL :
+                        return this->cells[5];
+                        break;
+                    case state::SpecialCellID::CANDY :
+                        return this->cells[6];
+                        break;
+                    default :
+                        return *(new Tile(-1,-1,-1,-1));
+                        std::cout << "erreur attribtuion CellTileSet" << std::endl;
+                        break;
+                }
                 
-                if (specialCellule.getSpecialCellType() == state::SpecialCellID::BARBECUE)
-                    return this->cells[3];
-                else if (specialCellule.getSpecialCellType() == state::SpecialCellID::SKY)
-                    return this->cells[4];
-                else if (specialCellule.getSpecialCellType() == state::SpecialCellID::POOL)
-                    return this->cells[5];
-                else if (specialCellule.getSpecialCellType() == state::SpecialCellID::CANDY)
-                    return this->cells[6];
-                else
-                    return *(new Tile(-1,-1,-1,-1));
             }
             
             else
