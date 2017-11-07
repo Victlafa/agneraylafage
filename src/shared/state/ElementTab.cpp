@@ -187,7 +187,7 @@ namespace state
         return this->list.at(i*width + j);
     }
     
-    const std::unique_ptr<Element>& ElementTab::get (int number) const
+    const std::unique_ptr<Element>& ElementTab::getByNumber (int number) const
     {
         return list.at(number);
     }
