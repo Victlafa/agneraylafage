@@ -144,22 +144,23 @@ namespace state{
             this->allCreatures = creaList;
         }
         
-        void Player::setAllCreatures (bool add, std::shared_ptr<CreaturesGroup> group){
+        void Player::setAllCreatures (bool add, CreaturesGroup* group, int number){
             size_t initSize = allCreatures.size();
 
             // Si on souhaite ajouter un groupe de créatures dans la liste :
             if (add)
-                allCreatures.push_back(group);
+                allCreatures[number].reset(group);
+                
 
             // Si au contraire on souhaite retirer un groupe de la liste :
             else if (!add && allCreatures.size() != 0) {
                 
                 // On doit chercher le groupe correspondant dans la liste :
 
-                for (auto Iter = allCreatures.begin(); Iter != allCreatures.end(); Iter++) {
-                    if (*Iter == group) {
+                for (int i = 0 ; i < initSize; i++) {
+                    if (i == number) {
                         // Quand on a trouvé le bon groupe, on le supprime et on sort de la boucle for :
-                        allCreatures.erase(Iter);
+                        allCreatures[number].reset(NULL);
                         break;
                     }
                 }

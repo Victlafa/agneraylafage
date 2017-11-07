@@ -53,7 +53,7 @@ namespace state {
     void setXLastCell (int x);
     void setYLastCell (int y);
     void setAllCreatures (std::vector<std::shared_ptr<CreaturesGroup> > creaList);
-    void setAllCreatures (bool add, std::shared_ptr<CreaturesGroup> group);
+    void setAllCreatures (bool add, CreaturesGroup* group, int number);
     // Setters and Getters
     CreaturesID getClanName() const;
     void setClanName(CreaturesID clanName);
