@@ -496,13 +496,77 @@ namespace render {
         std::vector<int> listYText = std::vector<int>();
         listYText.reserve(29);
         
-        for(int i=0; i<tab.getHeight(); i++){
-            for(int j=0; j<tab.getWidth(); j++){
-                if((tab.get(i,j)).getCellType()==state::CellTypeID::SIMPLE){
-                    
+        for(unsigned int i=0; i<tab.getHeight(); i++){
+            for(unsigned int j=0; j<tab.getWidth(); j++){
+                if(tab(i,j).getElemType()==state::TypeID::CELL){
+                    Cell cell = tab(i,j);
+                    if(cell.getCellType()==state::CellTypeID::SIMPLE){
+                        SimpleCell sc = tab(i,j);
+                        switch(sc.getSimpleCellType()){
+                            case state::SimpleCellID::SAND :
+                                listXText.push_back(71);
+                                listYText.push_back(81);
+                                break;
+                            case state::SimpleCellID::GRASS :
+                                listXText.push_back(191);
+                                listYText.push_back(81);
+                                break;
+                            case state::SimpleCellID::DIRT :
+                                listXText.push_back(311);
+                                listYText.push_back(81);
+                                break;
+                            default :
+                                std::cout << "erreur définition coordonnées textures" << std::endl;
+                                break;
+                        }
+                    }else{
+                        SpecialCell sc = tab(i,j);
+                        switch(sc.getSpecialCellType()){
+                            case state::SpecialCellID::BARBECUE :
+                                listXText.push_back(71);
+                                listYText.push_back(221);
+                                break;
+                            case state::SpecialCellID::SKY :
+                                listXText.push_back(191);
+                                listYText.push_back(221);
+                                break;
+                            case state::SpecialCellID::POOL :
+                                listXText.push_back(311);
+                                listYText.push_back(221);
+                                break;
+                            case state::SpecialCellID::CANDY :
+                                listXText.push_back(431);
+                                listYText.push_back(221);
+                                break;
+                            default :
+                                std::cout << "erreur définition coordonnées textures" << std::endl;
+                                break;
+                        }
+                    }
+                }else{
+                    switch(((CreaturesGroup) tab(i,j)).getCreaturesType()){
+                        case state::CreaturesID::BLACKSMITH :
+                            listXText.push_back(50*(tab(i,j).getCreaturesNbr()+1));
+                            listYText.push_back(50);
+                            break;
+                        case state::CreaturesID::COOKER :
+                            listXText.push_back(50*(tab(i,j).getCreaturesNbr()+1));
+                            listYText.push_back(100);
+                            break;
+                        case state::CreaturesID::LUMBERJACK :
+                            listXText.push_back(50*(tab(i,j).getCreaturesNbr()+1));
+                            listYText.push_back(150);
+                            break;
+                        case state::CreaturesID::MINER :
+                            listXText.push_back(50*(tab(i,j).getCreaturesNbr()+1));
+                            listYText.push_back(200);
+                            break;
+                        default :
+                            std::cout << "erreur définition coordonnées textures" << std::endl;
+                            break;
+                    }
                 }
             }
-        
         }
         
         std::cout << "création variables" << std::endl;
@@ -547,6 +611,10 @@ namespace render {
                 shift = shift;
             }
 
+            xText = listXText[i];
+            yText = listYText[i];
+                    
+            
             listHexagones[i][0].position = sf::Vector2f(x + halfWidth + shift * 2 * halfWidth, y + halfHeight);
             listHexagones[i][1].position = sf::Vector2f(x + halfWidth + shift * 2 * halfWidth, y - halfHeight);
             listHexagones[i][2].position = sf::Vector2f(x - halfWidth + shift * 2 * halfWidth, y - halfHeight);
