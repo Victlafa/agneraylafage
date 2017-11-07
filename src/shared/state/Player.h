@@ -5,11 +5,6 @@
 #include <string>
 #include <vector>
 
-namespace state {
-  class CreaturesGroup;
-}
-
-#include "CreaturesGroup.h"
 #include "CreaturesID.h"
 
 namespace state {
@@ -26,7 +21,7 @@ namespace state {
     int xLastCell     = 0;
     int yLastCell     = 0;
     int creaturesLeft;
-    bool isStriker;
+    bool isStriker     = false;
     std::vector<std::string> speCellsNames;
     std::vector<int> allCreatures;
     // Operations
