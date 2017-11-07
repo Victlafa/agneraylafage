@@ -4,7 +4,6 @@
 
 #include <string>
 #include <vector>
-#include <memory>
 
 namespace state {
   class CreaturesGroup;
@@ -20,45 +19,44 @@ namespace state {
     // Associations
     state::CreaturesID clanName;
     // Attributes
-  private:
+  protected:
     int cellNbr;
     int zonesNbr;
     int conquestPoints;
-    std::vector<std::string> speCellsNames;
     int xLastCell     = 0;
     int yLastCell     = 0;
-    std::vector<std::shared_ptr<CreaturesGroup> > allCreatures;
     int creaturesLeft;
-  protected:
     bool isStriker;
+    std::vector<std::string> speCellsNames;
+    std::vector<int> allCreatures;
     // Operations
   public:
     Player ();
     ~Player ();
-    int getCellsNbr () const;
-    int getZonesNbr () const;
-    int getConquestPoints () const;
-    int getCreaturesLeft () const;
-    const std::vector<std::string>& getSpeCellsNames () const;
-    int getXLastCell () const;
-    int getYLastCell () const;
-    const std::vector<std::shared_ptr<CreaturesGroup> >& getAllCreatures () const;
-    const std::shared_ptr<CreaturesGroup>& getOneCreatures (int number) const;
-    void setCellsNbr (int count);
-    void setZonesNbr (int count);
-    void setConquestPts (int count);
-    void setCreaLeft (int count);
+    bool isThereCreatures (int number);
     void decreaseCreaLeft ();
     void modifySpeCellsNames (std::string name, bool add);
-    void setXLastCell (int x);
-    void setYLastCell (int y);
-    void setAllCreatures (std::vector<std::shared_ptr<CreaturesGroup> > creaList);
-    void setAllCreatures (bool add, CreaturesGroup* group, int number);
+    void setAllCreatures (bool add, int number);
     // Setters and Getters
     CreaturesID getClanName() const;
     void setClanName(CreaturesID clanName);
+    int getCellNbr() const;
+    void setCellNbr(int cellNbr);
+    int getZonesNbr() const;
+    void setZonesNbr(int zonesNbr);
+    int getConquestPoints() const;
+    void setConquestPoints(int conquestPoints);
+    int getXLastCell() const;
+    void setXLastCell(int xLastCell);
+    int getYLastCell() const;
+    void setYLastCell(int yLastCell);
+    int getCreaturesLeft() const;
+    void setCreaturesLeft(int creaturesLeft);
     bool getIsStriker() const;
     void setIsStriker(bool isStriker);
+    const std::vector<std::string>& getSpeCellsNames() const;
+    void setSpeCellsNames(const std::vector<std::string>& speCellsNames);
+    const std::vector<int>& getAllCreatures() const;
   };
 
 };

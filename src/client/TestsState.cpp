@@ -77,7 +77,7 @@ void TestsPlayer()
     std::cout << ((NULL!=p1) ? "OK" : "KO") << std::endl;
         
     std::cout << "Test Player Init NbrCells : ";
-    std::cout << ((p1->getCellsNbr()==0) ? "OK" : "KO") << std::endl;
+    std::cout << ((p1->getCellNbr()==0) ? "OK" : "KO") << std::endl;
         
     std::cout << "Test Player Init NbrZones ";
     std::cout << ((p1->getZonesNbr()==0) ? "OK" : "KO") << std::endl;
@@ -98,19 +98,19 @@ void TestsPlayer()
     std::cout << ((p1->getZonesNbr()==0) ? "OK" : "KO") << std::endl;
      
     std::cout << "Test Player Getters/Setters NbrCells : ";
-    p1->setCellsNbr(12);
-    std::cout << ((p1->getCellsNbr()==12) ? "OK" : "KO") << std::endl;
+    p1->setCellNbr(12);
+    std::cout << ((p1->getCellNbr()==12) ? "OK" : "KO") << std::endl;
       
     std::cout << "Test Player Getters/Setters NbrZones : ";
     p1->setZonesNbr(2);
     std::cout << ((p1->getZonesNbr()==2) ? "OK" : "KO") << std::endl;
 
     std::cout << "Test Player Getters/Setters ConquestPoints : ";
-    p1->setConquestPts(4);
+    p1->setConquestPoints(4);
     std::cout << ((p1->getConquestPoints() == 4) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test Player Getters/Setters CreaturesLeft : ";
-    p1->setCreaLeft(5);
+    p1->setCreaturesLeft(5);
     std::cout << ((p1->getCreaturesLeft() == 5) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test Player decrease CreaturesLeft : ";
@@ -133,6 +133,7 @@ void TestsPlayer()
     size_t listSize = p1->getSpeCellsNames().size();
     p1->modifySpeCellsNames("NomCellule",false);
     std::cout << ((p1->getSpeCellsNames().size() == listSize - 1) ? "OK" : "KO") << std::endl;
+
     
     std::cout << "Test Player Getter/Setter allCreatures - liste complete : ";
     p1->setAllCreatures(std::vector<std::shared_ptr<CreaturesGroup>>());
@@ -154,6 +155,29 @@ void TestsPlayer()
     //group.reset(new CreaturesGroup(CreaturesID::BLACKSMITH) );
     //group2.reset(new CreaturesGroup(CreaturesID::BLACKSMITH));
     //group3.reset(new CreaturesGroup(CreaturesID::BLACKSMITH));
+
+//    
+//    std::cout << "Test Player Getter/Setter allCreatures - liste complete : ";
+//    p1->setAllCreatures(std::vector<std::shared_ptr<CreaturesGroup>>());
+//    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl;
+//    
+//    std::cout << "Test Player Getter/Setter allCreatures - ajout d'un element : ";
+//    std::shared_ptr<CreaturesGroup> group(new CreaturesGroup(CreaturesID::BLACKSMITH));
+//    std::shared_ptr<CreaturesGroup> group2 = group;
+//    p1->setAllCreatures(true, group2);
+//    std::cout << ((p1->getAllCreatures().size() == 1) ? "OK" : "KO") << std::endl;
+//    
+//    std::cout << "Test Player Getter/Setter allCreatures - retrait d'un element : ";
+//    std::shared_ptr<CreaturesGroup> group3 = group;
+//    p1->setAllCreatures(false, group3);
+//    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl<< std::endl;
+
+    std::cout << "FIN TESTS PLAYER"  << std::endl<< std::endl;
+    
+//    group.reset(new CreaturesGroup(CreaturesID::BLACKSMITH) );
+//    group2.reset(new CreaturesGroup(CreaturesID::BLACKSMITH));
+//    group3.reset(new CreaturesGroup(CreaturesID::BLACKSMITH));
+
 
     p1.reset(new Player());
     
@@ -268,7 +292,11 @@ void TestsState()
     std::cout << ((NULL!=etat) ? "OK" : "KO") << std::endl;
         
     std::cout << "Test State Init player : ";
+<<<<<<< HEAD
     std::cout << (NULL != &(etat->getPlayer(0)) ? "OK" : "KO") << std::endl;
+=======
+    std::cout << (NULL != &(etat->getPlayer(1)) ? "OK" : "KO") << std::endl;
+>>>>>>> fab9b6f195136f01ef4429a1e47bb2af4935a905
     
     std::cout << "Test State Init grid : ";
     std::cout << (NULL != etat->getGrid() ? "OK" : "KO") << std::endl;
