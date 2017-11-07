@@ -8,6 +8,7 @@
 #include "../state/State.h"
 #include "../state/CreaturesGroup.h"
 #include <time.h>
+#include <iostream>
 
 namespace engine
 {
@@ -22,8 +23,8 @@ namespace engine
     {
         srand(time(NULL));
         
-        state::CreaturesGroup group1 = state->getPlayer()->getOneCreatures(creaPl1);
-        state::CreaturesGroup group2 = state->getPlayer()->getOneCreatures(creaPl2);
+        state::CreaturesGroup group1 = state->getPlayer(1)->getOneCreatures(creaPl1);
+        state::CreaturesGroup group2 = state->getPlayer(2)->getOneCreatures(creaPl2);
         int totalPlayer1 = 0;
         int totalPlayer2 = 0;
         
@@ -41,19 +42,27 @@ namespace engine
     
     void FightCommand::gainConquest (state::State& state)
     {
-        // Si le joueur 1 gagne le combat, il remporte un point de conquete
-        if 
-        // Sinon, c'est le joueur 2 qui le gagne
+        // Si le joueur attaquant gagne le combat, il remporte un point de conquete
+        if (state->getPlayer(1)->getIsStriker() && fightProcess(state))
+            state->getPlayer(1)->setConquestPts(state->getPlayer(1)->getConquestPoints() + 1);
+        else if (state->getPlayer(2)->getIsStriker() && !fightProcess(state))
+            state->getPlayer(2)->setConquestPts(state->getPlayer(2)->getConquestPoints() + 1);
+        else
+            std::cout << "Aucun des joueurs n'a été défini comme attaquant ou le combat s'est mal deroule !" << std::endl;
         
     }
     
-    CommandTypeID FightCommand::getTypeID () const;
-    void FightCommand::execute (state::State& state);
+    CommandTypeID FightCommand::getTypeID () const { return CommandTypeID::FIGHT; }
+    void FightCommand::execute (state::State& state)
+    {
+        gainConquest(state);
+    }
+    
     // Setters and Getters
-    int FightCommand::getCreaPl1() const;
-    void FightCommand::setCreaPl1(int creaPl1);
-    int FightCommand::getCreaPl2() const;
-    void FightCommand::setCreaPl2(int creaPl2);
-    int FightCommand::getCell() const;
-    void FightCommand::setCell(int cell);
+    int FightCommand::getCreaPl1() const { return creaPl1; }
+    void FightCommand::setCreaPl1(int creaPl1) { this-> creaPl1 = creaPl1; }
+    int FightCommand::getCreaPl2() const { return creaPl2; }
+    void FightCommand::setCreaPl2(int creaPl2) { this-> creaPl2 = creaPl2; }
+    int FightCommand::getCell() const {return cell;}
+    void FightCommand::setCell(int cell) {this->cell = cell;}
 }
