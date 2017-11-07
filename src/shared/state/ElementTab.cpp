@@ -17,12 +17,11 @@ namespace state
 {
     // Constructor :
 
-    ElementTab::ElementTab(TypeID type, size_t width, size_t height) {
+    ElementTab::ElementTab(TypeID type, size_t width, size_t height) : list(width*height) {
         this->width = width;
         this->height = height;
         tabType = type;
-        list = std::vector<std::unique_ptr < Element >> ();
-        list.resize(width * height);
+
 
         srand(time(NULL));
 
