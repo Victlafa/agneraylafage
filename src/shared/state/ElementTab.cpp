@@ -133,6 +133,8 @@ namespace state
             // On va tirer au sort des coordonnees pour placer 3 groupes de creatures :
             for (int j = 0; j < 3; j++) {
                 intRand[j] = new int[2];
+                intRand[j][0] = 0;
+                intRand[j][1] = 0;
 
                 do {
                     rand_i = rand() % height;
