@@ -188,6 +188,11 @@ namespace state
         return this->list.at(i*width + j);
     }
     
+    const std::unique_ptr<Element>& ElementTab::get (int number) const
+    {
+        return list.at(number);
+    }
+    
     void ElementTab::set (Element* elem, int i, int j){
         list[i*width + j].reset(elem);
     }

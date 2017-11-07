@@ -19,6 +19,8 @@ namespace state{
           creaturesLeft = 0;
           xLastCell = 0;
           yLastCell = 0;
+          for (int i = 0; i < 35 ; i++)
+              allCreatures[i] = 0;
       }
       
         Player::~Player(){ }
