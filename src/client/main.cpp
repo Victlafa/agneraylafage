@@ -11,14 +11,18 @@ void testSFML() {
 
 // Fin test SFML
 
-#include "state.h"
+#include "../shared/state.h"
 #include "render.h"
+#include "../shared/engine.h"
 #include "TestsState.h"
 #include "TestsRender.h"
+#include "TestsEngine.h"
 
 using namespace std;
 using namespace state;
 using namespace render;
+using namespace engine;
+
 
 int main(int argc,char* argv[]) 
 {
@@ -33,7 +37,7 @@ int main(int argc,char* argv[])
         if (argc >= 2 && (string) argv[1] == "hello")
             cout << "Bonjour tout le monde !" << endl;
 
-        if (argc >= 2 && (string) argv[1] == "state") {
+        else if (argc >= 2 && (string) argv[1] == "state") {
 
             TestsElementTab();
             TestsCreaturesGroup();
@@ -45,7 +49,7 @@ int main(int argc,char* argv[])
 
         }
         
-        if (argc >= 2 && (string) argv[1] == "render") {
+        else if (argc >= 2 && (string) argv[1] == "render") {
 
             // On cherche à afficher une ligne de cinq hexagones :
             //TestInitMap();
@@ -55,6 +59,10 @@ int main(int argc,char* argv[])
             TestAffichage(tabCell);
             
 
+        }
+        
+        else if (argc >= 2 && (string) argv[1] == "engine") {
+            TestsFightCommand();
         }
         
     } catch (const std::exception &e) {

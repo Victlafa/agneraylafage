@@ -500,7 +500,9 @@ namespace render {
         listYText.reserve(29);
         
         for(unsigned int i=0; i<tab.getHeight(); i++){
+            
             for(unsigned int j=0; j<tab.getWidth(); j++){
+                
                 if(tab(i,j).getElemType()==state::TypeID::CELL){
                     Cell cell = tab(i,j);
                     if(cell.getCellType()==state::CellTypeID::SIMPLE){
@@ -522,7 +524,9 @@ namespace render {
                                 std::cout << "erreur définition coordonnées textures" << std::endl;
                                 break;
                         }
-                    }else{
+                    }
+                    
+                    else{
                         SpecialCell sc = tab(i,j);
                         switch(sc.getSpecialCellType()){
                             case state::SpecialCellID::BARBECUE :

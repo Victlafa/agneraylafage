@@ -24,8 +24,6 @@ namespace engine {
   private:
     state::State currentState;
     std::map<int,std::unique_ptr<Command> > currentCommands;
-  protected:
-    state::State state;
     // Operations
   public:
     Engine ();
@@ -33,9 +31,8 @@ namespace engine {
     void addPassiveCommands ();
     void addCommand (int priority, Command* cmd);
     void update ();
+    const state::State& getState () const;
     // Setters and Getters
-    const state::State& getState() const;
-    void setState(const state::State& state);
   };
 
 };

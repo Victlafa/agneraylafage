@@ -32,7 +32,7 @@ namespace state {
     size_t getHeight () const;
     void resize (size_t width, size_t height);
     const std::unique_ptr<Element>& get (int i, int j = 0) const;
-    const std::unique_ptr<Element>& get (int number) const;
+    const std::unique_ptr<Element>& getByNumber (int number) const;
     void set (Element* elem, int i, int j = 0);
     Element& operator ( )  (int i, int j = 0) const;
     // Setters and Getters

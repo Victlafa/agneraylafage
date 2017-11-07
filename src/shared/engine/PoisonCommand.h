@@ -25,7 +25,7 @@ namespace engine {
   public:
     PoisonCommand (int cell, int creatures);
     bool isPoisoned (state::State& state);
-    killCreatures (state::State& state);
+    void killCreatures (state::State& state);
     CommandTypeID getTypeID () const;
     void execute (state::State& state);
     // Setters and Getters

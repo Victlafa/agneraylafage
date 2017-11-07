@@ -33,14 +33,14 @@ namespace state
             std::cout << "Positionnement des Cellules Speciales" << std::endl;
             //Positionnement des Cellules Speciales
             
-            std::vector<SpecialCellID> l_SpeCID = std::vector<SpecialCellID>();
+            std::vector<SpecialCellID> l_SpeCID;
             l_SpeCID.push_back(SpecialCellID::BARBECUE);
             l_SpeCID.push_back(SpecialCellID::CANDY);
             l_SpeCID.push_back(SpecialCellID::POOL);
             l_SpeCID.push_back(SpecialCellID::SKY);
             
-            std::vector<unsigned int> li = std::vector<unsigned int>(); //liste des ordonnées des cellules speciales
-            std::vector<unsigned int> lj = std::vector<unsigned int>(); //liste des abscisses des cellules speciales
+            std::vector<unsigned int> li; //liste des ordonnées des cellules speciales
+            std::vector<unsigned int> lj; //liste des abscisses des cellules speciales
             
             for (int gh=0; gh < 4; gh++)
             {
@@ -80,12 +80,12 @@ namespace state
 
             std::cout << "Positionnement des Cellules Simples" << std::endl;
             // On remplit map_cell avec des cellules simples
-            std::vector<state::SimpleCellID> l_SimCID = std::vector<state::SimpleCellID>();
+            std::vector<state::SimpleCellID> l_SimCID;
             l_SimCID.push_back(state::SimpleCellID::DIRT);
             l_SimCID.push_back(state::SimpleCellID::GRASS);
             l_SimCID.push_back(state::SimpleCellID::SAND);
             
-            std::vector<std::string> l_Res = std::vector<std::string>();
+            std::vector<std::string> l_Res;
             l_Res.push_back("stone");
             l_Res.push_back("food");
             l_Res.push_back("wood");
@@ -115,7 +115,7 @@ namespace state
                             int ind = rand();
                             this->set(new SimpleCell(l_SimCID[ind%3],l_Res[ind%4],rand()%3,j,i),i,j);
                         }
-                        
+
                     }
                     
                 }
@@ -124,28 +124,28 @@ namespace state
             std::cout << "fin boucles" << std::endl;
         }
 
-        else if (type == TypeID::CREATURESGROUP) {/*
+        else if (type == TypeID::CREATURESGROUP) {
             list.reserve(width * height);
-            int** intRand1 = new int*[3];
-            int rand11;
-            int rand12;
+            int** intRand = new int*[3];
+            unsigned int rand_i;
+            unsigned int rand_j;
 
-            // On va tirer au sort des coordonnees pour placer des creatures :
-            for (int k = 0; k < 6; k++) {
-                intRand1[k] = new int[2];
-                int i, j;
+
+            // On va tirer au sort des coordonnees pour placer 3 groupes de creatures :
+            for (int j = 0; j < 3; j++) {
+                intRand[j] = new int[2];
+
                 do {
-                    rand11 = rand() % height;
-                    rand12 = rand() % width;
-                    i=rand11;
-                    j=rand12;
-                } while ((rand11 == intRand1[j][0] && rand12 == intRand1[j][1]) || (i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == height-1 && j == width-1) || (i == height-1 && j == width-2) || (i == height-2 && j == width-1));
+                    rand_i = rand() % height;
+                    rand_j = rand() % width;
+                } while ((rand_i == (unsigned int)intRand[j][0] && rand_j == (unsigned int)intRand[j][1]) || (rand_i == 0 && rand_j == 0) || (rand_i == 0 && rand_j == 1) || (rand_i == 1 && rand_j == 0) || (rand_i == height-1 && rand_j == width-1) || (rand_i == height-1 && rand_j == width-2) || (rand_i == height-2 && rand_j == width-1));
 
-                intRand1[k][0] = rand11;
-                intRand1[k][1] = rand12;
+                intRand[j][0] = rand_i;
+                intRand[j][1] = rand_j;
                 
-                this->set(new CreaturesGroup(CreaturesID::BLACKSMITH),rand11,rand12);
-            }*/
+                this->set(new CreaturesGroup(CreaturesID::BLACKSMITH),rand_i,rand_j);
+            }
+
         }
         
         else
@@ -182,13 +182,13 @@ namespace state
         return this->list.at(i*width + j);
     }
     
-    const std::unique_ptr<Element>& ElementTab::get (int number) const
+    const std::unique_ptr<Element>& ElementTab::getByNumber (int number) const
     {
         return list.at(number);
     }
     
     void ElementTab::set (Element* elem, int i, int j){
-        list[i*width + j].reset(elem);
+        list.at(i*width + j).reset(elem);
     }
     
     Element& ElementTab::operator()(int i, int j) const{

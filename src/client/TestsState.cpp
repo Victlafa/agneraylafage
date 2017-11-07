@@ -135,6 +135,22 @@ void TestsPlayer()
     std::cout << ((p1->getSpeCellsNames().size() == listSize - 1) ? "OK" : "KO") << std::endl;
 
     
+
+//    std::cout << "Test Player Getter/Setter allCreatures - liste complete : ";
+//    p1->setAllCreatures(std::vector<std::shared_ptr<CreaturesGroup>>());
+//    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl;
+//    
+//    std::cout << "Test Player Getter/Setter allCreatures - ajout d'un element : ";
+//    CreaturesGroup *group = new CreaturesGroup(CreaturesID::BLACKSMITH);
+//    //std::shared_ptr<CreaturesGroup> group2 = group;
+//    p1->setAllCreatures(true, group, 3);
+//    std::cout << ((p1->getAllCreatures().size() == 1) ? "OK" : "KO") << std::endl;
+//    
+//    std::cout << "Test Player Getter/Setter allCreatures - retrait d'un element : ";
+//    //CreaturesGroup group3 = group;
+//    p1->setAllCreatures(false, group, 17);
+//    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl<< std::endl;
+
     std::cout << "Test Player Getter/Setter allCreatures - liste complete : ";
     //std::vector<std::shared_ptr<CreaturesGroup>> group1;
     //group1.push_back(new CreaturesGroup(CreaturesID::BLACKSMITH));
@@ -142,7 +158,6 @@ void TestsPlayer()
     std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test Player Getter/Setter allCreatures - ajout d'un element : ";
-    CreaturesGroup *group = new CreaturesGroup(CreaturesID::BLACKSMITH);
     //std::shared_ptr<CreaturesGroup> group2 = group;
     p1->setAllCreatures(true, 3);
     std::cout << ((p1->getAllCreatures().size() == 1) ? "OK" : "KO") << std::endl;
@@ -151,6 +166,7 @@ void TestsPlayer()
     //CreaturesGroup group3 = group;
     p1->setAllCreatures(false, 17);
     std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl<< std::endl;
+
 
     std::cout << "FIN TESTS PLAYER"  << std::endl<< std::endl;
     
@@ -294,7 +310,8 @@ void TestsState()
     std::cout << ((NULL!=etat) ? "OK" : "KO") << std::endl;
         
     std::cout << "Test State Init player : ";
-    std::cout << (NULL != &(etat->getPlayer(0)) ? "OK" : "KO") << std::endl;
+    std::cout << (NULL != &(etat->getPlayer(1)) ? "OK" : "KO") << std::endl;
+    std::cout << (NULL != &(etat->getPlayer(2)) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test State Init grid : ";
     std::cout << (NULL != etat->getGrid() ? "OK" : "KO") << std::endl;
