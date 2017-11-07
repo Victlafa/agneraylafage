@@ -14,6 +14,11 @@
 #ifndef TESTSENGINE_H
 #define TESTSENGINE_H
 
+#include "../shared/state.h"
+#include "engine/Engine.h"
+#include "engine/FightCommand.h"
+#include <iostream>
+
 namespace engine{
     void TestsFightCommand();
 }

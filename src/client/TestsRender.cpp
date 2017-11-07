@@ -495,15 +495,15 @@ namespace render {
         listXText.reserve(29);
         std::vector<int> listYText = std::vector<int>();
         listYText.reserve(29);
-        
-        for(int i=0; i<tab.getHeight(); i++){
-            for(int j=0; j<tab.getWidth(); j++){
-                if((tab.get(i,j)).getCellType()==state::CellTypeID::SIMPLE){
-                    
-                }
-            }
-        
-        }
+//        
+//        for(int i=0; i<tab.getHeight(); i++){
+//            for(int j=0; j<tab.getWidth(); j++){
+//                if((tab.get(i,j)).getCellType()==state::CellTypeID::SIMPLE){
+//                    
+//                }
+//            }
+//        
+//        }
         
         std::cout << "création variables" << std::endl;
         
