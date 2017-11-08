@@ -314,10 +314,10 @@ void TestsState()
     std::cout << (NULL != &(etat->getPlayer(2)) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test State Init grid : ";
-    std::cout << (NULL != etat->getGrid() ? "OK" : "KO") << std::endl;
+    std::cout << (NULL != etat->getGrid().get(0,0) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test State Init characters : ";
-    std::cout << (NULL != etat->getCharacters() ? "OK" : "KO") << std::endl;
+    std::cout << (NULL != etat->getCharacters().get(0,0) ? "OK" : "KO") << std::endl;
 
     std::cout << "Test State Init totalCellNbr : ";
     std::cout << (etat->getCellNbr() == 29 ? "OK" : "KO") << std::endl<< std::endl;
