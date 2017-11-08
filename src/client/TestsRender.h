@@ -22,7 +22,7 @@ namespace render
     //void TestsStateLayer();
     void TestsElementTabLayer();
     void TestInitMap();
-    void TestAffichage(state::State etat);
+    void TestAffichage();
     void TestAffichage2();
     void TestAffichage3();
 }
