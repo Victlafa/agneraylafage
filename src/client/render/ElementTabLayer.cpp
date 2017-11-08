@@ -48,7 +48,7 @@ namespace render{
             for (int j = 0; j < (int)tab.getWidth(); j++) {
                 
                 if (tab.get(i, j) != NULL) {
-                    Tile tuile = this->tileset.get().getTile(*(tab->get(i, j)));
+                    Tile tuile = ((this->tileset).get())->getTile(*(tab.get(i,j).get()));
                     std::cout << "Hauteur de la tuile (" << i << "," << j << ") :" << tuile.getHeight() << std::endl;
 
                     if (i == 5 || i == 11) {
