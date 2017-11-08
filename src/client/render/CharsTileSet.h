@@ -12,9 +12,13 @@ namespace state {
 };
 namespace render {
   class TileSet;
+};
+namespace state {
+  class CreaturesGroup;
 }
 
 #include "TileSet.h"
+#include "state/CreaturesGroup.h"
 
 namespace render {
 

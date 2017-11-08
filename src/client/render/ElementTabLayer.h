@@ -2,7 +2,6 @@
 #ifndef RENDER__ELEMENTTABLAYER__H
 #define RENDER__ELEMENTTABLAYER__H
 
-#include <memory>
 
 namespace state {
   class ElementTab;
@@ -11,8 +10,8 @@ namespace render {
   class Layer;
 }
 
-#include "state/ElementTab.h"
 #include "Layer.h"
+#include "state/ElementTab.h"
 
 namespace render {
 
@@ -24,7 +23,7 @@ namespace render {
     int type;
     // Operations
   public:
-    ElementTabLayer (state::ElementTab tab, int type);
+    ElementTabLayer (const state::ElementTab& tab, int type);
     void initSurface ();
     // Setters and Getters
   };

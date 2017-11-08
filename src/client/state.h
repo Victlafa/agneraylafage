@@ -3,10 +3,10 @@
 #define __STATE__H
 
 #include "state/Element.h"
-#include "state/CreaturesGroup.h"
+#include "state/State.h"
+#include "state/ElementTab.h"
 #include "state/Cell.h"
 #include "state/SimpleCell.h"
 #include "state/SpecialCell.h"
-#include "state/State.h"
-#include "state/ElementTab.h"
+#include "state/CreaturesGroup.h"
 #endif
