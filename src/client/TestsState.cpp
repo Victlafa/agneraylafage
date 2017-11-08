@@ -19,7 +19,8 @@ void TestsElementTab()
     size_t a, b;
     a=3;b=4;
     
-    std::shared_ptr<ElementTab> elemTab ( new ElementTab(TypeID::CELL,a,b) );
+    std::shared_ptr<ElementTab> elemTab ( new ElementTab(a,b) );
+    elemTab.get()->init(TypeID::CELL);
     Element* elemTest = new Element();
     
     std::cout << "Test ElementTab - Init tableau : ";
@@ -314,7 +315,7 @@ void TestsState()
     std::cout << (NULL != &(etat->getPlayer(2)) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test State Init grid : ";
-    std::cout << (NULL != etat->getGrid().get(0,0) ? "OK" : "KO") << std::endl;
+    std::cout << (NULL != (etat->getGrid()).get(0,0) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test State Init characters : ";
     std::cout << (NULL != etat->getCharacters().get(0,0) ? "OK" : "KO") << std::endl;
