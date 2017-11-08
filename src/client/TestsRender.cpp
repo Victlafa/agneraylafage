@@ -476,20 +476,16 @@ namespace render {
 
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
-        ElementTabLayer tabLayer(etat.getGrid(),0);
+        ElementTabLayer tabLayer(std::shared_ptr<state::ElementTab>(etat.getGrid().get()),0);
         tabLayer.initSurface();
-        Surface surf();
+        Surface* surf;
         
         int halfHeight = 61;
         int halfWidth = 51;
-        //int halfHeightCrea = 50;
-        //int halfWidthCrea = 50;
         int x = 311;
         int y = 187;
         int xText = 71;
         int yText = 81;
-        //int xTextCrea = 50;
-        //int yTextCrea = 50;
         int shift = 0;
         
         std::vector<sf::VertexArray> listHexagones = std::vector<sf::VertexArray>();
@@ -500,14 +496,14 @@ namespace render {
         std::vector<int> listYText = std::vector<int>();
         listYText.reserve(29);
         
-        for(unsigned int i=0; i<(etat.getGrid()).getHeight(); i++){
+        for(unsigned int i=0; i<(etat.getGrid())->getHeight(); i++){
             
-            for(unsigned int j=0; j<etat.getGrid().getWidth(); j++){
+            for(unsigned int j=0; j<etat.getGrid()->getWidth(); j++){
                 
-                if(etat.getGrid()(i,j).getElemType()==state::TypeID::CELL){
-                    Cell cell = etat.getGrid()(i,j);
+                if(etat.getGrid()->get(i,j)->getElemType()==state::TypeID::CELL){
+                    Cell cell = (Cell)*etat.getGrid()->get(i,j);
                     if(cell.getCellType()==state::CellTypeID::SIMPLE){
-                        SimpleCell sc = etat.getGrid()(i,j);
+                        SimpleCell sc = (SimpleCell)*etat.getGrid()->get(i,j);
                         switch(sc.getSimpleCellType()){
                             case state::SimpleCellID::SAND :
                                 listXText.push_back(71);
@@ -528,7 +524,7 @@ namespace render {
                     }
                     
                     else{
-                        SpecialCell sc = etat.getGrid()(i,j);
+                        SpecialCell sc = (SpecialCell)*etat.getGrid()->get(i,j);
                         switch(sc.getSpecialCellType()){
                             case state::SpecialCellID::BARBECUE :
                                 listXText.push_back(71);
@@ -552,21 +548,22 @@ namespace render {
                         }
                     }
                 }else{
-                    switch(((CreaturesGroup) etat.getGrid()(i,j)).getCreaturesType()){
+                    CreaturesGroup group = (CreaturesGroup)*etat.getGrid()->get(i,j);
+                    switch( group.getCreaturesType() ){
                         case state::CreaturesID::BLACKSMITH :
-                            listXText.push_back(50*(etat.getGrid()(i,j).getCreaturesNbr()+1));
+                            listXText.push_back(50*(etat.getGrid()->get(i,j)->getCreaturesNbr()+1));
                             listYText.push_back(50);
                             break;
                         case state::CreaturesID::COOKER :
-                            listXText.push_back(50*(etat.getGrid()(i,j).getCreaturesNbr()+1));
+                            listXText.push_back(50*(etat.getGrid()->get(i,j)->getCreaturesNbr()+1));
                             listYText.push_back(100);
                             break;
                         case state::CreaturesID::LUMBERJACK :
-                            listXText.push_back(50*(etat.getGrid()(i,j).getCreaturesNbr()+1));
+                            listXText.push_back(50*(etat.getGrid()->get(i,j)->getCreaturesNbr()+1));
                             listYText.push_back(150);
                             break;
                         case state::CreaturesID::MINER :
-                            listXText.push_back(50*(etat.getGrid()(i,j).getCreaturesNbr()+1));
+                            listXText.push_back(50*(etat.getGrid()->get(i,j)->getCreaturesNbr()+1));
                             listYText.push_back(200);
                             break;
                         default :
@@ -645,8 +642,9 @@ namespace render {
         //throw std::runtime_error("Impossible de lire le fichier");
           
         
-        surf.setQuadsList(listHexagones);
-        surf.setTexture(hexaTexture);
+        surf->setQuadsList(listHexagones);
+        surf->setTexture(hexaTexture);
+        tabLayer.setSurface(surf);
         CellTileSet cts;
         
         
