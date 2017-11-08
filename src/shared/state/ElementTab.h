@@ -26,7 +26,8 @@ namespace state {
     std::vector<std::unique_ptr<Element> > list;
     // Operations
   public:
-    ElementTab (TypeID type, size_t width = 7, size_t height = 5);
+    //ElementTab ();
+    ElementTab (size_t width = 7, size_t height = 5);
     ~ElementTab ();
     size_t getWidth () const;
     size_t getHeight () const;
@@ -35,6 +36,7 @@ namespace state {
     const std::unique_ptr<Element>& getByNumber (int number) const;
     void set (Element* elem, int i, int j = 0);
     Element& operator ( )  (int i, int j = 0) const;
+    void init (TypeID type);
     // Setters and Getters
     TypeID getTabType() const;
     void setTabType(TypeID tabType);
