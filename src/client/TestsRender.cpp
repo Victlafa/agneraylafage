@@ -40,8 +40,9 @@ namespace render {
 
         // On déclare et initialise un tableau d'éléments :
         std::shared_ptr<state::ElementTab> grid;
-        grid.reset(new state::ElementTab(state::TypeID::CELL,7, 5));
-
+        grid.reset(new state::ElementTab(7, 5));
+        grid.get()->init(state::TypeID::CELL);
+        
         // On initialise un plan pour ce tableau, de type Cell:
         ElementTabLayer gridLayer(*grid.get(), 0);
         // Initialisation de sa surface :
@@ -472,11 +473,11 @@ namespace render {
     
     // Affichage souhaite
 
-    void TestAffichage(state::State etat) {
-
+    void TestAffichage(state::ElementTab tab) {
+/*
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
-        ElementTabLayer tabLayer(etat.getGrid(),0);
+        ElementTabLayer tabLayer(tab,0);
         tabLayer.initSurface();
         Surface *surf = new Surface();
         
@@ -496,14 +497,14 @@ namespace render {
         std::vector<int> listYText = std::vector<int>();
         listYText.reserve(29);
         
-        for(unsigned int i=0; i<etat.getGrid().getHeight(); i++){
+        for(unsigned int i=0; i<tab.getHeight(); i++){
             
-            for(unsigned int j=0; j<etat.getGrid().getWidth(); j++){
+            for(unsigned int j=0; j<tab.getWidth(); j++){
                 
-                if(etat.getGrid().get(i,j)->getElemType()==state::TypeID::CELL){
-                    Cell cell = (Cell)*etat.getGrid().get(i,j);
+                if(tab.get(i,j)->getElemType()==state::TypeID::CELL){
+                    Cell cell = (Cell)*tab.get(i,j);
                     if(cell.getCellType()==state::CellTypeID::SIMPLE){
-                        SimpleCell sc = (SimpleCell)*etat.getGrid().get(i,j);
+                        SimpleCell sc = (SimpleCell)*tab.get(i,j);
                         switch(sc.getSimpleCellType()){
                             case state::SimpleCellID::SAND :
                                 listXText.push_back(71);
@@ -524,7 +525,7 @@ namespace render {
                     }
                     
                     else{
-                        SpecialCell sc = (SpecialCell)*etat.getGrid().get(i,j);
+                        SpecialCell sc = (SpecialCell)*tab.get(i,j);
                         switch(sc.getSpecialCellType()){
                             case state::SpecialCellID::BARBECUE :
                                 listXText.push_back(71);
@@ -548,22 +549,22 @@ namespace render {
                         }
                     }
                 }else{
-                    CreaturesGroup group = (CreaturesGroup)*etat.getGrid().get(i,j);
+                    CreaturesGroup group = (CreaturesGroup)*tab.get(i,j);
                     switch( group.getCreaturesType() ){
                         case state::CreaturesID::BLACKSMITH :
-                            listXText.push_back(50*(etat.getGrid().get(i,j)->getCreaturesNbr()+1));
+                            listXText.push_back(50*(tab.get(i,j)->getCreaturesNbr()+1));
                             listYText.push_back(50);
                             break;
                         case state::CreaturesID::COOKER :
-                            listXText.push_back(50*(etat.getGrid().get(i,j)->getCreaturesNbr()+1));
+                            listXText.push_back(50*(tab.get(i,j)->getCreaturesNbr()+1));
                             listYText.push_back(100);
                             break;
                         case state::CreaturesID::LUMBERJACK :
-                            listXText.push_back(50*(etat.getGrid().get(i,j)->getCreaturesNbr()+1));
+                            listXText.push_back(50*(tab.get(i,j)->getCreaturesNbr()+1));
                             listYText.push_back(150);
                             break;
                         case state::CreaturesID::MINER :
-                            listXText.push_back(50*(etat.getGrid().get(i,j)->getCreaturesNbr()+1));
+                            listXText.push_back(50*(tab.get(i,j)->getCreaturesNbr()+1));
                             listYText.push_back(200);
                             break;
                         default :
@@ -664,7 +665,7 @@ namespace render {
                 window.draw(listHexagones[i], &hexaTexture);
 
             window.display();
-        }
+        }*/
     }
 
     // Brouillon
