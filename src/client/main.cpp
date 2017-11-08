@@ -57,7 +57,7 @@ int main(int argc,char* argv[])
             //state::Element el;
             //state::State etat;
             //state::ElementTab tabCell(state::TypeID::CELL, 7, 5);
-            TestAffichage();
+            //TestAffichage();
             
 
         }
