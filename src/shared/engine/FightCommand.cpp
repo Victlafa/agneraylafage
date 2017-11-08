@@ -9,6 +9,7 @@
 #include "../state/CreaturesGroup.h"
 #include <time.h>
 #include <iostream>
+using namespace state;
 
 namespace engine
 {
@@ -23,8 +24,15 @@ namespace engine
     {
         srand(time(NULL));
         
-        int nbCrea1 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl1)->getCreaturesNbr();
-        int nbCrea2 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl2)->getCreaturesNbr();
+        // ERREUR DE SEGMENTATION ICI !!!!
+        
+        CreaturesGroup group1 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl1);
+        CreaturesGroup group2 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl2);
+        //int nbCrea1 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl1)->getCreaturesNbr();
+        //int nbCrea2 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl2)->getCreaturesNbr();
+        int nbCrea1 = group1.getCreaturesNbr();
+        int nbCrea2 = group2.getCreaturesNbr();
+        
         int totalPlayer1 = 0;
         int totalPlayer2 = 0;
         
