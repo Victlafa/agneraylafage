@@ -55,8 +55,9 @@ int main(int argc,char* argv[])
             //TestInitMap();
             //TestsElementTabLayer();
             //state::Element el;
-            state::ElementTab tabCell(state::TypeID::CELL, 7, 5);
-            TestAffichage(tabCell);
+            //state::State etat;
+            //state::ElementTab tabCell(state::TypeID::CELL, 7, 5);
+            TestAffichage();
             
 
         }

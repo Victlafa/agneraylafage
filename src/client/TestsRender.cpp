@@ -472,11 +472,11 @@ namespace render {
     
     // Affichage souhaite
 
-    void TestAffichage(state::ElementTab tab) {
+    void TestAffichage(state::State etat) {
 
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
-        ElementTabLayer tabLayer(tab,0);
+        ElementTabLayer tabLayer(etat.getGrid(),0);
         tabLayer.initSurface();
         Surface surf();
         
@@ -500,14 +500,14 @@ namespace render {
         std::vector<int> listYText = std::vector<int>();
         listYText.reserve(29);
         
-        for(unsigned int i=0; i<tab.getHeight(); i++){
+        for(unsigned int i=0; i<(etat.getGrid()).getHeight(); i++){
             
-            for(unsigned int j=0; j<tab.getWidth(); j++){
+            for(unsigned int j=0; j<etat.getGrid().getWidth(); j++){
                 
-                if(tab(i,j).getElemType()==state::TypeID::CELL){
-                    Cell cell = tab(i,j);
+                if(etat.getGrid()(i,j).getElemType()==state::TypeID::CELL){
+                    Cell cell = etat.getGrid()(i,j);
                     if(cell.getCellType()==state::CellTypeID::SIMPLE){
-                        SimpleCell sc = tab(i,j);
+                        SimpleCell sc = etat.getGrid()(i,j);
                         switch(sc.getSimpleCellType()){
                             case state::SimpleCellID::SAND :
                                 listXText.push_back(71);
@@ -528,7 +528,7 @@ namespace render {
                     }
                     
                     else{
-                        SpecialCell sc = tab(i,j);
+                        SpecialCell sc = etat.getGrid()(i,j);
                         switch(sc.getSpecialCellType()){
                             case state::SpecialCellID::BARBECUE :
                                 listXText.push_back(71);
@@ -552,21 +552,21 @@ namespace render {
                         }
                     }
                 }else{
-                    switch(((CreaturesGroup) tab(i,j)).getCreaturesType()){
+                    switch(((CreaturesGroup) etat.getGrid()(i,j)).getCreaturesType()){
                         case state::CreaturesID::BLACKSMITH :
-                            listXText.push_back(50*(tab(i,j).getCreaturesNbr()+1));
+                            listXText.push_back(50*(etat.getGrid()(i,j).getCreaturesNbr()+1));
                             listYText.push_back(50);
                             break;
                         case state::CreaturesID::COOKER :
-                            listXText.push_back(50*(tab(i,j).getCreaturesNbr()+1));
+                            listXText.push_back(50*(etat.getGrid()(i,j).getCreaturesNbr()+1));
                             listYText.push_back(100);
                             break;
                         case state::CreaturesID::LUMBERJACK :
-                            listXText.push_back(50*(tab(i,j).getCreaturesNbr()+1));
+                            listXText.push_back(50*(etat.getGrid()(i,j).getCreaturesNbr()+1));
                             listYText.push_back(150);
                             break;
                         case state::CreaturesID::MINER :
-                            listXText.push_back(50*(tab(i,j).getCreaturesNbr()+1));
+                            listXText.push_back(50*(etat.getGrid()(i,j).getCreaturesNbr()+1));
                             listYText.push_back(200);
                             break;
                         default :
