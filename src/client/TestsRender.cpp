@@ -43,7 +43,7 @@ namespace render {
         grid.reset(new state::ElementTab(state::TypeID::CELL,7, 5));
 
         // On initialise un plan pour ce tableau, de type Cell:
-        ElementTabLayer gridLayer(grid, 0);
+        ElementTabLayer gridLayer(*grid.get(), 0);
         // Initialisation de sa surface :
         gridLayer.initSurface();
         // Initialisation de la fenêtre :
@@ -476,9 +476,9 @@ namespace render {
 
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
-        ElementTabLayer tabLayer(std::shared_ptr<state::ElementTab>(etat.getGrid().get()),0);
+        ElementTabLayer tabLayer(etat.getGrid(),0);
         tabLayer.initSurface();
-        Surface* surf;
+        Surface *surf = new Surface();
         
         int halfHeight = 61;
         int halfWidth = 51;
@@ -496,14 +496,14 @@ namespace render {
         std::vector<int> listYText = std::vector<int>();
         listYText.reserve(29);
         
-        for(unsigned int i=0; i<(etat.getGrid())->getHeight(); i++){
+        for(unsigned int i=0; i<etat.getGrid().getHeight(); i++){
             
-            for(unsigned int j=0; j<etat.getGrid()->getWidth(); j++){
+            for(unsigned int j=0; j<etat.getGrid().getWidth(); j++){
                 
-                if(etat.getGrid()->get(i,j)->getElemType()==state::TypeID::CELL){
-                    Cell cell = (Cell)*etat.getGrid()->get(i,j);
+                if(etat.getGrid().get(i,j)->getElemType()==state::TypeID::CELL){
+                    Cell cell = (Cell)*etat.getGrid().get(i,j);
                     if(cell.getCellType()==state::CellTypeID::SIMPLE){
-                        SimpleCell sc = (SimpleCell)*etat.getGrid()->get(i,j);
+                        SimpleCell sc = (SimpleCell)*etat.getGrid().get(i,j);
                         switch(sc.getSimpleCellType()){
                             case state::SimpleCellID::SAND :
                                 listXText.push_back(71);
@@ -524,7 +524,7 @@ namespace render {
                     }
                     
                     else{
-                        SpecialCell sc = (SpecialCell)*etat.getGrid()->get(i,j);
+                        SpecialCell sc = (SpecialCell)*etat.getGrid().get(i,j);
                         switch(sc.getSpecialCellType()){
                             case state::SpecialCellID::BARBECUE :
                                 listXText.push_back(71);
@@ -548,22 +548,22 @@ namespace render {
                         }
                     }
                 }else{
-                    CreaturesGroup group = (CreaturesGroup)*etat.getGrid()->get(i,j);
+                    CreaturesGroup group = (CreaturesGroup)*etat.getGrid().get(i,j);
                     switch( group.getCreaturesType() ){
                         case state::CreaturesID::BLACKSMITH :
-                            listXText.push_back(50*(etat.getGrid()->get(i,j)->getCreaturesNbr()+1));
+                            listXText.push_back(50*(etat.getGrid().get(i,j)->getCreaturesNbr()+1));
                             listYText.push_back(50);
                             break;
                         case state::CreaturesID::COOKER :
-                            listXText.push_back(50*(etat.getGrid()->get(i,j)->getCreaturesNbr()+1));
+                            listXText.push_back(50*(etat.getGrid().get(i,j)->getCreaturesNbr()+1));
                             listYText.push_back(100);
                             break;
                         case state::CreaturesID::LUMBERJACK :
-                            listXText.push_back(50*(etat.getGrid()->get(i,j)->getCreaturesNbr()+1));
+                            listXText.push_back(50*(etat.getGrid().get(i,j)->getCreaturesNbr()+1));
                             listYText.push_back(150);
                             break;
                         case state::CreaturesID::MINER :
-                            listXText.push_back(50*(etat.getGrid()->get(i,j)->getCreaturesNbr()+1));
+                            listXText.push_back(50*(etat.getGrid().get(i,j)->getCreaturesNbr()+1));
                             listYText.push_back(200);
                             break;
                         default :
