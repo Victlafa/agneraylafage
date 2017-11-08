@@ -9,7 +9,7 @@
 // Type : 0 = Cellules, 1 = Creatures
 namespace render{
     
-    ElementTabLayer::ElementTabLayer(const std::shared_ptr<state::ElementTab>& tab, int type) : tab(tab), type(type){
+    ElementTabLayer::ElementTabLayer(state::ElementTab& tab, int type) : tab(tab), type(type){
         if (!type)
             this->tileset = std::shared_ptr<CellTileSet>(new CellTileSet());
         else
