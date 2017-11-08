@@ -24,7 +24,7 @@ namespace render {
     int type;
     // Operations
   public:
-    ElementTabLayer (const std::shared_ptr<state::ElementTab>& tab, int type);
+    ElementTabLayer (state::ElementTab tab, int type);
     void initSurface ();
     // Setters and Getters
   };
