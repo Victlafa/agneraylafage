@@ -19,8 +19,8 @@ namespace state {
     // Associations
     // Attributes
   private:
-    std::unique_ptr<ElementTab> grid;
-    std::unique_ptr<ElementTab> characters;
+    ElementTab grid;
+    ElementTab characters;
     std::unique_ptr<Player> player1;
     std::unique_ptr<Player> player2;
     int totalCellNbr;
@@ -29,7 +29,9 @@ namespace state {
     State ();
     ~State ();
     const std::unique_ptr<ElementTab>& getGrid () const;
+    std::unique_ptr<ElementTab>& getGrid ();
     const std::unique_ptr<ElementTab>& getCharacters () const;
+    std::unique_ptr<ElementTab>& getCharacters ();
     int getCellNbr () const;
     const std::unique_ptr<Player>& getPlayer (int number) const;
     // Setters and Getters
