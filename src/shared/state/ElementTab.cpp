@@ -159,9 +159,7 @@ namespace state
     
     ElementTab::~ElementTab() {
         for(unsigned int i=0; i<height*width; i++){
-            std::cout << "i=" << i << std::endl;
             list[i] = nullptr;
-            //delete list[i];
         }
     }
     
