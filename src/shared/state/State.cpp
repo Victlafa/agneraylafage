@@ -25,7 +25,15 @@ namespace state
         return grid;
     }
     
+    ElementTab& State::getGrid() {
+        return grid;
+    }
+    
     const ElementTab& State::getCharacters () const{
+        return characters;
+    }
+    
+    ElementTab& State::getCharacters () {
         return characters;
     }
     
