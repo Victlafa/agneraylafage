@@ -21,12 +21,12 @@ namespace engine {
         engine::Engine moteur;
         
         // On place un forgeron dans la case (4,2)
-        moteur.getState().getCharacters()->set(new state::CreaturesGroup(state::CreaturesID::BLACKSMITH),4,2);
+        moteur.getState().getCharacters().set(new state::CreaturesGroup(state::CreaturesID::BLACKSMITH),4,2);
         // On place un cuisinier dans la case (4,3)
-        moteur.getState().getCharacters()->set(new state::CreaturesGroup(state::CreaturesID::COOKER),4,3);
+        moteur.getState().getCharacters().set(new state::CreaturesGroup(state::CreaturesID::COOKER),4,3);
         std::cout << "Adresse du joueur 1 : " << moteur.getState().getPlayer(1).get() << std::endl;
         // On cree une cellule en (4,3)
-        moteur.getState().getGrid()->set(new state::Cell(state::CellTypeID::SIMPLE),4,3);
+        moteur.getState().getGrid().set(new state::Cell(state::CellTypeID::SIMPLE),4,3);
         
         // On associe le numero du forgeron au joueur 1
         moteur.getState().getPlayer(1)->setAllCreatures(true, 4*7 + 2 - 1);
