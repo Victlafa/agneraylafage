@@ -40,8 +40,8 @@ namespace render {
 
         // On déclare et initialise un tableau d'éléments :
         std::shared_ptr<state::ElementTab> grid;
-        grid.reset(new state::ElementTab(7, 5));
-        grid.get()->init(state::TypeID::CELL);
+        grid.reset(new state::ElementTab(state::TypeID::CELL,7, 5));
+        grid.get()->init();
         
         // On initialise un plan pour ce tableau, de type Cell:
         ElementTabLayer gridLayer(*grid.get(), 0);
