@@ -18,6 +18,8 @@ namespace engine {
     
     void TestsFightCommand(){
         
+        srand(time(NULL));
+        
         // On cree un moteur qui creera automatiquement un etat
         engine::Engine moteur;
         
@@ -26,13 +28,12 @@ namespace engine {
         int colonne2 = 4;
         // On place un forgeron
         std::cout << "Creation d'un forgeron associé au joueur 1" << std::endl;
-        moteur.getState().getCharacters()->set(new CreaturesGroup(CreaturesID::BLACKSMITH, moteur.getPlayer(1).get()),ligneCombat,colonne1);
+        CreaturesGroup* forgeron = new CreaturesGroup(CreaturesID::BLACKSMITH, 2, moteur.getPlayer(1).get());
+        moteur.getState().getCharacters()->set(forgeron,ligneCombat,colonne1);
         // On place un cuisinie dans la case (4,3)
-        std::cout << "Creation d'un cuisinier" << std::endl;
-        moteur.getState().getCharacters()->set(new CreaturesGroup(CreaturesID::COOKER, moteur.getPlayer(2).get()),ligneCombat,colonne2);
-        // On cree une cellule en (4,3)
-        
-        //moteur.getState().getGrid()->set(new state::Cell(state::CellTypeID::SIMPLE),4,3);
+        std::cout << "Creation d'un cuisinier associé au joueur 2" << std::endl;
+        CreaturesGroup* cuisinier = new CreaturesGroup(CreaturesID::COOKER, 2, moteur.getPlayer(2).get());
+        moteur.getState().getCharacters()->set(cuisinier,ligneCombat,colonne2);
         
         // On souhaite que le joueur 1 attaque le joueur 2
         moteur.getPlayer(1)->setIsStriker(true);
