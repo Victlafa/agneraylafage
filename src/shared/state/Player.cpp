@@ -11,7 +11,7 @@ namespace state{
     
     /// Builder :
       
-      Player::Player() : speCellsNames(), allCreatures(35)
+      Player::Player() : speCellsNames()
       {
           cellNbr = 0;
           zonesNbr = 0;
@@ -19,8 +19,6 @@ namespace state{
           creaturesLeft = 0;
           xLastCell = 0;
           yLastCell = 0;
-          for (int i = 0; i < 35 ; i++)
-              allCreatures[i] = 0;
       }
       
         Player::~Player(){
@@ -56,19 +54,6 @@ namespace state{
         int Player::getYLastCell() const{
             return yLastCell;
         }
-        
-        const std::vector<int>& Player::getAllCreatures () const{
-            return this->allCreatures;
-        }
-        
-        bool Player::isThereCreatures (int number)
-        {
-            if (allCreatures.at(number) == 1)
-                return true;
-            else
-                return false;
-        }
-
 
         void Player::setCellNbr(int count) {
             cellNbr = count;
@@ -132,40 +117,6 @@ namespace state{
         void Player::setYLastCell(int y) {
             yLastCell = y;
         }
-        
-        void Player::setAllCreatures (bool add, int number){
-            int initSize = allCreatures.size();
-
-            // Si on souhaite ajouter un groupe de créatures dans la liste :
-            if (add)
-                allCreatures[number] = 1;
-                
-
-            // Si au contraire on souhaite retirer un groupe de la liste :
-            else if (!add && allCreatures.size() != 0) {
-                
-                // On doit chercher le groupe correspondant dans la liste :
-
-                for (int i = 0 ; i < initSize; i++) {
-                    if (i == number) {
-                        // Quand on a trouvé le bon groupe, on le supprime et on sort de la boucle for :
-                        allCreatures[number] = 0;
-                        break;
-                    }
-                }
-
-                // Si on a pas trouvé d'index correspondant, on lève une exception :
-                if ((int)allCreatures.size() == initSize)
-                    throw std::invalid_argument("Aucun groupe n'a été supprimé de la liste !");
-
-            }
-            else {
-                // On arrive ici seulement si la liste est vide et qu'on veut supprimer un élément, on lève donc une exception :
-                throw std::length_error("Impossible de supprimer un groupe de la liste car elle est vide !");
-            }
-
-        }
-        
         
         CreaturesID Player::getClanName() const {
             return this->clanName;

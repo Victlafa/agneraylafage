@@ -23,15 +23,12 @@ namespace state {
     int creaturesLeft;
     bool isStriker     = false;
     std::vector<std::string> speCellsNames;
-    std::vector<int> allCreatures;
     // Operations
   public:
     Player ();
     ~Player ();
-    bool isThereCreatures (int number);
     void decreaseCreaLeft ();
     void modifySpeCellsNames (std::string name, bool add);
-    void setAllCreatures (bool add, int number);
     // Setters and Getters
     CreaturesID getClanName() const;
     void setClanName(CreaturesID clanName);
@@ -51,7 +48,6 @@ namespace state {
     void setIsStriker(bool isStriker);
     const std::vector<std::string>& getSpeCellsNames() const;
     void setSpeCellsNames(const std::vector<std::string>& speCellsNames);
-    const std::vector<int>& getAllCreatures() const;
   };
 
 };

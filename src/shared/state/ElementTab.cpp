@@ -213,7 +213,7 @@ namespace state
             intRand[j][0] = rand_i;
             intRand[j][1] = rand_j;
 
-            this->set(new CreaturesGroup(CreaturesID::BLACKSMITH), rand_i, rand_j);
+            this->set(new CreaturesGroup(CreaturesID::BLACKSMITH, new Player()), rand_i, rand_j);
         }
 
     }

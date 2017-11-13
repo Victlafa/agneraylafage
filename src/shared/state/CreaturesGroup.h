@@ -4,12 +4,14 @@
 
 
 namespace state {
+  class Player;
   class Element;
   class CreaturesGroup;
 }
 
 #include "CreaturesID.h"
 #include "Element.h"
+#include "Player.h"
 
 namespace state {
 
@@ -22,14 +24,18 @@ namespace state {
     static int stolenResourceNbr;
   private:
     bool placed;
+    Player* joueur;
     // Operations
   public:
-    CreaturesGroup (CreaturesID type);
+    CreaturesGroup (CreaturesID type, Player* joueur);
+    CreaturesGroup (CreaturesID type, Player* joueur, const Element& elem);
     CreaturesGroup (const Element& elem);
     ~CreaturesGroup ();
     bool getPlaced () const;
     void toPlace (int x, int y);
     bool operator== (CreaturesGroup otherGroup);
+    Player* getPlayer ();
+    void setPlayer (Player* joueur);
     // Setters and Getters
     CreaturesID getCreaturesType() const;
     void setCreaturesType(CreaturesID creaturesType);

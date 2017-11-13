@@ -14,14 +14,26 @@ namespace state
     int CreaturesGroup::stolenResourceNbr = 2;
     
     // Constructors :
-    CreaturesGroup::CreaturesGroup (CreaturesID type) : Element(TypeID::CREATURESGROUP){
+    CreaturesGroup::CreaturesGroup (CreaturesID type, Player* joueur) : Element(TypeID::CREATURESGROUP){
         placed = false;
-        this->creaturesType = type;
+        creaturesType = type;
+        this->joueur = joueur;
     }
     
-    CreaturesGroup::CreaturesGroup (const Element& elem) : Element(TypeID::CREATURESGROUP)
+    CreaturesGroup::CreaturesGroup (CreaturesID type, Player* joueur, const Element& elem) : Element(TypeID::CREATURESGROUP)
     {
-        this->creaturesType = CreaturesID::BLACKSMITH;
+        this->creaturesType = type;
+        this->placed = false;
+        this->x = elem.getX();
+        this->y = elem.getY();
+        this->creaturesNbr = elem.getCreaturesNbr();
+        this->joueur = joueur;
+    }
+    
+        CreaturesGroup::CreaturesGroup (const Element& elem) : Element(TypeID::CREATURESGROUP)
+    {
+        this->creaturesType = ((CreaturesGroup)elem).getCreaturesType();
+        this->joueur = ((CreaturesGroup)elem).getPlayer();
         this->placed = false;
         this->x = elem.getX();
         this->y = elem.getY();
@@ -54,6 +66,9 @@ namespace state
         else
             return false;
     }
+    
+    Player* CreaturesGroup::getPlayer (){return joueur;}
+    void CreaturesGroup::setPlayer (Player* joueur){this->joueur = joueur;}
     
     CreaturesID CreaturesGroup::getCreaturesType() const{
         return this->creaturesType;
