@@ -9,11 +9,11 @@ namespace state
 {
 
     State::State(){
-        this->totalCellNbr = 29;
-        this->grid.init(TypeID::CELL);
-        this->characters.init(TypeID::CREATURESGROUP);
-        this->player1.reset(new Player());
-        this->player2.reset(new Player());
+        totalCellNbr = 29;
+        grid.reset(new ElementTab(TypeID::CELL));
+        characters.reset(new ElementTab(TypeID::CREATURESGROUP));
+        player1.reset(new Player());
+        player2.reset(new Player());
     }
     
     State::~State (){ 
@@ -21,19 +21,11 @@ namespace state
     }
     
     // Setters and Getters
-    const ElementTab& State::getGrid() const{
+    const std::unique_ptr<ElementTab>& State::getGrid() const{
         return grid;
     }
     
-    ElementTab& State::getGrid() {
-        return grid;
-    }
-    
-    const ElementTab& State::getCharacters () const{
-        return characters;
-    }
-    
-    ElementTab& State::getCharacters () {
+    const std::unique_ptr<ElementTab>& State::getCharacters () const{
         return characters;
     }
     
