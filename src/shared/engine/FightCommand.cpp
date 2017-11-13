@@ -23,11 +23,6 @@ namespace engine
     // Renvoie true si c'est le joueur 1 qui remporte le combat, sinon renvoie false
     bool FightCommand::fightProcess (state::State& state)
     {
-        srand(time(NULL));
-        
-        // ERREUR DE SEGMENTATION ICI !!!!
-        // Considere que l'element à exploiter a une adresse nulle !
-        
         int nbCrea1 = state.getCharacters()->get(creaPl1[0],creaPl1[1])->getCreaturesNbr();
         int nbCrea2 = state.getCharacters()->get(creaPl2[0],creaPl2[1])->getCreaturesNbr();
         
@@ -48,13 +43,14 @@ namespace engine
     
     void FightCommand::gainConquest (state::State& state)
     {
-        // Si le joueur attaquant gagne le combat, il remporte un point de conquete
+        // Si le joueur 1 comme attaquant gagne le combat, il remporte un point de conquete
         if (state.getPlayer(1)->getIsStriker() && fightProcess(state))
             state.getPlayer(1)->setConquestPoints(state.getPlayer(1)->getConquestPoints() + 1);
+        // Si le joueur 2 comme attaquant gagne le combat, il remporte un point de conquete
         else if (state.getPlayer(2)->getIsStriker() && !fightProcess(state))
             state.getPlayer(2)->setConquestPoints(state.getPlayer(2)->getConquestPoints() + 1);
         else
-            std::cout << "Aucun des joueurs n'a été défini comme attaquant ou le combat s'est mal deroule !" << std::endl;
+            std::cout << "Aucun des joueurs n'a été défini comme attaquant ou il y a égalité !" << std::endl;
         
     }
     
@@ -62,9 +58,9 @@ namespace engine
     
     void FightCommand::execute (state::State& state)
     {
-        std::cout << "Debut du combat" << std::endl;
+        //std::cout << "Debut du combat" << std::endl;
         gainConquest(state);
-        std::cout << "Fin du combat" << std::endl;
+        //std::cout << "Fin du combat" << std::endl;
         
     }
     
