@@ -25,13 +25,14 @@ namespace engine
         srand(time(NULL));
         
         // ERREUR DE SEGMENTATION ICI !!!!
+        // Considere que le pointeur de l'element à caster est null !
         
-        CreaturesGroup group1 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl1);
-        CreaturesGroup group2 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl2);
+        //CreaturesGroup group1 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl1);
+        //CreaturesGroup group2 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl2);
         //int nbCrea1 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl1)->getCreaturesNbr();
         //int nbCrea2 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl2)->getCreaturesNbr();
-        int nbCrea1 = group1.getCreaturesNbr();
-        int nbCrea2 = group2.getCreaturesNbr();
+        int nbCrea1 = state.getCharacters()->getByNumber(creaPl1)->getCreaturesNbr();
+        int nbCrea2 = state.getCharacters()->getByNumber(creaPl2)->getCreaturesNbr();
         
         int totalPlayer1 = 0;
         int totalPlayer2 = 0;
@@ -61,6 +62,7 @@ namespace engine
     }
     
     CommandTypeID FightCommand::getTypeID () const { return CommandTypeID::FIGHT; }
+    
     void FightCommand::execute (state::State& state)
     {
         std::cout << "Debut du combat" << std::endl;
