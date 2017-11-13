@@ -32,6 +32,7 @@ namespace engine {
     void addCommand (int priority, Command* cmd);
     void update ();
     const state::State& getState () const;
+    const std::unique_ptr<state::Player>& getPlayer (int num) const;
     // Setters and Getters
   };
 

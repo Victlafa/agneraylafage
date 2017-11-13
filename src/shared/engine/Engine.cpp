@@ -6,14 +6,24 @@
 
 #include "Engine.h"
 #include "../shared/state.h"
+using namespace state;
 
 namespace engine
 {
-    Engine::Engine() : currentCommands() {
-    }
+    Engine::Engine() {}
     
     Engine::~Engine (){}
     const state::State& Engine::getState () const {return currentState;}
+    const std::unique_ptr<state::Player>& Engine::getPlayer (int num) const 
+    {
+        if (num == 1)
+            return currentState.getPlayer(1);
+        else if (num == 2)
+            return currentState.getPlayer(2);
+        else
+            throw std::runtime_error("Vous avez entré un mauvais numéro dans getPlayer !\n");
+            return NULL;
+    }
     void Engine::addPassiveCommands () {}
     void Engine::addCommand (int priority, Command* cmd) {
         // On ajoute une commande :

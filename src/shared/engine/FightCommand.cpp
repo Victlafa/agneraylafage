@@ -13,10 +13,11 @@ using namespace state;
 
 namespace engine
 {
-    FightCommand::FightCommand (int creatures1, int creatures2, int cell){
-        creaPl1 = creatures1;
-        creaPl2 = creatures2;
-        this->cell = cell;
+    FightCommand::FightCommand (int i_crea1, int j_crea1, int i_crea2, int j_crea2) : creaPl1(2), creaPl2(2) {
+        creaPl1[0] = i_crea1;
+        creaPl1[1] = j_crea1;
+        creaPl2[0] = i_crea2;
+        creaPl2[1] = j_crea2;
     }
     
     // Renvoie true si c'est le joueur 1 qui remporte le combat, sinon renvoie false
@@ -27,8 +28,8 @@ namespace engine
         // ERREUR DE SEGMENTATION ICI !!!!
         // Considere que l'element à exploiter a une adresse nulle !
         
-        int nbCrea1 = state.getCharacters()->getByNumber(creaPl1)->getCreaturesNbr();
-        int nbCrea2 = state.getCharacters()->getByNumber(creaPl2)->getCreaturesNbr();
+        int nbCrea1 = state.getCharacters()->get(creaPl1[0],creaPl1[1])->getCreaturesNbr();
+        int nbCrea2 = state.getCharacters()->get(creaPl2[0],creaPl2[1])->getCreaturesNbr();
         
         int totalPlayer1 = 0;
         int totalPlayer2 = 0;
@@ -68,10 +69,8 @@ namespace engine
     }
     
     // Setters and Getters
-    int FightCommand::getCreaPl1() const { return creaPl1; }
-    void FightCommand::setCreaPl1(int creaPl1) { this-> creaPl1 = creaPl1; }
-    int FightCommand::getCreaPl2() const { return creaPl2; }
-    void FightCommand::setCreaPl2(int creaPl2) { this-> creaPl2 = creaPl2; }
-    int FightCommand::getCell() const {return cell;}
-    void FightCommand::setCell(int cell) {this->cell = cell;}
+    const std::vector<int>& FightCommand::getCreaPl1() const { return creaPl1; }
+    void FightCommand::setCreaPl1(const std::vector<int>& creaPl1) { this-> creaPl1 = creaPl1; }
+    const std::vector<int>& FightCommand::getCreaPl2() const { return creaPl2; }
+    void FightCommand::setCreaPl2(const std::vector<int>& creaPl2) { this-> creaPl2 = creaPl2; }
 }

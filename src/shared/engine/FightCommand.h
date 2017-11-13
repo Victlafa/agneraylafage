@@ -2,6 +2,7 @@
 #ifndef ENGINE__FIGHTCOMMAND__H
 #define ENGINE__FIGHTCOMMAND__H
 
+#include <vector>
 
 namespace state {
   class State;
@@ -19,23 +20,20 @@ namespace engine {
   class FightCommand : public engine::Command {
     // Attributes
   protected:
-    int creaPl1;
-    int creaPl2;
-    int cell;
+    std::vector<int> creaPl1;
+    std::vector<int> creaPl2;
     // Operations
   public:
-    FightCommand (int creatures1, int creatures2, int cell);
+    FightCommand (int i_crea1, int j_crea1, int i_crea2, int j_crea2);
     bool fightProcess (state::State& state);
     void gainConquest (state::State& state);
     CommandTypeID getTypeID () const;
     void execute (state::State& state);
     // Setters and Getters
-    int getCreaPl1() const;
-    void setCreaPl1(int creaPl1);
-    int getCreaPl2() const;
-    void setCreaPl2(int creaPl2);
-    int getCell() const;
-    void setCell(int cell);
+    const std::vector<int>& getCreaPl1() const;
+    void setCreaPl1(const std::vector<int>& creaPl1);
+    const std::vector<int>& getCreaPl2() const;
+    void setCreaPl2(const std::vector<int>& creaPl2);
   };
 
 };
