@@ -9,7 +9,7 @@ namespace state
 {
 
     State::State(){
-        std::cout << "Appel constructeur de State" << std::endl;
+        //std::cout << "Appel constructeur de State" << std::endl;
         totalCellNbr = 29;
         grid.reset(new ElementTab(TypeID::CELL));
         characters.reset(new ElementTab(TypeID::CREATURESGROUP));
@@ -18,7 +18,7 @@ namespace state
     }
     
     State::~State (){ 
-        std::cout << "Appel destructeur de State" << std::endl;
+        //std::cout << "Appel destructeur de State" << std::endl;
     }
     
     // Setters and Getters
@@ -40,7 +40,7 @@ namespace state
         else if (number == 2)
             return player2;
         else
-            return std::unique_ptr<Player>();
+            return NULL;
     }
     
 };

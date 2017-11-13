@@ -18,7 +18,7 @@ namespace state
     // Constructor :
     
     ElementTab::ElementTab(TypeID type, size_t width, size_t height) : tabType(type), list(width*height) {
-        std::cout << "Appel du constructeur ElementTab" << std::endl;
+        //std::cout << "Appel du constructeur ElementTab" << std::endl;
         this->width = width;
         this->height = height;
         init();
@@ -26,10 +26,7 @@ namespace state
     }
     
     ElementTab::~ElementTab() {
-        std::cout << "Appel du destructeur ElementTab" << std::endl;
-//        for(unsigned int i=0; i<height*width; i++){
-//            list[i] = nullptr;
-//        }
+        //std::cout << "Appel du destructeur ElementTab" << std::endl;
     }
     
     // Getters and setters :
@@ -86,13 +83,13 @@ namespace state
         else
             std::cout << "Erreur dans le choix du type de tableau !" << std::endl;
         
-        std::cout << "Fin remplissage tableau d'éléments" << std::endl;
+        //std::cout << "Fin remplissage tableau d'éléments" << std::endl;
         
     }
     
     void ElementTab::initCells (){
 
-        std::cout << "Positionnement des Cellules Speciales" << std::endl;
+        //std::cout << "Positionnement des Cellules Speciales" << std::endl;
         // Positionnement des Cellules Speciales
 
         std::vector<SpecialCellID> typesSpeciales;
@@ -145,7 +142,7 @@ namespace state
 
         }
 
-        std::cout << "Positionnement des Cellules Simples" << std::endl;
+        //std::cout << "Positionnement des Cellules Simples" << std::endl;
         // On remplit map_cell avec des cellules simples
         std::vector<state::SimpleCellID> typesSimples;
         typesSimples.push_back(state::SimpleCellID::DIRT);
@@ -193,28 +190,27 @@ namespace state
     }
     
     void ElementTab::initCreatures (){
-
-        list.reserve(width * height);
-        int** intRand = new int*[3];
+        
+        std::vector<int> intRand(6);
         unsigned int rand_i;
         unsigned int rand_j;
 
         // On va tirer au sort des coordonnees pour placer 3 groupes de creatures :
         for (int j = 0; j < 3; j++) {
-            intRand[j] = new int[2];
-            intRand[j][0] = 0;
-            intRand[j][1] = 0;
+            intRand[2*j] = 0;
+            intRand[2*j + 1] = 0;
 
             do {
                 rand_i = rand() % height;
                 rand_j = rand() % width;
-            } while ((rand_i == (unsigned int) intRand[j][0] && rand_j == (unsigned int) intRand[j][1]) || (rand_i == 0 && rand_j == 0) || (rand_i == 0 && rand_j == 1) || (rand_i == 1 && rand_j == 0) || (rand_i == height - 1 && rand_j == width - 1) || (rand_i == height - 1 && rand_j == width - 2) || (rand_i == height - 2 && rand_j == width - 1));
+            } while ((rand_i == (unsigned int) intRand[2*j] && rand_j == (unsigned int) intRand[2*j + 1]) || (rand_i == 0 && rand_j == 0) || (rand_i == 0 && rand_j == 1) || (rand_i == 1 && rand_j == 0) || (rand_i == height - 1 && rand_j == width - 1) || (rand_i == height - 1 && rand_j == width - 2) || (rand_i == height - 2 && rand_j == width - 1));
 
-            intRand[j][0] = rand_i;
-            intRand[j][1] = rand_j;
+            intRand[2*j] = rand_i;
+            intRand[2*j+1] = rand_j;
 
-            this->set(new CreaturesGroup(CreaturesID::BLACKSMITH, new Player()), rand_i, rand_j);
+            this->set(new CreaturesGroup(CreaturesID::BLACKSMITH, 2, NULL), rand_i, rand_j);
         }
+        
 
     }
     

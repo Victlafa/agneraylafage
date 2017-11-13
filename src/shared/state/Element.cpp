@@ -8,9 +8,7 @@ namespace state
         x = 0;
         y = 0;
         creaturesNbr = 0;
-        std::cout << "Initialisation d'un element lambda\n" << std::endl;
-        //elemType = TypeID::CELL;
-        //std::cout << this << std::endl;
+        //std::cout << "Initialisation d'un element lambda\n" << std::endl;
     }
     
     Element::Element (TypeID type){
@@ -18,11 +16,11 @@ namespace state
         y = 0;
         creaturesNbr = 0;
         elemType = type;
-        std::cout << "Initialisation d'un element de type " << type << "\n" << std::endl;
+        //std::cout << "Initialisation d'un element de type " << type << "\n" << std::endl;
     }
     
     Element::~Element() {
-        std::cout << "Appel au destructeur Element" << std::endl;
+        //std::cout << "Appel au destructeur Element" << std::endl;
     }
     
     bool Element::operator== (Element otherElement)

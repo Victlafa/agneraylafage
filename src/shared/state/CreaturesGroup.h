@@ -27,7 +27,7 @@ namespace state {
     Player* joueur;
     // Operations
   public:
-    CreaturesGroup (CreaturesID type, Player* joueur);
+    CreaturesGroup (CreaturesID type, int nbrCrea, Player* joueur);
     CreaturesGroup (CreaturesID type, Player* joueur, const Element& elem);
     CreaturesGroup (const Element& elem);
     ~CreaturesGroup ();

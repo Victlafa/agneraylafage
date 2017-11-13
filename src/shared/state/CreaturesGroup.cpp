@@ -14,10 +14,11 @@ namespace state
     int CreaturesGroup::stolenResourceNbr = 2;
     
     // Constructors :
-    CreaturesGroup::CreaturesGroup (CreaturesID type, Player* joueur) : Element(TypeID::CREATURESGROUP){
+    CreaturesGroup::CreaturesGroup (CreaturesID type, int nbrCrea, Player* joueur) : Element(TypeID::CREATURESGROUP){
         placed = false;
         creaturesType = type;
         this->joueur = joueur;
+        this->setCreaturesNbr(nbrCrea);
     }
     
     CreaturesGroup::CreaturesGroup (CreaturesID type, Player* joueur, const Element& elem) : Element(TypeID::CREATURESGROUP)

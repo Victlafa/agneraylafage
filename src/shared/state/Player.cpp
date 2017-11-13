@@ -22,7 +22,7 @@ namespace state{
       }
       
         Player::~Player(){
-        std::cout << "Appel du destructeur de Player" << std::endl;
+        //std::cout << "Appel du destructeur de Player" << std::endl;
         }
     
     /// Setters and Getters :
