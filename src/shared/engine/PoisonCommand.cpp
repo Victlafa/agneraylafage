@@ -15,7 +15,7 @@ namespace engine
     PoisonCommand::PoisonCommand (int cell, int creatures) : cell(cell), creatures(creatures) {}
     
     bool PoisonCommand::isPoisoned (state::State& state){
-        CellState etatCell = ((Cell)*state.getGrid()->getByNumber(cell))->getCellState();
+        CellState etatCell = ((Cell)*state.getGrid()->getByNumber(cell)).getCellState();
         if (etatCell == CellState::POISONED)
             return true;
         else
@@ -29,14 +29,14 @@ namespace engine
         if (isPoisoned(state))
         {
             int tirageJeu = rand()%6 + 1;
-            int nbCrea = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creatures)->getCreaturesNbr();
+            int nbCrea = state.getCharacters()->getByNumber(creatures)->getCreaturesNbr();
             for (int i = 0; i < nbCrea; i++)
             {
                 if (tirageJeu > rand()%6 + 1)
                     nbCreaTuees += 1;
             }
             
-            (state::CreaturesGroup)*state.getCharacters()->getByNumber(creatures)->setCreaturesNbr(nbCrea - nbCreaTuees);
+            state.getCharacters()->getByNumber(creatures)->setCreaturesNbr(nbCrea - nbCreaTuees);
         }
         
         else

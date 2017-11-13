@@ -25,12 +25,8 @@ namespace engine
         srand(time(NULL));
         
         // ERREUR DE SEGMENTATION ICI !!!!
-        // Considere que le pointeur de l'element à caster est null !
+        // Considere que l'element à exploiter a une adresse nulle !
         
-        //CreaturesGroup group1 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl1);
-        //CreaturesGroup group2 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl2);
-        //int nbCrea1 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl1)->getCreaturesNbr();
-        //int nbCrea2 = (state::CreaturesGroup)*state.getCharacters()->getByNumber(creaPl2)->getCreaturesNbr();
         int nbCrea1 = state.getCharacters()->getByNumber(creaPl1)->getCreaturesNbr();
         int nbCrea2 = state.getCharacters()->getByNumber(creaPl2)->getCreaturesNbr();
         

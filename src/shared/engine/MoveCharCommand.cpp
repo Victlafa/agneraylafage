@@ -5,6 +5,8 @@
  */
 
 #include "MoveCharCommand.h"
+#include "../shared/state/CreaturesGroup.h"
+using namespace state;
 
 namespace engine
 {
@@ -18,8 +20,8 @@ namespace engine
     
     void MoveCharCommand::execute (state::State& state)
     {
-        (state::CreaturesGroup)*state.getCharacters()->getByNumber(creatures)->setX(newX);
-        (state::CreaturesGroup)*state.getCharacters()->getByNumber(creatures)->setY(newY);
+        //(CreaturesGroup)*state.getCharacters()->getByNumber(creatures)->setX(newX);
+        //(CreaturesGroup)*state.getCharacters()->getByNumber(creatures)->setY(newY);
     }
     
     // Setters and Getters
