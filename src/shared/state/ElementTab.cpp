@@ -17,7 +17,8 @@ namespace state
 {
     // Constructor :
     
-    ElementTab::ElementTab(TypeID type, size_t width, size_t height) : list(width*height), tabType(type) {
+    ElementTab::ElementTab(TypeID type, size_t width, size_t height) : tabType(type), list(width*height) {
+        std::cout << "Appel du constructeur ElementTab" << std::endl;
         this->width = width;
         this->height = height;
         init();
@@ -25,9 +26,10 @@ namespace state
     }
     
     ElementTab::~ElementTab() {
-        for(unsigned int i=0; i<height*width; i++){
-            list[i] = nullptr;
-        }
+        std::cout << "Appel du destructeur ElementTab" << std::endl;
+//        for(unsigned int i=0; i<height*width; i++){
+//            list[i] = nullptr;
+//        }
     }
     
     // Getters and setters :
@@ -83,6 +85,8 @@ namespace state
         
         else
             std::cout << "Erreur dans le choix du type de tableau !" << std::endl;
+        
+        std::cout << "Fin remplissage tableau d'éléments" << std::endl;
         
     }
     
@@ -185,7 +189,7 @@ namespace state
 
         }
         
-        std::cout << "Fin remplissage tableau d'éléments" << std::endl;
+        
     }
     
     void ElementTab::initCreatures (){

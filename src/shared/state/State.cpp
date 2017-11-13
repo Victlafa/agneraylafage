@@ -9,6 +9,7 @@ namespace state
 {
 
     State::State(){
+        std::cout << "Appel constructeur de State" << std::endl;
         totalCellNbr = 29;
         grid.reset(new ElementTab(TypeID::CELL));
         characters.reset(new ElementTab(TypeID::CREATURESGROUP));
@@ -34,10 +35,12 @@ namespace state
     }
     
     const std::unique_ptr<Player>& State::getPlayer(int number) const{
-        if (number == 2)
+        if (number == 1)
+            return player1;
+        else if (number == 2)
             return player2;
         else
-            return player1;
+            return std::unique_ptr<Player>();
     }
     
 };
