@@ -106,7 +106,6 @@ namespace state
         }
 
         unsigned int i = 0, j = 0;
-        bool casesInterdites = (i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == height - 1 && j == width - 1) || (i == height - 1 && j == width - 2) || (i == height - 2 && j == width - 1);
         bool trouve = false;
         
         // On détermine les coordonnées des 4 cellules speciales
@@ -133,7 +132,7 @@ namespace state
             }
             // On s'assure que les coordonnées trouvées sont dans la grille voulue
             // et qu'elle ne se superposent pas à une autre cellule spéciale
-            while (casesInterdites || !trouve);
+            while ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == height - 1 && j == width - 1) || (i == height - 1 && j == width - 2) || (i == height - 2 && j == width - 1) || !trouve);
             
             //Une fois un couple de coordonnées trouvé, on les ajoute à
             // la liste d'indices
