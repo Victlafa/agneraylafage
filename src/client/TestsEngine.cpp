@@ -73,4 +73,28 @@ namespace engine {
         std::cout << "Position apres deplacement : (" << forgeron->getX() << "," << forgeron->getY() << ")\n" << std::endl;
         
     }
+    void TestsPoisonCommand(){
+        
+        engine::Engine moteur;
+        
+        int ligne = 2;
+        int colonne = 4;
+        
+        // On place un forgeron en (ligne,colonne)
+        std::cout << "Creation d'un forgeron associé au joueur 1" << std::endl;
+        CreaturesGroup* forgeron = new CreaturesGroup(CreaturesID::BLACKSMITH, 2, moteur.getPlayer(1).get());
+        moteur.getState().getCharacters()->set(forgeron,ligne,colonne);
+        
+        // On empoisonne la case concernee
+        moteur.poisonCell(true,ligne,colonne);
+        
+        std::cout << "Nombres de creatures presentes avant empoisonnement :" << moteur.getState().getCharacters()->get(ligne, colonne)->getCreaturesNbr() << std::endl;
+        
+        // Ajout d'une commande au moteur
+        moteur.addCommand(1,new PoisonCommand(ligne,colonne));
+        // On execute les commandes
+        moteur.update();
+        
+        std::cout << "Nombres de creatures presentes apres empoisonnement :" << moteur.getState().getCharacters()->get(ligne, colonne)->getCreaturesNbr() << std::endl;
+    }
 }

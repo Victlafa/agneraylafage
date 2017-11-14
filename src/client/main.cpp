@@ -64,7 +64,8 @@ int main(int argc,char* argv[])
         
         else if (argc >= 2 && (string) argv[1] == "engine") {
             //TestsFightCommand();
-            TestsMoveCharCommand();
+            //TestsMoveCharCommand();
+            TestsPoisonCommand();
         }
         
     } catch (const std::exception &e) {
