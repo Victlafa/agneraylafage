@@ -21,6 +21,16 @@ namespace state{
           yLastCell = 0;
       }
       
+      Player::Player(CreaturesID type) : clanName(type), speCellsNames()
+      {
+          cellNbr = 0;
+          zonesNbr = 0;
+          conquestPoints = 0;
+          creaturesLeft = 0;
+          xLastCell = 0;
+          yLastCell = 0;
+      }
+      
         Player::~Player(){
         //std::cout << "Appel du destructeur de Player" << std::endl;
         }

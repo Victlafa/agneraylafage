@@ -26,6 +26,7 @@ namespace state {
     // Operations
   public:
     Player ();
+    Player (CreaturesID type);
     ~Player ();
     void decreaseCreaLeft ();
     void modifySpeCellsNames (std::string name, bool add);

@@ -43,12 +43,14 @@ namespace state
             return NULL;
     }
     
-    void State::reset()
+    void State::reset(CreaturesID typeCreatures)
     {
         grid.reset(new ElementTab(TypeID::CELL));
         characters.reset(new ElementTab(TypeID::CREATURESGROUP));
-        player1.reset(new Player());
-        player2.reset(new Player());
+        player1.reset(new Player(typeCreatures));
+        int creaEnnemi = rand()%4 + 1;
+        player2.reset(new Player((CreaturesID)creaEnnemi));
+        
     }
     
     void State::poisonCell(bool poison, int i, int j)

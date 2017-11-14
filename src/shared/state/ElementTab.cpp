@@ -83,7 +83,7 @@ namespace state
             initCreatures();
         
         else
-            std::cout << "Erreur dans le choix du type de tableau !" << std::endl;
+            throw std::runtime_error("Erreur dans le choix du type de tableau !");
         
         //std::cout << "Fin remplissage tableau d'éléments" << std::endl;
         
@@ -266,15 +266,21 @@ namespace state
     void ElementTab::moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem){
         
         // On verifie si le deplacement est possible ou non
-        if (list.at(new_i_elem*width + new_j_elem) == NULL && verifValiditeCase(new_i_elem,new_j_elem))
+        if (verifValiditeCase(new_i_elem,new_j_elem))
         {
-            Element* toMove = list.at(i_elem*width + j_elem).release();
-            this->set(toMove,new_i_elem,new_j_elem);
-            //std::cout << "Ancienne case : " << list.at(i_elem*width + j_elem).get() << std::endl;
+            if (list.at(new_i_elem*width + new_j_elem) == NULL)
+            {
+                Element* toMove = list.at(i_elem*width + j_elem).release();
+                this->set(toMove,new_i_elem,new_j_elem);
+                //std::cout << "Ancienne case : " << list.at(i_elem*width + j_elem).get() << std::endl;
+            }
+            else 
+                throw std::runtime_error("Le déplacement n'a pas pu etre effectué car la case de destination est occupee !");
+            
         }
         
         else
-            throw std::runtime_error("Le déplacement n'a pas pu etre effectué !");
+            throw std::runtime_error("Le déplacement n'a pas pu etre effectué car la case de destination est interdite !");
         
         
     }

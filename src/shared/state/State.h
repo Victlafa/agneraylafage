@@ -11,6 +11,7 @@ namespace state {
 
 #include "ElementTab.h"
 #include "Player.h"
+#include "CreaturesID.h"
 
 namespace state {
 
@@ -32,7 +33,7 @@ namespace state {
     const std::unique_ptr<ElementTab>& getCharacters () const;
     int getCellNbr () const;
     const std::unique_ptr<Player>& getPlayer (int number) const;
-    void reset ();
+    void reset (CreaturesID typeCreatures);
     void poisonCell (bool poison, int i, int j);
     // Setters and Getters
   };
