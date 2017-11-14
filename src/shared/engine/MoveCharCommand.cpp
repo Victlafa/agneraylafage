@@ -10,25 +10,25 @@ using namespace state;
 
 namespace engine
 {
-    MoveCharCommand::MoveCharCommand (int creatures, int newX, int newY){
-        this->creatures = creatures;
-        this->newX = newX;
-        this->newY = newY;
+    MoveCharCommand::MoveCharCommand (int i_crea, int j_crea, int newI, int newJ) : creatures(2) {
+        creatures[0] = i_crea;
+        creatures[1] = j_crea;
+        this->newI = newI;
+        this->newJ = newJ;
     }
     
     CommandTypeID MoveCharCommand::getTypeID () const {return CommandTypeID::MOVECHAR;}
     
     void MoveCharCommand::execute (state::State& state)
     {
-        //(CreaturesGroup)*state.getCharacters()->getByNumber(creatures)->setX(newX);
-        //(CreaturesGroup)*state.getCharacters()->getByNumber(creatures)->setY(newY);
+        state.getCharacters()->moveElement(creatures[0],creatures[1],newI,newJ);
     }
     
     // Setters and Getters
-    int MoveCharCommand::getCreatures() const {return creatures;}
-    void MoveCharCommand::setCreatures(int creatures) {this->creatures = creatures;}
-    int MoveCharCommand::getNewX() const {return newX;}
-    void MoveCharCommand::setNewX(int newX) {this->newX = newX;}
-    int MoveCharCommand::getNewY() const {return newY;}
-    void MoveCharCommand::setNewY(int newY) {this->newY = newY;}
+    const std::vector<int>& MoveCharCommand::getCreatures() const {return creatures;}
+    void MoveCharCommand::setCreatures(const std::vector<int>& creatures) {this->creatures = creatures;}
+    int MoveCharCommand::getNewI() const {return newI;}
+    void MoveCharCommand::setNewI(int newI) {this->newI = newI;}
+    int MoveCharCommand::getNewJ() const {return newJ;}
+    void MoveCharCommand::setNewJ(int newJ) {this->newJ = newJ;}
 }

@@ -50,7 +50,12 @@ namespace engine
         else if (state.getPlayer(2)->getIsStriker() && !fightProcess(state))
             state.getPlayer(2)->setConquestPoints(state.getPlayer(2)->getConquestPoints() + 1);
         else
-            std::cout << "Aucun des joueurs n'a été défini comme attaquant ou il y a égalité !" << std::endl;
+        {
+            if (!state.getPlayer(1)->getIsStriker() && !state.getPlayer(2)->getIsStriker())
+                throw std::runtime_error("Aucun des joueurs n'a été défini comme attaquant !");
+            else
+                std::cout << "Il y a égalité !" << std::endl;
+        }
         
     }
     

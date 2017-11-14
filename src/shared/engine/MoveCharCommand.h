@@ -2,6 +2,7 @@
 #ifndef ENGINE__MOVECHARCOMMAND__H
 #define ENGINE__MOVECHARCOMMAND__H
 
+#include <vector>
 
 namespace state {
   class State;
@@ -19,21 +20,21 @@ namespace engine {
   class MoveCharCommand : public engine::Command {
     // Attributes
   protected:
-    int creatures;
-    int newX;
-    int newY;
+    std::vector<int> creatures;
+    int newI;
+    int newJ;
     // Operations
   public:
-    MoveCharCommand (int creatures, int newX, int newY);
+    MoveCharCommand (int i_crea, int j_crea, int newI, int newJ);
     CommandTypeID getTypeID () const;
     void execute (state::State& state);
     // Setters and Getters
-    int getCreatures() const;
-    void setCreatures(int creatures);
-    int getNewX() const;
-    void setNewX(int newX);
-    int getNewY() const;
-    void setNewY(int newY);
+    const std::vector<int>& getCreatures() const;
+    void setCreatures(const std::vector<int>& creatures);
+    int getNewI() const;
+    void setNewI(int newI);
+    int getNewJ() const;
+    void setNewJ(int newJ);
   };
 
 };

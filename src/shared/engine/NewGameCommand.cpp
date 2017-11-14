@@ -9,14 +9,11 @@ using namespace state;
 
 namespace engine
 {
-//    NewGameCommand ( ) {}
-//    CommandTypeID getTypeID () const{
-//        return CommandTypeID::NEWGAME;
-//    }
-//    void execute (state::State& state){
-//        state.getCharacters().reset(new ElementTab(TypeID::CREATURESGROUP));
-//        state.getGrid().reset(new ElementTab(TypeID::CELL));
-//        state.getPlayer(1).reset(new Player());
-//        state.getPlayer(2).reset(new Player());
-//    }
+    NewGameCommand::NewGameCommand () {}
+    CommandTypeID NewGameCommand::getTypeID () const{
+        return CommandTypeID::NEWGAME;
+    }
+    void NewGameCommand::execute (state::State& state){
+        state.reset();
+    }
 }
