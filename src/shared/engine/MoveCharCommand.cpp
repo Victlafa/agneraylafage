@@ -10,11 +10,12 @@ using namespace state;
 
 namespace engine
 {
-    MoveCharCommand::MoveCharCommand (int i_crea, int j_crea, int newI, int newJ) : creatures(2) {
+    MoveCharCommand::MoveCharCommand (int i_crea, int j_crea, int newI, int newJ, int player) : fightCom(i_crea,j_crea,newI,newJ), creatures(2) {
         creatures[0] = i_crea;
         creatures[1] = j_crea;
         this->newI = newI;
         this->newJ = newJ;
+        this->player = player;
     }
     
     CommandTypeID MoveCharCommand::getTypeID () const {return CommandTypeID::MOVECHAR;}
@@ -22,6 +23,21 @@ namespace engine
     void MoveCharCommand::execute (state::State& state)
     {
         state.getCharacters()->moveElement(creatures[0],creatures[1],newI,newJ);
+    }
+    
+    bool MoveCharCommand::isOccupied(state::State& state){
+        
+        if (state.getCharacters()->get(newI,newJ) != NULL)
+        {
+            CreaturesGroup crea = (CreaturesGroup)*state.getCharacters()->get(newI,newJ).get();
+            if (crea.getPlayer() != state.getPlayer(player).get())
+                return true;
+            else
+                return false;
+        }
+            
+        else
+            return false;
     }
     
     // Setters and Getters
