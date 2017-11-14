@@ -30,23 +30,19 @@ namespace engine
         srand(time(NULL));
         int nbCreaTuees = 0;
         
-        if (isPoisoned(state))
-        {
-            int tirageJeu = rand()%6 + 1;
-            int nbCrea = state.getCharacters()->get(cell[0],cell[1])->getCreaturesNbr();
-            for (int i = 0; i < nbCrea; i++)
-            {
-                if (tirageJeu > rand()%6 + 1)
+        if (isPoisoned(state)) {
+            int tirageJeu = rand() % 6 + 1;
+            int nbCrea = state.getCharacters()->get(cell[0], cell[1])->getCreaturesNbr();
+            for (int i = 0; i < nbCrea; i++) {
+                if (tirageJeu > rand() % 6 + 1)
                     nbCreaTuees += 1;
             }
-            
-            state.getCharacters()->get(cell[0],cell[1])->setCreaturesNbr(nbCrea - nbCreaTuees);
+
+            state.getCharacters()->get(cell[0], cell[1])->setCreaturesNbr(nbCrea - nbCreaTuees);
         }
-        
         else
             std::cout << "La cellule n'est pas empoisonnee, pas d'effet" << std::endl;
-        
-        
+         
     }
     
     CommandTypeID PoisonCommand::getTypeID () const {return CommandTypeID::POISON;}

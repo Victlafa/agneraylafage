@@ -2,6 +2,7 @@
 #ifndef ENGINE__PROTECTEDCOMMAND__H
 #define ENGINE__PROTECTEDCOMMAND__H
 
+#include <vector>
 
 namespace state {
   class State;
@@ -19,16 +20,17 @@ namespace engine {
   class ProtectedCommand : public engine::Command {
     // Attributes
   protected:
-    int cell;
+    std::vector<int> cell;
     // Operations
   public:
-    ProtectedCommand (int cell);
+    ProtectedCommand (int i_cell, int j_cell);
     void protectProcess (state::State& state);
     CommandTypeID getTypeID () const;
     void execute (state::State& state);
+    bool isProtected (state::State& state);
     // Setters and Getters
-    int getCell() const;
-    void setCell(int cell);
+    const std::vector<int>& getCell() const;
+    void setCell(const std::vector<int>& cell);
   };
 
 };

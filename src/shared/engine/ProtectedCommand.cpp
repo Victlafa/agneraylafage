@@ -5,10 +5,26 @@
  */
 
 #include "ProtectedCommand.h"
+#include "../state.h"
+#include <iostream>
+
+using namespace state;
 
 namespace engine
 {
-    ProtectedCommand::ProtectedCommand (int cell) : cell(cell) {};
+    ProtectedCommand::ProtectedCommand (int i_cell, int j_cell) : cell(2) {
+        cell[0] = i_cell;
+        cell[1] = j_cell;
+    };
+    
+    bool ProtectedCommand::isProtected(state::State& state){
+        CellState etatCell = ((Cell)*state.getGrid()->get(cell[0],cell[1])).getCellState();
+        std::cout << "etat de la cellule : " << etatCell << std::endl;
+        if (etatCell == CellState::PROTECTED)
+            return true;
+        else
+            return false;
+    }
     
     void ProtectedCommand::protectProcess (state::State& state)
     {
@@ -21,6 +37,6 @@ namespace engine
         protectProcess(state);
     }
     // Setters and Getters
-    int ProtectedCommand::getCell() const{return cell;}
-    void ProtectedCommand::setCell(int cell) {this->cell = cell;}
+    const std::vector<int>& ProtectedCommand::getCell() const{return cell;}
+    void ProtectedCommand::setCell(const std::vector<int>& cell) {this->cell = cell;}
 }
