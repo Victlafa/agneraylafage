@@ -15,12 +15,12 @@
 #define TESTSENGINE_H
 
 #include "../shared/state.h"
-#include "engine/Engine.h"
-#include "engine/FightCommand.h"
+#include "../shared/engine.h"
 #include <iostream>
 
 namespace engine{
     void TestsFightCommand();
+    void TestsMoveCharCommand();
 }
 
 #endif /* TESTSENGINE_H */

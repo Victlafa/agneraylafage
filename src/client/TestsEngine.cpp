@@ -12,6 +12,7 @@
  */
 
 #include "TestsEngine.h"
+
 using namespace state;
 
 namespace engine {
@@ -26,6 +27,7 @@ namespace engine {
         int ligneCombat = 2;
         int colonne1 = 3;
         int colonne2 = 4;
+        
         // On place un forgeron
         std::cout << "Creation d'un forgeron associé au joueur 1" << std::endl;
         CreaturesGroup* forgeron = new CreaturesGroup(CreaturesID::BLACKSMITH, 2, moteur.getPlayer(1).get());
@@ -46,5 +48,29 @@ namespace engine {
         std::cout << "Conquetes joueur 1 :" << moteur.getState().getPlayer(1)->getConquestPoints() << std::endl;
         std::cout << "Conquetes joueur 2 :" << moteur.getState().getPlayer(2)->getConquestPoints() << std::endl;
 
+    }
+    void TestsMoveCharCommand(){
+        
+        engine::Engine moteur;
+        
+        int ligne = 2;
+        int colonne = 4;
+        
+        // On place un forgeron en (ligne,colonne)
+        std::cout << "Creation d'un forgeron associé au joueur 1" << std::endl;
+        CreaturesGroup* forgeron = new CreaturesGroup(CreaturesID::BLACKSMITH, 2, moteur.getPlayer(1).get());
+        moteur.getState().getCharacters()->set(forgeron,ligne,colonne);
+        std::cout << "Position avant deplacement : (" << forgeron->getX() << "," << forgeron->getY() << ")\n" << std::endl;
+        
+        // On ajoute une commande au moteur
+        // On souhaite que la creature du joueur se deplace vers la droite
+        moteur.addCommand(1,new MoveCharCommand(ligne,colonne,ligne,colonne + 1));
+        // On execute les commandes
+        moteur.update();
+        
+        // On affiche les positions de la creature
+        
+        std::cout << "Position apres deplacement : (" << forgeron->getX() << "," << forgeron->getY() << ")\n" << std::endl;
+        
     }
 }
