@@ -45,7 +45,7 @@ namespace state
     }
     
     const std::unique_ptr<Element>& ElementTab::get (int i, int j) const{
-        return this->list.at(i*width + j);
+        return list.at(i*width + j);
     }
     
     const std::unique_ptr<Element>& ElementTab::getByNumber (int number) const
@@ -55,10 +55,12 @@ namespace state
     
     void ElementTab::set (Element* elem, int i, int j){
         list.at(i*width + j).reset(elem);
+        list.at(i*width + j)->setX(i);
+        list.at(i*width + j)->setY(j);
     }
     
-    Element& ElementTab::operator()(int i, int j) const{
-        return *(list.at(i*width + j));
+    const std::unique_ptr<Element>& ElementTab::operator()(int i, int j) const{
+        return list.at(i*width + j);
     }
     
     TypeID ElementTab::getTabType() const{
@@ -191,27 +193,90 @@ namespace state
     
     void ElementTab::initCreatures (){
         
-        std::vector<int> intRand(6);
-        unsigned int rand_i;
-        unsigned int rand_j;
+        // On fera en sorte en début de partie que chaque joueur dispose de trois groupes de 2 cratures disposées sur la carte
+        // Cette liste permettra de stocker temporairement les coordonnees deja tirees
+        std::vector<int> intRand(12);
+        // Coordonnees pour creatures du joueur 1
+        int rand_i, rand_j;
+        // Pour celles du joueur 2
+        //int rand_i_J2, rand_j_J2;
+        
+        bool verifJ1;
+        //bool verifJ2;
+        bool verifCaseJ1;
+        //bool verifCaseJ2;
 
-        // On va tirer au sort des coordonnees pour placer 3 groupes de creatures :
-        for (int j = 0; j < 3; j++) {
-            intRand[2*j] = 0;
-            intRand[2*j + 1] = 0;
-
+        // On va tirer au sort des coordonnees pour placer 6 groupes de creatures
+        
+        for (int j = 0; j < 6; j++) {
+            
+            // On fait les tirages des deux joueurs 
             do {
+                
                 rand_i = rand() % height;
                 rand_j = rand() % width;
-            } while ((rand_i == (unsigned int) intRand[2*j] && rand_j == (unsigned int) intRand[2*j + 1]) || (rand_i == 0 && rand_j == 0) || (rand_i == 0 && rand_j == 1) || (rand_i == 1 && rand_j == 0) || (rand_i == height - 1 && rand_j == width - 1) || (rand_i == height - 1 && rand_j == width - 2) || (rand_i == height - 2 && rand_j == width - 1));
+                // On verifie la validite des coordonnees : ont-elles deja été tirees ? Correspondent-elles à des cases interdites ?
+                verifJ1 = verifUnicite(intRand,rand_i,rand_j);
+                verifCaseJ1 = verifValiditeCase(rand_i,rand_j);
+                
+            } while (verifJ1 || !verifCaseJ1);
+            
+//            do {
+//                
+//                rand_i_J2 = rand() % height;
+//                rand_j_J2 = rand() % width;
+//                // On verifie la validite des coordonnees : ont-elles deja été tirees ? Correspondent-elles à des cases interdites ?
+//                verifJ2 = verifUnicite(rand_i_J2, rand_j_J2);
+//                verifCaseJ2 = verifValiditeCase(rand_i_J2, rand_j_J2);
+//                
+//            } while (verifJ2 || !verifCaseJ2);
 
             intRand[2*j] = rand_i;
-            intRand[2*j+1] = rand_j;
+            intRand[2*j + 1] = rand_j;
+            //intRand[2*j + 6] = rand_i_J1;
+            //intRand[2*j + 7] = rand_j_J1;
 
             this->set(new CreaturesGroup(CreaturesID::BLACKSMITH, 2, NULL), rand_i, rand_j);
         }
         
 
+    }
+    
+    // Renvoie true si les coordonnees entrees sont deja presentes dans la liste listeTmp
+    bool ElementTab::verifUnicite(std::vector<int> listeTmp, int i, int j){
+        
+        for (int i = 0; i < (int)(listeTmp.size()/2); i++)
+        {
+            if (listeTmp[2*i] == i && listeTmp[2*i + 1] == j)
+                return true;
+        }
+        
+        return false;
+            
+    }
+    
+    // Renvoie true si les coordonnees entrees ne correspondent pas à une case interdite de la grille
+    bool ElementTab::verifValiditeCase (unsigned int i, unsigned int j){
+        if ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == height - 1 && j == width - 1) || (i == height - 1 && j == width - 2) || (i == height - 2 && j == width - 1))
+            return false;
+        else
+            return true;
+    }
+    
+    void ElementTab::moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem){
+        
+        // On verifie si le deplacement est possible ou non
+        if (list.at(new_i_elem*width + new_j_elem) == NULL && verifValiditeCase(new_i_elem,new_j_elem))
+        {
+            Element* toMove = list.at(i_elem*width + j_elem).release();
+            this->set(toMove,new_i_elem,new_j_elem);
+            //std::cout << "Ancienne case : " << list.at(i_elem*width + j_elem).get() << std::endl;
+        }
+        
+        else
+            throw std::runtime_error("Le déplacement n'a pas pu etre effectué !");
+        
+        
     }
     
 };

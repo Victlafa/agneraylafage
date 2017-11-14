@@ -32,12 +32,15 @@ namespace state {
     size_t getHeight () const;
     void resize (size_t width, size_t height);
     const std::unique_ptr<Element>& get (int i, int j = 0) const;
+    const std::unique_ptr<Element>& operator( )  (int i, int j = 0) const;
     const std::unique_ptr<Element>& getByNumber (int number) const;
     void set (Element* elem, int i, int j = 0);
-    Element& operator ( )  (int i, int j = 0) const;
     void init ();
     void initCells ();
     void initCreatures ();
+    bool verifUnicite (std::vector<int> listeTmp, int i, int j);
+    bool verifValiditeCase (unsigned int i, unsigned int j);
+    void moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem);
     // Setters and Getters
     TypeID getTabType() const;
     void setTabType(TypeID tabType);

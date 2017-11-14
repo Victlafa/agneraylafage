@@ -32,6 +32,7 @@ namespace state {
     const std::unique_ptr<ElementTab>& getCharacters () const;
     int getCellNbr () const;
     const std::unique_ptr<Player>& getPlayer (int number) const;
+    void reset ();
     // Setters and Getters
   };
 
