@@ -63,9 +63,12 @@ int main(int argc,char* argv[])
         }
         
         else if (argc >= 2 && (string) argv[1] == "engine") {
-            //TestsFightCommand();
-            //TestsMoveCharCommand();
+            srand(time(NULL));
+            
+            TestsFightCommand();
+            TestsMoveCharCommand();
             TestsPoisonCommand();
+            TestsNewGameCommand();
         }
         
     } catch (const std::exception &e) {

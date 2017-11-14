@@ -14,12 +14,13 @@
 #include "TestsEngine.h"
 
 using namespace state;
+using namespace std;
 
 namespace engine {
     
     void TestsFightCommand(){
         
-        srand(time(NULL));
+        cout << "DEBUT TESTS FIGHTCOMMAND" << endl;
         
         // On cree un moteur qui creera automatiquement un etat
         engine::Engine moteur;
@@ -48,8 +49,12 @@ namespace engine {
         std::cout << "Conquetes joueur 1 :" << moteur.getState().getPlayer(1)->getConquestPoints() << std::endl;
         std::cout << "Conquetes joueur 2 :" << moteur.getState().getPlayer(2)->getConquestPoints() << std::endl;
 
+        
+        cout << "FIN TESTS FIGHTCOMMAND" << endl;
     }
     void TestsMoveCharCommand(){
+        
+        cout << "DEBUT TESTS MOVECHARCOMMAND" << endl;
         
         engine::Engine moteur;
         
@@ -71,9 +76,12 @@ namespace engine {
         // On affiche les positions de la creature
         
         std::cout << "Position apres deplacement : (" << forgeron->getX() << "," << forgeron->getY() << ")\n" << std::endl;
-        
+                
+        cout << "FIN TESTS MOVECHARCOMMAND" << endl;
     }
     void TestsPoisonCommand(){
+        
+        cout << "DEBUT TESTS POISONCOMMAND" << endl;
         
         engine::Engine moteur;
         
@@ -96,5 +104,23 @@ namespace engine {
         moteur.update();
         
         std::cout << "Nombres de creatures presentes apres empoisonnement :" << moteur.getState().getCharacters()->get(ligne, colonne)->getCreaturesNbr() << std::endl;
+    
+        cout << "FIN TESTS POISONCOMMAND" << endl;
+    }
+    
+    void TestsNewGameCommand()
+    {
+        cout << "DEBUT TESTS NEWGAMECOMMAND" << endl;
+        
+        engine::Engine moteur;
+        std::cout << "Etat avant : " << &moteur.getState() << std::endl;
+        std::cout << "Grille avant : " << moteur.getState().getGrid().get() << std::endl;
+        moteur.addCommand(1,new NewGameCommand());
+        moteur.update();
+        std::cout << "Etat apres : " << &moteur.getState() << std::endl;
+        std::cout << "Grille apres : " << moteur.getState().getGrid().get() << std::endl;
+        std::cout << "Type de creatures du joueur 1 : " << moteur.getPlayer(1)->getClanName() << std::endl;
+        
+        cout << "FIN TESTS NEWGAMECOMMAND" << endl;
     }
 }
