@@ -33,6 +33,7 @@ namespace engine {
     void update ();
     const state::State& getState () const;
     const std::unique_ptr<state::Player>& getPlayer (int num) const;
+    void poisonCell (bool poison, int i_cell, int j_cell);
     // Setters and Getters
   };
 

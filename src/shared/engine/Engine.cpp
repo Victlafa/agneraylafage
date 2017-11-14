@@ -56,4 +56,8 @@ namespace engine
             mapIt->second->execute(currentState);
         currentCommands.clear();
     }
+    
+    void Engine::poisonCell(bool poison,int i_cell, int j_cell){
+        currentState.poisonCell(poison,i_cell,j_cell);
+    }
 }

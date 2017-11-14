@@ -12,10 +12,14 @@ using namespace state;
 
 namespace engine
 {
-    PoisonCommand::PoisonCommand (int cell, int creatures) : cell(cell), creatures(creatures) {}
+    PoisonCommand::PoisonCommand (int i_cell, int j_cell) : cell(2) {
+        cell[0] = i_cell;
+        cell[1] = j_cell;
+    }
     
     bool PoisonCommand::isPoisoned (state::State& state){
-        CellState etatCell = ((Cell)*state.getGrid()->getByNumber(cell)).getCellState();
+        CellState etatCell = ((Cell)*state.getGrid()->get(cell[0],cell[1])).getCellState();
+        std::cout << "etat de la cellule : " << etatCell << std::endl;
         if (etatCell == CellState::POISONED)
             return true;
         else
@@ -29,14 +33,14 @@ namespace engine
         if (isPoisoned(state))
         {
             int tirageJeu = rand()%6 + 1;
-            int nbCrea = state.getCharacters()->getByNumber(creatures)->getCreaturesNbr();
+            int nbCrea = state.getCharacters()->get(cell[0],cell[1])->getCreaturesNbr();
             for (int i = 0; i < nbCrea; i++)
             {
                 if (tirageJeu > rand()%6 + 1)
                     nbCreaTuees += 1;
             }
             
-            state.getCharacters()->getByNumber(creatures)->setCreaturesNbr(nbCrea - nbCreaTuees);
+            state.getCharacters()->get(cell[0],cell[1])->setCreaturesNbr(nbCrea - nbCreaTuees);
         }
         
         else
@@ -50,8 +54,6 @@ namespace engine
         killCreatures(state);
     }
     // Setters and Getters
-    int PoisonCommand::getCell() const{return cell;}
-    void PoisonCommand::setCell(int cell){this->cell = cell;}
-    int PoisonCommand::getCreatures() const{return creatures;}
-    void PoisonCommand::setCreatures(int creatures){this->creatures = creatures;}
+    const std::vector<int>& PoisonCommand::getCell() const{return cell;}
+    void PoisonCommand::setCell(const std::vector<int>& cell){this->cell = cell;}
 }

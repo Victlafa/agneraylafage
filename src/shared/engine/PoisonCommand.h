@@ -2,6 +2,7 @@
 #ifndef ENGINE__POISONCOMMAND__H
 #define ENGINE__POISONCOMMAND__H
 
+#include <vector>
 
 namespace state {
   class State;
@@ -19,20 +20,17 @@ namespace engine {
   class PoisonCommand : public engine::Command {
     // Attributes
   protected:
-    int cell;
-    int creatures;
+    std::vector<int> cell;
     // Operations
   public:
-    PoisonCommand (int cell, int creatures);
+    PoisonCommand (int i_cell, int j_cell);
     bool isPoisoned (state::State& state);
     void killCreatures (state::State& state);
     CommandTypeID getTypeID () const;
     void execute (state::State& state);
     // Setters and Getters
-    int getCell() const;
-    void setCell(int cell);
-    int getCreatures() const;
-    void setCreatures(int creatures);
+    const std::vector<int>& getCell() const;
+    void setCell(const std::vector<int>& cell);
   };
 
 };
