@@ -33,6 +33,7 @@ namespace state {
     int getCellNbr () const;
     const std::unique_ptr<Player>& getPlayer (int number) const;
     void reset ();
+    void poisonCell (bool poison, int i, int j);
     // Setters and Getters
   };
 

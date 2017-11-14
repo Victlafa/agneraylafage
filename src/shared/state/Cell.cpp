@@ -23,9 +23,9 @@ namespace state
     
     Cell::~Cell(){}
     
-    Cell::Cell(const state::Element& elem){
-        this->cellType = CellTypeID::SIMPLE;
-        this->cellState = CellState::NORMAL;
+    Cell::Cell(const state::Element& elem, CellTypeID type, CellState state){
+        this->cellType = type;
+        this->cellState = state;
         this->x=elem.getX();
         this->y=elem.getY();
         this->creaturesNbr=elem.getCreaturesNbr();

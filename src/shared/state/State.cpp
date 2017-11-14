@@ -51,4 +51,16 @@ namespace state
         player2.reset(new Player());
     }
     
+    void State::poisonCell(bool poison, int i, int j)
+    {
+        if (poison)
+        {
+            ((Cell)*grid->get(i,j).get()).setCellState(CellState::POISONED);
+            std::cout << "etat de la cellule : " << ((Cell)*grid->get(i,j).get()).getCellState() << std::endl;
+            std::cout << "La case (" << i << "," << j << ") a ete empoisonnee\n" << std::endl;
+        }
+        else
+            ((Cell)*grid->get(i,j).get()).setCellState(CellState::NORMAL);
+    }
+    
 };
