@@ -28,6 +28,7 @@ namespace state {
     Player ();
     Player (CreaturesID type);
     ~Player ();
+    bool isThereCreatures (int number);
     void decreaseCreaLeft ();
     void modifySpeCellsNames (std::string name, bool add);
     // Setters and Getters

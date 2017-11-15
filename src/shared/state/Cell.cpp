@@ -10,30 +10,23 @@ namespace state
 {
     // Constructor :
     
-    Cell::Cell(): Element(TypeID::CELL){
+    Cell::Cell(): Element(ID::GRASS){
         this->setElemType(ID::GRASS);
         //this->setCellState(CellState::NORMAL);
     }
     
-    Cell::Cell(ID type) : Element(TypeID::CELL) {
+    Cell::Cell(ID type) : Element(ID::GRASS) {
         this->setElemType(type);
         //this->setCellState(CellState::NORMAL);
     }
-    
-<<<<<<< HEAD
-    Cell::~Cell(){}
-    
-    Cell::Cell(const state::Element& elem, CellTypeID type, CellState state){
-        this->cellType = type;
-        this->cellState = state;
-=======
-    Cell::Cell(const state::Element& elem) : Element(TypeID::CELL){
-        this->setElemType(ID::GRASS);
+ 
+    Cell::Cell(const state::Element& elem, CellState state){
+        this->setElemType(elem.getElemType());
         //this->setCellState(CellState::NORMAL);
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
         this->x=elem.getX();
         this->y=elem.getY();
         this->creaturesNbr=elem.getCreaturesNbr();
+        this->setCellState(state);
     }
     
     Cell::~Cell(){}

@@ -8,28 +8,22 @@ namespace state
         x = 0;
         y = 0;
         creaturesNbr = 0;
-<<<<<<< HEAD
+        
         //std::cout << "Initialisation d'un element lambda\n" << std::endl;
-=======
+        
         cellState = CellState::NORMAL;
-        type = TypeID::CELL;
         elemType = ID::GRASS;
         //std::cout << this << std::endl;
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
     }
     
-    Element::Element (TypeID type){
+    Element::Element (ID type){
         x = 0;
         y = 0;
         creaturesNbr = 0;
-<<<<<<< HEAD
         elemType = type;
         //std::cout << "Initialisation d'un element de type " << type << "\n" << std::endl;
-=======
         cellState = CellState::NORMAL;
-        type = type;
-        elemType = ((type == TypeID::CELL) ? ID::GRASS : ID::BLACKSMITH);
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
+        //elemType = ((type == TypeID::CELL) ? ID::GRASS : ID::BLACKSMITH);
     }
     
     Element::~Element() {
@@ -85,10 +79,8 @@ namespace state
         this->elemType = elemType;
     }
     
-    /*
-    Element::Element(const Element& elem)
-    {
-        if(elem.
-    }*/
+    CellState Element::getCellState() const {return cellState;}
+    void Element::setCellState(CellState cellState) { this->cellState = cellState; }
+    
                 
 };

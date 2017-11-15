@@ -6,6 +6,7 @@
 namespace state {
 
   enum CellState {
+    NOTCELL     = 0,
     NORMAL     = 1,
     POISONED     = 2,
     PROTECTED     = 3

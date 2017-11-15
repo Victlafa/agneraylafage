@@ -21,7 +21,6 @@ namespace state
         //std::cout << "Appel du constructeur ElementTab" << std::endl;
         this->width = width;
         this->height = height;
-<<<<<<< HEAD
         init();
         
     }
@@ -29,12 +28,6 @@ namespace state
     ElementTab::~ElementTab() {
         //std::cout << "Appel du destructeur ElementTab" << std::endl;
     }
-=======
-        tabType = TypeID::CELL;
-    }
-    
-    ElementTab::~ElementTab() {}
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
     
     // Getters and setters :
     
@@ -97,36 +90,15 @@ namespace state
     
     void ElementTab::initCells (){
 
-<<<<<<< HEAD
-        //std::cout << "Positionnement des Cellules Speciales" << std::endl;
-        // Positionnement des Cellules Speciales
-=======
-            std::cout << "Positionnement des Cellules Speciales" << std::endl;
-            //Positionnement des Cellules Speciales
-            
-            std::vector<ID> l_SpeCID;
-            l_SpeCID.push_back(ID::BARBECUE);
-            l_SpeCID.push_back(ID::CANDY);
-            l_SpeCID.push_back(ID::POOL);
-            l_SpeCID.push_back(ID::SKY);
-            
-            std::vector<unsigned int> li; //liste des ordonnées des cellules speciales
-            std::vector<unsigned int> lj; //liste des abscisses des cellules speciales
-            
-            for (int gh=0; gh < 4; gh++)
-            {
-                li.push_back(0);
-                lj.push_back(0);
-            }
-           
-            unsigned int i = 0, j = 0;
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
 
-        std::vector<SpecialCellID> typesSpeciales;
-        typesSpeciales.push_back(SpecialCellID::BARBECUE);
-        typesSpeciales.push_back(SpecialCellID::CANDY);
-        typesSpeciales.push_back(SpecialCellID::POOL);
-        typesSpeciales.push_back(SpecialCellID::SKY);
+        std::cout << "Positionnement des Cellules Speciales" << std::endl;
+        // Positionnement des Cellules Speciales
+
+        std::vector<ID> typesSpeciales;
+        typesSpeciales.push_back(ID::BARBECUE);
+        typesSpeciales.push_back(ID::CANDY);
+        typesSpeciales.push_back(ID::POOL);
+        typesSpeciales.push_back(ID::SKY);
 
         std::vector<unsigned int> ordSpeciales; // liste des ordonnées des cellules speciales
         std::vector<unsigned int> absSpeciales; // liste des abscisses des cellules speciales
@@ -174,35 +146,16 @@ namespace state
 
         //std::cout << "Positionnement des Cellules Simples" << std::endl;
         // On remplit map_cell avec des cellules simples
-        std::vector<state::SimpleCellID> typesSimples;
-        typesSimples.push_back(state::SimpleCellID::DIRT);
-        typesSimples.push_back(state::SimpleCellID::GRASS);
-        typesSimples.push_back(state::SimpleCellID::SAND);
+        std::vector<state::ID> typesSimples;
+        typesSimples.push_back(state::ID::DIRT);
+        typesSimples.push_back(state::ID::GRASS);
+        typesSimples.push_back(state::ID::SAND);
 
         std::vector<std::string> nomsRessources;
         nomsRessources.push_back("stone");
         nomsRessources.push_back("food");
         nomsRessources.push_back("wood");
         nomsRessources.push_back("metal");
-
-<<<<<<< HEAD
-=======
-            std::cout << "Positionnement des Cellules Simples" << std::endl;
-            // On remplit map_cell avec des cellules simples
-            std::vector<state::ID> l_SimCID;
-            l_SimCID.push_back(state::ID::DIRT);
-            l_SimCID.push_back(state::ID::GRASS);
-            l_SimCID.push_back(state::ID::SAND);
-            
-            std::vector<std::string> l_Res;
-            l_Res.push_back("stone");
-            l_Res.push_back("food");
-            l_Res.push_back("wood");
-            l_Res.push_back("metal");
-          
-            
-            for (unsigned int i = 0; i < height; i++) {
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
 
         for (unsigned int i = 0; i < height; i++) {
 
@@ -212,7 +165,6 @@ namespace state
                 // voulu et ne se superpose pas à une cellule spéciale
                 if (!((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == height - 1 && j == width - 1) || (i == height - 1 && j == width - 2) || (i == height - 2 && j == width - 1))) {
 
-<<<<<<< HEAD
                     // Cas où on tombe sur les cellules speciales :
                     if (i == ordSpeciales[0] && j == absSpeciales[0])
                         this->set(new SpecialCell(typesSpeciales[0], nomsRessources[0], 3, ordSpeciales[0], absSpeciales[0]), i, j);
@@ -223,13 +175,13 @@ namespace state
                     else if (i == ordSpeciales[3] && j == absSpeciales[3])
                         this->set(new SpecialCell(typesSpeciales[3], nomsRessources[3], 5, ordSpeciales[3], absSpeciales[3]), i, j);
 
-                        // Autres cas :
+                    // Autres cas :
                     else if (!((i == ordSpeciales[0] && j == absSpeciales[0]) || (i == ordSpeciales[1] && j == absSpeciales[1]) || (i == ordSpeciales[2] && j == absSpeciales[2]) || (i == ordSpeciales[3] && j == absSpeciales[3]))) {
                         int ind = rand();
                         this->set(new SimpleCell(typesSimples[ind % 3], nomsRessources[ind % 4], rand() % 3, j, i), i, j);
                     }
-=======
-                    }else{
+                    
+                    else{
                         this->set(NULL,i,j);
                     }
                     
@@ -237,22 +189,7 @@ namespace state
                 
             }
             std::cout << "fin boucles" << std::endl;
-        }
-
-        else if (type == TypeID::CREATURESGROUP) 
-        {
-            list.reserve(width * height);
-            int** intRand = new int*[3];
-            unsigned int rand_i;
-            unsigned int rand_j;
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
-
-                }
-
-            }
-
-        }
-        
+        }     
         
     }
     
@@ -277,8 +214,6 @@ namespace state
             
             // On fait les tirages des deux joueurs 
             do {
-                
-<<<<<<< HEAD
                 rand_i = rand() % height;
                 rand_j = rand() % width;
                 // On verifie la validite des coordonnees : ont-elles deja été tirees ? Correspondent-elles à des cases interdites ?
@@ -302,13 +237,8 @@ namespace state
             //intRand[2*j + 6] = rand_i_J1;
             //intRand[2*j + 7] = rand_j_J1;
 
-            this->set(new CreaturesGroup(CreaturesID::BLACKSMITH, 2, NULL), rand_i, rand_j);
+            this->set(new CreaturesGroup(ID::BLACKSMITH, 2, NULL), rand_i, rand_j);
         }
-        
-=======
-                this->set(new CreaturesGroup(ID::BLACKSMITH),rand_i,rand_j);
-            }
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
 
     }
     

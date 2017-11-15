@@ -8,12 +8,8 @@ namespace state {
   class Element;
 }
 
-<<<<<<< HEAD
-#include "CellTypeID.h"
-#include "CellState.h"
-=======
 #include "ID.h"
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
+#include "CellState.h"
 #include "Element.h"
 
 namespace state {
@@ -28,13 +24,8 @@ namespace state {
     // Operations
   public:
     Cell ();
-<<<<<<< HEAD
-    Cell (CellTypeID type);
-    Cell (const Element& elem, CellTypeID type = CellTypeID::SIMPLE, CellState state = CellState::NORMAL);
-=======
     Cell (ID type);
-    Cell (const Element& elem);
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
+    Cell (const Element& elem, CellState state = CellState::NORMAL);
     ~Cell ();
     // Setters and Getters
     const std::string& getResType() const;

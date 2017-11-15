@@ -7,7 +7,6 @@ namespace state {
   class Element;
 }
 
-#include "TypeID.h"
 #include "ID.h"
 #include "CellState.h"
 
@@ -23,14 +22,12 @@ namespace state {
     int x;
     int y;
     int creaturesNbr;
-    TypeID type;
     // Operations
   public:
     Element ();
-    Element (TypeID type);
+    Element (ID type);
     virtual ~Element ();
     bool operator== (Element otherElement);
-    TypeID getType ();
     // Setters and Getters
     ID getElemType() const;
     void setElemType(ID elemType);
@@ -42,7 +39,6 @@ namespace state {
     void setY(int y);
     int getCreaturesNbr() const;
     void setCreaturesNbr(int creaturesNbr);
-    void setType(TypeID type);
   };
 
 };

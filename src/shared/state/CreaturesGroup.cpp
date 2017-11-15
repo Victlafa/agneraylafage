@@ -14,37 +14,31 @@ namespace state
     int CreaturesGroup::stolenResourceNbr = 2;
     
     // Constructors :
-<<<<<<< HEAD
-    CreaturesGroup::CreaturesGroup (CreaturesID type, int nbrCrea, Player* joueur) : Element(TypeID::CREATURESGROUP){
+
+    CreaturesGroup::CreaturesGroup (ID type, int nbrCrea, Player* joueur) : Element(type){
         placed = false;
-        creaturesType = type;
         this->joueur = joueur;
         this->setCreaturesNbr(nbrCrea);
     }
     
-    CreaturesGroup::CreaturesGroup (CreaturesID type, Player* joueur, const Element& elem) : Element(TypeID::CREATURESGROUP)
+    CreaturesGroup::CreaturesGroup (ID type, Player* joueur, const Element& elem) : Element(type)
     {
-        this->creaturesType = type;
         this->placed = false;
         this->x = elem.getX();
         this->y = elem.getY();
         this->creaturesNbr = elem.getCreaturesNbr();
-        this->joueur = joueur;
-=======
-    CreaturesGroup::CreaturesGroup (ID type) : Element(TypeID::CREATURESGROUP){
+        this->joueur = joueur;}
+    
+    CreaturesGroup::CreaturesGroup (ID type) : Element(type){
         placed = false;
         setElemType(type);
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
     }
     
-        CreaturesGroup::CreaturesGroup (const Element& elem) : Element(TypeID::CREATURESGROUP)
+    CreaturesGroup::CreaturesGroup (const Element& elem) : Element(elem.getElemType())
     {
-<<<<<<< HEAD
-        this->creaturesType = ((CreaturesGroup)elem).getCreaturesType();
+
         this->joueur = ((CreaturesGroup)elem).getPlayer();
-=======
-        setElemType(ID::BLACKSMITH);
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
+        setElemType(((CreaturesGroup)elem).getElemType());
         this->placed = false;
         this->x = elem.getX();
         this->y = elem.getY();
@@ -78,17 +72,14 @@ namespace state
             return false;
     }
     
-<<<<<<< HEAD
     Player* CreaturesGroup::getPlayer (){return joueur;}
     void CreaturesGroup::setPlayer (Player* joueur){this->joueur = joueur;}
     
-    CreaturesID CreaturesGroup::getCreaturesType() const{
-        return this->creaturesType;
-    }
-    
-    void CreaturesGroup::setCreaturesType(CreaturesID Creatures_type){
-        this->creaturesType = Creatures_type;
-    }
-=======
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
+//    CreaturesID CreaturesGroup::getCreaturesType() const{
+//        return this->creaturesType;
+//    }
+//    
+//    void CreaturesGroup::setCreaturesType(CreaturesID Creatures_type){
+//        this->creaturesType = Creatures_type;
+//    }
 };

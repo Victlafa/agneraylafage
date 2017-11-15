@@ -11,7 +11,6 @@ namespace state {
 
 #include "ID.h"
 #include "Element.h"
-#include "Player.h"
 
 namespace state {
 
@@ -25,12 +24,9 @@ namespace state {
     Player* joueur;
     // Operations
   public:
-<<<<<<< HEAD
-    CreaturesGroup (CreaturesID type, int nbrCrea, Player* joueur);
-    CreaturesGroup (CreaturesID type, Player* joueur, const Element& elem);
-=======
+    CreaturesGroup (ID type, int nbrCrea, Player* joueur);
+    CreaturesGroup (ID type, Player* joueur, const Element& elem);
     CreaturesGroup (ID type);
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
     CreaturesGroup (const Element& elem);
     ~CreaturesGroup ();
     bool getPlaced () const;
