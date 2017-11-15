@@ -26,6 +26,7 @@ namespace state {
     Element (TypeID type);
     virtual ~Element ();
     bool operator== (Element otherElement);
+    TypeID getType ();
     // Setters and Getters
     TypeID getElemType() const;
     void setElemType(TypeID elemType);

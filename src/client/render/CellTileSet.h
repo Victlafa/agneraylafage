@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 
 namespace render {
   class Tile;
@@ -19,6 +20,7 @@ namespace state {
 }
 
 #include "Tile.h"
+#include "state/Element.h"
 #include "TileSet.h"
 #include "state/Cell.h"
 
@@ -36,6 +38,7 @@ namespace render {
     int getCellHeight () const;
     const std::string getImageFile () const;
     const Tile& getTile (const state::Element& elem) const;
+    const Tile& getTile (const std::unique_ptr<state::Element>& elem) const;
     // Setters and Getters
   };
 

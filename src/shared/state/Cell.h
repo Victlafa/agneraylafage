@@ -9,6 +9,7 @@ namespace state {
 }
 
 #include "CellTypeID.h"
+#include "TypeID.h"
 #include "Element.h"
 #include "CellState.h"
 
@@ -30,6 +31,7 @@ namespace state {
     Cell (CellTypeID type);
     Cell (const Element& elem);
     ~Cell ();
+    TypeID getType ();
     // Setters and Getters
     CellTypeID getCellType() const;
     void setCellType(CellTypeID cellType);

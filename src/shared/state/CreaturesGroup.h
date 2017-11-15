@@ -9,6 +9,7 @@ namespace state {
 }
 
 #include "CreaturesID.h"
+#include "TypeID.h"
 #include "Element.h"
 
 namespace state {
@@ -30,6 +31,7 @@ namespace state {
     bool getPlaced () const;
     void toPlace (int x, int y);
     bool operator== (CreaturesGroup otherGroup);
+    TypeID getType ();
     // Setters and Getters
     CreaturesID getCreaturesType() const;
     void setCreaturesType(CreaturesID creaturesType);

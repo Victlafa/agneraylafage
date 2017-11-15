@@ -19,7 +19,8 @@
 
 namespace render {
 
-    void TestsStateLayer() {
+    void TestsStateLayer() 
+    {
         //        std::cout << "DEBUT TESTS STATELAYER" << std::endl << std::endl;
         //
         //        std::unique_ptr<StateLayer> stLayer(new StateLayer(new state::State()));
@@ -35,7 +36,8 @@ namespace render {
         //        std::cout << ((NULL != stLayer.state) ? "OK" : "KO") << std::endl;
     }
 
-    void TestsElementTabLayer() {
+    void TestsElementTabLayer() 
+    {
         std::cout << "DEBUT TESTS ELEMENTTABLAYER" << std::endl << std::endl;
 
         // On déclare et initialise un tableau d'éléments :
@@ -473,11 +475,13 @@ namespace render {
     
     // Affichage souhaite
 
-    void TestAffichage(state::ElementTab tab) {
-/*
+    void TestAffichage(state::State& etat) {
+
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
-        ElementTabLayer tabLayer(tab,0);
+        
+        ElementTabLayer tabLayer(etat.getGrid(),0);
+        
         tabLayer.initSurface();
         Surface *surf = new Surface();
         
@@ -497,15 +501,15 @@ namespace render {
         std::vector<int> listYText = std::vector<int>();
         listYText.reserve(29);
         
-        for(unsigned int i=0; i<tab.getHeight(); i++){
+        for(unsigned int i=0; i<etat.getGrid().getHeight(); i++){
             
-            for(unsigned int j=0; j<tab.getWidth(); j++){
+            for(unsigned int j=0; j<etat.getGrid().getWidth(); j++){
                 
-                if(tab.get(i,j)->getElemType()==state::TypeID::CELL){
-                    Cell cell = (Cell)*tab.get(i,j);
-                    if(cell.getCellType()==state::CellTypeID::SIMPLE){
-                        SimpleCell sc = (SimpleCell)*tab.get(i,j);
-                        switch(sc.getSimpleCellType()){
+                if(etat.getGrid().get(i,j)->getElemType()==state::TypeID::CELL){
+                    
+                    if(( (const state::Cell)(*etat.getGrid().get(i,j)) ).getCellType()==state::CellTypeID::SIMPLE){
+                        
+                        switch( ((const state::SimpleCell)*(etat.getGrid().get(i,j)) ).getSimpleCellType()){
                             case state::SimpleCellID::SAND :
                                 listXText.push_back(71);
                                 listYText.push_back(81);
@@ -522,11 +526,12 @@ namespace render {
                                 std::cout << "erreur définition coordonnées textures" << std::endl;
                                 break;
                         }
+                        std::cout << "type simple cell : " << ( (const state::SimpleCell)(*etat.getGrid().get(i,j)) ).getSimpleCellType() << std::endl;
                     }
                     
                     else{
-                        SpecialCell sc = (SpecialCell)*tab.get(i,j);
-                        switch(sc.getSpecialCellType()){
+                        
+                        switch( ((const state::SpecialCell)(*etat.getGrid().get(i,j)) ).getSpecialCellType()){
                             case state::SpecialCellID::BARBECUE :
                                 listXText.push_back(71);
                                 listYText.push_back(221);
@@ -548,36 +553,38 @@ namespace render {
                                 break;
                         }
                     }
-                }else{
-                    CreaturesGroup group = (CreaturesGroup)*tab.get(i,j);
-                    switch( group.getCreaturesType() ){
-                        case state::CreaturesID::BLACKSMITH :
-                            listXText.push_back(50*(tab.get(i,j)->getCreaturesNbr()+1));
-                            listYText.push_back(50);
-                            break;
-                        case state::CreaturesID::COOKER :
-                            listXText.push_back(50*(tab.get(i,j)->getCreaturesNbr()+1));
-                            listYText.push_back(100);
-                            break;
-                        case state::CreaturesID::LUMBERJACK :
-                            listXText.push_back(50*(tab.get(i,j)->getCreaturesNbr()+1));
-                            listYText.push_back(150);
-                            break;
-                        case state::CreaturesID::MINER :
-                            listXText.push_back(50*(tab.get(i,j)->getCreaturesNbr()+1));
-                            listYText.push_back(200);
-                            break;
-                        default :
-                            std::cout << "erreur définition coordonnées textures" << std::endl;
-                            break;
-                    }
+                }
+                
+                
+                switch( ((const CreaturesGroup)(*etat.getCharacters().get(i,j)) ).getCreaturesType() ){
+                    case state::CreaturesID::BLACKSMITH :
+                        listXText.push_back(50*(etat.getCharacters().get(i,j)->getCreaturesNbr()+1));
+                        listYText.push_back(50);
+                        break;
+                    case state::CreaturesID::COOKER :
+                        listXText.push_back(50*(etat.getCharacters().get(i,j)->getCreaturesNbr()+1));
+                        listYText.push_back(100);
+                        break;
+                    case state::CreaturesID::LUMBERJACK :
+                        listXText.push_back(50*(etat.getCharacters().get(i,j)->getCreaturesNbr()+1));
+                        listYText.push_back(150);
+                        break;
+                    case state::CreaturesID::MINER :
+                        listXText.push_back(50*(etat.getCharacters().get(i,j)->getCreaturesNbr()+1));
+                        listYText.push_back(200);
+                        break;
+                    default :
+                        std::cout << "erreur définition coordonnées textures" << std::endl;
+                        break;
+                
                 }
             }
         }
         
         std::cout << "création variables" << std::endl;
         
-        for (int i = 0; i < 29; i++) {
+        for (int i = 0; i < 29; i++) 
+        {
 
             listHexagones.push_back(sf::VertexArray(sf::Quads, 4));
             
@@ -656,16 +663,13 @@ namespace render {
             }
 
             window.clear();
-
-            
-
-            
             
             for (int i = 0; i < 29; i++)
                 window.draw(listHexagones[i], &hexaTexture);
 
             window.display();
-        }*/
+        }
+        
     }
 
     // Brouillon

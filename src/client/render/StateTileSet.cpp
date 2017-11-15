@@ -10,7 +10,13 @@
 namespace render
 {
     StateTileSet::StateTileSet () 
-    { this->chars = std::vector<Tile>(); }
+    { 
+        chars = std::vector<Tile>();
+        
+        //Les coordonnées suivantes ne correspondent à rien, elle sont là pour que ça compile
+        chars.push_back(Tile(71,81,102,122));
+        chars.push_back(Tile(191,81,102,122));
+    }
     
     int StateTileSet::getCellWidth () const
     {
@@ -43,6 +49,12 @@ namespace render
     }
     
     const Tile& StateTileSet::getTile (const state::Element& elem) const
+    {
+        Tile* tuile = new Tile();
+        return *tuile;
+    }
+    
+    const Tile& StateTileSet::getTile (const std::unique_ptr<state::Element>& elem) const
     {
         Tile* tuile = new Tile();
         return *tuile;

@@ -21,15 +21,16 @@ namespace state
         this->cellState = CellState::NORMAL;
     }
     
-    Cell::~Cell(){}
-    
-    Cell::Cell(const state::Element& elem){
+    Cell::Cell(const state::Element& elem) : Element(TypeID::CELL){
         this->cellType = CellTypeID::SIMPLE;
         this->cellState = CellState::NORMAL;
         this->x=elem.getX();
         this->y=elem.getY();
         this->creaturesNbr=elem.getCreaturesNbr();
     }
+    
+    Cell::~Cell(){}
+    
     
     // Setters and Getters :
     
@@ -71,6 +72,10 @@ namespace state
     
     void Cell::setOccupied(bool occupied){
         this->occupied = occupied;
+    }
+    
+    state::TypeID Cell::getType() {
+        return state::TypeID::CELL;
     }
 };
 

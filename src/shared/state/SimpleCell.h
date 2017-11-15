@@ -6,6 +6,7 @@
 
 namespace state {
   class Element;
+  class SimpleCell;
   class Cell;
 }
 
@@ -23,6 +24,7 @@ namespace state {
     SimpleCell (SimpleCellID type, std::string resType, int resNbr, int x, int y);
     SimpleCell (const Element& elem);
     ~SimpleCell ();
+    bool operator== (SimpleCell otherSimpleCell);
     // Setters and Getters
     SimpleCellID getSimpleCellType() const;
     void setSimpleCellType(SimpleCellID simpleCellType);

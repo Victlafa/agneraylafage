@@ -26,13 +26,28 @@ namespace state
         this->creaturesNbr=elem.getCreaturesNbr();
     }
     
+    bool SimpleCell::operator== (SimpleCell otherSimpleCell) {
+        bool rNbr = this->resNbr == otherSimpleCell.getResNbr();
+        bool rtype = this->resType == otherSimpleCell.getResType();
+        bool cellType = this->simpleCellType == otherSimpleCell.getSimpleCellType();
+        bool posX = this->x == otherSimpleCell.getX();
+        bool posY = this->y == otherSimpleCell.getY();
+
+        if (rNbr && rtype && cellType && posX && posY)
+            return true;
+        else
+            return false;
+    }
+    
     SimpleCellID SimpleCell::getSimpleCellType() const{
-        std::cout << "Type de cellule simple : "<< this->simpleCellType << std::endl;
+        //std::cout << "Type de cellule simple : "<< this->simpleCellType << std::endl;
         return this->simpleCellType;
     }
     
     void SimpleCell::setSimpleCellType(SimpleCellID simpleCellType){
         this->simpleCellType = simpleCellType;
     }
+    
+    
 };
 

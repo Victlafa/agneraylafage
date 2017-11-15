@@ -6,6 +6,7 @@
 
 #include "state.h"
 #include "CharsTileSet.h"
+#include <iostream>
 
 
 namespace render
@@ -62,6 +63,38 @@ namespace render
         else
             return *(new Tile(-1,-1,-1,-1));
         
+    }
+
+    const Tile& CharsTileSet::getTile (const std::unique_ptr<state::Element>& elem) const
+    {
+        if (elem->getElemType() == state::TypeID::CREATURESGROUP)
+        {
+            
+            switch(( (const state::CreaturesGroup)(*elem) ).getCreaturesType()){
+                case state::CreaturesID::BLACKSMITH :
+                    return this->creatures[0][elem->getCreaturesNbr()];
+                   break;
+                case state::CreaturesID::COOKER :
+                    return this->creatures[1][elem->getCreaturesNbr()];
+                    break;
+                case state::CreaturesID::LUMBERJACK :
+                    return this->creatures[2][elem->getCreaturesNbr()];
+                    break;
+                case state::CreaturesID::MINER :
+                    return this->creatures[3][elem->getCreaturesNbr()];
+                    break;
+                default :
+                    return *(new Tile(-1,-1,-1,-1));
+                    std::cout << "erreur attribution CellTileSet" << std::endl;
+                    break;
+            }
+
+        }
+        else
+        {
+            return *(new Tile(-1,-1,-1,-1));
+            std::cout << "bug2" << std::endl;
+        }
     }
 }
 

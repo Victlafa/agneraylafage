@@ -38,48 +38,47 @@ namespace render{
         
         else
             std::cout << "Le type d'ElementTabLayer n'a pas été choisi correctement !\n" << std::endl;
-
-//        const Tile& tuile = this->tileset->getTile(*tab->get(0,0));
-//        this->surface->setTextureLocation(0, tuile);
-//        this->surface->setFinalLocation(0, x + shift * 2 * halfWidth, y, tuile);
+        
+        
         
         // Affichage des cellules de la map :
         for (int i = 0; i < (int)tab.getHeight(); i++) {
             for (int j = 0; j < (int)tab.getWidth(); j++) {
                 
-                if (tab.get(i, j) != NULL) {
-                    Tile tuile = ((this->tileset).get())->getTile(*(tab.get(i,j).get()));
+                if (tab.get(i,j) != NULL) {
+                    Tile tuile = ( (this->tileset).get() )->getTile( tab.get(i,j) );
+                    std::cout << "getElemType : " << tab.get(i,j)->getElemType() << std::endl;
                     std::cout << "Hauteur de la tuile (" << i << "," << j << ") :" << tuile.getHeight() << std::endl;
 
-                    if (i == 5 || i == 11) {
+                    if (i*7+j == 5 || i*7+j == 11) {
                         x -= halfWidth;
                         y += 86;
 
-                        switch (i) {
+                        switch (i*7+j) {
                             case 5:
-                                shift = i - 5;
+                                shift = i*7+j - 5;
                                 break;
                             case 11:
-                                shift = i - 11;
+                                shift = i*7+j - 11;
                                 break;
                             default:
-                                shift = i;
+                                shift = i*7+j;
                         }
                     }
-                    else if (i == 18 || i == 24) {
+                    else if (i*7+j == 18 || i*7+j == 24) {
 
                         x += halfWidth;
                         y += 86;
 
-                        switch (i) {
+                        switch (i*7+j) {
                             case 18:
-                                shift = i - 18;
+                                shift = i*7+j - 18;
                                 break;
                             case 24:
-                                shift = i - 24;
+                                shift = i*7+j - 24;
                                 break;
                             default:
-                                shift = i;
+                                shift = i*7+j;
                         }
                     }
                     else
@@ -90,7 +89,7 @@ namespace render{
                     this->surface->setFinalLocation(i, x + shift * 2 * halfWidth, y, tuile);
 
                     shift += 1;
-                }
+                }else std::cout << "Element en (" << i << "," << j << ") : NULL" << std::endl;
             }
         }
         

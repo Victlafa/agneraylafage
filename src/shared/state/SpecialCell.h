@@ -6,6 +6,7 @@
 
 namespace state {
   class Element;
+  class SpecialCell;
   class Cell;
 }
 
@@ -23,6 +24,7 @@ namespace state {
     SpecialCell (SpecialCellID type, std::string resType, int resNbr, int x, int y);
     SpecialCell (const Element& elem);
     ~SpecialCell ();
+    bool operator== (SpecialCell otherSpecialCell);
     // Setters and Getters
     SpecialCellID getSpecialCellType() const;
     void setSpecialCellType(SpecialCellID specialCellType);

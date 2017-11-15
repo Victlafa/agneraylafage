@@ -1,5 +1,5 @@
-#include "Element.h"
 #include <iostream>
+#include "Element.h"
 
 namespace state
 {
@@ -62,10 +62,16 @@ namespace state
     TypeID Element::getElemType() const{
         return this->elemType;
     }
+    
     void Element::setElemType(TypeID elemType)
     {
         this->elemType = elemType;
     }
     
-    
+    /*
+    Element::Element(const Element& elem)
+    {
+        if(elem.
+    }*/
+                
 };

@@ -26,7 +26,6 @@ namespace state {
     std::vector<std::unique_ptr<Element> > list;
     // Operations
   public:
-    //ElementTab ();
     ElementTab (size_t width = 7, size_t height = 5);
     ~ElementTab ();
     size_t getWidth () const;

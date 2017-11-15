@@ -62,4 +62,8 @@ namespace state
     void CreaturesGroup::setCreaturesType(CreaturesID Creatures_type){
         this->creaturesType = Creatures_type;
     }
+    
+    state::TypeID CreaturesGroup::getType(){
+        return TypeID::CREATURESGROUP;
+    }
 };

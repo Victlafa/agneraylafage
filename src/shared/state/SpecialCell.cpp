@@ -21,6 +21,19 @@ namespace state
         this->creaturesNbr=elem.getCreaturesNbr();
     }
 
+    bool SpecialCell::operator== (SpecialCell otherSpecialCell) {
+        bool rNbr = this->resNbr == otherSpecialCell.getResNbr();
+        bool rtype = this->resType == otherSpecialCell.getResType();
+        bool cellType = this->specialCellType == otherSpecialCell.getSpecialCellType();
+        bool posX = this->x == otherSpecialCell.getX();
+        bool posY = this->y == otherSpecialCell.getY();
+
+        if (rNbr && rtype && cellType && posX && posY)
+            return true;
+        else
+            return false;
+    }
+    
     SpecialCellID SpecialCell::getSpecialCellType() const{
         return this->specialCellType;
     }

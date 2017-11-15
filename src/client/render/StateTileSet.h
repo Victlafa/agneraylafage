@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 
 namespace render {
   class Tile;
@@ -16,6 +17,7 @@ namespace render {
 }
 
 #include "Tile.h"
+#include "state/Element.h"
 #include "TileSet.h"
 
 namespace render {
@@ -33,6 +35,7 @@ namespace render {
     const std::string getImageFile () const;
     const Tile& getCharTile (char c) const;
     const Tile& getTile (const state::Element& elem) const;
+    const Tile& getTile (const std::unique_ptr<state::Element>& elem) const;
     // Setters and Getters
   };
 
