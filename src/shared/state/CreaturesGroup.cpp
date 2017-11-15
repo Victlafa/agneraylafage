@@ -14,14 +14,14 @@ namespace state
     int CreaturesGroup::stolenResourceNbr = 2;
     
     // Constructors :
-    CreaturesGroup::CreaturesGroup (CreaturesID type) : Element(TypeID::CREATURESGROUP){
+    CreaturesGroup::CreaturesGroup (ID type) : Element(TypeID::CREATURESGROUP){
         placed = false;
-        this->creaturesType = type;
+        setElemType(type);
     }
     
     CreaturesGroup::CreaturesGroup (const Element& elem) : Element(TypeID::CREATURESGROUP)
     {
-        this->creaturesType = CreaturesID::BLACKSMITH;
+        setElemType(ID::BLACKSMITH);
         this->placed = false;
         this->x = elem.getX();
         this->y = elem.getY();
@@ -44,7 +44,7 @@ namespace state
 
     bool CreaturesGroup::operator== (CreaturesGroup otherGroup) {
         bool creaNbr = this->creaturesNbr == otherGroup.getCreaturesNbr();
-        bool type = this->creaturesType == otherGroup.getCreaturesType();
+        bool type = this->getElemType() == otherGroup.getElemType();
         bool onMap = this->placed == otherGroup.getPlaced();
         bool posX = this->x == otherGroup.getX();
         bool posY = this->y == otherGroup.getY();
@@ -55,15 +55,4 @@ namespace state
             return false;
     }
     
-    CreaturesID CreaturesGroup::getCreaturesType() const{
-        return this->creaturesType;
-    }
-    
-    void CreaturesGroup::setCreaturesType(CreaturesID Creatures_type){
-        this->creaturesType = Creatures_type;
-    }
-    
-    state::TypeID CreaturesGroup::getType(){
-        return TypeID::CREATURESGROUP;
-    }
 };

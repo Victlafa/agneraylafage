@@ -79,11 +79,11 @@ namespace state
             std::cout << "Positionnement des Cellules Speciales" << std::endl;
             //Positionnement des Cellules Speciales
             
-            std::vector<SpecialCellID> l_SpeCID;
-            l_SpeCID.push_back(SpecialCellID::BARBECUE);
-            l_SpeCID.push_back(SpecialCellID::CANDY);
-            l_SpeCID.push_back(SpecialCellID::POOL);
-            l_SpeCID.push_back(SpecialCellID::SKY);
+            std::vector<ID> l_SpeCID;
+            l_SpeCID.push_back(ID::BARBECUE);
+            l_SpeCID.push_back(ID::CANDY);
+            l_SpeCID.push_back(ID::POOL);
+            l_SpeCID.push_back(ID::SKY);
             
             std::vector<unsigned int> li; //liste des ordonnées des cellules speciales
             std::vector<unsigned int> lj; //liste des abscisses des cellules speciales
@@ -126,10 +126,10 @@ namespace state
 
             std::cout << "Positionnement des Cellules Simples" << std::endl;
             // On remplit map_cell avec des cellules simples
-            std::vector<state::SimpleCellID> l_SimCID;
-            l_SimCID.push_back(state::SimpleCellID::DIRT);
-            l_SimCID.push_back(state::SimpleCellID::GRASS);
-            l_SimCID.push_back(state::SimpleCellID::SAND);
+            std::vector<state::ID> l_SimCID;
+            l_SimCID.push_back(state::ID::DIRT);
+            l_SimCID.push_back(state::ID::GRASS);
+            l_SimCID.push_back(state::ID::SAND);
             
             std::vector<std::string> l_Res;
             l_Res.push_back("stone");
@@ -194,7 +194,7 @@ namespace state
                 intRand[j][0] = rand_i;
                 intRand[j][1] = rand_j;
                 
-                this->set(new CreaturesGroup(CreaturesID::BLACKSMITH),rand_i,rand_j);
+                this->set(new CreaturesGroup(ID::BLACKSMITH),rand_i,rand_j);
             }
 
         }

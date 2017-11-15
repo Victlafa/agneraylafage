@@ -42,7 +42,25 @@ namespace render
     
     const Tile& CharsTileSet::getTile (const state::Element& elem) const
     {
-        
+        switch(elem.getElemType()){
+            case state::ID::COOKER :
+                return creatures[0][elem.getCreaturesNbr()];
+                break;
+            case state::ID::BLACKSMITH :
+                return creatures[1][elem.getCreaturesNbr()];
+                break;
+            case state::ID::LUMBERJACK :
+                return creatures[2][elem.getCreaturesNbr()];
+                break;
+            case state::ID::MINER :
+                return creatures[3][elem.getCreaturesNbr()];
+                break;
+            default :
+                return *(new Tile(-1,-1,-1,-1));
+                std::cout << "erreur attribution CharsTileSet" << std::endl;
+                break;
+        }
+        /*
         if (elem.getElemType() == state::TypeID::CREATURESGROUP)
         {
             state::CreaturesGroup group = (const state::CreaturesGroup)elem;
@@ -62,11 +80,31 @@ namespace render
         
         else
             return *(new Tile(-1,-1,-1,-1));
+        */
         
     }
 
     const Tile& CharsTileSet::getTile (const std::unique_ptr<state::Element>& elem) const
     {
+         switch(elem->getElemType()){
+            case state::ID::COOKER :
+                return creatures[0][elem->getCreaturesNbr()];
+                break;
+            case state::ID::BLACKSMITH :
+                return creatures[1][elem->getCreaturesNbr()];
+                break;
+            case state::ID::LUMBERJACK :
+                return creatures[2][elem->getCreaturesNbr()];
+                break;
+            case state::ID::MINER :
+                return creatures[3][elem->getCreaturesNbr()];
+                break;
+            default :
+                return *(new Tile(-1,-1,-1,-1));
+                std::cout << "erreur attribution CharsTileSet" << std::endl;
+                break;
+        }
+        /*
         if (elem->getElemType() == state::TypeID::CREATURESGROUP)
         {
             
@@ -94,7 +132,7 @@ namespace render
         {
             return *(new Tile(-1,-1,-1,-1));
             std::cout << "bug2" << std::endl;
-        }
+        }*/
     }
 }
 

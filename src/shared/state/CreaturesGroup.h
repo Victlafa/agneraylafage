@@ -8,16 +8,13 @@ namespace state {
   class CreaturesGroup;
 }
 
-#include "CreaturesID.h"
-#include "TypeID.h"
+#include "ID.h"
 #include "Element.h"
 
 namespace state {
 
   /// class CreaturesGroup - 
   class CreaturesGroup : public state::Element {
-    // Associations
-    state::CreaturesID creaturesType;
     // Attributes
   public:
     static int stolenResourceNbr;
@@ -25,16 +22,13 @@ namespace state {
     bool placed;
     // Operations
   public:
-    CreaturesGroup (CreaturesID type);
+    CreaturesGroup (ID type);
     CreaturesGroup (const Element& elem);
     ~CreaturesGroup ();
     bool getPlaced () const;
     void toPlace (int x, int y);
     bool operator== (CreaturesGroup otherGroup);
-    TypeID getType ();
     // Setters and Getters
-    CreaturesID getCreaturesType() const;
-    void setCreaturesType(CreaturesID creaturesType);
   };
 
 };

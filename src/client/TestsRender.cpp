@@ -102,7 +102,7 @@ namespace render {
         std::cout << "Positionnement des Cellules Spéciales" << std::endl;
         //Positionnement des Cellules Spéciales
         std::vector<state::SpecialCell> l_SpeC;
-        std::vector<state::SpecialCellID> l_SpeCID = {state::SpecialCellID::BARBECUE, state::SpecialCellID::CANDY, state::SpecialCellID::POOL, state::SpecialCellID::SKY};
+        std::vector<state::ID> l_SpeCID = {state::ID::BARBECUE, state::ID::CANDY, state::ID::POOL, state::ID::SKY};
         std::vector<int> li = {0,0,0,0};//liste des ordonnées des cellules spéciales
         std::vector<int> lj = {0,0,0,0};//liste des absisses des cellules simples
         
@@ -168,7 +168,7 @@ namespace render {
         
         std::cout << "Positionnement des Cellules Simples" << std::endl;
         // On remplit map_cell avec des cellules simples
-        std::vector<state::SimpleCellID> l_SimCID = {state::SimpleCellID::DIRT,state::SimpleCellID::GRASS,state::SimpleCellID::SAND};
+        std::vector<state::ID> l_SimCID = {state::ID::DIRT,state::ID::GRASS,state::ID::SAND};
         
         for(int i=0; i<5; i++){
             for(int j=0; j<7; j++){
@@ -176,7 +176,7 @@ namespace render {
                     std::string restype = "wood";
                     //map_cell(i,j)= state::SimpleCell(l_SimCID[rand()%3],restype,4,i,j);
                     int iid = rand()%3;
-                    state::SimpleCellID id = l_SimCID[iid];
+                    state::ID id = l_SimCID[iid];
                     //on adapte les coordonnées de la cellule à la liste des textures
                     if(i*7+j<7){
                         map_cell[i*7+j-2]=state::SimpleCell(id,restype,4,i,j);
@@ -505,20 +505,70 @@ namespace render {
             
             for(unsigned int j=0; j<etat.getGrid().getWidth(); j++){
                 
+                switch(etat.getGrid().get(i,j)->getElemType()){
+                    case state::ID::SAND :
+                        listXText.push_back(71);
+                        listYText.push_back(81);
+                        break;
+                    case state::ID::GRASS :
+                        listXText.push_back(191);
+                        listYText.push_back(81);
+                        break;
+                    case state::ID::DIRT :
+                        listXText.push_back(311);
+                        listYText.push_back(81);
+                        break;   
+                    case state::ID::BARBECUE :
+                        listXText.push_back(71);
+                        listYText.push_back(221);
+                        break;
+                    case state::ID::SKY :
+                        listXText.push_back(191);
+                        listYText.push_back(221);
+                        break;
+                    case state::ID::POOL :
+                        listXText.push_back(311);
+                        listYText.push_back(221);
+                        break;
+                    case state::ID::CANDY :
+                        listXText.push_back(431);
+                        listYText.push_back(221);
+                        break;
+                    case state::ID::BLACKSMITH :
+                        listXText.push_back(50*(etat.getCharacters().get(i,j)->getCreaturesNbr()+1));
+                        listYText.push_back(50);
+                        break;
+                    case state::ID::COOKER :
+                        listXText.push_back(50*(etat.getCharacters().get(i,j)->getCreaturesNbr()+1));
+                        listYText.push_back(100);
+                        break;
+                    case state::ID::LUMBERJACK :
+                        listXText.push_back(50*(etat.getCharacters().get(i,j)->getCreaturesNbr()+1));
+                        listYText.push_back(150);
+                        break;
+                    case state::ID::MINER :
+                        listXText.push_back(50*(etat.getCharacters().get(i,j)->getCreaturesNbr()+1));
+                        listYText.push_back(200);
+                        break;
+                    default :
+                        std::cout << "erreur définition coordonnées textures" << std::endl;
+                        break;
+                }
+                /*
                 if(etat.getGrid().get(i,j)->getElemType()==state::TypeID::CELL){
                     
-                    if(( (const state::Cell)(*etat.getGrid().get(i,j)) ).getCellType()==state::CellTypeID::SIMPLE){
+                    if(( (const state::Cell)(*etat.getGrid().get(i,j)) ).getElemType()==state::ID::SIMPLE){
                         
-                        switch( ((const state::SimpleCell)*(etat.getGrid().get(i,j)) ).getSimpleCellType()){
-                            case state::SimpleCellID::SAND :
+                        switch( ((const state::SimpleCell)*(etat.getGrid().get(i,j)) ).getElemType()){
+                            case state::ID::SAND :
                                 listXText.push_back(71);
                                 listYText.push_back(81);
                                 break;
-                            case state::SimpleCellID::GRASS :
+                            case state::ID::GRASS :
                                 listXText.push_back(191);
                                 listYText.push_back(81);
                                 break;
-                            case state::SimpleCellID::DIRT :
+                            case state::ID::DIRT :
                                 listXText.push_back(311);
                                 listYText.push_back(81);
                                 break;
@@ -526,25 +576,25 @@ namespace render {
                                 std::cout << "erreur définition coordonnées textures" << std::endl;
                                 break;
                         }
-                        std::cout << "type simple cell : " << ( (const state::SimpleCell)(*etat.getGrid().get(i,j)) ).getSimpleCellType() << std::endl;
+                        std::cout << "type simple cell : " << ( (const state::SimpleCell)(*etat.getGrid().get(i,j)) ).getElemType() << std::endl;
                     }
                     
                     else{
                         
-                        switch( ((const state::SpecialCell)(*etat.getGrid().get(i,j)) ).getSpecialCellType()){
-                            case state::SpecialCellID::BARBECUE :
+                        switch( ((const state::SpecialCell)(*etat.getGrid().get(i,j)) ).getElemType()){
+                            case state::ID::BARBECUE :
                                 listXText.push_back(71);
                                 listYText.push_back(221);
                                 break;
-                            case state::SpecialCellID::SKY :
+                            case state::ID::SKY :
                                 listXText.push_back(191);
                                 listYText.push_back(221);
                                 break;
-                            case state::SpecialCellID::POOL :
+                            case state::ID::POOL :
                                 listXText.push_back(311);
                                 listYText.push_back(221);
                                 break;
-                            case state::SpecialCellID::CANDY :
+                            case state::ID::CANDY :
                                 listXText.push_back(431);
                                 listYText.push_back(221);
                                 break;
@@ -556,7 +606,7 @@ namespace render {
                 }
                 
                 
-                switch( ((const CreaturesGroup)(*etat.getCharacters().get(i,j)) ).getCreaturesType() ){
+                switch( ((const CreaturesGroup)(*etat.getCharacters().get(i,j)) ).getElemType() ){
                     case state::CreaturesID::BLACKSMITH :
                         listXText.push_back(50*(etat.getCharacters().get(i,j)->getCreaturesNbr()+1));
                         listYText.push_back(50);
@@ -577,7 +627,7 @@ namespace render {
                         std::cout << "erreur définition coordonnées textures" << std::endl;
                         break;
                 
-                }
+                }*/
             }
         }
         

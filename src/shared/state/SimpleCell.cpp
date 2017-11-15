@@ -10,8 +10,7 @@
 
 namespace state
 {
-    SimpleCell::SimpleCell (SimpleCellID type, std::string resType, int resNbr, int x, int y) : Cell(CellTypeID::SIMPLE) {
-        this->simpleCellType=type;
+    SimpleCell::SimpleCell (ID type, std::string resType, int resNbr, int x, int y) : Cell(type) {
         this->resType=resType;
         this->resNbr=resNbr;
         this->x=x;
@@ -29,7 +28,7 @@ namespace state
     bool SimpleCell::operator== (SimpleCell otherSimpleCell) {
         bool rNbr = this->resNbr == otherSimpleCell.getResNbr();
         bool rtype = this->resType == otherSimpleCell.getResType();
-        bool cellType = this->simpleCellType == otherSimpleCell.getSimpleCellType();
+        bool cellType = this->getElemType() == otherSimpleCell.getElemType();
         bool posX = this->x == otherSimpleCell.getX();
         bool posY = this->y == otherSimpleCell.getY();
 
@@ -38,16 +37,6 @@ namespace state
         else
             return false;
     }
-    
-    SimpleCellID SimpleCell::getSimpleCellType() const{
-        //std::cout << "Type de cellule simple : "<< this->simpleCellType << std::endl;
-        return this->simpleCellType;
-    }
-    
-    void SimpleCell::setSimpleCellType(SimpleCellID simpleCellType){
-        this->simpleCellType = simpleCellType;
-    }
-    
     
 };
 

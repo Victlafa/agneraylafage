@@ -19,27 +19,29 @@ void TestsElementTab()
     size_t a, b;
     a=3;b=4;
     
-    std::shared_ptr<ElementTab> elemTab ( new ElementTab(a,b) );
-    elemTab.get()->init(TypeID::CELL);
+    //std::shared_ptr<ElementTab> elemTab ( new ElementTab(a,b) );
+    //elemTab.get()->init(TypeID::CELL);
+    ElementTab elemTab(a,b);
+    elemTab.init(TypeID::CELL);
     Element* elemTest = new Element();
     
     std::cout << "Test ElementTab - Init tableau : ";
-    std::cout << ((NULL != elemTab) ? "OK" : "KO") << std::endl;
+    std::cout << ((NULL != elemTab.get(0,0)) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test ElementTab - Getters hauteur et largeur du tableau : ";
-    std::cout << ((elemTab->getHeight()==4 && elemTab->getWidth()==3) ? "OK" : "KO") << std::endl;
+    std::cout << ((elemTab.getHeight()==4 && elemTab.getWidth()==3) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test ElementTab - Methode resize du tableau : ";
-    elemTab->resize(6,8);
-    std::cout << ((elemTab->getHeight()==8 && elemTab->getWidth()==6) ? "OK" : "KO") << std::endl;
+    elemTab.resize(6,8);
+    std::cout << ((elemTab.getHeight()==8 && elemTab.getWidth()==6) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test ElementTab - Getters/Setters type de tableau : ";
-    elemTab->setTabType(TypeID::CREATURESGROUP);
-    std::cout << ((elemTab->getTabType()==TypeID::CREATURESGROUP) ? "OK" : "KO") << std::endl;
+    elemTab.setTabType(TypeID::CELL);
+    std::cout << ((elemTab.getTabType()==TypeID::CELL) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test ElementTab - Setter/Getter Element du tableau : ";
-    elemTab->set(elemTest, 1, 1);
-    std::cout << ((elemTab->get(1,1).get() == elemTest) ? "OK" : "KO") << std::endl << std::endl;
+    elemTab.set(elemTest, 1, 1);
+    std::cout << ((elemTab.get(1,1).get() == elemTest) ? "OK" : "KO") << std::endl << std::endl;
     
     std::cout << "FIN TESTS ELEMENTTAB" << std::endl << std::endl;
     
@@ -49,14 +51,14 @@ void TestsCreaturesGroup()
 {
     std::cout << "DEBUT TESTS CREATURESGROUP" << std::endl << std::endl;
     
-    std::unique_ptr<CreaturesGroup> group(new CreaturesGroup(CreaturesID::COOKER));
+    std::unique_ptr<CreaturesGroup> group(new CreaturesGroup(ID::COOKER));
     group->toPlace(2,2);
     
     std::cout << "Création d'un groupe de créatures : ";
     std::cout << ((NULL != group) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test getter du type de créatures : ";
-    std::cout << ((group->getCreaturesType() == CreaturesID::COOKER) ? "OK" : "KO") << std::endl;
+    std::cout << ((group->getElemType() == ID::COOKER) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test getter/setter de placed : ";
     std::cout << ((group->getPlaced() == true) ? "OK" : "KO") << std::endl;
@@ -66,7 +68,7 @@ void TestsCreaturesGroup()
     
     std::cout << "FIN TESTS CREATURESGROUP" << std::endl << std::endl;
     
-    group.reset(new CreaturesGroup(CreaturesID::COOKER));
+    group.reset(new CreaturesGroup(ID::COOKER));
 }
 
 void TestsPlayer()
@@ -136,30 +138,30 @@ void TestsPlayer()
     std::cout << ((p1->getSpeCellsNames().size() == listSize - 1) ? "OK" : "KO") << std::endl;
 
     
-
-//    std::cout << "Test Player Getter/Setter allCreatures - liste complete : ";
-//    p1->setAllCreatures(std::vector<std::shared_ptr<CreaturesGroup>>());
-//    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl;
-//    
-//    std::cout << "Test Player Getter/Setter allCreatures - ajout d'un element : ";
-//    CreaturesGroup *group = new CreaturesGroup(CreaturesID::BLACKSMITH);
-//    //std::shared_ptr<CreaturesGroup> group2 = group;
-//    p1->setAllCreatures(true, group, 3);
-//    std::cout << ((p1->getAllCreatures().size() == 1) ? "OK" : "KO") << std::endl;
-//    
-//    std::cout << "Test Player Getter/Setter allCreatures - retrait d'un element : ";
-//    //CreaturesGroup group3 = group;
-//    p1->setAllCreatures(false, group, 17);
-//    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl<< std::endl;
-
+/*
     std::cout << "Test Player Getter/Setter allCreatures - liste complete : ";
-    //std::vector<std::shared_ptr<CreaturesGroup>> group1;
-    //group1.push_back(new CreaturesGroup(CreaturesID::BLACKSMITH));
+    p1->setAllCreatures(std::vector<std::shared_ptr<CreaturesGroup>>());
+    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test Player Getter/Setter allCreatures - ajout d'un element : ";
+    CreaturesGroup *group = new CreaturesGroup(CreaturesID::BLACKSMITH);
+    //std::shared_ptr<CreaturesGroup> group2 = group;
+    p1->setAllCreatures(true, group, 3);
+    std::cout << ((p1->getAllCreatures().size() == 1) ? "OK" : "KO") << std::endl;
+    
+    std::cout << "Test Player Getter/Setter allCreatures - retrait d'un element : ";
+    //CreaturesGroup group3 = group;
+    p1->setAllCreatures(false, group, 17);
+    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl<< std::endl;*/
+/*
+    std::cout << "Test Player Getter/Setter allCreatures - liste complete : ";
+    std::vector<std::shared_ptr<CreaturesGroup>> group1;
+    group1.push_back(new CreaturesGroup(CreaturesID::BLACKSMITH));
     p1->setAllCreatures(true,0);
     std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test Player Getter/Setter allCreatures - ajout d'un element : ";
-    //std::shared_ptr<CreaturesGroup> group2 = group;
+    std::shared_ptr<CreaturesGroup> group2 = group;
     p1->setAllCreatures(true, 3);
     std::cout << ((p1->getAllCreatures().size() == 1) ? "OK" : "KO") << std::endl;
     
@@ -167,7 +169,7 @@ void TestsPlayer()
     //CreaturesGroup group3 = group;
     p1->setAllCreatures(false, 17);
     std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl<< std::endl;
-
+*/
 
     std::cout << "FIN TESTS PLAYER"  << std::endl<< std::endl;
     
@@ -209,15 +211,11 @@ void TestsCell()
     std::cout << "Création d'une cellule Cell : ";
     std::unique_ptr<Cell> c1(new Cell());
     std::cout << ((c1!=NULL) ? "OK" : "KO") << std::endl;
-    
-    std::cout << "Test Cell Getters/Setters type : ";
-    c1->setCellType(CellTypeID::SIMPLE);
-    std::cout << ((c1->getCellType()==CellTypeID::SIMPLE) ? "OK" : "KO") << std::endl;
-    
+    /*
     std::cout << "Test Cell Getters/Setters state : ";
     c1->setCellState(CellState::POISONED);
     std::cout << ((c1->getCellState()==CellState::POISONED) ? "OK" : "KO") << std::endl;
-        
+    */
     std::cout << "Test Cell Getters/Setters occupied : ";
     c1->setOccupied(true);
     std::cout << ((c1->getOccupied()==true) ? "OK" : "KO") << std::endl;
@@ -241,11 +239,11 @@ void TestsSpecialCell()
     std::cout << "DEBUT TESTS SPECIALCELL" << std::endl << std::endl;
 	
     std::cout << "Création d'une cellule spéciale SpecialCell : ";
-    std::unique_ptr<SpecialCell> cs(new SpecialCell(SpecialCellID::SKY, "stone", 2, 4, 4));
+    std::unique_ptr<SpecialCell> cs(new SpecialCell(ID::SKY, "stone", 2, 4, 4));
     std::cout << ((cs!=NULL) ? "OK" : "KO") << std::endl;
 
     std::cout << "Test SpecialCell Initialisation id : ";
-    std::cout << ((cs->getSpecialCellType()==SpecialCellID::SKY) ? "OK" : "KO") << std::endl;
+    std::cout << ((cs->getElemType()==ID::SKY) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test SpecialCell Initialisation resType : ";
     std::cout << ((cs->getResType()=="stone") ? "OK" : "KO") << std::endl;
@@ -260,12 +258,12 @@ void TestsSpecialCell()
     std::cout << ((cs->getY()==4) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test SpecialCell Getters/Setters SpecialCellType : ";
-    cs->setSpecialCellType(SpecialCellID::POOL);
-    std::cout << ((cs->getSpecialCellType()==SpecialCellID::POOL) ? "OK" : "KO") << std::endl << std::endl;
+    cs->setElemType(ID::POOL);
+    std::cout << ((cs->getElemType()==ID::POOL) ? "OK" : "KO") << std::endl << std::endl;
 	
     std::cout << "FIN TESTS SPECIALCELL" << std::endl << std::endl;
     
-    cs.reset(new SpecialCell(SpecialCellID::SKY, "stone", 2, 4, 4));
+    cs.reset(new SpecialCell(ID::SKY, "stone", 2, 4, 4));
 }
 
 void TestsSimpleCell()
@@ -273,11 +271,11 @@ void TestsSimpleCell()
     std::cout << "DEBUT TESTS SIMPLECELL" << std::endl << std::endl;
 	
     std::cout << "Création d'une cellule simple SimpleCell : ";
-    std::unique_ptr<SimpleCell> cs(new SimpleCell(SimpleCellID::GRASS, "stone", 2, 4, 4));
+    std::unique_ptr<SimpleCell> cs(new SimpleCell(ID::GRASS, "stone", 2, 4, 4));
     std::cout << ((cs!=NULL) ? "OK" : "KO") << std::endl;
 
     std::cout << "Test SimpleCell Initialisation id : ";
-    std::cout << ((cs->getSimpleCellType()==SimpleCellID::GRASS) ? "OK" : "KO") << std::endl;
+    std::cout << ((cs->getElemType()==ID::GRASS) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test SimpleCell Initialisation resType : ";
     std::cout << ((cs->getResType()=="stone") ? "OK" : "KO") << std::endl;
@@ -292,12 +290,12 @@ void TestsSimpleCell()
     std::cout << ((cs->getY()==4) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test SimpleCell Getters/Setters SimpleCellType : ";
-    cs->setSimpleCellType(SimpleCellID::DIRT);
-    std::cout << ((cs->getSimpleCellType()==SimpleCellID::DIRT) ? "OK" : "KO") << std::endl<< std::endl;
+    cs->setElemType(ID::DIRT);
+        std::cout << ((cs->getElemType()==ID::DIRT) ? "OK" : "KO") << std::endl<< std::endl;
     
     std::cout << "FIN TESTS SIMPLECELL" << std::endl << std::endl;
     
-    cs.reset(new SimpleCell(SimpleCellID::GRASS, "stone", 2, 4, 4));
+    cs.reset(new SimpleCell(ID::GRASS, "stone", 2, 4, 4));
 	
 }
 

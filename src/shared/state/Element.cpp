@@ -8,7 +8,9 @@ namespace state
         x = 0;
         y = 0;
         creaturesNbr = 0;
-        //elemType = TypeID::CELL;
+        cellState = CellState::NORMAL;
+        type = TypeID::CELL;
+        elemType = ID::GRASS;
         //std::cout << this << std::endl;
     }
     
@@ -16,7 +18,9 @@ namespace state
         x = 0;
         y = 0;
         creaturesNbr = 0;
-        elemType = type;
+        cellState = CellState::NORMAL;
+        type = type;
+        elemType = ((type == TypeID::CELL) ? ID::GRASS : ID::BLACKSMITH);
     }
     
     Element::~Element() {}
@@ -26,9 +30,10 @@ namespace state
         bool coordX = (this->x == otherElement.getX());
         bool coordY = (this->y == otherElement.getY());
         bool creaNbr = (this->creaturesNbr == otherElement.getCreaturesNbr());
-        bool type = (this->elemType == otherElement.getElemType());
+       // bool type = (this->type == otherElement.getType());
+        bool elemType = (this->elemType == otherElement.getElemType());
         
-        if (coordX && coordY && creaNbr && type)
+        if (coordX && coordY && creaNbr && elemType)
             return true;
         else
             return false;
@@ -59,11 +64,12 @@ namespace state
         this->creaturesNbr = creaturesNbr;
     }
     
-    TypeID Element::getElemType() const{
+    ID Element::getElemType() const{
+        std::cout << "get elemtype" << std::endl;
         return this->elemType;
     }
     
-    void Element::setElemType(TypeID elemType)
+    void Element::setElemType(ID elemType)
     {
         this->elemType = elemType;
     }
