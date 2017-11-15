@@ -13,6 +13,7 @@ namespace state {
 }
 
 #include "state/Element.h"
+#include "state/ID.h"
 #include "Tile.h"
 
 namespace render {
