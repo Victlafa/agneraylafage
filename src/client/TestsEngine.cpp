@@ -31,11 +31,11 @@ namespace engine {
         
         // On place un forgeron
         std::cout << "Creation d'un forgeron associé au joueur 1" << std::endl;
-        CreaturesGroup* forgeron = new CreaturesGroup(CreaturesID::BLACKSMITH, 2, moteur.getPlayer(1).get());
+        CreaturesGroup* forgeron = new CreaturesGroup(ID::BLACKSMITH, 2, moteur.getPlayer(1).get());
         moteur.getState().getCharacters()->set(forgeron,ligneCombat,colonne1);
         // On place un cuisinie dans la case (4,3)
         std::cout << "Creation d'un cuisinier associé au joueur 2" << std::endl;
-        CreaturesGroup* cuisinier = new CreaturesGroup(CreaturesID::COOKER, 2, moteur.getPlayer(2).get());
+        CreaturesGroup* cuisinier = new CreaturesGroup(ID::COOKER, 2, moteur.getPlayer(2).get());
         moteur.getState().getCharacters()->set(cuisinier,ligneCombat,colonne2);
         
         // On souhaite que le joueur 1 attaque le joueur 2
@@ -63,7 +63,7 @@ namespace engine {
         
         // On place un forgeron en (ligne,colonne)
         std::cout << "Creation d'un forgeron associé au joueur 1" << std::endl;
-        CreaturesGroup* forgeron = new CreaturesGroup(CreaturesID::BLACKSMITH, 2, moteur.getPlayer(1).get());
+        CreaturesGroup* forgeron = new CreaturesGroup(ID::BLACKSMITH, 2, moteur.getPlayer(1).get());
         moteur.getState().getCharacters()->set(forgeron,ligne,colonne);
         std::cout << "Position avant deplacement : (" << forgeron->getX() << "," << forgeron->getY() << ")\n" << std::endl;
         
@@ -90,7 +90,7 @@ namespace engine {
         
         // On place un forgeron en (ligne,colonne)
         std::cout << "Creation d'un forgeron associé au joueur 1" << std::endl;
-        CreaturesGroup* forgeron = new CreaturesGroup(CreaturesID::BLACKSMITH, 2, moteur.getPlayer(1).get());
+        CreaturesGroup* forgeron = new CreaturesGroup(ID::BLACKSMITH, 2, moteur.getPlayer(1).get());
         moteur.getState().getCharacters()->set(forgeron,ligne,colonne);
         
         // On empoisonne la case concernee

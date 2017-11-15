@@ -11,11 +11,7 @@
  * Created on 22 octobre 2017, 11:28
  */
 
-#include <iostream>
-#include <time.h>
 #include "TestsRender.h"
-#include "state.h"
-#include "render.h"
 
 namespace render {
 
@@ -101,7 +97,7 @@ namespace render {
         
         std::cout << "Positionnement des Cellules Spéciales" << std::endl;
         //Positionnement des Cellules Spéciales
-        std::vector<state::SpecialCell> l_SpeC;
+        std::vector<SpecialCell> l_SpeC;
         std::vector<state::ID> l_SpeCID = {state::ID::BARBECUE, state::ID::CANDY, state::ID::POOL, state::ID::SKY};
         std::vector<int> li = {0,0,0,0};//liste des ordonnées des cellules spéciales
         std::vector<int> lj = {0,0,0,0};//liste des absisses des cellules simples
@@ -133,29 +129,29 @@ namespace render {
 
             
             std::string restype = "wood";
-            state::SpecialCell *spec = new state::SpecialCell(l_SpeCID[sc], restype, 2, i, j);
-            l_SpeC.push_back(*spec);
+            SpecialCell spec(l_SpeCID[sc], restype, 2, i, j);
+            l_SpeC.push_back(spec);
             li[sc]=i;lj[sc]=j;
             
             //map_cell(i,j)=*spec;
             //on adapte les coordonnées de la cellule à la liste des textures
             if(i*7+j<7){
-                map_cell[i*7+j-2]=*spec;
+                map_cell[i*7+j-2]=spec;
                 map_cell_text[i*7+j-2]=sc+3;
             }else 
                 if(i*7+j<27){
-                    map_cell[i*7+j-3]=*spec;
+                    map_cell[i*7+j-3]=spec;
                     map_cell_text[i*7+j-3]=sc+3;
             }else 
                 if(i*7+j<33){
-                    map_cell[i*7+j-4]=*spec;
+                    map_cell[i*7+j-4]=spec;
                     map_cell_text[i*7+j-4]=sc+3;
             }else 
                 if(i*7+j<34){
-                    map_cell[i*7+j-5]=*spec;
+                    map_cell[i*7+j-5]=spec;
                     map_cell_text[i*7+j-5]=sc+3;
             }else{
-                map_cell[i*7+j-6]=*spec;
+                map_cell[i*7+j-6]=spec;
                 map_cell_text[i*7+j-6]=sc+3;
             }
             
@@ -179,7 +175,7 @@ namespace render {
                     state::ID id = l_SimCID[iid];
                     //on adapte les coordonnées de la cellule à la liste des textures
                     if(i*7+j<7){
-                        map_cell[i*7+j-2]=state::SimpleCell(id,restype,4,i,j);
+                        map_cell[i*7+j-2]=SimpleCell(id,restype,4,i,j);
                         map_cell_text[i*7+j-2]=iid;
                     }else 
                         if(i*7+j<27){
@@ -480,7 +476,7 @@ namespace render {
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
         
-        ElementTabLayer tabLayer(etat.getGrid(),0);
+        ElementTabLayer tabLayer(*(etat.getGrid().get()),0);
         
         tabLayer.initSurface();
         Surface *surf = new Surface();
@@ -501,11 +497,11 @@ namespace render {
         std::vector<int> listYText = std::vector<int>();
         listYText.reserve(29);
         
-        for(unsigned int i=0; i<etat.getGrid().getHeight(); i++){
+        for(unsigned int i=0; i<etat.getGrid()->getHeight(); i++){
             
-            for(unsigned int j=0; j<etat.getGrid().getWidth(); j++){
+            for(unsigned int j=0; j<etat.getGrid()->getWidth(); j++){
                 
-                switch(etat.getGrid().get(i,j)->getElemType()){
+                switch(etat.getGrid()->get(i,j)->getElemType()){
                     case state::ID::SAND :
                         listXText.push_back(71);
                         listYText.push_back(81);
@@ -535,19 +531,19 @@ namespace render {
                         listYText.push_back(221);
                         break;
                     case state::ID::BLACKSMITH :
-                        listXText.push_back(50*(etat.getCharacters().get(i,j)->getCreaturesNbr()+1));
+                        listXText.push_back(50*(etat.getCharacters()->get(i,j)->getCreaturesNbr()+1));
                         listYText.push_back(50);
                         break;
                     case state::ID::COOKER :
-                        listXText.push_back(50*(etat.getCharacters().get(i,j)->getCreaturesNbr()+1));
+                        listXText.push_back(50*(etat.getCharacters()->get(i,j)->getCreaturesNbr()+1));
                         listYText.push_back(100);
                         break;
                     case state::ID::LUMBERJACK :
-                        listXText.push_back(50*(etat.getCharacters().get(i,j)->getCreaturesNbr()+1));
+                        listXText.push_back(50*(etat.getCharacters()->get(i,j)->getCreaturesNbr()+1));
                         listYText.push_back(150);
                         break;
                     case state::ID::MINER :
-                        listXText.push_back(50*(etat.getCharacters().get(i,j)->getCreaturesNbr()+1));
+                        listXText.push_back(50*(etat.getCharacters()->get(i,j)->getCreaturesNbr()+1));
                         listYText.push_back(200);
                         break;
                     default :

@@ -13,15 +13,15 @@ void testSFML() {
 
 #include "../shared/state.h"
 #include "render.h"
-//#include "../shared/engine.h"
+#include "../shared/engine.h"
 #include "TestsState.h"
 #include "TestsRender.h"
-//#include "TestsEngine.h"
+#include "TestsEngine.h"
 
 using namespace std;
 using namespace state;
 using namespace render;
-//using namespace engine;
+using namespace engine;
 
 
 int main(int argc,char* argv[]) 
@@ -55,32 +55,23 @@ int main(int argc,char* argv[])
             //TestInitMap();
             //TestsElementTabLayer();
             //state::Element el;
-<<<<<<< HEAD
-            //state::State etat;
-            //state::ElementTab tabCell(state::TypeID::CELL, 7, 5);
-            //TestAffichage();
-            
-=======
+
             state::State *etat = new State();
             //state::ElementTab tabCell(state::TypeID::CELL, 7, 5)
             //state::ElementTab grid;
             //grid = etat.getGrid();
             TestAffichage(*etat);
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
 
         }
         
         else if (argc >= 2 && (string) argv[1] == "engine") {
-<<<<<<< HEAD
+
             srand(time(NULL));
             
             TestsFightCommand();
             TestsMoveCharCommand();
             TestsPoisonCommand();
             TestsNewGameCommand();
-=======
-            //TestsFightCommand();
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
         }
         
     } catch (const std::exception &e) {

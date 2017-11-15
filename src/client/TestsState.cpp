@@ -4,10 +4,7 @@
  * and open the template in the editor.
  */
 
-#include "state.h"
 #include "TestsState.h"
-#include <iostream>
-
 
 namespace state
 {
@@ -19,34 +16,28 @@ void TestsElementTab()
     size_t a, b;
     a=3;b=4;
     
-<<<<<<< HEAD
     std::shared_ptr<ElementTab> elemTab ( new ElementTab(TypeID::CELL,a,b) );
-    elemTab.get()->init();
-=======
-    //std::shared_ptr<ElementTab> elemTab ( new ElementTab(a,b) );
-    //elemTab.get()->init(TypeID::CELL);
-    ElementTab elemTab(a,b);
-    elemTab.init(TypeID::CELL);
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
+    elemTab->init();
+    
     Element* elemTest = new Element();
     
     std::cout << "Test ElementTab - Init tableau : ";
-    std::cout << ((NULL != elemTab.get(0,0)) ? "OK" : "KO") << std::endl;
+    std::cout << ((NULL != elemTab->get(0,0)) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test ElementTab - Getters hauteur et largeur du tableau : ";
-    std::cout << ((elemTab.getHeight()==4 && elemTab.getWidth()==3) ? "OK" : "KO") << std::endl;
+    std::cout << ((elemTab->getHeight()==4 && elemTab->getWidth()==3) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test ElementTab - Methode resize du tableau : ";
-    elemTab.resize(6,8);
-    std::cout << ((elemTab.getHeight()==8 && elemTab.getWidth()==6) ? "OK" : "KO") << std::endl;
+    elemTab->resize(6,8);
+    std::cout << ((elemTab->getHeight()==8 && elemTab->getWidth()==6) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test ElementTab - Getters/Setters type de tableau : ";
-    elemTab.setTabType(TypeID::CELL);
-    std::cout << ((elemTab.getTabType()==TypeID::CELL) ? "OK" : "KO") << std::endl;
+    elemTab->setTabType(TypeID::CELL);
+    std::cout << ((elemTab->getTabType()==TypeID::CELL) ? "OK" : "KO") << std::endl;
     
     std::cout << "Test ElementTab - Setter/Getter Element du tableau : ";
-    elemTab.set(elemTest, 1, 1);
-    std::cout << ((elemTab.get(1,1).get() == elemTest) ? "OK" : "KO") << std::endl << std::endl;
+    elemTab->set(elemTest, 1, 1);
+    std::cout << ((elemTab->get(1,1).get() == elemTest) ? "OK" : "KO") << std::endl << std::endl;
     
     std::cout << "FIN TESTS ELEMENTTAB" << std::endl << std::endl;
     
@@ -54,28 +45,7 @@ void TestsElementTab()
 
 void TestsCreaturesGroup()
 {
-<<<<<<< HEAD
-//    std::cout << "DEBUT TESTS CREATURESGROUP" << std::endl << std::endl;
-//    
-//    std::unique_ptr<CreaturesGroup> group(new CreaturesGroup(CreaturesID::COOKER, new Player()));
-//    group->toPlace(2,2);
-//    
-//    std::cout << "Création d'un groupe de créatures : ";
-//    std::cout << ((NULL != group) ? "OK" : "KO") << std::endl;
-//    
-//    std::cout << "Test getter du type de créatures : ";
-//    std::cout << ((group->getCreaturesType() == CreaturesID::COOKER) ? "OK" : "KO") << std::endl;
-//    
-//    std::cout << "Test getter/setter de placed : ";
-//    std::cout << ((group->getPlaced() == true) ? "OK" : "KO") << std::endl;
-//    
-//    std::cout << "Test getter coordonnees : ";
-//    std::cout << ((group->getX() == 2 && group->getY() == 2) ? "OK" : "KO") << std::endl<< std::endl;
-//    
-//    std::cout << "FIN TESTS CREATURESGROUP" << std::endl << std::endl;
-//    
-//    group.reset(new CreaturesGroup(CreaturesID::COOKER, new Player()));
-=======
+
     std::cout << "DEBUT TESTS CREATURESGROUP" << std::endl << std::endl;
     
     std::unique_ptr<CreaturesGroup> group(new CreaturesGroup(ID::COOKER));
@@ -96,7 +66,6 @@ void TestsCreaturesGroup()
     std::cout << "FIN TESTS CREATURESGROUP" << std::endl << std::endl;
     
     group.reset(new CreaturesGroup(ID::COOKER));
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
 }
 
 void TestsPlayer()
@@ -165,71 +134,7 @@ void TestsPlayer()
     p1->modifySpeCellsNames("NomCellule",false);
     std::cout << ((p1->getSpeCellsNames().size() == listSize - 1) ? "OK" : "KO") << std::endl;
 
-<<<<<<< HEAD
-=======
-    
-/*
-    std::cout << "Test Player Getter/Setter allCreatures - liste complete : ";
-    p1->setAllCreatures(std::vector<std::shared_ptr<CreaturesGroup>>());
-    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl;
-    
-    std::cout << "Test Player Getter/Setter allCreatures - ajout d'un element : ";
-    CreaturesGroup *group = new CreaturesGroup(CreaturesID::BLACKSMITH);
-    //std::shared_ptr<CreaturesGroup> group2 = group;
-    p1->setAllCreatures(true, group, 3);
-    std::cout << ((p1->getAllCreatures().size() == 1) ? "OK" : "KO") << std::endl;
-    
-    std::cout << "Test Player Getter/Setter allCreatures - retrait d'un element : ";
-    //CreaturesGroup group3 = group;
-    p1->setAllCreatures(false, group, 17);
-    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl<< std::endl;*/
-/*
-    std::cout << "Test Player Getter/Setter allCreatures - liste complete : ";
-    std::vector<std::shared_ptr<CreaturesGroup>> group1;
-    group1.push_back(new CreaturesGroup(CreaturesID::BLACKSMITH));
-    p1->setAllCreatures(true,0);
-    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl;
-    
-    std::cout << "Test Player Getter/Setter allCreatures - ajout d'un element : ";
-    std::shared_ptr<CreaturesGroup> group2 = group;
-    p1->setAllCreatures(true, 3);
-    std::cout << ((p1->getAllCreatures().size() == 1) ? "OK" : "KO") << std::endl;
-    
-    std::cout << "Test Player Getter/Setter allCreatures - retrait d'un element : ";
-    //CreaturesGroup group3 = group;
-    p1->setAllCreatures(false, 17);
-    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl<< std::endl;
-*/
->>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
-
     std::cout << "FIN TESTS PLAYER"  << std::endl<< std::endl;
-    
-    //group.reset(new CreaturesGroup(CreaturesID::BLACKSMITH) );
-    //group2.reset(new CreaturesGroup(CreaturesID::BLACKSMITH));
-    //group3.reset(new CreaturesGroup(CreaturesID::BLACKSMITH));
-
-//    
-//    std::cout << "Test Player Getter/Setter allCreatures - liste complete : ";
-//    p1->setAllCreatures(std::vector<std::shared_ptr<CreaturesGroup>>());
-//    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl;
-//    
-//    std::cout << "Test Player Getter/Setter allCreatures - ajout d'un element : ";
-//    std::shared_ptr<CreaturesGroup> group(new CreaturesGroup(CreaturesID::BLACKSMITH));
-//    std::shared_ptr<CreaturesGroup> group2 = group;
-//    p1->setAllCreatures(true, group2);
-//    std::cout << ((p1->getAllCreatures().size() == 1) ? "OK" : "KO") << std::endl;
-//    
-//    std::cout << "Test Player Getter/Setter allCreatures - retrait d'un element : ";
-//    std::shared_ptr<CreaturesGroup> group3 = group;
-//    p1->setAllCreatures(false, group3);
-//    std::cout << ((p1->getAllCreatures().size() == 0) ? "OK" : "KO") << std::endl<< std::endl;
-
-    std::cout << "FIN TESTS PLAYER"  << std::endl<< std::endl;
-    
-//    group.reset(new CreaturesGroup(CreaturesID::BLACKSMITH) );
-//    group2.reset(new CreaturesGroup(CreaturesID::BLACKSMITH));
-//    group3.reset(new CreaturesGroup(CreaturesID::BLACKSMITH));
-
 
     p1.reset(new Player());
     

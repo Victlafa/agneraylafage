@@ -14,7 +14,12 @@
 #ifndef TESTSRENDER_H
 #define TESTSRENDER_H
 
-#include "state.h"
+//#include "state.h"
+#include "../shared/state.h"
+#include "render.h"
+#include <iostream>
+#include <time.h>
+
 using namespace state;
 
 namespace render

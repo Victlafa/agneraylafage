@@ -14,6 +14,9 @@
 #ifndef TESTS_H
 #define TESTS_H
 
+#include "../shared/state.h"
+#include <iostream>
+
 namespace state
 {
     void TestsElementTab();
