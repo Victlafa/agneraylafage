@@ -26,7 +26,11 @@ namespace state {
     std::vector<std::unique_ptr<Element> > list;
     // Operations
   public:
+<<<<<<< HEAD
     ElementTab (TypeID type, size_t width = 7, size_t height = 5);
+=======
+    ElementTab (size_t width = 7, size_t height = 5);
+>>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
     ~ElementTab ();
     size_t getWidth () const;
     size_t getHeight () const;

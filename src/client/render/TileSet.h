@@ -3,6 +3,7 @@
 #define RENDER__TILESET__H
 
 #include <string>
+#include <memory>
 
 namespace render {
   class Tile;
@@ -26,6 +27,7 @@ namespace render {
     virtual int getCellHeight () const = 0;
     virtual const std::string getImageFile () const = 0;
     virtual const Tile& getTile (const state::Element& elem) const = 0;
+    virtual const Tile& getTile (const std::unique_ptr<state::Element>& elem) const = 0;
     // Setters and Getters
   };
 

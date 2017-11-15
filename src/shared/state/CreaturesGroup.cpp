@@ -14,6 +14,7 @@ namespace state
     int CreaturesGroup::stolenResourceNbr = 2;
     
     // Constructors :
+<<<<<<< HEAD
     CreaturesGroup::CreaturesGroup (CreaturesID type, int nbrCrea, Player* joueur) : Element(TypeID::CREATURESGROUP){
         placed = false;
         creaturesType = type;
@@ -29,12 +30,21 @@ namespace state
         this->y = elem.getY();
         this->creaturesNbr = elem.getCreaturesNbr();
         this->joueur = joueur;
+=======
+    CreaturesGroup::CreaturesGroup (ID type) : Element(TypeID::CREATURESGROUP){
+        placed = false;
+        setElemType(type);
+>>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
     }
     
         CreaturesGroup::CreaturesGroup (const Element& elem) : Element(TypeID::CREATURESGROUP)
     {
+<<<<<<< HEAD
         this->creaturesType = ((CreaturesGroup)elem).getCreaturesType();
         this->joueur = ((CreaturesGroup)elem).getPlayer();
+=======
+        setElemType(ID::BLACKSMITH);
+>>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
         this->placed = false;
         this->x = elem.getX();
         this->y = elem.getY();
@@ -57,7 +67,7 @@ namespace state
 
     bool CreaturesGroup::operator== (CreaturesGroup otherGroup) {
         bool creaNbr = this->creaturesNbr == otherGroup.getCreaturesNbr();
-        bool type = this->creaturesType == otherGroup.getCreaturesType();
+        bool type = this->getElemType() == otherGroup.getElemType();
         bool onMap = this->placed == otherGroup.getPlaced();
         bool posX = this->x == otherGroup.getX();
         bool posY = this->y == otherGroup.getY();
@@ -68,6 +78,7 @@ namespace state
             return false;
     }
     
+<<<<<<< HEAD
     Player* CreaturesGroup::getPlayer (){return joueur;}
     void CreaturesGroup::setPlayer (Player* joueur){this->joueur = joueur;}
     
@@ -78,4 +89,6 @@ namespace state
     void CreaturesGroup::setCreaturesType(CreaturesID Creatures_type){
         this->creaturesType = Creatures_type;
     }
+=======
+>>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
 };

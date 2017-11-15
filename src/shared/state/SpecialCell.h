@@ -6,26 +6,24 @@
 
 namespace state {
   class Element;
+  class SpecialCell;
   class Cell;
 }
 
-#include "SpecialCellID.h"
+#include "ID.h"
 #include "Cell.h"
 
 namespace state {
 
   /// class SpecialCell - 
   class SpecialCell : public state::Cell {
-    // Associations
-    state::SpecialCellID specialCellType;
     // Operations
   public:
-    SpecialCell (SpecialCellID type, std::string resType, int resNbr, int x, int y);
+    SpecialCell (ID type, std::string resType, int resNbr, int x, int y);
     SpecialCell (const Element& elem);
     ~SpecialCell ();
+    bool operator== (SpecialCell otherSpecialCell);
     // Setters and Getters
-    SpecialCellID getSpecialCellType() const;
-    void setSpecialCellType(SpecialCellID specialCellType);
   };
 
 };

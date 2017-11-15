@@ -55,19 +55,23 @@ namespace render
             this->quadsList.push_back(sf::VertexArray(sf::Quads,4));
         }
     }
-//    // Setters and Getters
+
+    // Setters and Getters
     const sf::Texture& Surface::getTexture() const
     {
         return this->texture;
     }
+    
     void Surface::setTexture(const sf::Texture& texture)
     {
         this->texture = texture;
     }
+    
     const std::vector<sf::VertexArray>& Surface::getQuadsList() const
     {
         return this->quadsList;
     }
+    
     void Surface::setQuadsList(const std::vector<sf::VertexArray>& quadsList)
     {
         this->quadsList = quadsList;

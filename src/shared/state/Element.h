@@ -8,33 +8,41 @@ namespace state {
 }
 
 #include "TypeID.h"
+#include "ID.h"
+#include "CellState.h"
 
 namespace state {
 
   /// class Element - 
   class Element {
     // Associations
-    state::TypeID elemType;
+    state::ID elemType;
+    state::CellState cellState;
     // Attributes
   protected:
     int x;
     int y;
     int creaturesNbr;
+    TypeID type;
     // Operations
   public:
     Element ();
     Element (TypeID type);
     virtual ~Element ();
     bool operator== (Element otherElement);
+    TypeID getType ();
     // Setters and Getters
-    TypeID getElemType() const;
-    void setElemType(TypeID elemType);
+    ID getElemType() const;
+    void setElemType(ID elemType);
+    CellState getCellState() const;
+    void setCellState(CellState cellState);
     int getX() const;
     void setX(int x);
     int getY() const;
     void setY(int y);
     int getCreaturesNbr() const;
     void setCreaturesNbr(int creaturesNbr);
+    void setType(TypeID type);
   };
 
 };

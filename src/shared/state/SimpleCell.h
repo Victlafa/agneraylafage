@@ -6,26 +6,24 @@
 
 namespace state {
   class Element;
+  class SimpleCell;
   class Cell;
 }
 
-#include "SimpleCellID.h"
+#include "ID.h"
 #include "Cell.h"
 
 namespace state {
 
   /// class SimpleCell - 
   class SimpleCell : public state::Cell {
-    // Associations
-    state::SimpleCellID simpleCellType;
     // Operations
   public:
-    SimpleCell (SimpleCellID type, std::string resType, int resNbr, int x, int y);
+    SimpleCell (ID type, std::string resType, int resNbr, int x, int y);
     SimpleCell (const Element& elem);
     ~SimpleCell ();
+    bool operator== (SimpleCell otherSimpleCell);
     // Setters and Getters
-    SimpleCellID getSimpleCellType() const;
-    void setSimpleCellType(SimpleCellID simpleCellType);
   };
 
 };

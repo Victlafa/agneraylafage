@@ -8,17 +8,18 @@ namespace state {
   class Element;
 }
 
+<<<<<<< HEAD
 #include "CellTypeID.h"
 #include "CellState.h"
+=======
+#include "ID.h"
+>>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
 #include "Element.h"
 
 namespace state {
 
   /// class Cell - 
   class Cell : public state::Element {
-    // Associations
-    state::CellTypeID cellType;
-    state::CellState cellState;
     // Attributes
   protected:
     std::string resType;
@@ -27,14 +28,15 @@ namespace state {
     // Operations
   public:
     Cell ();
+<<<<<<< HEAD
     Cell (CellTypeID type);
     Cell (const Element& elem, CellTypeID type = CellTypeID::SIMPLE, CellState state = CellState::NORMAL);
+=======
+    Cell (ID type);
+    Cell (const Element& elem);
+>>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
     ~Cell ();
     // Setters and Getters
-    CellTypeID getCellType() const;
-    void setCellType(CellTypeID cellType);
-    CellState getCellState() const;
-    void setCellState(CellState cellState);
     const std::string& getResType() const;
     void setResType(const std::string& resType);
     int getResNbr() const;

@@ -3,6 +3,7 @@
 #define RENDER__CHARSTILESET__H
 
 #include <string>
+#include <memory>
 
 namespace render {
   class Tile;
@@ -17,6 +18,7 @@ namespace state {
   class CreaturesGroup;
 }
 
+#include "state/Element.h"
 #include "TileSet.h"
 #include "state/CreaturesGroup.h"
 
@@ -34,6 +36,7 @@ namespace render {
     int getCellHeight () const;
     const std::string getImageFile () const;
     const Tile& getTile (const state::Element& elem) const;
+    const Tile& getTile (const std::unique_ptr<state::Element>& elem) const;
     // Setters and Getters
   };
 

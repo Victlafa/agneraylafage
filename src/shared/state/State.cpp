@@ -22,11 +22,27 @@ namespace state
     }
     
     // Setters and Getters
+<<<<<<< HEAD
     const std::unique_ptr<ElementTab>& State::getGrid() const{
+=======
+   /* const ElementTab& State::getGrid() const{
+>>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
+        return grid;
+    }*/
+    
+<<<<<<< HEAD
+    const std::unique_ptr<ElementTab>& State::getCharacters () const{
+=======
+    ElementTab& State::getGrid() {
         return grid;
     }
     
-    const std::unique_ptr<ElementTab>& State::getCharacters () const{
+    /*const ElementTab& State::getCharacters () const{
+        return characters;
+    }*/
+    
+    ElementTab& State::getCharacters () {
+>>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
         return characters;
     }
     

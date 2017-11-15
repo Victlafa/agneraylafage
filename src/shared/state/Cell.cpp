@@ -5,41 +5,41 @@
  */
 
 #include "Cell.h"
-#include "SimpleCellID.h"
 
 namespace state
 {
     // Constructor :
     
     Cell::Cell(): Element(TypeID::CELL){
-        this->cellType = CellTypeID::SIMPLE;
-        this->cellState = CellState::NORMAL;
+        this->setElemType(ID::GRASS);
+        //this->setCellState(CellState::NORMAL);
     }
     
-    Cell::Cell(CellTypeID type) : Element(TypeID::CELL) {
-        setCellType(type);
-        this->cellState = CellState::NORMAL;
+    Cell::Cell(ID type) : Element(TypeID::CELL) {
+        this->setElemType(type);
+        //this->setCellState(CellState::NORMAL);
     }
     
+<<<<<<< HEAD
     Cell::~Cell(){}
     
     Cell::Cell(const state::Element& elem, CellTypeID type, CellState state){
         this->cellType = type;
         this->cellState = state;
+=======
+    Cell::Cell(const state::Element& elem) : Element(TypeID::CELL){
+        this->setElemType(ID::GRASS);
+        //this->setCellState(CellState::NORMAL);
+>>>>>>> c836bcfb3b8edfe27cda0d2258311ea44d93de9c
         this->x=elem.getX();
         this->y=elem.getY();
         this->creaturesNbr=elem.getCreaturesNbr();
     }
     
+    Cell::~Cell(){}
+    
+    
     // Setters and Getters :
-    
-    CellState Cell::getCellState () const{
-        return this->cellState;
-    }
-    
-    void Cell::setCellState(CellState cellState){
-        this->cellState = cellState;
-    }
     
     const std::string& Cell::getResType() const{
         return this->resType;
@@ -55,14 +55,6 @@ namespace state
     
     void Cell::setResNbr(int resNbr){
         this->resNbr = resNbr;
-    }
-    
-    CellTypeID Cell::getCellType() const{
-        return this->cellType;
-    }
-    
-    void Cell::setCellType(CellTypeID cellType){
-        this->cellType = cellType;
     }
 
     bool Cell::getOccupied() const{
