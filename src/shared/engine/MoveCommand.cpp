@@ -20,7 +20,16 @@ namespace engine{
     }
     
     CommandTypeID MoveCommand::getTypeID () const { return CommandTypeID::MOVE; }
-    void MoveCommand::execute (state::State& state) {}
+    
+    void MoveCommand::execute (state::State& state) {
+        
+        // Si la case de destination est occupée par l'adversaire, on engage un combat
+        if (state.getCharacters()->isOccupiedByOpp(finalPos[0],finalPos[1],state.getPlayer(player).get()))
+            fight->execute(state);
+        
+        // Une fois le combat achevé, on procède au deplacement
+        state.getCharacters()->moveElement(initPos[0],initPos[1],finalPos[0],finalPos[1]);
+    }
     
     // Setters and Getters
     const std::shared_ptr<Fight>& MoveCommand::getFight() const {return fight;}
