@@ -72,6 +72,7 @@ int main(int argc,char* argv[])
             //TestsMoveCharCommand();
             //TestsPoisonCommand();
             //TestsNewGameCommand();
+            TestsMoveCommand();
         }
         
     } catch (const std::exception &e) {

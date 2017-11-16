@@ -23,6 +23,7 @@ namespace engine{
     void TestsMoveCharCommand();
     void TestsPoisonCommand();
     void TestsNewGameCommand();
+    void TestsMoveCommand();
 }
 
 #endif /* TESTSENGINE_H */

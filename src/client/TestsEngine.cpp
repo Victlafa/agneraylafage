@@ -123,4 +123,41 @@ namespace engine {
         
         cout << "FIN TESTS NEWGAMECOMMAND" << endl;
     }
+    
+    void TestsMoveCommand(){
+        cout << "DEBUT TESTS MOVECHARCOMMAND" << endl;
+        
+        engine::Engine moteur;
+        
+        int ligne = 2;
+        int colonne = 4;
+        
+        // On place un forgeron en (ligne,colonne)
+        std::cout << "Creation d'un forgeron associé au joueur 1" << std::endl;
+        CreaturesGroup* forgeron = new CreaturesGroup(ID::BLACKSMITH, 2, moteur.getPlayer(1).get());
+        moteur.getState().getCharacters()->set(forgeron,ligne,colonne);
+        std::cout << "Position avant deplacement : (" << forgeron->getX() << "," << forgeron->getY() << ")\n" << std::endl;
+        
+        // On place un cuisinier dans la case à droite
+        std::cout << "Creation d'un cuisinier associé au joueur 2" << std::endl;
+        CreaturesGroup* cuisinier = new CreaturesGroup(ID::COOKER, 2, moteur.getPlayer(2).get());
+        moteur.getState().getCharacters()->set(cuisinier,ligne,colonne + 1);
+        
+        // On ajoute une commande au moteur
+        // On souhaite que la creature du joueur se deplace vers la droite
+        moteur.addCommand(1,new MoveCommand(ligne,colonne,ligne,colonne + 1,1));
+        // On execute les commandes
+        moteur.update();
+        
+        // On affiche les positions de la creature
+        
+        std::cout << "Position apres deplacement : (" << forgeron->getX() << "," << forgeron->getY() << ")\n" << std::endl;
+                
+        std::cout << "Conquetes joueur 1 :" << moteur.getState().getPlayer(1)->getConquestPoints() << std::endl;
+        std::cout << "Conquetes joueur 2 :" << moteur.getState().getPlayer(2)->getConquestPoints() << std::endl;
+
+        cout << "FIN TESTS MOVECHARCOMMAND" << endl;
+        
+        //moteur.getPlayer(1)->setIsStriker(true);
+    }
 }
