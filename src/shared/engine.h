@@ -5,9 +5,9 @@
 #include "engine/CommandTypeID.h"
 #include "engine/Command.h"
 #include "engine/Engine.h"
-#include "engine/FightCommand.h"
-#include "engine/MoveCharCommand.h"
+#include "engine/Fight.h"
 #include "engine/PoisonCommand.h"
 #include "engine/NewGameCommand.h"
 #include "engine/ProtectedCommand.h"
+#include "engine/MoveCommand.h"
 #endif
