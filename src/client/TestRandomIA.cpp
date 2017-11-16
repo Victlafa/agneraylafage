@@ -4,3 +4,12 @@
  * and open the template in the editor.
  */
 
+
+namespace ai {
+
+    void TestRandomIA() 
+    {
+        
+    }
+    
+}
