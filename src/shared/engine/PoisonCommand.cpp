@@ -18,9 +18,8 @@ namespace engine
     }
     
     bool PoisonCommand::isPoisoned (state::State& state){
-        CellState etatCell = ((Cell)*state.getGrid()->get(cell[0],cell[1])).getCellState();
-        std::cout << "etat de la cellule : " << etatCell << std::endl;
-        if (etatCell == CellState::POISONED)
+        bool isPoison = state.getGrid()->isPoisoned(cell[0],cell[1]);
+        if (isPoison)
             return true;
         else
             return false;
