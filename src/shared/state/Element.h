@@ -25,7 +25,7 @@ namespace state {
     // Operations
   public:
     Element ();
-    Element (ID type);
+    Element (ID type, CellState state);
     virtual ~Element ();
     bool operator== (Element otherElement);
     // Setters and Getters

@@ -15,13 +15,13 @@ namespace state
     
     // Constructors :
 
-    CreaturesGroup::CreaturesGroup (ID type, int nbrCrea, Player* joueur) : Element(type){
+    CreaturesGroup::CreaturesGroup (ID type, int nbrCrea, Player* joueur) : Element(type, CellState::NOTCELL){
         placed = false;
         this->joueur = joueur;
         this->setCreaturesNbr(nbrCrea);
     }
     
-    CreaturesGroup::CreaturesGroup (ID type, Player* joueur, const Element& elem) : Element(type)
+    CreaturesGroup::CreaturesGroup (ID type, Player* joueur, const Element& elem) : Element(type, CellState::NOTCELL)
     {
         this->placed = false;
         this->x = elem.getX();
@@ -29,12 +29,12 @@ namespace state
         this->creaturesNbr = elem.getCreaturesNbr();
         this->joueur = joueur;}
     
-    CreaturesGroup::CreaturesGroup (ID type) : Element(type){
+    CreaturesGroup::CreaturesGroup (ID type) : Element(type, CellState::NOTCELL){
         placed = false;
         setElemType(type);
     }
     
-    CreaturesGroup::CreaturesGroup (const Element& elem) : Element(elem.getElemType())
+    CreaturesGroup::CreaturesGroup (const Element& elem) : Element(elem.getElemType(), CellState::NOTCELL)
     {
 
         this->joueur = ((CreaturesGroup)elem).getPlayer();

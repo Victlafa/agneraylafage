@@ -24,7 +24,7 @@ namespace state {
     // Operations
   public:
     Cell ();
-    Cell (ID type);
+    Cell (ID type, CellState state);
     Cell (const Element& elem, CellState state = CellState::NORMAL);
     ~Cell ();
     // Setters and Getters

@@ -11,6 +11,7 @@ namespace state {
 }
 
 #include "ID.h"
+#include "CellState.h"
 #include "Cell.h"
 
 namespace state {
@@ -19,7 +20,7 @@ namespace state {
   class SpecialCell : public state::Cell {
     // Operations
   public:
-    SpecialCell (ID type, std::string resType, int resNbr, int x, int y);
+    SpecialCell (ID type, std::string resType, int resNbr, int x, int y, CellState state = CellState::NORMAL);
     SpecialCell (const Element& elem);
     ~SpecialCell ();
     bool operator== (SpecialCell otherSpecialCell);

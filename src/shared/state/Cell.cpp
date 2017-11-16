@@ -10,14 +10,10 @@ namespace state
 {
     // Constructor :
     
-    Cell::Cell(): Element(ID::GRASS){
-        this->setElemType(ID::GRASS);
-        //this->setCellState(CellState::NORMAL);
+    Cell::Cell(): Element(ID::GRASS,CellState::NORMAL){
     }
     
-    Cell::Cell(ID type) : Element(ID::GRASS) {
-        this->setElemType(type);
-        //this->setCellState(CellState::NORMAL);
+    Cell::Cell(ID type, CellState state) : Element(type, state) {
     }
  
     Cell::Cell(const state::Element& elem, CellState state){

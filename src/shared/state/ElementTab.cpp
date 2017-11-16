@@ -285,4 +285,21 @@ namespace state
         
     }
     
+    void ElementTab::poisonCell(bool poison, int i, int j)
+    {
+        if (poison)
+        {
+            get(i,j)->setCellState(CellState::POISONED);
+            
+            //(Cell)(*pCell,CellState::POISONED); //.setCellState(CellState::POISONED);
+            std::cout << "etat de la cellule : " << this->get(i,j)->getCellState() << std::endl;
+            std::cout << "La case (" << i << "," << j << ") a normalement ete empoisonnee\n" << std::endl;
+        }
+        
+        else
+        {
+            get(i,j)->setCellState(CellState::NORMAL);
+        }
+    }
+    
 };

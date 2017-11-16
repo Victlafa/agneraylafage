@@ -16,13 +16,13 @@ namespace state
         //std::cout << this << std::endl;
     }
     
-    Element::Element (ID type){
+    Element::Element (ID type, CellState state){
         x = 0;
         y = 0;
         creaturesNbr = 0;
         elemType = type;
         //std::cout << "Initialisation d'un element de type " << type << "\n" << std::endl;
-        cellState = CellState::NORMAL;
+        cellState = state;
         //elemType = ((type == TypeID::CELL) ? ID::GRASS : ID::BLACKSMITH);
     }
     
