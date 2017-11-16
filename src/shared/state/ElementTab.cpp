@@ -302,4 +302,11 @@ namespace state
         }
     }
     
+    bool ElementTab::isPoisoned(int i, int j){
+        if (get(i,j)->getCellState() == CellState::POISONED)
+            return true;
+        else
+            return false;
+    }
+    
 };

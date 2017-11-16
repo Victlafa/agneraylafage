@@ -42,6 +42,7 @@ namespace state {
     bool verifValiditeCase (unsigned int i, unsigned int j);
     void moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem);
     void poisonCell (bool poison, int i, int j);
+    bool isPoisoned (int i, int j);
     // Setters and Getters
     TypeID getTabType() const;
     void setTabType(TypeID tabType);
