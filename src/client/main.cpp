@@ -68,10 +68,10 @@ int main(int argc,char* argv[])
 
             srand(time(NULL));
             
-            TestsFightCommand();
-            TestsMoveCharCommand();
+            //TestsFightCommand();
+            //TestsMoveCharCommand();
             TestsPoisonCommand();
-            TestsNewGameCommand();
+            //TestsNewGameCommand();
         }
         
     } catch (const std::exception &e) {
