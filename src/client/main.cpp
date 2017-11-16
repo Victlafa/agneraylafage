@@ -75,6 +75,11 @@ int main(int argc,char* argv[])
             TestsMoveCommand();
         }
         
+        else if (argc >= 2 && (string) argv[1] == "random_ia") {
+            
+        
+        }
+        
     } catch (const std::exception &e) {
         
         cout << "Erreur, catch du main" << endl;

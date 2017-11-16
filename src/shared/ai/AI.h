@@ -7,6 +7,7 @@
 
 namespace engine {
   class Engine;
+  class Command;
 }
 
 namespace ai {
