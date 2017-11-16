@@ -309,4 +309,19 @@ namespace state
             return false;
     }
     
+    bool ElementTab::isOccupiedByOpp(int i, int j, Player* joueur){
+        
+        if (this->tabType == TypeID::CREATURESGROUP)
+        {
+            if ((this->get(i,j).get() != NULL) && &get(i,j)->getPlayer() != joueur)
+                return true;
+            else
+                return false;
+        }
+        
+        else
+            throw std::runtime_error("Cette methode ne doit pas etre utilisee pour les cellules !");
+        
+    }
+    
 };

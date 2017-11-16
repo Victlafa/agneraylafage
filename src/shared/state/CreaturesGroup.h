@@ -21,7 +21,6 @@ namespace state {
     static int stolenResourceNbr;
   private:
     bool placed;
-    Player* joueur;
     // Operations
   public:
     CreaturesGroup (ID type, int nbrCrea, Player* joueur);
@@ -32,8 +31,6 @@ namespace state {
     bool getPlaced () const;
     void toPlace (int x, int y);
     bool operator== (CreaturesGroup otherGroup);
-    Player* getPlayer ();
-    void setPlayer (Player* joueur);
     // Setters and Getters
   };
 

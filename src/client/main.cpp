@@ -72,6 +72,7 @@ int main(int argc,char* argv[])
             //TestsMoveCharCommand();
             //TestsPoisonCommand();
             //TestsNewGameCommand();
+            TestsMoveCommand();
         }
         
         else if (argc >= 2 && (string) argv[1] == "random_ia") {

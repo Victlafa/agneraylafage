@@ -17,7 +17,7 @@ namespace state
 
     CreaturesGroup::CreaturesGroup (ID type, int nbrCrea, Player* joueur) : Element(type, CellState::NOTCELL){
         placed = false;
-        this->joueur = joueur;
+        this->player = *joueur;
         this->setCreaturesNbr(nbrCrea);
     }
     
@@ -27,7 +27,8 @@ namespace state
         this->x = elem.getX();
         this->y = elem.getY();
         this->creaturesNbr = elem.getCreaturesNbr();
-        this->joueur = joueur;}
+        this->player = *joueur;
+    }
     
     CreaturesGroup::CreaturesGroup (ID type) : Element(type, CellState::NOTCELL){
         placed = false;
@@ -37,8 +38,7 @@ namespace state
     CreaturesGroup::CreaturesGroup (const Element& elem) : Element(elem.getElemType(), CellState::NOTCELL)
     {
 
-        this->joueur = ((CreaturesGroup)elem).getPlayer();
-        setElemType(((CreaturesGroup)elem).getElemType());
+        this->player = elem.getPlayer();
         this->placed = false;
         this->x = elem.getX();
         this->y = elem.getY();
@@ -72,8 +72,6 @@ namespace state
             return false;
     }
     
-    Player* CreaturesGroup::getPlayer (){return joueur;}
-    void CreaturesGroup::setPlayer (Player* joueur){this->joueur = joueur;}
     
 //    CreaturesID CreaturesGroup::getCreaturesType() const{
 //        return this->creaturesType;
