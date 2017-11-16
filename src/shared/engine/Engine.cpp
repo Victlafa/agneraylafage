@@ -58,6 +58,6 @@ namespace engine
     }
     
     void Engine::poisonCell(bool poison,int i_cell, int j_cell){
-        currentState.poisonCell(poison,i_cell,j_cell);
+        currentState.getGrid()->poisonCell(poison,i_cell,j_cell);
     }
 }
