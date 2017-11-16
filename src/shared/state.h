@@ -2,14 +2,14 @@
 #ifndef __STATE__H
 #define __STATE__H
 
+#include "state/CreaturesID.h"
+#include "state/Player.h"
 #include "state/ID.h"
 #include "state/CellState.h"
 #include "state/Element.h"
 #include "state/Cell.h"
 #include "state/SpecialCell.h"
 #include "state/SimpleCell.h"
-#include "state/CreaturesID.h"
-#include "state/Player.h"
 #include "state/TypeID.h"
 #include "state/CreaturesGroup.h"
 #include "state/PlayerResources.h"

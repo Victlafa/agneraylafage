@@ -13,6 +13,7 @@ namespace state
         
         cellState = CellState::NORMAL;
         elemType = ID::GRASS;
+        player = Player();
         //std::cout << this << std::endl;
     }
     
@@ -23,6 +24,7 @@ namespace state
         elemType = type;
         //std::cout << "Initialisation d'un element de type " << type << "\n" << std::endl;
         cellState = state;
+        player = Player();
         //elemType = ((type == TypeID::CELL) ? ID::GRASS : ID::BLACKSMITH);
     }
     
@@ -81,6 +83,8 @@ namespace state
     
     CellState Element::getCellState() const {return cellState;}
     void Element::setCellState(CellState cellState) { this->cellState = cellState; }
+    const Player& Element::getPlayer() const {return player;}
+    void Element::setPlayer(const Player& player) {this->player = player;}
     
                 
 };

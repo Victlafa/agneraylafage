@@ -4,9 +4,11 @@
 
 
 namespace state {
+  class Player;
   class Element;
 }
 
+#include "Player.h"
 #include "ID.h"
 #include "CellState.h"
 
@@ -22,6 +24,7 @@ namespace state {
     int x;
     int y;
     int creaturesNbr;
+    Player player;
     // Operations
   public:
     Element ();
@@ -39,6 +42,8 @@ namespace state {
     void setY(int y);
     int getCreaturesNbr() const;
     void setCreaturesNbr(int creaturesNbr);
+    const Player& getPlayer() const;
+    void setPlayer(const Player& player);
   };
 
 };

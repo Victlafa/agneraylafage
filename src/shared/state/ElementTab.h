@@ -8,6 +8,7 @@
 
 namespace state {
   class Element;
+  class Player;
 }
 
 #include "TypeID.h"
@@ -43,6 +44,7 @@ namespace state {
     void moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem);
     void poisonCell (bool poison, int i, int j);
     bool isPoisoned (int i, int j);
+    bool isOccupiedByOpp (int i, int j, Player* joueur);
     // Setters and Getters
     TypeID getTabType() const;
     void setTabType(TypeID tabType);
