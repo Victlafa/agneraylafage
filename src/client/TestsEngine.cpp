@@ -42,7 +42,7 @@ namespace engine {
         moteur.getPlayer(1)->setIsStriker(true);
         
         // On ajoute une commande au moteur
-        moteur.addCommand(1,new FightCommand(ligneCombat,colonne1,ligneCombat,colonne2));
+        moteur.addCommand(1,new MoveCommand(ligneCombat,colonne1,ligneCombat,colonne2,1));
         // On execute les commandes
         moteur.update();
         // On affiche les points de conquete des deux joueurs 
@@ -69,7 +69,7 @@ namespace engine {
         
         // On ajoute une commande au moteur
         // On souhaite que la creature du joueur se deplace vers la droite
-        moteur.addCommand(1,new MoveCharCommand(ligne,colonne,ligne,colonne + 1,1));
+        moteur.addCommand(1,new MoveCommand(ligne,colonne,ligne,colonne + 1,1));
         // On execute les commandes
         moteur.update();
         
