@@ -6,11 +6,11 @@
 namespace engine {
 
   enum CommandTypeID {
-    NEWGAME     = 0,
-    MOVECHAR     = 1,
-    FIGHT     = 2,
-    POISON     = 3,
-    PROTECTED     = 4
+    NEWGAME     = 1,
+    MOVE     = 2,
+    FIGHT     = 3,
+    POISON     = 4,
+    PROTECTED     = 5
   };
 
 };

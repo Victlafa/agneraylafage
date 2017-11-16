@@ -5,9 +5,7 @@
  */
 
 #include "Engine.h"
-#include "Command.h"
-#include "MoveCharCommand.h"
-#include "FightCommand.h"
+#include "../engine.h"
 #include "../shared/state.h"
 using namespace state;
 
@@ -34,13 +32,13 @@ namespace engine
 //        if (lastCommand->getTypeID() == CommandTypeID::MOVECHAR)
 //        {
 //            // On recupere cette commande
-//            std::unique_ptr<MoveCharCommand> lastCom = currentCommands.end()->second;
+//            MoveCharCommand lastCom = (MoveCharCommand)*(currentCommands.end()->second);
 //            // Si la case de destination est occupee PAR l'adversaire
 //            if (lastCom->isOccupied(currentState))
 //                // On ajoute une commande de combat à la liste des commandes
 //                addCommand(currentCommands.end()->first + 1, new FightCommand(lastCom->getCreatures()[0],lastCom->getCreatures()[1],lastCom->getNewI(),lastCom->getNewJ()));
 //        }
-            
+//            
     }
     void Engine::addCommand (int priority, Command* cmd) {
         // On ajoute une commande :
