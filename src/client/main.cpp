@@ -75,7 +75,7 @@ int main(int argc,char* argv[])
             TestsMoveCommand();
         }
         
-        else if (argc >= 2 && (string) argv[1] == "random_ia") {
+        else if (argc >= 2 && (string) argv[1] == "random_ai") {
             
             //state::State *etat = new State();
             //state::ElementTab char = etat->getCharacters();
