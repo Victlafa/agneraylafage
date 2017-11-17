@@ -7,7 +7,11 @@
 
 namespace engine {
   class Engine;
+  class Command;
 }
+
+#include "engine/Engine.h"
+#include "engine/Command.h"
 
 namespace ai {
 
