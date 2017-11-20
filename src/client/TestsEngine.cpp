@@ -135,6 +135,7 @@ namespace engine {
         // On place un forgeron en (ligne,colonne)
         std::cout << "Creation d'un forgeron associé au joueur 1" << std::endl;
         CreaturesGroup* forgeron = new CreaturesGroup(ID::BLACKSMITH, 2, moteur.getPlayer(1).get());
+        moteur.getPlayer(1)->setIsStriker(true);
         moteur.getState().getCharacters()->set(forgeron,ligne,colonne);
         std::cout << "Position avant deplacement : (" << forgeron->getX() << "," << forgeron->getY() << ")\n" << std::endl;
         
