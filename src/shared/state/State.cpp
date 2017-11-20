@@ -16,9 +16,7 @@ namespace state
         player2.reset(new Player());
     }
     
-    State::~State (){ 
-        //std::cout << "Appel destructeur de State" << std::endl;
-    }
+    State::~State (){}
     
     // Setters and Getters
     const std::unique_ptr<ElementTab>& State::getGrid() const{

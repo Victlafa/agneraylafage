@@ -10,9 +10,7 @@
 namespace state
 {
     // Constructor :
-    
     ElementTab::ElementTab(TypeID type, size_t width, size_t height) : tabType(type), list(width*height) {
-        //std::cout << "Appel du constructeur ElementTab" << std::endl;
         this->width = width;
         this->height = height;
         init();
@@ -22,7 +20,6 @@ namespace state
     ElementTab::~ElementTab() {}
     
     // Getters and setters :
-    
     size_t ElementTab::getWidth () const{
         return this->width;
     }
@@ -75,8 +72,6 @@ namespace state
         
         else
             throw std::runtime_error("Erreur dans le choix du type de tableau !");
-        
-        //std::cout << "Fin remplissage tableau d'éléments" << std::endl;
         
     }
     
