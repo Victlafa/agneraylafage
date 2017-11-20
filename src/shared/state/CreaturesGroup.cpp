@@ -17,7 +17,12 @@ namespace state
 
     CreaturesGroup::CreaturesGroup (ID type, int nbrCrea, Player* joueur) : Element(type, CellState::NOTCELL){
         placed = false;
-        this->player = *joueur;
+        
+        if (!joueur)
+            this->player = *(new Player());
+        else
+            this->player = *joueur;
+        
         this->setCreaturesNbr(nbrCrea);
     }
     

@@ -263,18 +263,28 @@ namespace state
             return true;
     }
     
-    void ElementTab::moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem){
+    void ElementTab::moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem, int fight){
         
         // On verifie si le deplacement est possible ou non
+        // La case destination est-elle autorisée .
         if (verifValiditeCase(new_i_elem,new_j_elem))
         {
+            // La case destination est-elle vide ?
             if (list.at(new_i_elem*width + new_j_elem) == NULL)
             {
+                // Si c'est le cas, on procède au déplacement
                 Element* toMove = list.at(i_elem*width + j_elem).release();
                 this->set(toMove,new_i_elem,new_j_elem);
                 //std::cout << "Ancienne case : " << list.at(i_elem*width + j_elem).get() << std::endl;
             }
+            // Est-elle occupée par le joueur qui se déplace ou par l'adversaire ?
             else 
+            
+                // Si fight = 1 cela signifie que l'attaquant a gagné le combat
+                if (fight == 1){
+                    
+                }
+            }
                 throw std::runtime_error("Le déplacement n'a pas pu etre effectué car la case de destination est occupee !");
             
         }
