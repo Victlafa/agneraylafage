@@ -41,7 +41,7 @@ namespace state {
     void initCreatures ();
     bool verifUnicite (std::vector<int> listeTmp, int i, int j);
     bool verifValiditeCase (unsigned int i, unsigned int j);
-    void moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem);
+    void moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem, int fight);
     void poisonCell (bool poison, int i, int j);
     bool isPoisoned (int i, int j);
     bool isOccupiedByOpp (int i, int j, Player* joueur);

@@ -5,6 +5,7 @@
  */
 
 #include "MoveCommand.h"
+#include <iostream>
 
 namespace engine{
     
@@ -25,10 +26,21 @@ namespace engine{
         
         // Si la case de destination est occupée par l'adversaire, on engage un combat
         if (state.getCharacters()->isOccupiedByOpp(finalPos[0],finalPos[1],state.getPlayer(player).get()))
+        {
             fight->execute(state);
+            state.getCharacters()->moveElement(initPos[0],initPos[1],finalPos[0],finalPos[1], fight->getWinner());
+        }
+        else
+        // S'il n'y a pas combat on procede directement au deplacement
+            state.getCharacters()->moveElement(initPos[0],initPos[1],finalPos[0],finalPos[1],0);
         
-        // Une fois le combat achevé, on procède au deplacement
-        state.getCharacters()->moveElement(initPos[0],initPos[1],finalPos[0],finalPos[1]);
+        // On associe la case d'arrivée au joueur gagnant
+        if (fight->getWinner() == 1 || fight->getWinner() == 2)
+        {
+            std::cout << "Joueur gagnant : " << state.getPlayer(fight->getWinner()).get() << std::endl;
+            state.getCharacters()->get(finalPos[0],finalPos[1])->setPlayer(state.getPlayer(fight->getWinner()).get());
+        }
+            
     }
     
     // Setters and Getters

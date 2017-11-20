@@ -10,7 +10,17 @@ namespace state
     // Constructors :
     CreaturesGroup::CreaturesGroup (ID type, int nbrCrea, Player* joueur) : Element(type, CellState::NOTCELL){
         placed = false;
-        this->player = *joueur;
+        
+        this->setPlayer(joueur);
+//        if (!joueur)
+//        {
+//            this->player = *(new Player());
+//            //throw std::runtime_error("L'argument joueur du constructeur de CreaturesGroup est null !");
+//        }
+//            
+//        else
+//            this->player = *joueur;
+        
         this->setCreaturesNbr(nbrCrea);
     }
     
@@ -20,7 +30,7 @@ namespace state
         this->x = elem.getX();
         this->y = elem.getY();
         this->creaturesNbr = elem.getCreaturesNbr();
-        this->player = *joueur;
+        this->setPlayer(joueur);
     }
     
     CreaturesGroup::CreaturesGroup (ID type) : Element(type, CellState::NOTCELL){
@@ -31,7 +41,8 @@ namespace state
     CreaturesGroup::CreaturesGroup (const Element& elem) : Element(elem.getElemType(), CellState::NOTCELL)
     {
 
-        this->player = elem.getPlayer();
+        this->setPlayer(elem.getPlayer());
+        //this->player = elem.getPlayer();
         this->placed = false;
         this->x = elem.getX();
         this->y = elem.getY();
@@ -66,11 +77,4 @@ namespace state
     }
     
     
-//    CreaturesID CreaturesGroup::getCreaturesType() const{
-//        return this->creaturesType;
-//    }
-//    
-//    void CreaturesGroup::setCreaturesType(CreaturesID Creatures_type){
-//        this->creaturesType = Creatures_type;
-//    }
 };
