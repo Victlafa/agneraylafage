@@ -8,7 +8,6 @@ namespace state {
   class Element;
 }
 
-#include "Player.h"
 #include "ID.h"
 #include "CellState.h"
 
@@ -20,17 +19,20 @@ namespace state {
     state::ID elemType;
     state::CellState cellState;
     // Attributes
+  private:
+    Player* player;
   protected:
     int x;
     int y;
     int creaturesNbr;
-    Player player;
     // Operations
   public:
     Element ();
     Element (ID type, CellState state);
     virtual ~Element ();
     bool operator== (Element otherElement);
+    Player* getPlayer () const;
+    void setPlayer (Player* player);
     // Setters and Getters
     ID getElemType() const;
     void setElemType(ID elemType);
@@ -42,8 +44,6 @@ namespace state {
     void setY(int y);
     int getCreaturesNbr() const;
     void setCreaturesNbr(int creaturesNbr);
-    const Player& getPlayer() const;
-    void setPlayer(const Player& player);
   };
 
 };
