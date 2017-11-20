@@ -45,25 +45,35 @@ namespace engine
     void Fight::gainConquest (state::State& state)
     {
         // Si le joueur 1 comme attaquant gagne le combat, il remporte un point de conquete
-        if (state.getPlayer(1)->getIsStriker() && fightProcess(state))
+        if (fighter == 1 && fightProcess(state))
         {
             state.getPlayer(1)->setConquestPoints(state.getPlayer(1)->getConquestPoints() + 1);
-            state.getPlayer(1)->setIsStriker(false);
+            //state.getPlayer(1)->setIsStriker(false);
+            winner = 1;
         }
             
         // Si le joueur 2 comme attaquant gagne le combat, il remporte un point de conquete
-        else if (state.getPlayer(2)->getIsStriker() && !fightProcess(state))
+        else if (fighter == 2 && !fightProcess(state))
         {
             state.getPlayer(2)->setConquestPoints(state.getPlayer(2)->getConquestPoints() + 1);
-            state.getPlayer(2)->setIsStriker(false);
+            //state.getPlayer(2)->setIsStriker(false);
+            winner = 2;
         }
             
         else
         {
-            if (!state.getPlayer(1)->getIsStriker() && !state.getPlayer(2)->getIsStriker())
+            if (fighter != 1 && fighter != 2)
+            {
+                winner = 0;
                 throw std::runtime_error("Aucun des joueurs n'a été défini comme attaquant !");
+            }
+                
             else
+            {
                 std::cout << "Il y a égalité !" << std::endl;
+                winner = 3;
+            }
+                
         }
         
     }
@@ -83,4 +93,6 @@ namespace engine
     void Fight::setDefenderPos(const std::vector<int>& defenderPos) {this->defenderPos = defenderPos; }
     int Fight::getFighter() const {return fighter;}
     void Fight::setFighter(int fighter) {this->fighter = fighter; }
+    int Fight::getWinner() const { return winner; }
+    void Fight::setWinner(int winner) {this->winner = winner;}
 }

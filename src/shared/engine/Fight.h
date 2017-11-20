@@ -17,6 +17,7 @@ namespace engine {
     std::vector<int> fighterPos;
     std::vector<int> defenderPos;
     int fighter;
+    int winner;
     // Operations
   public:
     Fight (int i_fighter, int j_fighter, int i_defender, int j_defender, int fighter);
@@ -30,6 +31,8 @@ namespace engine {
     void setDefenderPos(const std::vector<int>& defenderPos);
     int getFighter() const;
     void setFighter(int fighter);
+    int getWinner() const;
+    void setWinner(int winner);
   };
 
 };
