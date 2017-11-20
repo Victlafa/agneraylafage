@@ -9,7 +9,6 @@ namespace state
 {
 
     State::State(){
-        //std::cout << "Appel constructeur de State" << std::endl;
         totalCellNbr = 29;
         grid.reset(new ElementTab(TypeID::CELL));
         characters.reset(new ElementTab(TypeID::CREATURESGROUP));

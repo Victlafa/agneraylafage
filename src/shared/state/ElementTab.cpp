@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 #include "ElementTab.h"
 #include "CreaturesID.h"
 #include "Cell.h"
@@ -25,9 +19,7 @@ namespace state
         
     }
     
-    ElementTab::~ElementTab() {
-        //std::cout << "Appel du destructeur ElementTab" << std::endl;
-    }
+    ElementTab::~ElementTab() {}
     
     // Getters and setters :
     
@@ -90,8 +82,6 @@ namespace state
     
     void ElementTab::initCells (){
 
-
-        std::cout << "Positionnement des Cellules Speciales" << std::endl;
         // Positionnement des Cellules Speciales
 
         std::vector<ID> typesSpeciales;
@@ -144,7 +134,6 @@ namespace state
 
         }
 
-        //std::cout << "Positionnement des Cellules Simples" << std::endl;
         // On remplit map_cell avec des cellules simples
         std::vector<state::ID> typesSimples;
         typesSimples.push_back(state::ID::DIRT);
@@ -188,7 +177,7 @@ namespace state
                 }
                 
             }
-            std::cout << "fin boucles" << std::endl;
+            
         }     
         
     }
