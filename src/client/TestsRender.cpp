@@ -1,16 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   TestsRender.cpp
- * Author: pahtatorr
- * 
- * Created on 22 octobre 2017, 11:28
- */
-
 #include "TestsRender.h"
 
 namespace render {
@@ -484,7 +471,7 @@ namespace render {
         Surface *surfCell = new Surface();
         Surface *surfChars = new Surface();
         
-        int halfHeight = 61;
+        //int halfHeight = 61;
         int halfWidth = 51;
         int x = 311;
         int y = 187;
@@ -552,6 +539,7 @@ namespace render {
                 }
             }
         }
+        
             
         for(unsigned int i=0; i<etat.getCharacters()->getHeight(); i++){
 
@@ -581,8 +569,13 @@ namespace render {
                             break;
                     }
                 }
+                else
+                {
+                    std::cout << "chars null en (" << i << "," << j << ")" << std::endl;
+                }
             }
         }
+        
         
         for (int i = 0; i < 29; i++) 
         {
@@ -608,7 +601,8 @@ namespace render {
             else if (i == 18 || i == 24) {
                 x += halfWidth;
                 y += 86;
-            switch (i) {
+                
+                switch (i) {
                     case 18:
                         shift = i - 18;
                         break;
@@ -630,23 +624,11 @@ namespace render {
             
             xTextChars = listXTextChars[i];
             yTextChars = listYTextChars[i];
-                    
-            Tile cellTile(xTextCell,yTextCell);
-            Tile charsTile(xTextChars,yTextChars);
             
-            surfCell->setFinalLocation(i, x, y, cellTile);
-            surfCell->setTextureLocation(i, cellTile);
-            surfChars->setFinalLocation(i, x, y, charsTile);
-            surfChars->setTextureLocation(i, charsTile);
-            /*quadsList[i][0].position = sf::Vector2f(x + halfWidth + shift * 2 * halfWidth, y + halfHeight);
-            quadsList[i][1].position = sf::Vector2f(x + halfWidth + shift * 2 * halfWidth, y - halfHeight);
-            quadsList[i][2].position = sf::Vector2f(x - halfWidth + shift * 2 * halfWidth, y - halfHeight);
-            quadsList[i][3].position = sf::Vector2f(x - halfWidth + shift * 2 * halfWidth, y + halfHeight);
-
-            quadsList[i][0].texCoords = sf::Vector2f(xText + halfWidth, yText + halfHeight);
-            quadsList[i][1].texCoords = sf::Vector2f(xText + halfWidth, yText - halfHeight);
-            quadsList[i][2].texCoords = sf::Vector2f(xText - halfWidth, yText - halfHeight);
-            quadsList[i][3].texCoords = sf::Vector2f(xText - halfWidth, yText + halfHeight);*/
+            surfCell->setFinalLocation(i, x, y, ( (cellLayer.getTileset()).get() )->getTile( etat.getGrid()->get(xTextCell,yTextCell) ));
+            surfCell->setTextureLocation(i, ( (cellLayer.getTileset()).get() )->getTile( etat.getGrid()->get(xTextCell,yTextCell) ));
+            surfChars->setFinalLocation(i, x, y, ( (charsLayer.getTileset()).get() )->getTile( etat.getCharacters()->get(xTextChars,yTextChars) ));
+            surfChars->setTextureLocation(i, ( (charsLayer.getTileset()).get() )->getTile( etat.getCharacters()->get(xTextChars,yTextChars) ));
 
             shift += 1;
 

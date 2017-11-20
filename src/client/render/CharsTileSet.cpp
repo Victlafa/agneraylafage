@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 #include "state.h"
 #include "CharsTileSet.h"
 #include <iostream>
@@ -42,6 +36,7 @@ namespace render
     
     const Tile& CharsTileSet::getTile (const state::Element& elem) const
     {
+        std::cout << "charstileset gettile getelemtype : " << elem.getElemType() << std::endl;
         switch(elem.getElemType()){
             case state::ID::COOKER :
                 return creatures[0][elem.getCreaturesNbr()];
@@ -86,6 +81,7 @@ namespace render
 
     const Tile& CharsTileSet::getTile (const std::unique_ptr<state::Element>& elem) const
     {
+        std::cout << "charstileset gettile getelemtype : " << elem->getElemType() << std::endl;
          switch(elem->getElemType()){
             case state::ID::COOKER :
                 return creatures[0][elem->getCreaturesNbr()];
