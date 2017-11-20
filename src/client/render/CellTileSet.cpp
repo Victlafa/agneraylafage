@@ -51,7 +51,7 @@ namespace render
     const Tile& CellTileSet::getTile (const state::Element& elem) const
     {
         // Erreur de segmentation quand on appelle getElemType !
-        std::cout << "getTile" << std::endl;
+        //std::cout << "getTile" << std::endl;
         
         switch(elem.getElemType()){
             case state::ID::BARBECUE :
@@ -144,7 +144,7 @@ namespace render
     const Tile& CellTileSet::getTile (const std::unique_ptr<state::Element>& elem) const
     {
         // Erreur de segmentation quand on appelle getElemType !
-        std::cout << "getTilebis";
+        //std::cout << "getTilebis";
         
         switch(elem->getElemType()){
             case state::ID::BARBECUE :

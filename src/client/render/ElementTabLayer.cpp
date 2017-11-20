@@ -22,7 +22,7 @@ namespace render{
         int y = 187;
         int shift = 0;
         int halfWidth = 0;
-        this->surface->initQuads(29);
+        this->surface->initQuads();
         
         if (!type) 
         {

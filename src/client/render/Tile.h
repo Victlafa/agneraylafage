@@ -16,7 +16,7 @@ namespace render {
     // Operations
   public:
     Tile ();
-    Tile (int x, int y, int w, int h);
+    Tile (int x, int y, int w = 102, int h = 122);
     // Setters and Getters
     int getX() const;
     void setX(int x);

@@ -475,164 +475,120 @@ namespace render {
 
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
+        ElementTabLayer cellLayer(*(etat.getGrid().get()),0);
+        ElementTabLayer charsLayer(*(etat.getCharacters().get()),0);
         
-        ElementTabLayer tabLayer(*(etat.getGrid().get()),0);
+        cellLayer.initSurface();
+        charsLayer.initSurface();
         
-        tabLayer.initSurface();
-        Surface *surf = new Surface();
+        Surface *surfCell = new Surface();
+        Surface *surfChars = new Surface();
         
         int halfHeight = 61;
         int halfWidth = 51;
         int x = 311;
         int y = 187;
-        int xText = 71;
-        int yText = 81;
+        int xTextCell = 71;
+        int yTextCell = 81;
+        int xTextChars = 71;
+        int yTextChars = 81;
         int shift = 0;
         
-        std::vector<sf::VertexArray> listHexagones = std::vector<sf::VertexArray>();
-        listHexagones.reserve(29);
+        std::vector<sf::VertexArray> quadsListCell;
+        quadsListCell.reserve(29);
+        std::vector<sf::VertexArray> quadsListChars;
+        quadsListChars.reserve(29);
         
-        std::vector<int> listXText = std::vector<int>();
-        listXText.reserve(29);
-        std::vector<int> listYText = std::vector<int>();
-        listYText.reserve(29);
+        std::vector<int> listXTextCell = std::vector<int>();
+        listXTextCell.reserve(29);
+        std::vector<int> listYTextCell = std::vector<int>();
+        listYTextCell.reserve(29);
+        
+        std::vector<int> listXTextChars = std::vector<int>();
+        listXTextChars.reserve(29);
+        std::vector<int> listYTextChars = std::vector<int>();
+        listYTextChars.reserve(29);
+        
         
         for(unsigned int i=0; i<etat.getGrid()->getHeight(); i++){
-            
+
             for(unsigned int j=0; j<etat.getGrid()->getWidth(); j++){
-                
-                switch(etat.getGrid()->get(i,j)->getElemType()){
-                    case state::ID::SAND :
-                        listXText.push_back(71);
-                        listYText.push_back(81);
-                        break;
-                    case state::ID::GRASS :
-                        listXText.push_back(191);
-                        listYText.push_back(81);
-                        break;
-                    case state::ID::DIRT :
-                        listXText.push_back(311);
-                        listYText.push_back(81);
-                        break;   
-                    case state::ID::BARBECUE :
-                        listXText.push_back(71);
-                        listYText.push_back(221);
-                        break;
-                    case state::ID::SKY :
-                        listXText.push_back(191);
-                        listYText.push_back(221);
-                        break;
-                    case state::ID::POOL :
-                        listXText.push_back(311);
-                        listYText.push_back(221);
-                        break;
-                    case state::ID::CANDY :
-                        listXText.push_back(431);
-                        listYText.push_back(221);
-                        break;
-                    case state::ID::BLACKSMITH :
-                        listXText.push_back(50*(etat.getCharacters()->get(i,j)->getCreaturesNbr()+1));
-                        listYText.push_back(50);
-                        break;
-                    case state::ID::COOKER :
-                        listXText.push_back(50*(etat.getCharacters()->get(i,j)->getCreaturesNbr()+1));
-                        listYText.push_back(100);
-                        break;
-                    case state::ID::LUMBERJACK :
-                        listXText.push_back(50*(etat.getCharacters()->get(i,j)->getCreaturesNbr()+1));
-                        listYText.push_back(150);
-                        break;
-                    case state::ID::MINER :
-                        listXText.push_back(50*(etat.getCharacters()->get(i,j)->getCreaturesNbr()+1));
-                        listYText.push_back(200);
-                        break;
-                    default :
-                        std::cout << "erreur définition coordonnées textures" << std::endl;
-                        break;
-                }
-                /*
-                if(etat.getGrid().get(i,j)->getElemType()==state::TypeID::CELL){
-                    
-                    if(( (const state::Cell)(*etat.getGrid().get(i,j)) ).getElemType()==state::ID::SIMPLE){
-                        
-                        switch( ((const state::SimpleCell)*(etat.getGrid().get(i,j)) ).getElemType()){
-                            case state::ID::SAND :
-                                listXText.push_back(71);
-                                listYText.push_back(81);
-                                break;
-                            case state::ID::GRASS :
-                                listXText.push_back(191);
-                                listYText.push_back(81);
-                                break;
-                            case state::ID::DIRT :
-                                listXText.push_back(311);
-                                listYText.push_back(81);
-                                break;
-                            default :
-                                std::cout << "erreur définition coordonnées textures" << std::endl;
-                                break;
-                        }
-                        std::cout << "type simple cell : " << ( (const state::SimpleCell)(*etat.getGrid().get(i,j)) ).getElemType() << std::endl;
-                    }
-                    
-                    else{
-                        
-                        switch( ((const state::SpecialCell)(*etat.getGrid().get(i,j)) ).getElemType()){
-                            case state::ID::BARBECUE :
-                                listXText.push_back(71);
-                                listYText.push_back(221);
-                                break;
-                            case state::ID::SKY :
-                                listXText.push_back(191);
-                                listYText.push_back(221);
-                                break;
-                            case state::ID::POOL :
-                                listXText.push_back(311);
-                                listYText.push_back(221);
-                                break;
-                            case state::ID::CANDY :
-                                listXText.push_back(431);
-                                listYText.push_back(221);
-                                break;
-                            default :
-                                std::cout << "erreur définition coordonnées textures" << std::endl;
-                                break;
-                        }
+
+                if(NULL!=etat.getGrid()->get(i,j)){
+
+                    switch(etat.getGrid()->get(i,j)->getElemType()){
+                        case state::ID::SAND :
+                            listXTextCell.push_back(71);
+                            listYTextCell.push_back(81);
+                            break;
+                        case state::ID::GRASS :
+                            listXTextCell.push_back(191);
+                            listYTextCell.push_back(81);
+                            break;
+                        case state::ID::DIRT :
+                            listXTextCell.push_back(311);
+                            listYTextCell.push_back(81);
+                            break;   
+                        case state::ID::BARBECUE :
+                            listXTextCell.push_back(71);
+                            listYTextCell.push_back(221);
+                            break;
+                        case state::ID::SKY :
+                            listXTextCell.push_back(191);
+                            listYTextCell.push_back(221);
+                            break;
+                        case state::ID::POOL :
+                            listXTextCell.push_back(311);
+                            listYTextCell.push_back(221);
+                            break;
+                        case state::ID::CANDY :
+                            listXTextCell.push_back(431);
+                            listYTextCell.push_back(221);
+                            break;
+                        default :
+                            std::cout << "erreur définition coordonnées textures" << std::endl;
+                            break;
                     }
                 }
-                
-                
-                switch( ((const CreaturesGroup)(*etat.getCharacters().get(i,j)) ).getElemType() ){
-                    case state::CreaturesID::BLACKSMITH :
-                        listXText.push_back(50*(etat.getCharacters().get(i,j)->getCreaturesNbr()+1));
-                        listYText.push_back(50);
-                        break;
-                    case state::CreaturesID::COOKER :
-                        listXText.push_back(50*(etat.getCharacters().get(i,j)->getCreaturesNbr()+1));
-                        listYText.push_back(100);
-                        break;
-                    case state::CreaturesID::LUMBERJACK :
-                        listXText.push_back(50*(etat.getCharacters().get(i,j)->getCreaturesNbr()+1));
-                        listYText.push_back(150);
-                        break;
-                    case state::CreaturesID::MINER :
-                        listXText.push_back(50*(etat.getCharacters().get(i,j)->getCreaturesNbr()+1));
-                        listYText.push_back(200);
-                        break;
-                    default :
-                        std::cout << "erreur définition coordonnées textures" << std::endl;
-                        break;
-                
-                }*/
             }
         }
-        
-        std::cout << "création variables" << std::endl;
+            
+        for(unsigned int i=0; i<etat.getCharacters()->getHeight(); i++){
+
+            for(unsigned int j=0; j<etat.getCharacters()->getWidth(); j++){
+
+                if(NULL!=etat.getCharacters()->get(i,j)){
+
+                    switch(etat.getCharacters()->get(i,j)->getElemType()){
+                        case state::ID::BLACKSMITH :
+                            listXTextChars.push_back(50*(etat.getCharacters()->get(i,j)->getCreaturesNbr()+1));
+                            listYTextChars.push_back(50);
+                            break;
+                        case state::ID::COOKER :
+                            listXTextChars.push_back(50*(etat.getCharacters()->get(i,j)->getCreaturesNbr()+1));
+                            listYTextChars.push_back(100);
+                            break;
+                        case state::ID::LUMBERJACK :
+                            listXTextChars.push_back(50*(etat.getCharacters()->get(i,j)->getCreaturesNbr()+1));
+                            listYTextChars.push_back(150);
+                            break;
+                        case state::ID::MINER :
+                            listXTextChars.push_back(50*(etat.getCharacters()->get(i,j)->getCreaturesNbr()+1));
+                            listYTextChars.push_back(200);
+                            break;
+                        default :
+                            std::cout << "erreur définition coordonnées textures" << std::endl;
+                            break;
+                    }
+                }
+            }
+        }
         
         for (int i = 0; i < 29; i++) 
         {
 
-            listHexagones.push_back(sf::VertexArray(sf::Quads, 4));
+            quadsListCell.push_back(sf::VertexArray(sf::Quads, 4));
+            quadsListChars.push_back(sf::VertexArray(sf::Quads, 4));
             
             if (i == 5 || i == 11) {
                 x -= halfWidth;
@@ -669,37 +625,53 @@ namespace render {
                 shift = shift;
             }
 
-            xText = listXText[i];
-            yText = listYText[i];
-                    
+            xTextCell = listXTextCell[i];
+            yTextCell = listYTextCell[i];
             
-            listHexagones[i][0].position = sf::Vector2f(x + halfWidth + shift * 2 * halfWidth, y + halfHeight);
-            listHexagones[i][1].position = sf::Vector2f(x + halfWidth + shift * 2 * halfWidth, y - halfHeight);
-            listHexagones[i][2].position = sf::Vector2f(x - halfWidth + shift * 2 * halfWidth, y - halfHeight);
-            listHexagones[i][3].position = sf::Vector2f(x - halfWidth + shift * 2 * halfWidth, y + halfHeight);
+            xTextChars = listXTextChars[i];
+            yTextChars = listYTextChars[i];
+                    
+            Tile cellTile(xTextCell,yTextCell);
+            Tile charsTile(xTextChars,yTextChars);
+            
+            surfCell->setFinalLocation(i, x, y, cellTile);
+            surfCell->setTextureLocation(i, cellTile);
+            surfChars->setFinalLocation(i, x, y, charsTile);
+            surfChars->setTextureLocation(i, charsTile);
+            /*quadsList[i][0].position = sf::Vector2f(x + halfWidth + shift * 2 * halfWidth, y + halfHeight);
+            quadsList[i][1].position = sf::Vector2f(x + halfWidth + shift * 2 * halfWidth, y - halfHeight);
+            quadsList[i][2].position = sf::Vector2f(x - halfWidth + shift * 2 * halfWidth, y - halfHeight);
+            quadsList[i][3].position = sf::Vector2f(x - halfWidth + shift * 2 * halfWidth, y + halfHeight);
 
-            listHexagones[i][0].texCoords = sf::Vector2f(xText + halfWidth, yText + halfHeight);
-            listHexagones[i][1].texCoords = sf::Vector2f(xText + halfWidth, yText - halfHeight);
-            listHexagones[i][2].texCoords = sf::Vector2f(xText - halfWidth, yText - halfHeight);
-            listHexagones[i][3].texCoords = sf::Vector2f(xText - halfWidth, yText + halfHeight);
+            quadsList[i][0].texCoords = sf::Vector2f(xText + halfWidth, yText + halfHeight);
+            quadsList[i][1].texCoords = sf::Vector2f(xText + halfWidth, yText - halfHeight);
+            quadsList[i][2].texCoords = sf::Vector2f(xText - halfWidth, yText - halfHeight);
+            quadsList[i][3].texCoords = sf::Vector2f(xText - halfWidth, yText + halfHeight);*/
 
             shift += 1;
 
         }
         
         sf::Texture hexaTexture;
+        sf::Texture charsTexture;
         //Le premier cas marche chez Victoire, le second chez Aurore
         if (!hexaTexture.loadFromFile("../res/hexa.png")) 
             hexaTexture.loadFromFile("./res/hexa.png");
         else
-            std::cout << "Erreur chargement texture !\n" << std::endl;
-        //throw std::runtime_error("Impossible de lire le fichier");
-          
+            std::cout << "Erreur chargement texture hexa !\n" << std::endl;
         
-        surf->setQuadsList(listHexagones);
-        surf->setTexture(hexaTexture);
-        tabLayer.setSurface(surf);
-        CellTileSet cts;
+        if (!charsTexture.loadFromFile("../res/groupes.png")) 
+            charsTexture.loadFromFile("./res/groupes.png");
+        else
+            std::cout << "Erreur chargement texture groupes !\n" << std::endl;
+        //throw std::runtime_error("Impossible de lire le fichier");
+        surfCell->setTexture(hexaTexture);
+        surfChars->setTexture(charsTexture);
+        
+        //surf->setQuadsList(listHexagones);
+        //surf->setTexture(hexaTexture);
+        cellLayer.setSurface(surfCell);
+        charsLayer.setSurface(surfChars);
         
         
         while (window.isOpen()) {
@@ -709,9 +681,8 @@ namespace render {
             }
 
             window.clear();
-            
-            for (int i = 0; i < 29; i++)
-                window.draw(listHexagones[i], &hexaTexture);
+            surfCell->draw(window, &hexaTexture);
+            surfChars->draw(window, &hexaTexture);
 
             window.display();
         }
