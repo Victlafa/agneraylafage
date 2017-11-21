@@ -23,7 +23,7 @@ namespace ai {
     // Operations
   public:
     AI ();
-    virtual void run (const engine::Engine& moteur) = 0;
+    virtual void run (engine::Engine& moteur) = 0;
     // Setters and Getters
     const std::vector<std::shared_ptr<engine::Command> >& getListCommands() const;
     void setListCommands(const std::vector<std::shared_ptr<engine::Command> >& listCommands);

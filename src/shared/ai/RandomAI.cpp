@@ -6,13 +6,26 @@
 
 #include "RandomAI.h"
 #include "engine/Engine.h"
+#include "../shared/state.h"
+#include <iostream>
+
+using namespace std;
 
 namespace ai{
     
-    RandomAI::RandomAI (int randomSeed)
+    RandomAI::RandomAI (int randomSeed) : AI()
     {
         randGen.seed(randomSeed);
     }
     
-    void RandomAI::run (const engine::Engine& moteur) {}
+    void RandomAI::run (engine::Engine& moteur) 
+    {
+        // On tire au hasard un numero de commande
+        int randCommand = randGen()%(listCommands.size());
+        
+        // On applique cette commande
+        listCommands.at(randCommand)->execute(moteur.getState());
+        
+        cout << "Une commande de l'ia a été en principe executée !" << endl;
+    }
 }
