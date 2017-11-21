@@ -34,6 +34,7 @@ namespace state {
     int getCellNbr () const;
     const std::unique_ptr<Player>& getPlayer (int number) const;
     void reset (CreaturesID typeCreatures);
+    void initCreatures ();
     // Setters and Getters
   };
 

@@ -265,12 +265,22 @@ namespace state
     
     void ElementTab::moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem, int fight){
         
+        std::cout << "Entrée dans MoveElement" << std::endl;
+        std::cout << "Coordonnees : (" << i_elem << "," << j_elem << ") " << std::endl;
+        std::cout << "Groupe de creatures selectionne : " << this->get(i_elem,j_elem).get() << std::endl;
+        std::cout << "Nombre de creatures du groupe : " << this->get(i_elem,j_elem)->getCreaturesNbr() << std::endl;
+        
         // Nbre de creatures de la cellule attaquante
         int creaNbrAtt = list.at(i_elem*width + j_elem)->getCreaturesNbr();
+        
         // Nbre de creatures de la cellule destination
-        int creaNbrDef = list.at(new_i_elem*width + new_j_elem)->getCreaturesNbr();
+        int creaNbrDef = 0;
+        // A definir seulement si la case de destination est non vide !
+        if (list.at(new_i_elem*width + new_j_elem) != NULL)
+            creaNbrDef = list.at(new_i_elem*width + new_j_elem)->getCreaturesNbr();
         
         // On verifie si le deplacement est possible ou non
+        
         // La case destination est-elle autorisée ?
         if (verifValiditeCase(new_i_elem,new_j_elem))
         {
@@ -278,38 +288,39 @@ namespace state
             if (list.at(new_i_elem*width + new_j_elem) == NULL)
             {
                 // Si c'est le cas, on procède au déplacement
-                Element* toMove = list.at(i_elem*width + j_elem).release();
-                this->set(toMove,new_i_elem,new_j_elem);
+                
+                // On fixe le nbre de creatures de la case attaquante à 1
+                list.at(i_elem*width + j_elem)->setCreaturesNbr(1);
+                // On cree un nouveau groupe que l'on place dans la case vide avec N - 1 creatures
+                Element* newGroup = new CreaturesGroup(list.at(i_elem*width + j_elem)->getElemType(),list.at(i_elem*width + j_elem)->getCreaturesNbr() - 1,list.at(i_elem*width + j_elem)->getPlayer());
+                this->set(newGroup,new_i_elem,new_j_elem);
                 std::cout << "Ancienne case : " << list.at(i_elem*width + j_elem).get() << std::endl;
+                std::cout << "Nombre de creatures ancienne case : " << list.at(i_elem*width + j_elem)->getCreaturesNbr() << std::endl;
             }
             
             // Est-elle occupée par le joueur qui se déplace ou par l'adversaire ?
             else 
             {
-                // La case destination est occupée par le joueur qui se deplace
-                if (fight == 0)
-                {
+                
+                if (fight >= 0 && fight < 4) {
+                    
                     // On fixe le nbre de creatures de la case attaquante à 1
-                    list.at(i_elem*width + j_elem)->setCreaturesNbr(1);
-                    // On fixe le nbre de creatures de la case destination
-                    list.at(new_i_elem*width + new_j_elem)->setCreaturesNbr((creaNbrDef + creaNbrAtt -1)%5);
+                    list.at(i_elem * width + j_elem)->setCreaturesNbr(1);
+                    
+                    // La case destination est occupée par le joueur qui se deplace
+                    if (fight == 0)
+                        // On fixe le nbre de creatures de la case destination
+                        list.at(new_i_elem * width + new_j_elem)->setCreaturesNbr((creaNbrDef + creaNbrAtt - 1) % 5);
+                    
+                    // L'attaquant a gagné le combat
+                    else if (fight == 1) 
+                        // On detruit les creatures de la case defense en on remplaçant par celles de l'attaquant
+                        this->set(new CreaturesGroup(list.at(i_elem * width + j_elem)->getElemType(), (creaNbrAtt - 1) % 5, NULL), new_i_elem, new_j_elem);
+                    
+                    // Si fight = 2 le defenseur a gagné le combat, si fight = 3 il y a egalité mais on considere que c'est le defenseur qui gagne
+                    // Dans ce cas là on voit juste le nombre de creatures de la case attaquante tomber à 1
                 }
                 
-                // Si fight = 1 cela signifie que l'attaquant a gagné le combat
-                if (fight == 1){
-                    //Element* toMove = list.at(i_elem*width + j_elem).release
-                    // On fixe le nbre de creatures de la case attaquante à 1
-                    list.at(i_elem*width + j_elem)->setCreaturesNbr(1);
-                    // On detruit les creatures de la case defense en on remplaçant par celles de l'attaquant
-                    this->set(new CreaturesGroup(list.at(i_elem*width + j_elem)->getElemType(),(creaNbrAtt - 1)%5,NULL),new_i_elem,new_j_elem);
-                }
-                
-                // Si fight = 2 c'est le defenseur qui a gagné le combat, si fight = 3 il y a egalité mais on considere que c'est le defenseur qui gagne
-                else if (fight == 2 || fight == 3)
-                {
-                    // On fait tomber le nbre de creatures de la cellule attaquante à 1
-                    list.at(i_elem*width + j_elem)->setCreaturesNbr(1);
-                }
                 else
                 {
                     throw std::runtime_error("Le déplacement n'a pas pu etre effectué !");
