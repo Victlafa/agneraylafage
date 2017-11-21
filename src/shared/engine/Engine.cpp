@@ -14,7 +14,7 @@ namespace engine
     Engine::Engine() {}
     
     Engine::~Engine (){}
-    const state::State& Engine::getState () const {return currentState;}
+    state::State& Engine::getState () {return this->currentState;}
     const std::unique_ptr<state::Player>& Engine::getPlayer (int num) const 
     {
         if (num == 1)

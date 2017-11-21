@@ -31,7 +31,7 @@ namespace engine {
     void addPassiveCommands ();
     void addCommand (int priority, Command* cmd);
     void update ();
-    const state::State& getState () const;
+    state::State& getState ();
     const std::unique_ptr<state::Player>& getPlayer (int num) const;
     void poisonCell (bool poison, int i_cell, int j_cell);
     // Setters and Getters
