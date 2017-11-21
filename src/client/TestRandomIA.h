@@ -18,9 +18,15 @@
 #include "../shared/engine.h"
 #include "../shared/ai.h"
 #include <iostream>
+#include <vector>
+
+#include "engine/MoveCommand.h"
+#include "ai/AI.h"
+#include "ai/RandomAI.h"
+#include <time.h>
 
 namespace ai{
-    void TestsFightCommand();
+    void TestRandomIA();
     
 }
 

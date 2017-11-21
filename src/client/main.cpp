@@ -17,12 +17,14 @@ void testSFML() {
 #include "TestsState.h"
 #include "TestsRender.h"
 #include "TestsEngine.h"
+#include "TestRandomIA.h"
+#include "../shared/ai.h"
 
 using namespace std;
 using namespace state;
 using namespace render;
 using namespace engine;
-
+using namespace ai;
 
 int main(int argc,char* argv[]) 
 {
@@ -82,6 +84,8 @@ int main(int argc,char* argv[])
             /*while(){
                 
             }*/
+            
+            TestRandomIA();
         
         }
         
