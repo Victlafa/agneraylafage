@@ -9,7 +9,6 @@ namespace state
 {
 
     State::State(){
-        //std::cout << "Appel constructeur de State" << std::endl;
         totalCellNbr = 29;
         grid.reset(new ElementTab(TypeID::CELL));
         characters.reset(new ElementTab(TypeID::CREATURESGROUP));
@@ -20,9 +19,7 @@ namespace state
         this->initCreatures();
     }
     
-    State::~State (){ 
-        //std::cout << "Appel destructeur de State" << std::endl;
-    }
+    State::~State (){}
     
     // Setters and Getters
     const std::unique_ptr<ElementTab>& State::getGrid() const{

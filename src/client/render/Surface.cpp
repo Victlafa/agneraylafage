@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 #include "Surface.h"
 #include "Tile.h"
+#include "state/TypeID.h"
+#include "state/State.h"
 #include <iostream>
 
 namespace render
@@ -46,10 +42,10 @@ namespace render
             target.draw(elem,states);
     }
     
-    void Surface::initQuads (int count)
+    void Surface::initQuads ()
     {
-        this->quadsList.reserve(count);
-        for (int i = 0; i < count; i ++)
+        this->quadsList.reserve(29);
+        for (int i = 0; i < 29; i ++)
         {
             // Preparation de la première ligne d'hexagones  :
             this->quadsList.push_back(sf::VertexArray(sf::Quads,4));

@@ -24,13 +24,15 @@ namespace state
         elemType = type;
         //std::cout << "Initialisation d'un element de type " << type << "\n" << std::endl;
         cellState = state;
+
+        //player = Player();
+
         player = NULL; //new Player();
         //elemType = ((type == TypeID::CELL) ? ID::GRASS : ID::BLACKSMITH);
+
     }
     
-    Element::~Element() {
-        //std::cout << "Appel au destructeur Element" << std::endl;
-    }
+    Element::~Element() {}
     
     bool Element::operator== (Element otherElement)
     {
@@ -72,7 +74,6 @@ namespace state
     }
     
     ID Element::getElemType() const{
-        std::cout << "get elemtype" << std::endl;
         return this->elemType;
     }
     

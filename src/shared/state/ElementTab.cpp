@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 #include "ElementTab.h"
 #include "CreaturesID.h"
 #include "Cell.h"
@@ -16,21 +10,16 @@
 namespace state
 {
     // Constructor :
-    
     ElementTab::ElementTab(TypeID type, size_t width, size_t height) : tabType(type), list(width*height) {
-        //std::cout << "Appel du constructeur ElementTab" << std::endl;
         this->width = width;
         this->height = height;
         init();
         
     }
     
-    ElementTab::~ElementTab() {
-        //std::cout << "Appel du destructeur ElementTab" << std::endl;
-    }
+    ElementTab::~ElementTab() {}
     
     // Getters and setters :
-    
     size_t ElementTab::getWidth () const{
         return this->width;
     }
@@ -84,14 +73,10 @@ namespace state
         else
             throw std::runtime_error("Erreur dans le choix du type de tableau !");
         
-        //std::cout << "Fin remplissage tableau d'éléments" << std::endl;
-        
     }
     
     void ElementTab::initCells (){
 
-
-        std::cout << "Positionnement des Cellules Speciales" << std::endl;
         // Positionnement des Cellules Speciales
 
         std::vector<ID> typesSpeciales;
@@ -144,7 +129,6 @@ namespace state
 
         }
 
-        //std::cout << "Positionnement des Cellules Simples" << std::endl;
         // On remplit map_cell avec des cellules simples
         std::vector<state::ID> typesSimples;
         typesSimples.push_back(state::ID::DIRT);
@@ -188,7 +172,7 @@ namespace state
                 }
                 
             }
-            std::cout << "fin boucles" << std::endl;
+            
         }     
         
     }

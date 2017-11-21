@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 #include "CreaturesGroup.h"
 #include "TypeID.h"
 #include <iostream>
@@ -14,7 +8,6 @@ namespace state
     int CreaturesGroup::stolenResourceNbr = 2;
     
     // Constructors :
-
     CreaturesGroup::CreaturesGroup (ID type, int nbrCrea, Player* joueur) : Element(type, CellState::NOTCELL){
         placed = false;
         

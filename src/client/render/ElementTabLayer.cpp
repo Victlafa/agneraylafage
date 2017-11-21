@@ -22,7 +22,7 @@ namespace render{
         int y = 187;
         int shift = 0;
         int halfWidth = 0;
-        this->surface->initQuads(29);
+        this->surface->initQuads();
         
         if (!type) 
         {
@@ -40,14 +40,13 @@ namespace render{
             std::cout << "Le type d'ElementTabLayer n'a pas été choisi correctement !\n" << std::endl;
         
         
-        
         // Affichage des cellules de la map :
         for (int i = 0; i < (int)tab.getHeight(); i++) {
             for (int j = 0; j < (int)tab.getWidth(); j++) {
                 
                 if (tab.get(i,j) != NULL) {
                     Tile tuile = ( (this->tileset).get() )->getTile( tab.get(i,j) );
-                    std::cout << "getElemType : " << tab.get(i,j)->getElemType() << std::endl;
+                    //std::cout << "getElemType : " << tab.get(i,j)->getElemType() << std::endl;
                     std::cout << "Hauteur de la tuile (" << i << "," << j << ") :" << tuile.getHeight() << std::endl;
 
                     if (i*7+j == 5 || i*7+j == 11) {
