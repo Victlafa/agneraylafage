@@ -36,7 +36,7 @@ namespace render
     
     const Tile& CharsTileSet::getTile (const state::Element& elem) const
     {
-        std::cout << "charstileset gettile getelemtype : " << elem.getElemType() << std::endl;
+        //std::cout << "charstileset gettile getelemtype : " << elem.getElemType() << std::endl;
         switch(elem.getElemType()){
             case state::ID::COOKER :
                 return creatures[0][elem.getCreaturesNbr()];
@@ -81,8 +81,9 @@ namespace render
 
     const Tile& CharsTileSet::getTile (const std::unique_ptr<state::Element>& elem) const
     {
-        std::cout << "charstileset gettile getelemtype : " << elem->getElemType() << std::endl;
-         switch(elem->getElemType()){
+        //if(elem==NULL) std::cout << "charstileset gettile gettypeID : NULL" << std::endl;
+        //std::cout << "charstileset gettile getelemtype : " << elem->getElemType() << std::endl;
+        switch(elem->getElemType()){
             case state::ID::COOKER :
                 return creatures[0][elem->getCreaturesNbr()];
                 break;
