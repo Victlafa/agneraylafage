@@ -46,7 +46,7 @@ namespace render{
                 
                 if (tab.get(i,j) != NULL) {
                     Tile tuile = ( (this->tileset).get() )->getTile( tab.get(i,j) );
-                    //std::cout << "getElemType : " << tab.get(i,j)->getElemType() << std::endl;
+                    std::cout << "getElemType : " << tab.get(i,j)->getElemType() << std::endl;
                     std::cout << "Hauteur de la tuile (" << i << "," << j << ") :" << tuile.getHeight() << std::endl;
 
                     if (i*7+j == 5 || i*7+j == 11) {
