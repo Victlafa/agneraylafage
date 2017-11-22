@@ -3,6 +3,7 @@
 #define AI__RANDOMAI__H
 
 #include <random>
+#include <vector>
 
 namespace engine {
   class Engine;
@@ -24,6 +25,8 @@ namespace ai {
   public:
     RandomAI (int randomSeed);
     void run (engine::Engine& moteur);
+    std::vector<int> moveCellResearch (engine::Engine& moteur);
+    std::vector<int> placeCellResearch (engine::Engine& moteur);
     // Setters and Getters
   };
 
