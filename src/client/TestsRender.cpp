@@ -463,7 +463,11 @@ namespace render {
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
         ElementTabLayer cellLayer(*(etat.getGrid().get()),0);
-        ElementTabLayer charsLayer(*(etat.getCharacters().get()),0);
+        //const std::shared_ptr<render::TileSet> cellTileSet = new CellTileSet();
+        //cellLayer.setTileset(cellTileSet);
+        ElementTabLayer charsLayer(*(etat.getCharacters().get()),1);
+        //const std::shared_ptr<render::TileSet> charsTileSet = new CharsTileSet();
+        //charsLayer.setTileset(charsTileSet);
         
         cellLayer.initSurface();
         charsLayer.initSurface();
@@ -540,10 +544,6 @@ namespace render {
             }
         }
         
-        if(etat.getGrid()->get(0,0)==NULL)
-            std::cout << "list 35 ? " << std::endl;
-        else
-            std::cout << "list 29 ? " << std::endl;
         
         for(unsigned int i=0; i<etat.getCharacters()->getHeight(); i++){
 
@@ -569,7 +569,7 @@ namespace render {
                             listYTextChars.push_back(200);
                             break;
                         default :
-                            std::cout << "elemType : " << etat.getCharacters()->get(i,j)->getElemType() << std::endl;
+                            //std::cout << "elemType : " << etat.getCharacters()->get(i,j)->getElemType() << std::endl;
                             std::cout << "erreur définition coordonnées textures" << std::endl;
                             break;
                     }
@@ -579,26 +579,36 @@ namespace render {
                     //std::cout << "chars null en (" << i << "," << j << ")" << std::endl;
                 }
                 
-                std::cout << "(" << i << "," << j << ")" << std::endl;
+                //std::cout << "(" << i << "," << j << ")" << std::endl;
                 
             }
         }
         
+        //coordonnée du tableau correspondant à la coordonnée i de la liste
+        int xi=0, yi=2;
         
         for (int i = 0; i < 29; i++) 
         {
 
+            quadsListCell = surfCell->getQuadsList();
             quadsListCell.push_back(sf::VertexArray(sf::Quads, 4));
+            surfCell->setQuadsList(quadsListCell);
+            
+            quadsListChars = surfChars->getQuadsList();
             quadsListChars.push_back(sf::VertexArray(sf::Quads, 4));
+            surfChars->setQuadsList(quadsListChars);
             
             if (i == 5 || i == 11) {
                 x -= halfWidth;
                 y += 86;
                 switch (i) {
                     case 5:
+                        xi++;
+                        yi++;
                         shift = i - 5;
                         break;
                     case 11:
+                        xi++;
                         shift = i - 11;
                         break;
                     default:
@@ -612,9 +622,12 @@ namespace render {
                 
                 switch (i) {
                     case 18:
+                        xi++;
                         shift = i - 18;
+                        yi++;
                         break;
                     case 24:
+                        xi++;
                         shift = i - 24;
                         break;
                     default:
@@ -633,12 +646,43 @@ namespace render {
             xTextChars = listXTextChars[i];
             yTextChars = listYTextChars[i];
             
-            surfCell->setFinalLocation(i, x, y, ( (cellLayer.getTileset()).get() )->getTile( etat.getGrid()->get(xTextCell,yTextCell) ));
-            surfCell->setTextureLocation(i, ( (cellLayer.getTileset()).get() )->getTile( etat.getGrid()->get(xTextCell,yTextCell) ));
-            surfChars->setFinalLocation(i, x, y, ( (charsLayer.getTileset()).get() )->getTile( etat.getCharacters()->get(xTextChars,yTextChars) ));
-            surfChars->setTextureLocation(i, ( (charsLayer.getTileset()).get() )->getTile( etat.getCharacters()->get(xTextChars,yTextChars) ));
+            Tile cellTile(xTextCell, yTextCell);
+            Tile charsTile(xTextChars, yTextChars);
+            
+            std::cout << "xtextcell : " << xTextCell << " ytextcell : " << yTextCell << std::endl;
+            //std::cout << "xtextchars : " << xTextChars << " ytextchars : " << yTextChars << std::endl;
+            std::cout << "i : " << i << " xi : " << xi << " yi : " << yi << std::endl;
+            
+            if(etat.getGrid()->get(xi,yi)!=NULL){
+                //quadsListCell = surfCell->getQuadsList();
+                //std::cout << "size quadslist : " << quadsListCell.size() << std::endl;
+                //quadsListCell.reserve(quadsListCell.size()+4);
+                //std::cout << "size quadslist : " << quadsListCell.size() << std::endl;
+                //surfCell->setQuadsList(quadsListCell);
+                //std::cout << "size quadslist : " << surfCell->getQuadsList().size() << std::endl;
+                //std::cout << "xtextcell 2 : " << ( (cellLayer.getTileset()).get() )->getTile( etat.getGrid()->get(xi,yi) ).getX() << " ytextcell 2 : " << ( (cellLayer.getTileset()).get() )->getTile( etat.getGrid()->get(xi,yi) ).getY() << std::endl;
+                
+                surfCell->setFinalLocation(i, shift, x, y, cellTile);
+                surfCell->setTextureLocation(i, cellTile);
 
+                //surfCell->setFinalLocation(i, xTextCell, yTextCell, ( (cellLayer.getTileset()).get() )->getTile( etat.getGrid()->get(xi,yi) ));
+                //surfCell->setTextureLocation(i, ( (cellLayer.getTileset()).get() )->getTile( etat.getGrid()->get(xi,yi) ));
+            }
+            
+            if(etat.getCharacters()->get(xi,yi)!=NULL){
+                //quadsListChars = surfChars->getQuadsList();
+                //quadsListChars.reserve(quadsListChars.size()+4);
+                //surfChars->setQuadsList(quadsListChars);
+                
+                surfChars->setFinalLocation(i, shift, x, y, charsTile);
+                surfChars->setTextureLocation(i, charsTile);
+                
+                //surfChars->setFinalLocation(i, xTextChars, yTextChars, ( (charsLayer.getTileset()).get() )->getTile( etat.getCharacters()->get(xi,yi) ));
+                //surfChars->setTextureLocation(i, ( (charsLayer.getTileset()).get() )->getTile( etat.getCharacters()->get(xi,yi) ));
+            }
+            
             shift += 1;
+            yi = (yi+1)%7;
 
         }
         
@@ -672,7 +716,7 @@ namespace render {
 
             window.clear();
             surfCell->draw(window, &hexaTexture);
-            surfChars->draw(window, &hexaTexture);
+            surfChars->draw(window, &charsTexture);
 
             window.display();
         }
