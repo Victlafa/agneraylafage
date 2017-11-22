@@ -34,8 +34,8 @@ namespace state
     }
     
     const std::unique_ptr<Element>& ElementTab::get (int i, int j) const{
-        if(list.at(i*width+j)!=NULL)
-            std::cout << "elementtab get : getelemtype :" << list.at(i*width + j)->getElemType() << std::endl;
+        //if(list.at(i*width+j)!=NULL)
+            //std::cout << "elementtab get : getelemtype :" << list.at(i*width + j)->getElemType() << std::endl;
         return list.at(i*width + j);
     }
     
