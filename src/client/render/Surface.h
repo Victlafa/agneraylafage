@@ -20,8 +20,9 @@ namespace render {
     std::vector<sf::VertexArray> quadsList;
     // Operations
   public:
+    Surface ();
     void loadTexture (const std::string& imgFile);
-    void setFinalLocation (int index, int x, int y, const Tile& tex);
+    void setFinalLocation (int index, int shift, int x, int y, const Tile& tex);
     void setTextureLocation (int index, const Tile& tex);
     void draw (sf::RenderTarget& target, sf::RenderStates states) const;
     void initQuads ();
