@@ -12,6 +12,7 @@ namespace state {
 }
 
 #include "TypeID.h"
+#include "ID.h"
 #include "Element.h"
 
 namespace state {
@@ -41,10 +42,11 @@ namespace state {
     void initCreatures ();
     bool verifUnicite (std::vector<int> listeTmp, int i, int j);
     bool verifValiditeCase (unsigned int i, unsigned int j);
-    void moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem, int fight);
     void poisonCell (bool poison, int i, int j);
     bool isPoisoned (int i, int j);
     bool isOccupiedByOpp (int i, int j, Player* joueur);
+    void moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem, int fight);
+    void placeElement (int new_i_elem, int new_j_elem, ID creaType);
     // Setters and Getters
     TypeID getTabType() const;
     void setTabType(TypeID tabType);
