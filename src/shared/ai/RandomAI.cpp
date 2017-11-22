@@ -5,7 +5,8 @@
  */
 
 #include "RandomAI.h"
-#include "engine/Engine.h"
+//#include "engine/Engine.h"
+#include "../shared/engine.h"
 #include "../shared/state.h"
 #include <iostream>
 #include <time.h>
@@ -21,16 +22,38 @@ namespace ai{
     
     void RandomAI::run (engine::Engine& moteur) 
     {
-        // On tire au hasard un numero de commande
-        //int randCommand = randGen()%(listCommands.size());
+        // On initialise les attributs de l'IA
+        this->initIA(moteur);
         
-        // On applique cette commande
-        //listCommands.at(randCommand)->execute(moteur.getState());
+        // On s'arrange pour que l'IA ait au moins une creature a placer en stock
+        moteur.getPlayer(2)->setCreaturesLeft(6);
         
-        listCommands.at(0)->execute(moteur.getState());
-        cout << "Une commande de l'ia a été en principe executée !" << endl;
-        listCommands.at(1)->execute(moteur.getState());
-        cout << "Une commande de l'ia a été en principe executée !" << endl;
+        // On cherche dans la grille une cellule appartenant à l'IA ainsi qu'une cellule de destination adjacente pour un deplacement
+        std::vector<int> coords; // = moveCellResearch(moteur);
+        // On cherche une cellule dispo pour placer une nouvelle creature de l'IA (venant de son stock) dans la grille
+        std::vector<int> placeCoords; // = placeCellResearch(moteur);
+
+        // On ajoute 5 commandes de placement et 5 de deplacement à l'IA
+        for (int i = 0; i < 5; i++)
+        {
+            coords = moveCellResearch(moteur);
+            placeCoords = placeCellResearch(moteur);
+            // On ajoute une commande de deplacement
+            listCommands.push_back(std::shared_ptr<engine::Command>(new engine::MoveCommand(coords[0], coords[1], coords[2], coords[3], 2)));
+            // On ajoute une commande de placement de nouvelle creature
+            listCommands.push_back(std::shared_ptr<engine::Command>(new engine::PlaceCommand(placeCoords[0], placeCoords[1], 2, (state::ID)moteur.getPlayer(2)->getClanName())));
+        
+        }
+        
+        // On souhaite en executer 5 de façon aleatoire
+        int randCommand;
+        
+        for (int j = 0; j < 5; j ++)
+        {
+            randCommand = randGen()%(listCommands.size());
+            listCommands.at(randCommand)->execute(moteur.getState());
+            cout << "Une commande de l'ia a été en principe executée !" << endl;
+        }
     }
     
     // Permet de chercher dans la grille une cellule appartenant à l'IA ainsi qu'une cellule de destination adjacente pour un deplacement
