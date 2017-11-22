@@ -9,7 +9,7 @@ namespace state
         y = 0;
         creaturesNbr = 0;
         
-        std::cout << "Initialisation d'un element lambda\n" << std::endl;
+        //std::cout << "Initialisation d'un element lambda\n" << std::endl;
         
         cellState = CellState::NORMAL;
         elemType = ID::GRASS;
@@ -22,7 +22,7 @@ namespace state
         y = 0;
         creaturesNbr = 0;
         elemType = type;
-        std::cout << "Initialisation d'un element de type " << type << "\n" << std::endl;
+        //std::cout << "Initialisation d'un element de type " << type << "\n" << std::endl;
         cellState = state;
 
         //player = Player();
