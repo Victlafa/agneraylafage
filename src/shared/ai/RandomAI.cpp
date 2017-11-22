@@ -97,18 +97,29 @@ namespace ai{
         }
         
         // On cherche une case adjacente pour un potentiel deplacement
-        // Deplacement possible vers la gauche ?
-        if (colonne > 0 && moteur.getState().getCharacters()->get(ligne,colonne-1).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne,colonne-1))
-            new_colonne -= 1;
-        // Vers la droite ?
+        
+        // Deplacement possible vers l'adjacente n°1 ?
+        if (ligne > 0 && moteur.getState().getCharacters()->get(ligne-1,colonne).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne - 1,colonne))
+            new_ligne -= 1;
+        // Vers l'adjacente n°2 ?
+        else if (ligne > 0 && colonne < moteur.getState().getCharacters()->getWidth() && moteur.getState().getCharacters()->get(ligne-1,colonne + 1).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne - 1,colonne))
+        {
+            new_ligne -= 1; new_colonne += 1;
+        }
+        // Vers l'adjacente n°3 ?
         else if (colonne < moteur.getState().getCharacters()->getWidth() && moteur.getState().getCharacters()->get(ligne,colonne + 1).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne,colonne+1))
             new_colonne += 1;
-        // Vers le haut ?
-        else if (ligne > 0 && moteur.getState().getCharacters()->get(ligne-1,colonne).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne - 1,colonne))
-            new_ligne -= 1;
-        // Vers le bas ?
+        // Vers l'adjacente n°4 ?
         else if (ligne < moteur.getState().getCharacters()->getHeight() && moteur.getState().getCharacters()->get(ligne + 1,colonne).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne + 1,colonne))
             new_ligne += 1;
+        // Vers l'adjacente n°5 ?
+        else if (colonne > 0 && ligne < moteur.getState().getCharacters()->getHeight() && moteur.getState().getCharacters()->get(ligne + 1,colonne).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne + 1,colonne))
+        {
+            new_ligne += 1; new_colonne -= 1;
+        }
+        // Vers l'adjacente n°6 ?
+        else if (colonne > 0 && moteur.getState().getCharacters()->get(ligne,colonne-1).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne,colonne-1))
+            new_colonne -= 1;
         else
             throw std::runtime_error("Aucune possibilite de deplacement pour l'ia !");
         
