@@ -44,19 +44,23 @@ namespace engine
     
     void Fight::gainConquest (state::State& state)
     {
-        // Si le joueur 1 comme attaquant gagne le combat, il remporte un point de conquete
+        // Si le joueur 1 comme attaquant gagne le combat, il remporte un point de conquete et son nombre de cellules augmente (celui de l'adversaire diminue)
         if (fighter == 1 && fightProcess(state))
         {
             state.getPlayer(1)->setConquestPoints(state.getPlayer(1)->getConquestPoints() + 1);
-            //state.getPlayer(1)->setIsStriker(false);
+            state.getPlayer(1)->setCellNbr(state.getPlayer(1)->getCellNbr() + 1);
+            state.getPlayer(2)->setCellNbr(state.getPlayer(2)->getCellNbr() - 1);
+            
             winner = 1;
         }
             
-        // Si le joueur 2 comme attaquant gagne le combat, il remporte un point de conquete
+        // Si le joueur 2 comme attaquant gagne le combat, il remporte un point de conquete et son nombre de cellules augmente (celui de l'adv diminue)
         else if (fighter == 2 && !fightProcess(state))
         {
             state.getPlayer(2)->setConquestPoints(state.getPlayer(2)->getConquestPoints() + 1);
-            //state.getPlayer(2)->setIsStriker(false);
+            state.getPlayer(2)->setCellNbr(state.getPlayer(2)->getCellNbr() + 1);
+            state.getPlayer(1)->setCellNbr(state.getPlayer(1)->getCellNbr() - 1);
+            
             winner = 2;
         }
             
@@ -71,7 +75,7 @@ namespace engine
             else
             {
                 std::cout << "Il y a égalité !" << std::endl;
-                winner = 3;
+                winner = 2;
             }
                 
         }

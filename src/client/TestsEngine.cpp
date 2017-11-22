@@ -38,9 +38,6 @@ namespace engine {
         CreaturesGroup* cuisinier = new CreaturesGroup(ID::COOKER, 2, moteur.getPlayer(2).get());
         moteur.getState().getCharacters()->set(cuisinier,ligneCombat,colonne2);
         
-        // On souhaite que le joueur 1 attaque le joueur 2
-        moteur.getPlayer(1)->setIsStriker(true);
-        
         // On ajoute une commande au moteur
         moteur.addCommand(1,new MoveCommand(ligneCombat,colonne1,ligneCombat,colonne2,1));
         // On execute les commandes

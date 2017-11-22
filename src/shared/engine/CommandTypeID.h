@@ -8,8 +8,10 @@ namespace engine {
   enum CommandTypeID {
     NEWGAME     = 1,
     MOVE     = 2,
-    POISON     = 3,
-    PROTECTED     = 4
+    PLACE     = 3,
+    POISON     = 4,
+    PROTECTED     = 5,
+    SPECIAL     = 6
   };
 
 };
