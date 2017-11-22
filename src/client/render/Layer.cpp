@@ -44,6 +44,7 @@ namespace render
     // Setters and Getters
     const std::shared_ptr<TileSet>& Layer::getTileset() const
     {
+        std::cout << "gettileset" << std::endl;
         return this->tileset;
     }
     

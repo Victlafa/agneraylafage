@@ -540,7 +540,11 @@ namespace render {
             }
         }
         
-            
+        if(etat.getGrid()->get(0,0)==NULL)
+            std::cout << "list 35 ? " << std::endl;
+        else
+            std::cout << "list 29 ? " << std::endl;
+        
         for(unsigned int i=0; i<etat.getCharacters()->getHeight(); i++){
 
             for(unsigned int j=0; j<etat.getCharacters()->getWidth(); j++){
@@ -565,14 +569,18 @@ namespace render {
                             listYTextChars.push_back(200);
                             break;
                         default :
+                            std::cout << "elemType : " << etat.getCharacters()->get(i,j)->getElemType() << std::endl;
                             std::cout << "erreur définition coordonnées textures" << std::endl;
                             break;
                     }
                 }
                 else
                 {
-                    std::cout << "chars null en (" << i << "," << j << ")" << std::endl;
+                    //std::cout << "chars null en (" << i << "," << j << ")" << std::endl;
                 }
+                
+                std::cout << "(" << i << "," << j << ")" << std::endl;
+                
             }
         }
         

@@ -12,8 +12,8 @@ namespace state
         totalCellNbr = 29;
         grid.reset(new ElementTab(TypeID::CELL));
         characters.reset(new ElementTab(TypeID::CREATURESGROUP));
-        player1.reset(new Player());
-        player2.reset(new Player());
+        player1.reset(new Player(CreaturesID::MINERS));
+        player2.reset(new Player(CreaturesID::COOKERS));
         
         // On initialise le tableau de creatures de sorte à associer 3 groupes de 2 creatures à chaque joueur
         this->initCreatures();

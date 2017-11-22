@@ -129,6 +129,7 @@ namespace state{
         }
         
         CreaturesID Player::getClanName() const {
+            std::cout << "player getclanname : " << this->clanName << std::endl;
             return this->clanName;
         }
 
