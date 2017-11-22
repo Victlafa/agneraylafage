@@ -170,7 +170,7 @@ namespace render
                 break;
             default :
                 return *(new Tile(-1,-1,-1,-1));
-                        std::cout << "erreur attribution CellTileSet" << std::endl;
+                std::cout << "erreur attribution CellTileSet" << std::endl;
                 break;
         }
         
