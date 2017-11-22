@@ -34,6 +34,8 @@ namespace state
     }
     
     const std::unique_ptr<Element>& ElementTab::get (int i, int j) const{
+        if(list.at(i*width+j)!=NULL)
+            std::cout << "elementtab get : getelemtype :" << list.at(i*width + j)->getElemType() << std::endl;
         return list.at(i*width + j);
     }
     
@@ -182,6 +184,8 @@ namespace state
         // On fera en sorte en début de partie que chaque joueur dispose de trois groupes de 2 cratures disposées sur la carte
         // Cette liste permettra de stocker temporairement les coordonnees deja tirees
         std::vector<int> intRand(12);
+        for(int k=0; k<12; k++) intRand[k] = 0;
+
         // Coordonnees pour creatures du joueur 1
         int rand_i, rand_j;
         // Pour celles du joueur 2
@@ -222,6 +226,7 @@ namespace state
             //intRand[2*j + 7] = rand_j_J1;
 
             this->set(new CreaturesGroup(ID::BLACKSMITH, 2, NULL), rand_i, rand_j);
+            std::cout << "getelemtype à la création : " << this->get(rand_i,rand_j)->getElemType() << "elem en (" << rand_i << "," << rand_j << ")" << std::endl;
         }
 
     }
