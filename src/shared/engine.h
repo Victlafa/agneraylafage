@@ -11,4 +11,5 @@
 #include "engine/ProtectedCommand.h"
 #include "engine/MoveCommand.h"
 #include "engine/PlaceCommand.h"
+#include "engine/SpecialCellCommand.h"
 #endif

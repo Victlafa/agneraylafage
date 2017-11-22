@@ -10,7 +10,8 @@ namespace engine {
     MOVE     = 2,
     PLACE     = 3,
     POISON     = 4,
-    PROTECTED     = 5
+    PROTECTED     = 5,
+    SPECIAL     = 6
   };
 
 };

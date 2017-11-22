@@ -24,23 +24,42 @@ namespace engine{
     
     void MoveCommand::execute (state::State& state) {
         
-        // Si la case de destination est occupée par l'adversaire, on engage un combat
-        if (state.getCharacters()->isOccupiedByOpp(finalPos[0],finalPos[1],state.getPlayer(player).get()))
+        // On verifie si la case de destination est adjacente à celle de depart
+        if (verifyProximity())
         {
-            fight->execute(state);
-            state.getCharacters()->moveElement(initPos[0],initPos[1],finalPos[0],finalPos[1], fight->getWinner());
+            // Si la case de destination est occupée par l'adversaire, on engage un combat
+            if (state.getCharacters()->isOccupiedByOpp(finalPos[0], finalPos[1], state.getPlayer(player).get())) {
+                fight->execute(state);
+                state.getCharacters()->moveElement(initPos[0], initPos[1], finalPos[0], finalPos[1], fight->getWinner());
+            } else
+                // S'il n'y a pas combat on procede directement au deplacement
+                state.getCharacters()->moveElement(initPos[0], initPos[1], finalPos[0], finalPos[1], 0);
+
+            // On associe la case d'arrivée au joueur gagnant
+            if (fight->getWinner() == 1 || fight->getWinner() == 2) {
+                std::cout << "Joueur gagnant : " << state.getPlayer(fight->getWinner()).get() << std::endl;
+                state.getCharacters()->get(finalPos[0], finalPos[1])->setPlayer(state.getPlayer(fight->getWinner()).get());
+            }
         }
         else
-        // S'il n'y a pas combat on procede directement au deplacement
-            state.getCharacters()->moveElement(initPos[0],initPos[1],finalPos[0],finalPos[1],0);
+            throw std::runtime_error("La case de destination doit etre adjacente à celle de depart !");
         
-        // On associe la case d'arrivée au joueur gagnant
-        if (fight->getWinner() == 1 || fight->getWinner() == 2)
-        {
-            std::cout << "Joueur gagnant : " << state.getPlayer(fight->getWinner()).get() << std::endl;
-            state.getCharacters()->get(finalPos[0],finalPos[1])->setPlayer(state.getPlayer(fight->getWinner()).get());
-        }
             
+    }
+    
+    bool MoveCommand::verifyProximity ()
+    {
+        bool verif1 = ((finalPos[0] == initPos[0] - 1) && finalPos[1] == initPos[1]);
+        bool verif2 = ((finalPos[0] == initPos[0] - 1) && (finalPos[1] == initPos[1] + 1));
+        bool verif3 = (finalPos[0] == initPos[0] && (finalPos[1] == initPos[1] + 1));
+        bool verif4 = ((finalPos[0] == initPos[0] + 1) && finalPos[1] == initPos[1]);
+        bool verif5 = ((finalPos[0] == initPos[0] + 1) && (finalPos[1] == initPos[1] - 1));
+        bool verif6 = (finalPos[0] == initPos[0] && (finalPos[1] == initPos[1] - 1));
+        
+        if (verif1 || verif2 || verif3 || verif4 || verif5 || verif6)
+            return true;
+        else
+            return false;
     }
     
     // Setters and Getters

@@ -24,11 +24,12 @@ namespace engine{
         if (state.getPlayer(player)->getCreaturesLeft() > 0)
         {
             // Si c'est le cas on cherche à placer une creature
+            
             // Si la case de destination est occupée par l'adversaire, on leve une exception
             if (state.getCharacters()->isOccupiedByOpp(finalPos[0], finalPos[1], state.getPlayer(player).get()))
                 throw std::runtime_error("La case où le joueur souhaite placer sa creature est occupée par l'adversaire !");
                 // De meme si la case de destination appartient au joueur mais qu'elle comporte deja 5 creatures
-            else if (state.getCharacters()->get(finalPos[0], finalPos[1])->getCreaturesNbr() == 5)
+            else if (state.getCharacters()->get(finalPos[0], finalPos[1]).get() != NULL && state.getCharacters()->get(finalPos[0], finalPos[1])->getCreaturesNbr() == 5)
                 throw std::runtime_error("La case où le joueur souhaite placer sa creature possède deja 5 creatures !");
                 // Dans les autres cas, on peut placer une nouvelle creature
             else {
