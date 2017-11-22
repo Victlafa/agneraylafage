@@ -21,6 +21,9 @@ namespace ai {
         // On recupere le joueur 2
         state::Player* player_ia = moteur.getPlayer(2).get();
         
+        // On initialise une liste de commandes
+        std::vector<std::shared_ptr<engine::Command> > commands;
+        
         // On va chercher une creature de l'IA dans le moteur donné en argument
         unsigned int ligne = 0;
         unsigned int colonne = 0;
@@ -30,13 +33,10 @@ namespace ai {
         
         //int randCommand = 0;
         
-        for (unsigned int i = 0; i < 5; i++) /*moteur.getState().getCharacters()->getHeight()*/
+        for (unsigned int i = 0; i < moteur.getState().getCharacters()->getHeight(); i++) 
         {
-            std::cout << "i : " << i << std::endl;
-            for (unsigned int j = 0; j < 7; j++) /*moteur.getState().getCharacters()->getWidth()*/
+            for (unsigned int j = 0; j < moteur.getState().getCharacters()->getWidth(); j++) 
             {
-                std::cout << "j : " << j << std::endl;
-                
                 // Si on trouve un groupe de creatures de pointeur non nul
                 if (moteur.getState().getCharacters()->get(i,j).get() != 0)
                 {
@@ -51,23 +51,17 @@ namespace ai {
                         colonne = j;
                         new_ligne = i;
                         new_colonne = j;
+                        
                         // On sort de la boucle for j
-                        std::cout << "break for j" << std::endl;
                         break;
                     }
                 }
                 
             }
             
-            std::cout << "sortie break for j" << std::endl;
-            std::cout << "ligne : " << ligne << "colonne : " << colonne << std::endl;
-            
             // On sort de la boucle for i
-            if (ligne != 0 && colonne != 0 && new_ligne != 0 && new_colonne != 0)
-            {
-                std::cout << "break for i" << std::endl;
+            if (ligne != 0 || colonne != 0 || new_ligne != 0 || new_colonne != 0)
                 break;
-            }
         }
         
         // On cherche une case adjacente pour un potentiel deplacement
@@ -86,12 +80,9 @@ namespace ai {
         else
             throw std::runtime_error("Aucune possibilite de deplacement pour l'ia !");
         
-        // On initialise une liste de commandes
-        std::vector<std::shared_ptr<engine::Command> > commands;
         // Commande de deplacement
         commands.push_back(std::shared_ptr<engine::Command>(new engine::MoveCommand(ligne, colonne, new_ligne, new_colonne, 2)));
-        //commands.push_back()
-        
+                
         // On ajoute cette liste de commandes à l'ia
         ia.setListCommands(commands);
         // On met l'ia en route
