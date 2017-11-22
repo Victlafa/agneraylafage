@@ -286,7 +286,7 @@ namespace state
             else 
             {
                 
-                if (fight >= 0 && fight < 4) {
+                if (fight >= 0 && fight < 3) {
                     
                     // On fixe le nbre de creatures de la case attaquante à 1
                     list.at(i_elem * width + j_elem)->setCreaturesNbr(1);
@@ -301,7 +301,7 @@ namespace state
                         // On detruit les creatures de la case defense en on remplaçant par celles de l'attaquant
                         this->set(new CreaturesGroup(list.at(i_elem * width + j_elem)->getElemType(), (creaNbrAtt - 1) % 5, NULL), new_i_elem, new_j_elem);
                     
-                    // Si fight = 2 le defenseur a gagné le combat, si fight = 3 il y a egalité mais on considere que c'est le defenseur qui gagne
+                    // Si fight = 2 le defenseur a gagné le combat, ou il y a egalité mais on considere que c'est le defenseur qui gagne
                     // Dans ce cas là on voit juste le nombre de creatures de la case attaquante tomber à 1
                 }
                 

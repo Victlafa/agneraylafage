@@ -136,13 +136,5 @@ namespace state{
         void Player::setClanName(CreaturesID Identify) {
             this->clanName = Identify;
         }
-        
-        bool Player::getIsStriker() const
-        {
-            return isStriker;
-        }
-        void Player::setIsStriker(bool isStriker){
-            this->isStriker = isStriker;
-        }
     
 };

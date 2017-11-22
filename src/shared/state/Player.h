@@ -21,7 +21,6 @@ namespace state {
     int xLastCell     = 0;
     int yLastCell     = 0;
     int creaturesLeft;
-    bool isStriker     = false;
     std::vector<std::string> speCellsNames;
     // Operations
   public:
@@ -46,8 +45,6 @@ namespace state {
     void setYLastCell(int yLastCell);
     int getCreaturesLeft() const;
     void setCreaturesLeft(int creaturesLeft);
-    bool getIsStriker() const;
-    void setIsStriker(bool isStriker);
     const std::vector<std::string>& getSpeCellsNames() const;
     void setSpeCellsNames(const std::vector<std::string>& speCellsNames);
   };
