@@ -10,7 +10,6 @@ namespace state
     // Constructors :
     CreaturesGroup::CreaturesGroup (ID type, int nbrCrea, Player* joueur) : Element(type, CellState::NOTCELL){
         placed = false;
-        
         this->setPlayer(joueur);
 //        if (!joueur)
 //        {
@@ -22,6 +21,7 @@ namespace state
 //            this->player = *joueur;
         
         this->setCreaturesNbr(nbrCrea);
+        std::cout << "nombre de créature dans la cellule : " << nbrCrea << std::endl;
     }
     
     CreaturesGroup::CreaturesGroup (ID type, Player* joueur, const Element& elem) : Element(type, CellState::NOTCELL)
