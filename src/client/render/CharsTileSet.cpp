@@ -15,7 +15,7 @@ namespace render
             
             for (int j = 0; j < 5; j++)
             {
-                creatures[i][j] = Tile(50*(i+1),50*(j+1),100,100);
+                creatures[i][j] = Tile(50*(2*i+1),50*(2*j+1),100,100);
             }
         }
     }
@@ -39,20 +39,21 @@ namespace render
         //std::cout << "charstileset gettile getelemtype : " << elem.getElemType() << std::endl;
         switch(elem.getElemType()){
             case state::ID::COOKER :
-                return creatures[0][elem.getCreaturesNbr()];
+                return creatures[0][elem.getCreaturesNbr()-1];
                 break;
             case state::ID::BLACKSMITH :
-                return creatures[1][elem.getCreaturesNbr()];
+                return creatures[1][elem.getCreaturesNbr()-1];
                 break;
             case state::ID::LUMBERJACK :
-                return creatures[2][elem.getCreaturesNbr()];
+                return creatures[2][elem.getCreaturesNbr()-1];
                 break;
             case state::ID::MINER :
-                return creatures[3][elem.getCreaturesNbr()];
+                return creatures[3][elem.getCreaturesNbr()-1];
                 break;
             default :
-                return *(new Tile(-1,-1,-1,-1));
-                std::cout << "erreur attribution CharsTileSet" << std::endl;
+                return creatures[4][0];
+                //return *(new Tile(-1,-1,-1,-1));
+                //std::cout << "erreur attribution CharsTileSet" << std::endl;
                 break;
         }
         /*
@@ -85,19 +86,20 @@ namespace render
         //std::cout << "charstileset gettile getelemtype : " << elem->getElemType() << std::endl;
         switch(elem->getElemType()){
             case state::ID::COOKER :
-                return creatures[0][elem->getCreaturesNbr()];
+                return creatures[0][elem->getCreaturesNbr()-1];
                 break;
             case state::ID::BLACKSMITH :
-                return creatures[1][elem->getCreaturesNbr()];
+                return creatures[1][elem->getCreaturesNbr()-1];
                 break;
             case state::ID::LUMBERJACK :
-                return creatures[2][elem->getCreaturesNbr()];
+                return creatures[2][elem->getCreaturesNbr()-1];
                 break;
             case state::ID::MINER :
-                return creatures[3][elem->getCreaturesNbr()];
+                return creatures[3][elem->getCreaturesNbr()-1];
                 break;
             default :
-                return *(new Tile(-1,-1,-1,-1));
+                return creatures[4][4];
+                //return *(new Tile(-1,-1,-1,-1));
                 std::cout << "erreur attribution CharsTileSet" << std::endl;
                 break;
         }
