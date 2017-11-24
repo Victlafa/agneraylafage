@@ -60,6 +60,10 @@ namespace state
         // Cette liste permettra de stocker temporairement les coordonnees deja tirees
         std::vector<int> intRand(12);
         
+        for(int k=0; k<12; k++){
+            intRand[k]=0;
+        }
+        
         // Coordonnees pour creatures du joueur 1
         int rand_i, rand_j;
         // Pour celles du joueur 2
@@ -82,7 +86,10 @@ namespace state
                 verifJ1 = characters->verifUnicite(intRand,rand_i,rand_j);
                 verifCaseJ1 = characters->verifValiditeCase(rand_i,rand_j);
                 
-            } while (verifJ1 || !verifCaseJ1);
+            } while ((verifJ1) || (!verifCaseJ1));
+            
+            intRand[4*j] = rand_i;
+            intRand[4*j + 1] = rand_j;
             
             do {
                 
@@ -92,16 +99,17 @@ namespace state
                 verifJ2 = characters->verifUnicite(intRand,rand_i_J2, rand_j_J2);
                 verifCaseJ2 = characters->verifValiditeCase(rand_i_J2, rand_j_J2);
                 
-            } while (verifJ2 || !verifCaseJ2);
+            } while ((verifJ2) || (!verifCaseJ2));
 
-            intRand[4*j] = rand_i;
-            intRand[4*j + 1] = rand_j;
             intRand[4*j + 2] = rand_i_J2;
             intRand[4*j + 3] = rand_j_J2;
 
             this->characters->set(new CreaturesGroup((ID)(this->getPlayer(1)->getClanName()), 2, this->getPlayer(1).get()), rand_i, rand_j);
             this->characters->set(new CreaturesGroup((ID)(this->getPlayer(2)->getClanName()), 2, this->getPlayer(2).get()), rand_i_J2, rand_j_J2);
-
+            std::cout << "(" << intRand[4*j] << "," << intRand[4*j+1] << ") ";
+            std::cout << "(" << intRand[4*j+2] << "," << intRand[4*j+3] << ")" << std::endl;
+            
+            
         }
     }
    
