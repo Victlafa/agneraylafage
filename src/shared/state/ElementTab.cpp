@@ -180,7 +180,7 @@ namespace state
     }
     
     void ElementTab::initCreatures (){
-        
+        /*
         // On fera en sorte en début de partie que chaque joueur dispose de trois groupes de 2 cratures disposées sur la carte
         // Cette liste permettra de stocker temporairement les coordonnees deja tirees
         std::vector<int> intRand(12);
@@ -227,16 +227,16 @@ namespace state
 
             this->set(new CreaturesGroup(ID::BLACKSMITH, 2, NULL), rand_i, rand_j);
             std::cout << "getelemtype à la création : " << this->get(rand_i,rand_j)->getElemType() << "elem en (" << rand_i << "," << rand_j << ")" << std::endl;
-        }
+        }*/
 
     }
     
     // Renvoie true si les coordonnees entrees sont deja presentes dans la liste listeTmp
     bool ElementTab::verifUnicite(std::vector<int> listeTmp, int i, int j){
         
-        for (int i = 0; i < (int)(listeTmp.size()/2); i++)
+        for (int k = 0; k < (int)(listeTmp.size()/2); k++)
         {
-            if (listeTmp[2*i] == i && listeTmp[2*i + 1] == j)
+            if (listeTmp[2*k] == i && listeTmp[2*k + 1] == j)
                 return true;
         }
         
