@@ -552,20 +552,20 @@ namespace render {
                 if(NULL!=etat.getCharacters()->get(i,j)){
 
                     switch(etat.getCharacters()->get(i,j)->getElemType()){
-                        case state::ID::BLACKSMITH :
-                            listXTextChars.push_back(50*(2*etat.getCharacters()->get(i,j)->getCreaturesNbr()+1));
+                        case 1 ://state::ID::BLACKSMITH :
+                            listXTextChars.push_back(50*(2*etat.getCharacters()->get(i,j)->getCreaturesNbr()-1));
                             listYTextChars.push_back(50);
                             break;
-                        case state::ID::COOKER :
-                            listXTextChars.push_back(50*(2*etat.getCharacters()->get(i,j)->getCreaturesNbr()+1));
+                        case 2 ://state::ID::COOKER :
+                            listXTextChars.push_back(50*(2*etat.getCharacters()->get(i,j)->getCreaturesNbr()-1));
                             listYTextChars.push_back(150);
                             break;
-                        case state::ID::LUMBERJACK :
-                            listXTextChars.push_back(50*(2*etat.getCharacters()->get(i,j)->getCreaturesNbr()+1));
+                        case 3 ://state::ID::LUMBERJACK :
+                            listXTextChars.push_back(50*(2*etat.getCharacters()->get(i,j)->getCreaturesNbr()-1));
                             listYTextChars.push_back(250);
                             break;
-                        case state::ID::MINER :
-                            listXTextChars.push_back(50*(2*etat.getCharacters()->get(i,j)->getCreaturesNbr()+1));
+                        case 4 :// state::ID::MINER :
+                            listXTextChars.push_back(50*(2*etat.getCharacters()->get(i,j)->getCreaturesNbr()-1));
                             listYTextChars.push_back(350);
                             break;
                         default :
@@ -573,6 +573,7 @@ namespace render {
                             std::cout << "erreur définition coordonnées textures" << std::endl;
                             break;
                     }
+                    
                 }
                 else
                 {
