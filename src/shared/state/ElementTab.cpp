@@ -286,7 +286,7 @@ namespace state
             else 
             {
                 
-                if (fight >= 0 && fight < 3) {
+                if (fight >= 0 && fight < 5) {
                     
                     // On fixe le nbre de creatures de la case attaquante à 1
                     list.at(i_elem * width + j_elem)->setCreaturesNbr(1);
@@ -296,12 +296,14 @@ namespace state
                         // On fixe le nbre de creatures de la case destination
                         list.at(new_i_elem * width + new_j_elem)->setCreaturesNbr((creaNbrDef + creaNbrAtt - 1) % 5);
                     
-                    // L'attaquant a gagné le combat
-                    else if (fight == 1) 
+                    // Le joueur 1 ou le joueur 2 a gagné le combat sans aucune pitie
+                    else if (fight == 1 || fight == 2)
                         // On detruit les creatures de la case defense en on remplaçant par celles de l'attaquant
                         this->set(new CreaturesGroup(list.at(i_elem * width + j_elem)->getElemType(), (creaNbrAtt - 1) % 5, NULL), new_i_elem, new_j_elem);
                     
-                    // Si fight = 2 le defenseur a gagné le combat, ou il y a egalité mais on considere que c'est le defenseur qui gagne
+                    else
+                        std::cout << "Le defenseur a gagne" << std::endl;
+                    // Si fight = 3 ie le defenseur a gagne, on detruit seulement les creatures envoyées au combat par l'attaquant
                     // Dans ce cas là on voit juste le nombre de creatures de la case attaquante tomber à 1
                 }
                 

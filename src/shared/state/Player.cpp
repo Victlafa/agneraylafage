@@ -136,5 +136,17 @@ namespace state{
         void Player::setClanName(CreaturesID Identify) {
             this->clanName = Identify;
         }
+        
+        void Player::setSpeCellsNames(const std::vector<std::string>& speCellsNames)
+        {
+            // On vide la liste initiale des noms de cellules speciales
+            this->speCellsNames.clear();
+            
+            // On ajoute les nouveaux
+            for (auto elem : speCellsNames)
+            {
+                this->speCellsNames.push_back(elem);
+            }
+        }
     
 };
