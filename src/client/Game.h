@@ -16,6 +16,7 @@
 
 #include "../shared/state.h"
 #include "../shared/engine.h"
+#include <iostream>
 
 using namespace engine;
 using namespace state;
