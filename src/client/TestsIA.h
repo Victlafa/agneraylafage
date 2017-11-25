@@ -21,12 +21,13 @@
 #include <vector>
 
 #include "engine/MoveCommand.h"
-#include "ai/AI.h"
-#include "ai/RandomAI.h"
+//#include "ai/AI.h"
+//#include "ai/RandomAI.h"
 #include <time.h>
 
 namespace ai{
-    void TestRandomIA();
+    void TestsRandomIA();
+    void TestsHeuristicIA();
     
 }
 

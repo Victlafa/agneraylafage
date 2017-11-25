@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 
-#include "TestRandomIA.h"
+#include "TestsIA.h"
 
 namespace ai {
 
-    void TestRandomIA() 
+    void TestsRandomIA() 
     {
         srand(time(NULL));
         
@@ -20,6 +20,19 @@ namespace ai {
  
         ia.run(moteur);
         
+    }
+    
+    void TestsHeuristicIA()
+    {
+        srand(time(NULL));
+        
+        // On initialise un moteur
+        engine::Engine moteur;
+        
+        // On initialise une ia
+        HeuristicAI ia(rand()%30000);
+ 
+        ia.run(moteur);
     }
     
 }
