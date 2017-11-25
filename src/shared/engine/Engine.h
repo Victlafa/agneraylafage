@@ -13,6 +13,7 @@ namespace engine {
 }
 
 #include "state/State.h"
+#include "state/CreaturesID.h"
 #include "Command.h"
 
 namespace engine {
@@ -26,7 +27,7 @@ namespace engine {
     std::map<int,std::unique_ptr<Command> > currentCommands;
     // Operations
   public:
-    Engine ();
+    Engine (state::CreaturesID typePl1);
     ~Engine ();
     void addPassiveCommands ();
     void addCommand (int priority, Command* cmd);

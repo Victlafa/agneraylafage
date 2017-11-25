@@ -7,11 +7,12 @@
 #include "Engine.h"
 #include "../engine.h"
 #include "../shared/state.h"
+#include <iostream>
 using namespace state;
 
 namespace engine
 {
-    Engine::Engine() {}
+    Engine::Engine(CreaturesID typePl1) : currentState(typePl1) { }
     
     Engine::~Engine (){}
     state::State& Engine::getState () {return this->currentState;}
