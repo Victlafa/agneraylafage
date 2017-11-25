@@ -17,7 +17,7 @@ void testSFML() {
 #include "TestsState.h"
 #include "TestsRender.h"
 #include "TestsEngine.h"
-#include "TestRandomIA.h"
+#include "TestsIA.h"
 #include "../shared/ai.h"
 
 using namespace std;
@@ -85,7 +85,7 @@ int main(int argc,char* argv[])
                 
             }*/
             
-            //TestRandomIA();
+            TestsHeuristicIA();
         
         }
         
