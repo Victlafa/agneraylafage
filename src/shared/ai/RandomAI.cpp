@@ -40,8 +40,9 @@ namespace ai{
             placeCoords = placeCellResearch(moteur);
             // On ajoute une commande de deplacement
             listCommands.push_back(std::shared_ptr<engine::Command>(new engine::MoveCommand(coords[0], coords[1], coords[2], coords[3], 2)));
-            // On ajoute une commande de placement de nouvelle creature
-            listCommands.push_back(std::shared_ptr<engine::Command>(new engine::PlaceCommand(placeCoords[0], placeCoords[1], 2, (state::ID)moteur.getPlayer(2)->getClanName())));
+            // On ajoute une commande de placement de nouvelle creature seulement si les coordonnees de placement sont differentes de celles du deplacement
+            if (placeCoords[0] != coords[0] && placeCoords[1] != coords[1])
+                listCommands.push_back(std::shared_ptr<engine::Command>(new engine::PlaceCommand(placeCoords[0], placeCoords[1], 2, (state::ID)moteur.getPlayer(2)->getClanName())));
         
         }
         
@@ -52,8 +53,11 @@ namespace ai{
         {
             randCommand = randGen()%(listCommands.size());
             listCommands.at(randCommand)->execute(moteur.getState());
-            cout << "Une commande de l'ia a été en principe executée !" << endl;
+            cout << "Une commande de l'ia random a été en principe executée !" << endl;
         }
+        
+        // On vide la liste des commandes
+        listCommands.clear();
     }
     
     // Permet de chercher dans la grille une cellule appartenant à l'IA ainsi qu'une cellule de destination adjacente pour un deplacement
@@ -121,7 +125,8 @@ namespace ai{
         else if (colonne > 0 && moteur.getState().getCharacters()->get(ligne,colonne-1).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne,colonne-1))
             new_colonne -= 1;
         else
-            throw std::runtime_error("Aucune possibilite de deplacement pour l'ia !");
+            std::cout << "La case selectionnee pour l'IA ne permet aucun deplacement" << std::endl;
+            //throw std::runtime_error("Aucune possibilite de deplacement pour l'ia !");
         
         coordsDestination[0] = ligne;
         coordsDestination[1] = colonne;
@@ -166,8 +171,8 @@ namespace ai{
                             break;
                         }
                     }
-                    // Si on cherche une case vide
-                    else if (choice == 1 && moteur.getState().getCharacters()->get(i,j).get() == NULL)
+                    // Si on cherche une case vide (ON DOIT VERIFIER QUE LA CASE EST AUTORISEE !!)
+                    else if (choice == 1 && moteur.getState().getCharacters()->verifValiditeCase(i,j) && moteur.getState().getCharacters()->get(i,j).get() == NULL )
                     {
                         ligne = i;
                         colonne = j;
