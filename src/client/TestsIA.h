@@ -25,6 +25,8 @@
 //#include "ai/RandomAI.h"
 #include <time.h>
 
+using namespace state;
+
 namespace ai{
     void TestsRandomIA();
     void TestsHeuristicIA();

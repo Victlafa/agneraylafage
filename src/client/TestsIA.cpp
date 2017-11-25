@@ -6,6 +6,7 @@
 
 #include "TestsIA.h"
 
+
 namespace ai {
 
     void TestsRandomIA() 
@@ -13,7 +14,8 @@ namespace ai {
         srand(time(NULL));
         
         // On initialise un moteur
-        engine::Engine moteur;
+        // On choisit les cuisiniers pour le joueur 1
+        engine::Engine moteur(CreaturesID::COOKERS);
         
         // On initialise une ia
         RandomAI ia(rand()%30000);
@@ -27,7 +29,8 @@ namespace ai {
         srand(time(NULL));
         
         // On initialise un moteur
-        engine::Engine moteur;
+        // On choisit les mineurs pour le joueur 1
+        engine::Engine moteur(CreaturesID::MINERS);
         
         // On initialise une ia
         HeuristicAI ia(rand()%30000);

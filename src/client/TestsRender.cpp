@@ -462,16 +462,21 @@ namespace render {
 
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
+        // On crée un Layer qui permettra de gerer l'affichage des cellules
         ElementTabLayer cellLayer(*(etat.getGrid().get()),0);
         //const std::shared_ptr<render::TileSet> cellTileSet = new CellTileSet();
         //cellLayer.setTileset(cellTileSet);
+        
+        // On crée un Layer qui permettra de gerer l'affichage des creatures
         ElementTabLayer charsLayer(*(etat.getCharacters().get()),1);
         //const std::shared_ptr<render::TileSet> charsTileSet = new CharsTileSet();
         //charsLayer.setTileset(charsTileSet);
         
+        // On initialise les surfaces de ces deux Layers
         cellLayer.initSurface();
         charsLayer.initSurface();
         
+        // On cree des surfaces temporaires qu'on introduira ensuite dans les Layers
         Surface *surfCell = new Surface();
         Surface *surfChars = new Surface();
         
@@ -485,6 +490,7 @@ namespace render {
         int yTextChars = 81;
         int shift = 0;
         
+        // Listes temporaires qui permettront d'initialiser les Surface
         std::vector<sf::VertexArray> quadsListCell;
         quadsListCell.reserve(29);
         std::vector<sf::VertexArray> quadsListChars;
@@ -500,7 +506,7 @@ namespace render {
         std::vector<int> listYTextChars = std::vector<int>();
         listYTextChars.reserve(29);
         
-        
+        // On recupere les coordonnees des textures cellules dans l'image de texture associee
         for(unsigned int i=0; i<etat.getGrid()->getHeight(); i++){
 
             for(unsigned int j=0; j<etat.getGrid()->getWidth(); j++){
@@ -544,7 +550,7 @@ namespace render {
             }
         }
         
-        
+        // On recupere les coordonnees des textures creatures dans l'image de texture associee
         for(unsigned int i=0; i<etat.getCharacters()->getHeight(); i++){
 
             for(unsigned int j=0; j<etat.getCharacters()->getWidth(); j++){
@@ -717,7 +723,8 @@ namespace render {
         cellLayer.setSurface(surfCell);
         charsLayer.setSurface(surfChars);
         
-        
+        //std::cout << "Nombre de quads crees dans la surface de CellLayer : " << cellLayer.getSurface()->getQuadsList().size() << std::endl;
+                
         while (window.isOpen()) {
             sf::Event event;
             while (window.pollEvent(event)) {

@@ -237,7 +237,7 @@ void TestsSimpleCell()
 
 void TestsState()
 {
-    std::unique_ptr<State> etat(new State());
+    std::unique_ptr<State> etat(new State(CreaturesID::BLACKSMITHS));
     
     std::cout << "DEBUT TESTS STATE" << std::endl << std::endl;
    
@@ -259,7 +259,7 @@ void TestsState()
 
     std::cout << "FIN TESTS STATE" << std::endl << std::endl;
     
-    etat.reset(new State());
+    etat.reset(nullptr);
 }
 
 }

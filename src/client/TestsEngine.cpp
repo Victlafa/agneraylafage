@@ -23,7 +23,7 @@ namespace engine {
         cout << "DEBUT TESTS FIGHTCOMMAND" << endl;
         
         // On cree un moteur qui creera automatiquement un etat
-        engine::Engine moteur;
+        engine::Engine moteur(CreaturesID::BLACKSMITHS);
         
         int ligneCombat = 2;
         int colonne1 = 3;
@@ -53,7 +53,7 @@ namespace engine {
         
         cout << "DEBUT TESTS MOVECHARCOMMAND" << endl;
         
-        engine::Engine moteur;
+        engine::Engine moteur(CreaturesID::BLACKSMITHS);
         
         int ligne = 2;
         int colonne = 4;
@@ -80,7 +80,7 @@ namespace engine {
         
         cout << "DEBUT TESTS POISONCOMMAND" << endl;
         
-        engine::Engine moteur;
+        engine::Engine moteur(CreaturesID::BLACKSMITHS);
         
         int ligne = 2;
         int colonne = 4;
@@ -109,7 +109,7 @@ namespace engine {
     {
         cout << "DEBUT TESTS NEWGAMECOMMAND" << endl;
         
-        engine::Engine moteur;
+        engine::Engine moteur(CreaturesID::BLACKSMITHS);
         std::cout << "Etat avant : " << &moteur.getState() << std::endl;
         std::cout << "Grille avant : " << moteur.getState().getGrid().get() << std::endl;
         moteur.addCommand(1,new NewGameCommand());
@@ -124,7 +124,7 @@ namespace engine {
     void TestsMoveCommand(){
         cout << "DEBUT TESTS MOVECHARCOMMAND" << endl;
         
-        engine::Engine moteur;
+        engine::Engine moteur(CreaturesID::BLACKSMITHS);
         
         std::cout << "Joueur 1 de l'état : " << moteur.getPlayer(1).get() << std::endl;
         std::cout << "Joueur 2 de l'état : " << moteur.getPlayer(2).get() << std::endl;
