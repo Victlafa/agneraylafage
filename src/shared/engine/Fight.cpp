@@ -69,13 +69,13 @@ namespace engine
             if (fighter != 1 && fighter != 2)
             {
                 winner = 0;
-                throw std::runtime_error("Aucun des joueurs n'a été défini comme attaquant !");
+                throw std::runtime_error("Erreur dans le choix de l'argument fighter du constructeur Fight::Fight, on doit entrer 1 ou 2");
             }
                 
             else
             {
-                std::cout << "Il y a égalité !" << std::endl;
-                winner = 2;
+                std::cout << "Soit il y a egalite, soit le defenseur a remporte le combat !" << std::endl;
+                winner = 3;
             }
                 
         }

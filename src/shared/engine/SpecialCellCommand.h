@@ -4,6 +4,7 @@
 
 #include <memory>
 #include <vector>
+#include <string>
 
 namespace engine {
   class Fight;
@@ -30,15 +31,16 @@ namespace engine {
     std::vector<int> initPos;
     std::vector<int> finalPos;
     int player;
+    std::string type;
     // Operations
   public:
-    SpecialCellCommand (int init_i, int init_j, int final_i, int final_j, int player);
+    SpecialCellCommand (int init_i, int init_j, int final_i, int final_j, int player, std::string type);
     bool isSpecial (state::State& state);
     CommandTypeID getTypeID () const;
     void execute (state::State& state);
-    void skyPower ();
-    void sugarPower ();
-    void bbqPoolPower ();
+    void skyPower (state::State& state);
+    void sugarPower (state::State& state);
+    void bbqPoolPower (state::State& state);
     // Setters and Getters
     const std::shared_ptr<Fight>& getFight() const;
     void setFight(const std::shared_ptr<Fight>& fight);
@@ -48,6 +50,8 @@ namespace engine {
     void setFinalPos(const std::vector<int>& finalPos);
     int getPlayer() const;
     void setPlayer(int player);
+    const std::string& getType() const;
+    void setType(const std::string& type);
   };
 
 };
