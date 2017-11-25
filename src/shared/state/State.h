@@ -27,7 +27,7 @@ namespace state {
     int totalCellNbr;
     // Operations
   public:
-    State ();
+    State (CreaturesID typePl1);
     ~State ();
     const std::unique_ptr<ElementTab>& getGrid () const;
     const std::unique_ptr<ElementTab>& getCharacters () const;

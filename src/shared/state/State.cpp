@@ -4,16 +4,20 @@
 #include "Cell.h"
 #include "CreaturesGroup.h"
 #include <iostream>
+#include <time.h>
 
 namespace state
 {
 
-    State::State(){
+    State::State(CreaturesID typePl1){
         totalCellNbr = 29;
         grid.reset(new ElementTab(TypeID::CELL));
         characters.reset(new ElementTab(TypeID::CREATURESGROUP));
-        player1.reset(new Player(CreaturesID::MINERS));
-        player2.reset(new Player(CreaturesID::COOKERS));
+        player1.reset(new Player(typePl1));
+        
+        // Pour l'IA on tire au sort un type de creatures
+        int typePl2 = rand()%4 + 1;
+        player2.reset(new Player((CreaturesID)typePl2));
         
         // On initialise le tableau de creatures de sorte à associer 3 groupes de 2 creatures à chaque joueur
         this->initCreatures();
