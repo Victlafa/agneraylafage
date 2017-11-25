@@ -22,7 +22,7 @@ namespace state
         y = 0;
         creaturesNbr = 0;
         elemType = type;
-        std::cout << "Initialisation d'un element de type " << type << "\n" << std::endl;
+        std::cout << "Element.cpp : Initialisation d'un element de type " << (ID)type << "\n" << std::endl;
         cellState = state;
 
         //player = Player();

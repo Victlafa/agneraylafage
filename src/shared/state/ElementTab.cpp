@@ -68,12 +68,10 @@ namespace state
 
         if (tabType == TypeID::CELL)
             initCells();
-
-        else if (tabType == TypeID::CREATURESGROUP)
-            initCreatures();
         
         else
-            throw std::runtime_error("Erreur dans le choix du type de tableau !");
+            if (tabType != TypeID::CREATURESGROUP)
+                throw std::runtime_error("Erreur dans le choix du type de tableau !");
         
     }
     
@@ -177,58 +175,6 @@ namespace state
             
         }     
         
-    }
-    
-    void ElementTab::initCreatures (){
-        /*
-        // On fera en sorte en début de partie que chaque joueur dispose de trois groupes de 2 cratures disposées sur la carte
-        // Cette liste permettra de stocker temporairement les coordonnees deja tirees
-        std::vector<int> intRand(12);
-        for(int k=0; k<12; k++) intRand[k] = 0;
-
-        // Coordonnees pour creatures du joueur 1
-        int rand_i, rand_j;
-        // Pour celles du joueur 2
-        //int rand_i_J2, rand_j_J2;
-        
-        bool verifJ1;
-        //bool verifJ2;
-        bool verifCaseJ1;
-        //bool verifCaseJ2;
-
-        // On va tirer au sort des coordonnees pour placer 6 groupes de creatures
-        
-        for (int j = 0; j < 6; j++) {
-            
-            // On fait les tirages des deux joueurs 
-            do {
-                rand_i = rand() % height;
-                rand_j = rand() % width;
-                // On verifie la validite des coordonnees : ont-elles deja été tirees ? Correspondent-elles à des cases interdites ?
-                verifJ1 = verifUnicite(intRand,rand_i,rand_j);
-                verifCaseJ1 = verifValiditeCase(rand_i,rand_j);
-                
-            } while (verifJ1 || !verifCaseJ1);
-            
-//            do {
-//                
-//                rand_i_J2 = rand() % height;
-//                rand_j_J2 = rand() % width;
-//                // On verifie la validite des coordonnees : ont-elles deja été tirees ? Correspondent-elles à des cases interdites ?
-//                verifJ2 = verifUnicite(rand_i_J2, rand_j_J2);
-//                verifCaseJ2 = verifValiditeCase(rand_i_J2, rand_j_J2);
-//                
-//            } while (verifJ2 || !verifCaseJ2);
-
-            intRand[2*j] = rand_i;
-            intRand[2*j + 1] = rand_j;
-            //intRand[2*j + 6] = rand_i_J1;
-            //intRand[2*j + 7] = rand_j_J1;
-
-            this->set(new CreaturesGroup(ID::BLACKSMITH, 2, NULL), rand_i, rand_j);
-            std::cout << "getelemtype à la création : " << this->get(rand_i,rand_j)->getElemType() << "elem en (" << rand_i << "," << rand_j << ")" << std::endl;
-        }*/
-
     }
     
     // Renvoie true si les coordonnees entrees sont deja presentes dans la liste listeTmp

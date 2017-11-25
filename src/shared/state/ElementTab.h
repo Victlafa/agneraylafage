@@ -39,7 +39,6 @@ namespace state {
     void set (Element* elem, int i, int j = 0);
     void init ();
     void initCells ();
-    void initCreatures ();
     bool verifUnicite (std::vector<int> listeTmp, int i, int j);
     bool verifValiditeCase (unsigned int i, unsigned int j);
     void poisonCell (bool poison, int i, int j);

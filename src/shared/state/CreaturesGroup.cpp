@@ -11,17 +11,9 @@ namespace state
     CreaturesGroup::CreaturesGroup (ID type, int nbrCrea, Player* joueur) : Element(type, CellState::NOTCELL){
         placed = false;
         this->setPlayer(joueur);
-//        if (!joueur)
-//        {
-//            this->player = *(new Player());
-//            //throw std::runtime_error("L'argument joueur du constructeur de CreaturesGroup est null !");
-//        }
-//            
-//        else
-//            this->player = *joueur;
         
         this->setCreaturesNbr(nbrCrea);
-        std::cout << "nombre de créature dans la cellule : " << nbrCrea << std::endl;
+        std::cout << "CreaturesGroup.cpp : Nombre de créatures dans la cellule : " << nbrCrea << std::endl;
     }
     
     CreaturesGroup::CreaturesGroup (ID type, Player* joueur, const Element& elem) : Element(type, CellState::NOTCELL)
