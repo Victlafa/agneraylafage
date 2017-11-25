@@ -27,9 +27,11 @@ namespace render
     //void TestsStateLayer();
     void TestsElementTabLayer();
     void TestInitMap();
-    void TestAffichage(State& etat);
     void TestAffichage2();
     void TestAffichage3();
+    
+    void TestAffichage(State& etat);
+    
 }
 
 #endif /* TESTSRENDER_H */

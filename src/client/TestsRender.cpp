@@ -507,6 +507,7 @@ namespace render {
         listYTextChars.reserve(29);
         
         // On recupere les coordonnees des textures cellules dans l'image de texture associee
+        // selon les types de cellules presents dans le tableau de cellules
         for(unsigned int i=0; i<etat.getGrid()->getHeight(); i++){
 
             for(unsigned int j=0; j<etat.getGrid()->getWidth(); j++){
@@ -551,27 +552,30 @@ namespace render {
         }
         
         // On recupere les coordonnees des textures creatures dans l'image de texture associee
+        // selon les types de creatures presents dans le tableau de creatures
         for(unsigned int i=0; i<etat.getCharacters()->getHeight(); i++){
 
             for(unsigned int j=0; j<etat.getCharacters()->getWidth(); j++){
 
+                // S'il y a un groupe de creatures dans la case etudiee
                 if(NULL!=etat.getCharacters()->get(i,j)){
-
+                    
+                    // On recupere les coordonnees de la texture en fonction de son type et du nombre de creatures
                     switch(etat.getCharacters()->get(i,j)->getElemType()){
-                        case 1 ://state::ID::BLACKSMITH :
-                            listXTextChars.push_back(50*(2*etat.getCharacters()->get(i,j)->getCreaturesNbr()-1));
+                        case state::ID::BLACKSMITH :
+                            listXTextChars.push_back(50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1));
                             listYTextChars.push_back(50);
                             break;
-                        case 2 ://state::ID::COOKER :
-                            listXTextChars.push_back(50*(2*etat.getCharacters()->get(i,j)->getCreaturesNbr()-1));
+                        case state::ID::COOKER :
+                            listXTextChars.push_back(50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1));
                             listYTextChars.push_back(150);
                             break;
-                        case 3 ://state::ID::LUMBERJACK :
-                            listXTextChars.push_back(50*(2*etat.getCharacters()->get(i,j)->getCreaturesNbr()-1));
+                        case state::ID::LUMBERJACK :
+                            listXTextChars.push_back(50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1));
                             listYTextChars.push_back(250);
                             break;
-                        case 4 :// state::ID::MINER :
-                            listXTextChars.push_back(50*(2*etat.getCharacters()->get(i,j)->getCreaturesNbr()-1));
+                        case state::ID::MINER :
+                            listXTextChars.push_back(50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1));
                             listYTextChars.push_back(350);
                             break;
                         default :
@@ -581,24 +585,24 @@ namespace render {
                     }
                     
                 }
-                else
-                {
-                    //std::cout << "chars null en (" << i << "," << j << ")" << std::endl;
-                    listXTextChars.push_back(50);
-                    listYTextChars.push_back(350);
-                }
+//                else
+//                {
+//                    //std::cout << "chars null en (" << i << "," << j << ")" << std::endl;
+//                    listXTextChars.push_back(50);
+//                    listYTextChars.push_back(350);
+//                }
                 
                 //std::cout << "(" << i << "," << j << ")" << std::endl;
                 
             }
         }
         
-        //coordonnée du tableau correspondant à la coordonnée i de la liste
+        // Coordonnées du tableau correspondant à la coordonnée i de la liste
+        // Initialisees sur la premiere case de la grille AFFICHEE
         int xi=0, yi=2;
         
         for (int i = 0; i < 29; i++) 
         {
-
             quadsListCell = surfCell->getQuadsList();
             quadsListCell.push_back(sf::VertexArray(sf::Quads, 4));
             surfCell->setQuadsList(quadsListCell);
