@@ -49,6 +49,12 @@ namespace ai
         listCommands.at(0)->execute(moteur.getState());
         std::cout << "Une commande de l'ia heuristique a été en principe executée !" << std::endl;
         
+        std::vector<int> coordsJoueur1 = playerCellResearch(moteur,1);
+        std::vector<int> coordsJoueur2 = playerCellResearch(moteur,2);
+        
+        std::cout << "Nombre de cellules appartenant au joueur 1 : " << coordsJoueur1.size()/2 << std::endl;
+        std::cout << "Nombre de cellules appartenant au joueur 2 : " << coordsJoueur2.size()/2 << std::endl;
+        
         // On vide la liste des commandes
         listCommands.clear();
     }
@@ -180,4 +186,35 @@ namespace ai
         
         return coordsDestination;
     }
+    
+    // On cherche les coordonnees de toutes les cellules appartenant au joueur dont le num est donne en argument
+    std::vector<int> HeuristicAI::playerCellResearch (engine::Engine& moteur, int player)
+    {
+        std::vector<int> coordonnees;
+        
+        // On parcourt toutes les cellules de la grille
+        for (unsigned int i = 0; i < moteur.getState().getCharacters()->getHeight(); i++) 
+        {
+            for (unsigned int j = 0; j < moteur.getState().getCharacters()->getWidth(); j++) 
+            {
+                // Si une creature est presente a la position etudiee
+                if (moteur.getState().getCharacters()->get(i,j).get() != 0)
+                {
+                    // Si ce groupe appartient au joueur designe
+                    if (moteur.getState().getCharacters()->get(i,j)->getPlayer() == moteur.getPlayer(player).get())
+                    {
+                        // On ajoute les coordonnees à la liste
+                        coordonnees.push_back(i);
+                        coordonnees.push_back(j);
+                    }
+                }
+
+            }
+        }
+        
+        return coordonnees;
+    }
+    
+        
+    
 }
