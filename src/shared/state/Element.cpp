@@ -74,6 +74,8 @@ namespace state
     }
     
     ID Element::getElemType() const{
+        std::cout << "Element.cpp : getElemType";
+        if(this!=NULL) std::cout << " : " << this->elemType << std::endl;
         return this->elemType;
     }
     
