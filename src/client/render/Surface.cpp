@@ -7,10 +7,7 @@
 namespace render
 {
     
-    Surface::Surface ()
-    {
-        //this->quadsList.resize(29*4);
-    }
+    Surface::Surface () {}
     
     void Surface::loadTexture (const std::string& imgFile)
     {
@@ -18,6 +15,17 @@ namespace render
             std::cout<< "Erreur chargement texture de Surface ! \n"<< std::endl;
     }
     
+    void Surface::initQuads ()
+    {
+        this->quadsList.reserve(29);
+        for (int i = 0; i < 29; i ++)
+        {
+            // Preparation de la première ligne d'hexagones  :
+            this->quadsList.push_back(sf::VertexArray(sf::Quads,4));
+        }
+    }
+    
+    // On fixe les coordonnees du sprite dans l'affichage final
     void Surface::setFinalLocation (int index, int shift, int x, int y, const Tile& tex)
     { 
         //std::cout << "surface setfinallocation quadslist.size() : " << quadsList.size() << std::endl;
@@ -25,12 +33,22 @@ namespace render
         
         int halfHeight = tex.getHeight()/2;
         int halfWidth = tex.getWidth()/2;
+        
+        std::cout << "Surface::setFinalLocation - verif existence du tile : " << &tex << std::endl;
+        
+        if (&quadsList == nullptr)
+            throw std::runtime_error("La liste des quads n'est pas initialisée !");
+                
         this->quadsList[index][0].position = sf::Vector2f(x + halfWidth + shift*2*halfWidth, y + halfHeight);
         this->quadsList[index][1].position = sf::Vector2f(x + halfWidth + shift*2*halfWidth, y - halfHeight);
         this->quadsList[index][2].position = sf::Vector2f(x - halfWidth + shift*2*halfWidth, y - halfHeight);
         this->quadsList[index][3].position = sf::Vector2f(x - halfWidth + shift*2*halfWidth, y + halfHeight);
+        
+        std::cout << "x : " << this->quadsList[index][0].position.x << std::endl;
+        std::cout << "y : " << this->quadsList[index][0].position.y << std::endl;
     }
     
+    // On fixe les coordonnees du sprite dans la texture initiale
     void Surface::setTextureLocation (int index, const Tile& tex)
     { 
         int halfHeight = tex.getHeight()/2;
@@ -45,22 +63,12 @@ namespace render
         this->quadsList[index][3].texCoords = sf::Vector2f(x - halfWidth, y + halfHeight);
     }
     
-    void Surface::draw (sf::RenderTarget& target, sf::RenderStates states) const
+    void Surface::draw (sf::RenderTarget& target) const
     {
         for (auto elem : quadsList)
-            target.draw(elem,states);
+            target.draw(elem,&texture);
     }
     
-    void Surface::initQuads ()
-    {
-        this->quadsList.reserve(29);
-        for (int i = 0; i < 29; i ++)
-        {
-            // Preparation de la première ligne d'hexagones  :
-            this->quadsList.push_back(sf::VertexArray(sf::Quads,4));
-        }
-    }
-
     // Setters and Getters
     const sf::Texture& Surface::getTexture() const
     {

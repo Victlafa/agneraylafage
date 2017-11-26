@@ -42,7 +42,7 @@ namespace render {
                 if (event.type == sf::Event::Closed) window.close();
             }
             window.clear();
-            gridLayer.getSurface()->draw(window, &gridLayer.getSurface()->getTexture());
+            gridLayer.getSurface()->draw(window);
             window.display();
         }
 
@@ -477,277 +477,246 @@ namespace render {
         charsLayer.initSurface();
         
         // On cree des surfaces temporaires qu'on introduira ensuite dans les Layers
-        Surface *surfCell = new Surface();
-        Surface *surfChars = new Surface();
+        //Surface *surfCell = new Surface();
+        //Surface *surfChars = new Surface();
         
         //int halfHeight = 61;
-        int halfWidth = 51;
-        int x = 311;
-        int y = 187;
-        int xTextCell = 71;
-        int yTextCell = 81;
-        int xTextChars = 71;
-        int yTextChars = 81;
-        int shift = 0;
+//        int halfWidth = 51;
+//        int x = 311;
+//        int y = 187;
+//        int xTextCell = 71;
+//        int yTextCell = 81;
+//        int xTextChars = 71;
+//        int yTextChars = 81;
+//        int shift = 0;
         
-        // Listes temporaires qui permettront d'initialiser les Surface
-        std::vector<sf::VertexArray> quadsListCell;
-        quadsListCell.reserve(29);
-        std::vector<sf::VertexArray> quadsListChars;
-        quadsListChars.reserve(29);
-        
-        std::vector<int> listXTextCell = std::vector<int>();
-        listXTextCell.reserve(29);
-        std::vector<int> listYTextCell = std::vector<int>();
-        listYTextCell.reserve(29);
-        
-        std::vector<int> listXTextChars = std::vector<int>();
-        listXTextChars.reserve(29);
-        std::vector<int> listYTextChars = std::vector<int>();
-        listYTextChars.reserve(29);
-        
-        // On recupere les coordonnees des textures cellules dans l'image de texture associee
-        // selon les types de cellules presents dans le tableau de cellules
-        for(unsigned int i=0; i<etat.getGrid()->getHeight(); i++){
-
-            for(unsigned int j=0; j<etat.getGrid()->getWidth(); j++){
-
-                if(NULL!=etat.getGrid()->get(i,j)){
-
-                    switch(etat.getGrid()->get(i,j)->getElemType()){
-                        case state::ID::SAND :
-                            listXTextCell.push_back(71);
-                            listYTextCell.push_back(81);
-                            break;
-                        case state::ID::GRASS :
-                            listXTextCell.push_back(191);
-                            listYTextCell.push_back(81);
-                            break;
-                        case state::ID::DIRT :
-                            listXTextCell.push_back(311);
-                            listYTextCell.push_back(81);
-                            break;   
-                        case state::ID::BARBECUE :
-                            listXTextCell.push_back(71);
-                            listYTextCell.push_back(221);
-                            break;
-                        case state::ID::SKY :
-                            listXTextCell.push_back(191);
-                            listYTextCell.push_back(221);
-                            break;
-                        case state::ID::POOL :
-                            listXTextCell.push_back(311);
-                            listYTextCell.push_back(221);
-                            break;
-                        case state::ID::CANDY :
-                            listXTextCell.push_back(431);
-                            listYTextCell.push_back(221);
-                            break;
-                        default :
-                            std::cout << "erreur définition coordonnées textures" << std::endl;
-                            break;
-                    }
-                }
-            }
-        }
-        
-        // On recupere les coordonnees des textures creatures dans l'image de texture associee
-        // selon les types de creatures presents dans le tableau de creatures
-        for(unsigned int i=0; i<etat.getCharacters()->getHeight(); i++){
-
-            for(unsigned int j=0; j<etat.getCharacters()->getWidth(); j++){
-
-                // S'il y a un groupe de creatures dans la case etudiee
-                if(NULL!=etat.getCharacters()->get(i,j)){
-                    
-                    // On recupere les coordonnees de la texture en fonction de son type et du nombre de creatures
-                    switch(etat.getCharacters()->get(i,j)->getElemType()){
-                        case state::ID::BLACKSMITH :
-                            listXTextChars.push_back(50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1));
-                            listYTextChars.push_back(50);
-                            break;
-                        case state::ID::COOKER :
-                            listXTextChars.push_back(50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1));
-                            listYTextChars.push_back(150);
-                            break;
-                        case state::ID::LUMBERJACK :
-                            listXTextChars.push_back(50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1));
-                            listYTextChars.push_back(250);
-                            break;
-                        case state::ID::MINER :
-                            listXTextChars.push_back(50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1));
-                            listYTextChars.push_back(350);
-                            break;
-                        default :
-                            //std::cout << "elemType : " << etat.getCharacters()->get(i,j)->getElemType() << std::endl;
-                            std::cout << "erreur définition coordonnées textures" << std::endl;
-                            break;
-                    }
-                    
-                }
-                else
-                {
-                    //std::cout << "chars null en (" << i << "," << j << ")" << std::endl;
-                    listXTextChars.push_back(50);
-                    listYTextChars.push_back(350);
-                }
-                
-                //std::cout << "(" << i << "," << j << ")" << std::endl;
-                
-            }
-        }
-        
-        // Coordonnées du tableau correspondant à la coordonnée i de la liste
-        // Initialisees sur la premiere case de la grille AFFICHEE
-        int xi=0, yi=2;
-             
-        for (int i = 0; i < 29; i++) 
-        {
-            // Recuperation de la liste de quads de la surface cellules
-            quadsListCell = surfCell->getQuadsList();
-            // Recuperation de la liste de quads de la surface creatures
-            quadsListChars = surfChars->getQuadsList();
-        
-            // On ajoute un quad à la liste des quads de cellules
-            quadsListCell.push_back(sf::VertexArray(sf::Quads, 4));
-            surfCell->setQuadsList(quadsListCell);
-            
-            //if(listXTextChars[i]!=-1){
-            
-            // On ajoute un quad à la liste des quads de creatures
-            quadsListChars.push_back(sf::VertexArray(sf::Quads, 4));
-            surfChars->setQuadsList(quadsListChars);
-                //std::cout << "i : " << i << " not null" << std::endl;
-            //}
-            
-            // On se deplace dans la grille selon les indices i et j - modif des coords x,y,xi,yi
-            if (i == 5 || i == 11) {
-                x -= halfWidth;
-                y += 86;
-                xi++;
-                 
-                switch (i) {
-                    case 5:
-                        yi++;
-                        shift = i - 5;
-                        break;
-                    case 11:
-                        shift = i - 11;
-                        break;
-                    default:
-                        shift = i;
-                }
-            }
-                
-            else if (i == 18 || i == 24) {
-                x += halfWidth;
-                y += 86;
-                xi++;//yi++;
-                
-                switch (i) {
-                    case 18:
-                        shift = i - 18;
-                        break;
-                    case 24:
-                        yi=0;
-                        shift = i - 24;
-                        break;
-                    default:
-                        shift = i;
-                }
-            }
-                
-            else
-            {
-                shift = shift;
-            }
-
-            
-//            xTextCell = listXTextCell[i];
-//            yTextCell = listYTextCell[i];
+//        // Listes temporaires qui permettront d'initialiser les Surface
+//        std::vector<sf::VertexArray> quadsListCell;
+//        quadsListCell.reserve(29);
+//        std::vector<sf::VertexArray> quadsListChars;
+//        quadsListChars.reserve(29);
+//        
+//        std::vector<int> listXTextCell = std::vector<int>();
+//        listXTextCell.reserve(29);
+//        std::vector<int> listYTextCell = std::vector<int>();
+//        listYTextCell.reserve(29);
+//        
+//        std::vector<int> listXTextChars = std::vector<int>();
+//        listXTextChars.reserve(29);
+//        std::vector<int> listYTextChars = std::vector<int>();
+//        listYTextChars.reserve(29);
+//        
+//        // On recupere les coordonnees des textures cellules dans l'image de texture associee
+//        // selon les types de cellules presents dans le tableau de cellules
+//        for(unsigned int i=0; i<etat.getGrid()->getHeight(); i++){
+//
+//            for(unsigned int j=0; j<etat.getGrid()->getWidth(); j++){
+//
+//                if(NULL!=etat.getGrid()->get(i,j)){
+//
+//                    switch(etat.getGrid()->get(i,j)->getElemType()){
+//                        case state::ID::SAND :
+//                            listXTextCell.push_back(71);
+//                            listYTextCell.push_back(81);
+//                            break;
+//                        case state::ID::GRASS :
+//                            listXTextCell.push_back(191);
+//                            listYTextCell.push_back(81);
+//                            break;
+//                        case state::ID::DIRT :
+//                            listXTextCell.push_back(311);
+//                            listYTextCell.push_back(81);
+//                            break;   
+//                        case state::ID::BARBECUE :
+//                            listXTextCell.push_back(71);
+//                            listYTextCell.push_back(221);
+//                            break;
+//                        case state::ID::SKY :
+//                            listXTextCell.push_back(191);
+//                            listYTextCell.push_back(221);
+//                            break;
+//                        case state::ID::POOL :
+//                            listXTextCell.push_back(311);
+//                            listYTextCell.push_back(221);
+//                            break;
+//                        case state::ID::CANDY :
+//                            listXTextCell.push_back(431);
+//                            listYTextCell.push_back(221);
+//                            break;
+//                        default :
+//                            std::cout << "erreur définition coordonnées textures" << std::endl;
+//                            break;
+//                    }
+//                }
+//            }
+//        }
+//        
+//        // On recupere les coordonnees des textures creatures dans l'image de texture associee
+//        // selon les types de creatures presents dans le tableau de creatures
+//        for(unsigned int i=0; i<etat.getCharacters()->getHeight(); i++){
+//
+//            for(unsigned int j=0; j<etat.getCharacters()->getWidth(); j++){
+//
+//                // S'il y a un groupe de creatures dans la case etudiee
+//                if(NULL!=etat.getCharacters()->get(i,j)){
+//                    
+//                    // On recupere les coordonnees de la texture en fonction de son type et du nombre de creatures
+//                    switch(etat.getCharacters()->get(i,j)->getElemType()){
+//                        case state::ID::BLACKSMITH :
+//                            listXTextChars.push_back(50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1));
+//                            listYTextChars.push_back(50);
+//                            break;
+//                        case state::ID::COOKER :
+//                            listXTextChars.push_back(50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1));
+//                            listYTextChars.push_back(150);
+//                            break;
+//                        case state::ID::LUMBERJACK :
+//                            listXTextChars.push_back(50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1));
+//                            listYTextChars.push_back(250);
+//                            break;
+//                        case state::ID::MINER :
+//                            listXTextChars.push_back(50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1));
+//                            listYTextChars.push_back(350);
+//                            break;
+//                        default :
+//                            //std::cout << "elemType : " << etat.getCharacters()->get(i,j)->getElemType() << std::endl;
+//                            std::cout << "erreur définition coordonnées textures" << std::endl;
+//                            break;
+//                    }
+//                    
+//                }
+//                else
+//                {
+//                    //std::cout << "chars null en (" << i << "," << j << ")" << std::endl;
+//                    listXTextChars.push_back(50);
+//                    listYTextChars.push_back(350);
+//                }
+//                
+//                //std::cout << "(" << i << "," << j << ")" << std::endl;
+//                
+//            }
+//        }
+//        
+//        // Coordonnées du tableau correspondant à la coordonnée i de la liste
+//        // Initialisees sur la premiere case de la grille AFFICHEE
+//        int xi=0, yi=2;
+//             
+//        for (int i = 0; i < 29; i++) 
+//        {
+//            // Recuperation de la liste de quads de la surface cellules
+//            quadsListCell = surfCell->getQuadsList();
+//            // Recuperation de la liste de quads de la surface creatures
+//            quadsListChars = surfChars->getQuadsList();
+//        
+//            // On ajoute un quad à la liste des quads de cellules
+//            quadsListCell.push_back(sf::VertexArray(sf::Quads, 4));
+//            surfCell->setQuadsList(quadsListCell);
 //            
-//            xTextChars = listXTextChars[i];
-//            yTextChars = listYTextChars[i];
-            
-            // On initialise un Tile pour la cellule en i_eme position 
-            Tile cellTile(listXTextCell[i], listYTextCell[i]);
-            // On initialise un Tile pour le groupe de creatures en i_eme position 
-            Tile charsTile(listXTextChars[i], listYTextChars[i]);
-            
-            //std::cout << "xtextcell : " << xTextCell << " ytextcell : " << yTextCell << std::endl;
-            //std::cout << "xtextchars : " << xTextChars << " ytextchars : " << yTextChars << std::endl;
-            //std::cout << "i : " << i << " xi : " << xi << " yi : " << yi << std::endl;
-            
-            // S'il y a une cellule en position i du tableau de cellules
-            if(etat.getGrid()->get(xi,yi)!=NULL){
-                //quadsListCell = surfCell->getQuadsList();
-                //std::cout << "size quadslist : " << quadsListCell.size() << std::endl;
-                //quadsListCell.reserve(quadsListCell.size()+4);
-                //std::cout << "size quadslist : " << quadsListCell.size() << std::endl;
-                //surfCell->setQuadsList(quadsListCell);
-                //std::cout << "size quadslist : " << surfCell->getQuadsList().size() << std::endl;
-                //std::cout << "xtextcell 2 : " << ( (cellLayer.getTileset()).get() )->getTile( etat.getGrid()->get(xi,yi) ).getX() << " ytextcell 2 : " << ( (cellLayer.getTileset()).get() )->getTile( etat.getGrid()->get(xi,yi) ).getY() << std::endl;
-                
-                // On fixe la position de la cellule dans l'affichage final
-                surfCell->setFinalLocation(i, shift, x, y, cellTile);
-                // On fixe la position du sprite dans l'image texture de base
-                surfCell->setTextureLocation(i, cellTile);
-
-                //surfCell->setFinalLocation(i, xTextCell, yTextCell, ( (cellLayer.getTileset()).get() )->getTile( etat.getGrid()->get(xi,yi) ));
-                //surfCell->setTextureLocation(i, ( (cellLayer.getTileset()).get() )->getTile( etat.getGrid()->get(xi,yi) ));
-            }
-            
-            // S'il y a une cellule en position i du tableau de creatures
-            if(etat.getCharacters()->get(xi,yi)!=NULL){
-                //quadsListChars = surfChars->getQuadsList();
-                //quadsListChars.reserve(quadsListChars.size()+4);
-                //surfChars->setQuadsList(quadsListChars);
-                
-                // On fixe la position du groupe de creatures dans l'affichage final
-                surfChars->setFinalLocation(i, shift, x, y, charsTile);
-                // On fixe la position du sprite dans l'image texture de base
-                surfChars->setTextureLocation(i, charsTile);
-                
-                //surfChars->setFinalLocation(i, shift, xTextChars, yTextChars, ( (charsLayer.getTileset()).get() )->getTile( etat.getCharacters()->get(xi,yi) ));
-                //surfChars->setTextureLocation(i, ( (charsLayer.getTileset()).get() )->getTile( etat.getCharacters()->get(xi,yi) ));
-            }/*else{
-                Tile nullTile = charsLayer.getTileset()->getTile;
-                surfChars->setFinalLocation(i, shift, x, y, nullTile);
-                surfChars->setTextureLocation(i, nullTile);
-            }*/
-            
-            shift += 1;
-            //std::cout << "xi et yi : " << xi << " " << yi << std::endl;
-            yi = (yi+1)%7;
-
-        }
+//            // On ajoute un quad à la liste des quads de creatures
+//            quadsListChars.push_back(sf::VertexArray(sf::Quads, 4));
+//            surfChars->setQuadsList(quadsListChars);
+//            
+//            // On se deplace dans la grille selon les indices i et j - modif des coords x,y,xi,yi
+//            if (i == 5 || i == 11) {
+//                x -= halfWidth;
+//                y += 86;
+//                xi++;
+//                 
+//                switch (i) {
+//                    case 5:
+//                        yi++;
+//                        shift = i - 5;
+//                        break;
+//                    case 11:
+//                        shift = i - 11;
+//                        break;
+//                    default:
+//                        shift = i;
+//                }
+//            }
+//                
+//            else if (i == 18 || i == 24) {
+//                x += halfWidth;
+//                y += 86;
+//                xi++;//yi++;
+//                
+//                switch (i) {
+//                    case 18:
+//                        shift = i - 18;
+//                        break;
+//                    case 24:
+//                        yi=0;
+//                        shift = i - 24;
+//                        break;
+//                    default:
+//                        shift = i;
+//                }
+//            }
+//                
+//            else
+//            {
+//                shift = shift;
+//            }
+//            
+//            // On initialise un Tile pour la cellule en i_eme position 
+//            Tile cellTile(listXTextCell[i], listYTextCell[i]);
+//            // On initialise un Tile pour le groupe de creatures en i_eme position 
+//            Tile charsTile(listXTextChars[i], listYTextChars[i]);
+//            
+//            //std::cout << "xtextcell : " << xTextCell << " ytextcell : " << yTextCell << std::endl;
+//            //std::cout << "xtextchars : " << xTextChars << " ytextchars : " << yTextChars << std::endl;
+//            //std::cout << "i : " << i << " xi : " << xi << " yi : " << yi << std::endl;
+//            
+//            // S'il y a une cellule en position i du tableau de cellules
+//            if(etat.getGrid()->get(xi,yi)!=NULL){
+//                
+//                // On fixe la position de la cellule dans l'affichage final
+//                surfCell->setFinalLocation(i, shift, x, y, cellTile);
+//                // On fixe la position du sprite dans l'image texture de base
+//                surfCell->setTextureLocation(i, cellTile);
+//
+//            }
+//            
+//            // S'il y a une cellule en position i du tableau de creatures
+//            if(etat.getCharacters()->get(xi,yi)!=NULL){
+//                
+//                // On fixe la position du groupe de creatures dans l'affichage final
+//                surfChars->setFinalLocation(i, shift, x, y, charsTile);
+//                // On fixe la position du sprite dans l'image texture de base
+//                surfChars->setTextureLocation(i, charsTile);
+//                
+//            }
+//            
+//            shift += 1;
+//            
+//            //std::cout << "xi et yi : " << xi << " " << yi << std::endl;
+//            yi = (yi+1)%7;
+//
+//        }
         
         
-        // Declaration et chargement des textures à exploiter pour l'affichage
-        sf::Texture hexaTexture;
-        sf::Texture charsTexture;
-        
-        // Le premier cas marche chez Victoire, le second chez Aurore
-        if (!hexaTexture.loadFromFile("../res/hexa.png")) 
-            hexaTexture.loadFromFile("./res/hexa.png");
-        else
-            std::cout << "Erreur chargement texture hexa !\n" << std::endl;
-        
-        if (!charsTexture.loadFromFile("../res/groupes.png")) 
-            charsTexture.loadFromFile("./res/groupes.png");
-        else
-            std::cout << "Erreur chargement texture groupes !\n" << std::endl;
-        
-        // On associe les textures chargees aux Surfaces des Layers de cellules et de groupes de creatures
-        surfCell->setTexture(hexaTexture);
-        surfChars->setTexture(charsTexture);
-        
-        //surf->setQuadsList(listHexagones);
-        //surf->setTexture(hexaTexture);
-        
-        // On associe les Surfaces aux Layers
-        cellLayer.setSurface(surfCell);
-        charsLayer.setSurface(surfChars);
+//        // Declaration et chargement des textures à exploiter pour l'affichage
+//        sf::Texture hexaTexture;
+//        sf::Texture charsTexture;
+//        
+//        // Le premier cas marche chez Victoire, le second chez Aurore
+//        if (!hexaTexture.loadFromFile("../res/hexa.png")) 
+//            hexaTexture.loadFromFile("./res/hexa.png");
+//        else
+//            std::cout << "Erreur chargement texture hexa !\n" << std::endl;
+//        
+//        if (!charsTexture.loadFromFile("../res/groupes.png")) 
+//            charsTexture.loadFromFile("./res/groupes.png");
+//        else
+//            std::cout << "Erreur chargement texture groupes !\n" << std::endl;
+//        
+//        // On associe les textures chargees aux Surfaces des Layers de cellules et de groupes de creatures
+//        surfCell->setTexture(hexaTexture);
+//        surfChars->setTexture(charsTexture);
+//        
+//        // On associe les Surfaces aux Layers
+//        cellLayer.setSurface(surfCell);
+//        charsLayer.setSurface(surfChars);
         
         //std::cout << "Nombre de quads crees dans la surface de CellLayer : " << cellLayer.getSurface()->getQuadsList().size() << std::endl;
                 
@@ -758,8 +727,8 @@ namespace render {
             }
 
             window.clear();
-            surfCell->draw(window, &hexaTexture);
-            surfChars->draw(window, &charsTexture);
+            cellLayer.getSurface()->draw(window);
+            charsLayer.getSurface()->draw(window);
 
             window.display();
         }
