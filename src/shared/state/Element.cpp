@@ -22,7 +22,7 @@ namespace state
         y = 0;
         creaturesNbr = 0;
         elemType = type;
-        std::cout << "Element.cpp : Initialisation d'un element de type " << (ID)type << "\n" << std::endl;
+        //std::cout << "Element.cpp : Initialisation d'un element de type " << (ID)type << "\n" << std::endl;
         cellState = state;
 
         //player = Player();
@@ -74,8 +74,8 @@ namespace state
     }
     
     ID Element::getElemType() const{
-        std::cout << "Element.cpp : getElemType";
-        if(this!=NULL) std::cout << " : " << this->elemType << std::endl;
+        //std::cout << "Element.cpp : getElemType";
+        //if(this!=NULL) std::cout << " : " << this->elemType << std::endl;
         return this->elemType;
     }
     
