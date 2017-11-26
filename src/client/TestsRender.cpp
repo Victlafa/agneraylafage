@@ -560,27 +560,34 @@ namespace render {
                 // S'il y a un groupe de creatures dans la case etudiee
                 if(NULL!=etat.getCharacters()->get(i,j)){
                     
+                    std::cout << "TestsRender : elemType : " << etat.getCharacters()->get(i,j)->getElemType() << std::endl;
                     // On recupere les coordonnees de la texture en fonction de son type et du nombre de creatures
                     switch(etat.getCharacters()->get(i,j)->getElemType()){
                         case state::ID::BLACKSMITH :
                             listXTextChars.push_back(50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1));
                             listYTextChars.push_back(50);
+                            std::cout << "TestsRender : xTextPush : " << 50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1) << " yTextPush : " << 50 << std::endl;
                             break;
                         case state::ID::COOKER :
                             listXTextChars.push_back(50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1));
                             listYTextChars.push_back(150);
+                            std::cout << "TestsRender : xTextPush : " << 50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1) << " yTextPush : " << 150 << std::endl;
                             break;
                         case state::ID::LUMBERJACK :
                             listXTextChars.push_back(50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1));
                             listYTextChars.push_back(250);
+                            std::cout << "TestsRender : xTextPush : " << 50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1) << " yTextPush : " << 250 << std::endl;
                             break;
                         case state::ID::MINER :
                             listXTextChars.push_back(50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1));
                             listYTextChars.push_back(350);
+                            std::cout << "TestsRender : xTextPush : " << 50*(2*(etat.getCharacters()->get(i,j)->getCreaturesNbr())-1) << " yTextPush : " << 350 << std::endl;
                             break;
                         default :
-                            //std::cout << "elemType : " << etat.getCharacters()->get(i,j)->getElemType() << std::endl;
-                            std::cout << "erreur définition coordonnées textures" << std::endl;
+                            std::cout << "TestsRender : default  elemType : " << etat.getCharacters()->get(i,j)->getElemType() << std::endl;
+                            //std::cout << "erreur définition coordonnées textures" << std::endl;
+                            listXTextChars.push_back(350);
+                            listYTextChars.push_back(350);
                             break;
                     }
                     
@@ -588,8 +595,8 @@ namespace render {
                 else
                 {
                     //std::cout << "chars null en (" << i << "," << j << ")" << std::endl;
-                    listXTextChars.push_back(50);
-                    listYTextChars.push_back(350);
+                    listXTextChars.push_back(450);
+                    listYTextChars.push_back(450);
                 }
                 
                 //std::cout << "(" << i << "," << j << ")" << std::endl;
@@ -597,6 +604,10 @@ namespace render {
             }
         }
         
+        /*for (int i = 0; i < 29; i++) 
+        {
+            std::cout << "TestsRender : i = " << i << " listx : " << listXTextChars.at(i) << " listy " << listYTextChars.at(i) << std::endl;
+        }*/
         // Coordonnées du tableau correspondant à la coordonnée i de la liste
         // Initialisees sur la premiere case de la grille AFFICHEE
         int xi=0, yi=2;
@@ -642,7 +653,7 @@ namespace render {
             else if (i == 18 || i == 24) {
                 x += halfWidth;
                 y += 86;
-                xi++;//yi++;
+                xi++;
                 
                 switch (i) {
                     case 18:
@@ -698,7 +709,7 @@ namespace render {
             }
             
             // S'il y a une cellule en position i du tableau de creatures
-            if(etat.getCharacters()->get(xi,yi)!=NULL){
+            //if(etat.getCharacters()->get(xi,yi)!=NULL){
                 //quadsListChars = surfChars->getQuadsList();
                 //quadsListChars.reserve(quadsListChars.size()+4);
                 //surfChars->setQuadsList(quadsListChars);
@@ -710,7 +721,8 @@ namespace render {
                 
                 //surfChars->setFinalLocation(i, shift, xTextChars, yTextChars, ( (charsLayer.getTileset()).get() )->getTile( etat.getCharacters()->get(xi,yi) ));
                 //surfChars->setTextureLocation(i, ( (charsLayer.getTileset()).get() )->getTile( etat.getCharacters()->get(xi,yi) ));
-            }/*else{
+            //}
+                /*else{
                 Tile nullTile = charsLayer.getTileset()->getTile;
                 surfChars->setFinalLocation(i, shift, x, y, nullTile);
                 surfChars->setTextureLocation(i, nullTile);
