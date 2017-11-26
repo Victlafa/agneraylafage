@@ -7,9 +7,9 @@ namespace render
 {
     CharsTileSet::CharsTileSet (){
         
-        creatures = new Tile*[5];
+        creatures = new Tile*[4];
         
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 4; i++)
         {
             creatures[i] = new Tile[5];
             
@@ -51,32 +51,10 @@ namespace render
                 return creatures[3][elem.getCreaturesNbr()-1];
                 break;
             default :
-                return creatures[4][0];
-                //return *(new Tile(-1,-1,-1,-1));
-                //std::cout << "erreur attribution CharsTileSet" << std::endl;
+                throw std::runtime_error("erreur attribution CharsTileSet");
+                return *(new Tile(-1,-1,-1,-1));
                 break;
         }
-        /*
-        if (elem.getElemType() == state::TypeID::CREATURESGROUP)
-        {
-            state::CreaturesGroup group = (const state::CreaturesGroup)elem;
-            
-            if (group.getCreaturesType() == state::CreaturesID::COOKER)
-                return creatures[0][group.getCreaturesNbr()];
-            else if (group.getCreaturesType() == state::CreaturesID::BLACKSMITH)
-                return creatures[1][group.getCreaturesNbr()];
-            else if (group.getCreaturesType() == state::CreaturesID::LUMBERJACK)
-                return creatures[2][group.getCreaturesNbr()];
-            else if (group.getCreaturesType() == state::CreaturesID::MINER)
-                return creatures[3][group.getCreaturesNbr()];
-            else
-                return *(new Tile(-1,-1,-1,-1));
-                
-        }
-        
-        else
-            return *(new Tile(-1,-1,-1,-1));
-        */
         
     }
 
@@ -98,40 +76,10 @@ namespace render
                 return creatures[3][elem->getCreaturesNbr()-1];
                 break;
             default :
-                return creatures[4][4];
-                //return *(new Tile(-1,-1,-1,-1));
-                std::cout << "erreur attribution CharsTileSet" << std::endl;
+                throw std::runtime_error("erreur attribution CharsTileSet");
+                return *(new Tile(-1,-1,-1,-1));
                 break;
         }
-        /*
-        if (elem->getElemType() == state::TypeID::CREATURESGROUP)
-        {
-            
-            switch(( (const state::CreaturesGroup)(*elem) ).getCreaturesType()){
-                case state::CreaturesID::BLACKSMITH :
-                    return this->creatures[0][elem->getCreaturesNbr()];
-                   break;
-                case state::CreaturesID::COOKER :
-                    return this->creatures[1][elem->getCreaturesNbr()];
-                    break;
-                case state::CreaturesID::LUMBERJACK :
-                    return this->creatures[2][elem->getCreaturesNbr()];
-                    break;
-                case state::CreaturesID::MINER :
-                    return this->creatures[3][elem->getCreaturesNbr()];
-                    break;
-                default :
-                    return *(new Tile(-1,-1,-1,-1));
-                    std::cout << "erreur attribution CellTileSet" << std::endl;
-                    break;
-            }
-
-        }
-        else
-        {
-            return *(new Tile(-1,-1,-1,-1));
-            std::cout << "bug2" << std::endl;
-        }*/
     }
 }
 
