@@ -80,12 +80,7 @@ int main(int argc,char* argv[])
         
         else if (argc >= 2 && (string) argv[1] == "random_ai") {
             
-            //state::State *etat = new State();
-            //state::ElementTab char = etat->getCharacters();
-            /*while(){
-                
-            }*/
-            
+            //TestsRandomIA();
             TestsHeuristicIA();
         
         }
