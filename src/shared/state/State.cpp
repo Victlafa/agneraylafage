@@ -109,10 +109,11 @@ namespace state
             intRand[4*j + 3] = rand_j_J2;
 
             this->characters->set(new CreaturesGroup((ID)(this->getPlayer(1)->getClanName()), 2, this->getPlayer(1).get()), rand_i, rand_j);
-            this->characters->set(new CreaturesGroup((ID)(this->getPlayer(2)->getClanName()), 2, this->getPlayer(2).get()), rand_i_J2, rand_j_J2);
             std::cout << "State.cpp : Coordonnees joueur 1 : " << "(" << intRand[4*j] << "," << intRand[4*j+1] << ") " << std::endl;
+            std::cout << "State.cpp : verif type : " << this->characters->get(rand_i,rand_j)->getElemType() << std::endl;
+            this->characters->set(new CreaturesGroup((ID)(this->getPlayer(2)->getClanName()), 2, this->getPlayer(2).get()), rand_i_J2, rand_j_J2);
             std::cout << "State.cpp : Coordonnees joueur 2 : " << "(" << intRand[4*j+2] << "," << intRand[4*j+3] << ")" << std::endl;
-            
+            std::cout << "State.cpp : verif type : " << this->characters->get(rand_i_J2,rand_j_J2)->getElemType() << std::endl;
             
         }
     }
