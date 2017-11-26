@@ -62,7 +62,9 @@ namespace engine
     
     // On peut engager un combat contre l'adversaire sans que sa case soit adjacente à la notre
     void SpecialCellCommand::skyPower (state::State& state)
-{
+    {
+        std::cout << "SpecialCellCommand::skyPower - execution" << std::endl;
+        
         // Si la case de destination est occupée par l'adversaire, on engage un combat
         if (state.getCharacters()->isOccupiedByOpp(finalPos[0], finalPos[1], state.getPlayer(player).get())) {
             fight->execute(state);
@@ -83,31 +85,33 @@ namespace engine
     // On ajoute trois groupes de creatures dans la reserve du joueur utilisant le pouvoir, groupes qu'il pourra deployer lors de sa prochaine phase de renfort
     void SpecialCellCommand::sugarPower (state::State& state) 
     {
+        std::cout << "SpecialCellCommand::sugarPower - execution" << std::endl;
+        
         state.getPlayer(player)->setCreaturesLeft(state.getPlayer(player)->getCreaturesLeft() + 3);
     }
     
+    // On supprime directement trois creatures d'un groupe de creatures adverse selectionné
     void SpecialCellCommand::bbqPoolPower (state::State& state) 
     {
-        // Si la case de destination est occupée par l'adversaire, on engage un combat
-        if (state.getCharacters()->isOccupiedByOpp(finalPos[0], finalPos[1], state.getPlayer(player).get())) {
+        std::cout << "SpecialCellCommand::bbqPoolPower - execution" << std::endl;
+        
+        // On verifie s'il existe bien un groupe de creatures dans la case selectionnee
+        if (state.getCharacters()->isOccupiedByOpp(finalPos[0], finalPos[1], state.getPlayer(player).get()))
+        {
+            // Dans ce cas là on procède à l'elimination des creatures (paix à leur ame !)
+            int oldNbr = state.getCharacters()->get(finalPos[0], finalPos[1])->getCreaturesNbr();
             
-            fight->execute(state);
-            
-        // On deplace l'attaquant s'il est gagnant
-            state.getCharacters()->moveElement(initPos[0], initPos[1], finalPos[0], finalPos[1], fight->getWinner());
-
-            // On associe la case d'arrivée au joueur gagnant
-            if (fight->getWinner() == 1 || fight->getWinner() == 2) {
-                std::cout << "Joueur gagnant : " << state.getPlayer(fight->getWinner()).get() << std::endl;
-                state.getCharacters()->get(finalPos[0], finalPos[1])->setPlayer(state.getPlayer(fight->getWinner()).get());
-            }
-            
-        } 
-        // S'il n'y a pas d'adversaire sur la case destination, on le signale au joueur attaquant
+            // Si le groupe de creatures comporte 3 creatures ou plus
+            if (oldNbr >= 3)
+                // On enleve trois creatures
+                state.getCharacters()->get(finalPos[0], finalPos[1])->setCreaturesNbr(oldNbr - 3);
+            else
+                // On fait tomber le nbre de creatures à zero
+                state.getCharacters()->get(finalPos[0], finalPos[1])->setCreaturesNbr(0);
+        }
+        
         else
-            std::cout << "La case choisie pour appliquer le pouvoir barbecue/piscine ne contient pas de creatures adverses !" << std::endl;
-           
-
+            throw std::runtime_error("SpecialCellCommand::bbqPoolPower - La case selectionnee ne contient pas de creatures !");
         
     }
 }
