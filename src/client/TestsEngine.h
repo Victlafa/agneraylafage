@@ -24,6 +24,7 @@ namespace engine{
     void TestsPoisonCommand();
     void TestsNewGameCommand();
     void TestsMoveCommand();
+    void TestsSpecialCommand();
 }
 
 #endif /* TESTSENGINE_H */
