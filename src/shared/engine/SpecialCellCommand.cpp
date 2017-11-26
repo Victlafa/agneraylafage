@@ -21,28 +21,40 @@ namespace engine
         
     }
     
-    bool SpecialCellCommand::isSpecial (state::State& state)
+    // On verifie si le joueur qui souhaite utiliser la capacite speciale detient bien cette capa !
+    bool SpecialCellCommand::isOwner (state::State& state)
     {
-        // On verifie si la cellule est speciale ou pas
-        int elemtype = (int)state.getGrid()->get(initPos[0],initPos[1])->getElemType();
-        if (elemtype >= 8 && elemtype <= 11)
-            return true;
-        else
-            return false;
+        std::vector<std::string> listeCapas = state.getPlayer(player)->getSpeCellsNames();
+        
+        // On parcourt la liste des capas speciales du joueur
+        for (auto elem : listeCapas)
+        {
+            if (elem == type)
+                return true;
+        }
+        
+        return false;
     }
     
     CommandTypeID SpecialCellCommand::getTypeID () const { return CommandTypeID::SPECIAL; }
     
     void SpecialCellCommand::execute (state::State& state)
     {
-        if (type == "sky")
-            skyPower(state);
-        else if (type == "candy")
-            sugarPower(state);
-        else if (type == "barbecue" || type == "pool")
-            bbqPoolPower(state);
+        // On verifie si le joueur utilisant la capa speciale en jeu dispose bien de cette capa !
+        if (isOwner(state))
+        {
+            if (type == "sky")
+                skyPower(state);
+            else if (type == "candy")
+                sugarPower(state);
+            else if (type == "barbecue" || type == "pool")
+                bbqPoolPower(state);
+            else
+                throw std::runtime_error("Le type de cellule speciale donné en argument de SpecialCellCommand::execute est erroné");
+        }
+        
         else
-            throw std::runtime_error("Le type de cellule speciale donné en argument de SpecialCellCommand::execute est erroné");
+            throw std::runtime_error("Le joueur ne peut pas utiliser la capa selectionnee !");
     }
     
     // Setters and Getters

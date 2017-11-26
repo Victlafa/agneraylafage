@@ -37,7 +37,7 @@ namespace engine{
 
             // On associe la case d'arrivée au joueur gagnant
             if (fight->getWinner() == 1 || fight->getWinner() == 2) {
-                std::cout << "Joueur gagnant : " << state.getPlayer(fight->getWinner()).get() << std::endl;
+                std::cout << "MoveCommand::execute - Joueur gagnant : " << state.getPlayer(fight->getWinner()).get() << std::endl;
                 state.getCharacters()->get(finalPos[0], finalPos[1])->setPlayer(state.getPlayer(fight->getWinner()).get());
             }
         }

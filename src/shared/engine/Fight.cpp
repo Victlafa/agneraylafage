@@ -74,7 +74,7 @@ namespace engine
                 
             else
             {
-                std::cout << "Soit il y a egalite, soit le defenseur a remporte le combat !" << std::endl;
+                std::cout << "Fight::gainConquest - Soit il y a egalite, soit le defenseur a remporte le combat !" << std::endl;
                 winner = 3;
             }
                 

@@ -35,7 +35,7 @@ namespace engine {
     // Operations
   public:
     SpecialCellCommand (int init_i, int init_j, int final_i, int final_j, int player, std::string type);
-    bool isSpecial (state::State& state);
+    bool isOwner (state::State& state);
     CommandTypeID getTypeID () const;
     void execute (state::State& state);
     void skyPower (state::State& state);
