@@ -27,6 +27,7 @@ namespace ai {
     void run (engine::Engine& moteur);
     std::vector<int> skyCellResearch (engine::Engine& moteur);
     std::vector<int> placeCellResearch (engine::Engine& moteur);
+    std::vector<int> playerCellResearch (engine::Engine& moteur, int player);
     // Setters and Getters
   };
 

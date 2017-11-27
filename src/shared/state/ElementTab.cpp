@@ -4,6 +4,7 @@
 #include "SimpleCell.h"
 #include "SpecialCell.h"
 #include "CreaturesGroup.h"
+#include "Player.h"
 #include <iostream>
 #include <map>
 
@@ -178,16 +179,16 @@ namespace state
         
     }
     
-    // Renvoie true si les coordonnees entrees sont deja presentes dans la liste listeTmp
+    // Renvoie false si les coordonnees entrees sont deja presentes dans la liste listeTmp
     bool ElementTab::verifUnicite(std::vector<int> listeTmp, int i, int j){
         
         for (int k = 0; k < (int)(listeTmp.size()/2); k++)
         {
             if (listeTmp[2*k] == i && listeTmp[2*k + 1] == j)
-                return true;
+                return false;
         }
         
-        return false;
+        return true;
             
     }
     
@@ -215,6 +216,9 @@ namespace state
         // La case destination est-elle autorisée ?
         if (verifValiditeCase(new_i_elem,new_j_elem))
         {
+            // On veut savoir si la case est speciale ou non
+            bool isSpe = isSpecial(new_i_elem,new_j_elem);
+            
             // La case destination est-elle vide ?
             if (list.at(new_i_elem*width + new_j_elem) == NULL)
             {
@@ -225,15 +229,17 @@ namespace state
                 // On cree un nouveau groupe que l'on place dans la case vide avec N - 1 creatures
                 Element* newGroup = new CreaturesGroup(list.at(i_elem*width + j_elem)->getElemType(),list.at(i_elem*width + j_elem)->getCreaturesNbr() - 1,list.at(i_elem*width + j_elem)->getPlayer());
                 this->set(newGroup,new_i_elem,new_j_elem);
-                std::cout << "Ancienne case : " << list.at(i_elem*width + j_elem).get() << std::endl;
-                std::cout << "Nombre de creatures ancienne case : " << list.at(i_elem*width + j_elem)->getCreaturesNbr() << std::endl;
+
+                // si la cellule obtenue est speciale, on ajoute le nom du type à la liste de noms du joueur
+                if (isSpe)
+                    this->assignSpecialCell(this->get(new_i_elem, new_j_elem)->getPlayer(), nullptr, this->get(new_i_elem, new_j_elem)->getElemType());
             }
             
             // Est-elle occupée par le joueur qui se déplace ou par l'adversaire ?
             else 
             {
                 
-                if (fight >= 0 && fight < 5) {
+                if (fight >= 0 && fight < 4) {
                     
                     // On fixe le nbre de creatures de la case attaquante à 1
                     list.at(i_elem * width + j_elem)->setCreaturesNbr(1);
@@ -243,13 +249,21 @@ namespace state
                         // On fixe le nbre de creatures de la case destination
                         list.at(new_i_elem * width + new_j_elem)->setCreaturesNbr((creaNbrDef + creaNbrAtt - 1) % 5);
                     
-                    // Le joueur 1 ou le joueur 2 a gagné le combat sans aucune pitie
+                    // Le joueur 1 ou le joueur 2 a gagné le combat sans aucune pitie en etant l'attaquant
                     else if (fight == 1 || fight == 2)
+                    {
+                        // si la cellule attaquee est speciale, on ajoute/supprime le nom du type à la liste de noms des joueurs
+                        if (isSpe)
+                            this->assignSpecialCell(this->get(i_elem,j_elem)->getPlayer(),this->get(new_i_elem,new_j_elem)->getPlayer(),this->get(new_i_elem,new_j_elem)->getElemType());
+                        
                         // On detruit les creatures de la case defense en on remplaçant par celles de l'attaquant
                         this->set(new CreaturesGroup(list.at(i_elem * width + j_elem)->getElemType(), (creaNbrAtt - 1) % 5, NULL), new_i_elem, new_j_elem);
+                        
+                    }
+                        
                     
-                    else
-                        std::cout << "Le defenseur a gagne" << std::endl;
+//                    else
+//                        std::cout << "Le defenseur a gagne" << std::endl;
                     // Si fight = 3 ie le defenseur a gagne, on detruit seulement les creatures envoyées au combat par l'attaquant
                     // Dans ce cas là on voit juste le nombre de creatures de la case attaquante tomber à 1
                 }
@@ -314,6 +328,9 @@ namespace state
         // La case destination est-elle autorisée ?
         if (verifValiditeCase(new_i_elem,new_j_elem))
         {
+            // On veut aussi savoir si la case destination est speciale ou pas
+            bool isSpe = isSpecial(new_i_elem,new_j_elem);
+            
             // La case destination est-elle vide ?
             if (list.at(new_i_elem*width + new_j_elem) == NULL)
             {
@@ -325,13 +342,21 @@ namespace state
                 
                 // On verifie que le placement a bien ete effectue
                 if (this->get(new_i_elem,new_j_elem) != NULL && this->get(new_i_elem,new_j_elem)->getCreaturesNbr() == 1)
+                {
                     std::cout << "Une creature de l'IA a bien ete placee dans la grille" << std::endl;
+                    
+                    // si la cellule obtenue est speciale, on ajoute le nom du type à la liste de noms du joueur
+                    if (isSpe)
+                        this->assignSpecialCell(this->get(new_i_elem,new_j_elem)->getPlayer(),nullptr,this->get(new_i_elem,new_j_elem)->getElemType());
+                }
+                    
+                
                 else
                     throw std::runtime_error("Le placement d'une creature de l'IA dans une case vide n'a pas ete effectue !");
             }
             
-            // Elle est occupee par le joueur qui souhaite place une creature
-            else 
+            // Elle est occupee par le joueur qui souhaite placer une creature
+            else if ((ID)list.at(new_i_elem*width + new_j_elem)->getPlayer()->getClanName() == creaType)
             {
                 // On ajoute une creature au groupe existant
                 int nbrCrea = list.at(new_i_elem*width + new_j_elem)->getCreaturesNbr();
@@ -340,14 +365,63 @@ namespace state
                 // On verifie que le placement a bien ete effectue
                 if (this->get(new_i_elem,new_j_elem) != NULL && this->get(new_i_elem,new_j_elem)->getCreaturesNbr() == nbrCrea + 1)
                     std::cout << "Une creature de l'IA a bien ete placee dans la grille" << std::endl;
+                
                 else
-                    throw std::runtime_error("Le placement d'une creature de l'IA dans une de ses cases n'a pas ete effectue !");
+                    throw std::runtime_error("Le placement d'une creature du joueur dans une de ses cases n'a pas ete effectue !");
             }
+            
+            // Elle est occupee par l'adversaire
+            else
+                throw std::runtime_error("Le joueur ne peut pas placer de creatures de sa reserve dans une cellule adverse !");
         }
         
         else
             throw std::runtime_error("Le placement n'a pas pu etre effectué car la case de destination est interdite !");
         
+    }
+    
+    // Lorsqu'il y a combat et que la conquete/perte d'une cellule special est en jeu, on met à jour les listes des joueurs en conséquence
+    void ElementTab::assignSpecialCell(Player* winner, Player* loser, ID type)
+    {
+        std::string stringType;
+        
+        switch (type)
+        {
+            case ID::BARBECUE :
+                stringType = "barbecue";
+                break;
+            case ID::CANDY :
+                stringType = "candy";
+                break;
+            case ID::POOL :
+                stringType = "pool";
+                break;
+            case ID::SKY :
+                stringType = "sky";
+                break;
+            default :
+                throw std::runtime_error("ElementTab::assignSpecialCell - le type donne en argument ne correspond pas à un type de cellule speciale");
+                break;
+        }
+        
+        // Mise à jour de la liste du gagnant :
+        if (winner != nullptr)
+            winner->modifySpeCellsNames(stringType,true);
+        
+        // Mise à jour de la liste du perdant :
+        if (loser != nullptr)
+            loser->modifySpeCellsNames(stringType,false);
+    }
+    
+    // Renvoie true si la cellule definie par les coordonnees d'entrée est speciale
+    bool ElementTab::isSpecial(int i, int j)
+    {
+        ID typeCell = this->get(i,j)->getElemType();
+        
+        if (typeCell == ID::BARBECUE || typeCell == ID::CANDY || typeCell == ID::POOL || typeCell == ID::SKY)
+            return true;
+        else
+            return false;
     }
     
 };

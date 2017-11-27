@@ -46,6 +46,8 @@ namespace state {
     bool isOccupiedByOpp (int i, int j, Player* joueur);
     void moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem, int fight);
     void placeElement (int new_i_elem, int new_j_elem, ID creaType);
+    void assignSpecialCell (Player* winner, Player* loser, ID type);
+    bool isSpecial (int i, int j);
     // Setters and Getters
     TypeID getTabType() const;
     void setTabType(TypeID tabType);

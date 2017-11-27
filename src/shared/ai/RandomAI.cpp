@@ -53,7 +53,7 @@ namespace ai{
         {
             randCommand = randGen()%(listCommands.size());
             listCommands.at(randCommand)->execute(moteur.getState());
-            cout << "Une commande de l'ia random a été en principe executée !" << endl;
+            cout << "RandomAI::run - Une commande de l'ia random a été en principe executée !" << endl;
         }
         
         // On vide la liste des commandes
@@ -125,7 +125,7 @@ namespace ai{
         else if (colonne > 0 && moteur.getState().getCharacters()->get(ligne,colonne-1).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne,colonne-1))
             new_colonne -= 1;
         else
-            std::cout << "La case selectionnee pour l'IA ne permet aucun deplacement" << std::endl;
+            std::cout << "RandomAI::moveCellResearch - La case selectionnee pour l'IA ne permet aucun deplacement" << std::endl;
             //throw std::runtime_error("Aucune possibilite de deplacement pour l'ia !");
         
         coordsDestination[0] = ligne;

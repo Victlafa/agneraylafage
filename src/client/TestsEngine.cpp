@@ -104,7 +104,6 @@ namespace engine {
     
         cout << "FIN TESTS POISONCOMMAND" << endl;
     }
-    
     void TestsNewGameCommand()
     {
         cout << "DEBUT TESTS NEWGAMECOMMAND" << endl;
@@ -120,7 +119,6 @@ namespace engine {
         
         cout << "FIN TESTS NEWGAMECOMMAND" << endl;
     }
-    
     void TestsMoveCommand(){
         cout << "DEBUT TESTS MOVECHARCOMMAND" << endl;
         
@@ -174,5 +172,58 @@ namespace engine {
         cout << "FIN TESTS MOVECHARCOMMAND" << endl;
         
         //moteur.getPlayer(1)->setIsStriker(true);
+    }
+    void TestsSpecialCommand()
+    {
+        srand(time(NULL));
+        
+        // On initialise un moteur
+        // On choisit les cuisiniers pour le joueur 1
+        engine::Engine moteur(CreaturesID::COOKERS);
+        
+        // On attribue trois cellules speciales au joueur 1
+        std::vector<std::string> speCells;
+        speCells.push_back("sky");
+        speCells.push_back("barbecue");
+        speCells.push_back("candy");
+        moteur.getPlayer(1)->setSpeCellsNames(speCells);
+        moteur.getPlayer(1)->setCreaturesLeft(2);
+        
+        int ligneDep = 2;
+        int colonneDep = 3;
+        int ligneArr = 4;
+        int colonneArr = 4;
+        
+        
+        // On place un cuisinier
+        std::cout << "Creation d'un cuisinier associé au joueur 1" << std::endl;
+        CreaturesGroup* cuisinier = new CreaturesGroup(ID::COOKER, 2, moteur.getPlayer(1).get());
+        moteur.getState().getCharacters()->set(cuisinier,ligneDep,colonneDep);
+        
+        // On place un adv dans la case (ligneArr,colonneArr)
+        std::cout << "Creation d'un groupe associé au joueur 2" << std::endl;
+        CreaturesGroup* player2Crea = new CreaturesGroup((ID)moteur.getPlayer(2)->getClanName(), 2, moteur.getPlayer(2).get());
+        moteur.getState().getCharacters()->set(player2Crea,ligneArr,colonneArr);
+        
+        // On ajoute une commande au moteur
+        
+        // Test de la capacite speciale liee au barbecue ou à la piscine
+        moteur.addCommand(1,new SpecialCellCommand(ligneDep,colonneDep,ligneArr,colonneArr,1,"barbecue"));
+        std::cout << "Nombre de creatures dans la case de l'IA avant utilisation du barbecue : " << moteur.getState().getCharacters()->get(ligneArr,colonneArr)->getCreaturesNbr() << std::endl;
+
+        // Test de la capacité spéciale liee au pot de sucreries
+        //moteur.addCommand(2,new SpecialCellCommand(ligneDep,colonneDep,ligneArr,colonneArr,1,"candy"));
+        //std::cout << "Nombre de creatures dans la reserve du joueur 1 : " << moteur.getPlayer(1)->getCreaturesLeft() << std::endl;
+        // On souhaite tester la capacité speciale liee au ciel
+        // On doit pour cela choisir une cellule adverse à attaquer sur la carte ainsi qu'une case de depart
+        //moteur.addCommand(3,new SpecialCellCommand(ligneDep,colonneDep,ligneArr,colonneArr,1,"sky"));
+        
+        // On execute les commandes
+        moteur.update();
+        std::cout << "Nombre de creatures dans la reserve du joueur 1 : " << moteur.getPlayer(1)->getCreaturesLeft() << std::endl;
+        std::cout << "Nombre de creatures dans la case de l'IA apres utilisation du barbecue : " << moteur.getState().getCharacters()->get(ligneArr,colonneArr)->getCreaturesNbr() << std::endl;
+
+        
+        
     }
 }
