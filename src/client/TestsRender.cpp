@@ -590,10 +590,12 @@ namespace render {
                 }
                 else
                 {
-                    listXTextChars.push_back(450);
-                    listYTextChars.push_back(450);
+                    unsigned int height = 5, width = 7;
+                    if(!((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0) || (i == height - 1 && j == width - 1) || (i == height - 1 && j == width - 2) || (i == height - 2 && j == width - 1))){
+                        listXTextChars.push_back(450);
+                        listYTextChars.push_back(450);
+                    }
                 }
-                
             }
         }
         
@@ -668,16 +670,19 @@ namespace render {
             Tile charsTile(listXTextChars[i], listYTextChars[i]);
             
             // S'il y a une cellule en position i du tableau de cellules
-            if(etat.getGrid()->get(xi,yi)!=NULL){
+            //if(etat.getGrid()->get(xi,yi)!=NULL){
                 // On fixe la position de la cellule dans l'affichage final
                 surfCell->setFinalLocation(i, shift, x, y, cellTile);
                 // On fixe la position du sprite dans l'image texture de base
                 surfCell->setTextureLocation(i, cellTile);
-            }
+            //}
             
             // S'il y a une cellule en position i du tableau de creatures
-            if(NULL!=etat.getCharacters()->get(xi,yi)) std::cout << "xi et yi : " << xi << " " << yi << std::endl;
-                
+            if(NULL!=etat.getCharacters()->get(xi,yi)){
+                std::cout << "xi : " << xi << " yi : " << yi << " et i : " << i << std::endl;
+                //std::cout << "x et y : " << x << " " << y << std::endl;
+            }
+            
                 // On fixe la position du groupe de creatures dans l'affichage final
                 surfChars->setFinalLocation(i, shift, x, y, charsTile);
                 // On fixe la position du sprite dans l'image texture de base
