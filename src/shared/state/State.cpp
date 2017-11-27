@@ -106,12 +106,23 @@ namespace state
             intRand[4*j + 2] = rand_i_J2;
             intRand[4*j + 3] = rand_j_J2;
 
-            this->characters->set(new CreaturesGroup((ID)(this->getPlayer(1)->getClanName()), 2, this->getPlayer(1).get()), rand_i, rand_j);
+            characters->set(new CreaturesGroup((ID)(player1->getClanName()), 2, player1.get()), rand_i, rand_j);
+            // On regarde si le groupe a ete place sur une cellule speciale ou pas
+            if (grid->isSpecial(rand_i,rand_j))
+                // Si c'est le cas, on signale que le joueur detient cette cellule speciale
+                grid->assignSpecialCell(player1.get(),nullptr,(ID)player1->getClanName());
+            
             std::cout << "State.cpp : Coordonnees joueur 1 : " << "(" << intRand[4*j] << "," << intRand[4*j+1] << ") " << std::endl;
-            std::cout << "State.cpp : verif type : " << this->characters->get(rand_i,rand_j)->getElemType() << std::endl;
-            this->characters->set(new CreaturesGroup((ID)(this->getPlayer(2)->getClanName()), 2, this->getPlayer(2).get()), rand_i_J2, rand_j_J2);
+            std::cout << "State.cpp : verif type : " << characters->get(rand_i,rand_j)->getElemType() << std::endl;
+            
+            characters->set(new CreaturesGroup((ID)(player2->getClanName()), 2, player2.get()), rand_i_J2, rand_j_J2);
+            // On regarde si le groupe a ete place sur une cellule speciale ou pas
+            if (grid->isSpecial(rand_i_J2,rand_j_J2))
+                // Si c'est le cas, on signale que le joueur detient cette cellule speciale
+                grid->assignSpecialCell(player2.get(),nullptr,(ID)player2->getClanName());
+            
             std::cout << "State.cpp : Coordonnees joueur 2 : " << "(" << intRand[4*j+2] << "," << intRand[4*j+3] << ")" << std::endl;
-            std::cout << "State.cpp : verif type : " << this->characters->get(rand_i_J2,rand_j_J2)->getElemType() << std::endl;
+            std::cout << "State.cpp : verif type : " << characters->get(rand_i_J2,rand_j_J2)->getElemType() << std::endl;
             
         }
     }
