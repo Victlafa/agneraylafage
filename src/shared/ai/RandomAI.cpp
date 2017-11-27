@@ -59,8 +59,8 @@ namespace ai{
         // On vide la liste des commandes
         listCommands.clear();
     }
-    
-    // Permet de chercher dans la grille une cellule appartenant à l'IA ainsi qu'une cellule de destination adjacente pour un deplacement
+        
+    // On cherche une cellule attaquante pour l'IA ainsi qu'une cellule destination adverse ADJACENTE
     std::vector<int> RandomAI::moveCellResearch (engine::Engine& moteur)
     {
         // On va chercher une creature de l'IA dans le moteur donné en argument
@@ -135,71 +135,4 @@ namespace ai{
         
         return coordsDestination;
     }
-    
-    // Permet de chercher dans la grille une cellule appartenant à l'IA ou une cellule vide pour pouvoir y placer une nouvelle creature
-    std::vector<int> RandomAI::placeCellResearch (engine::Engine& moteur)
-    {
-        std::vector<int> coordsDestination(2);
-        
-        // On verifie que le joueur dispose encore en stock de creatures à placer sur la grille
-        if (moteur.getState().getPlayer(2)->getCreaturesLeft() > 0)
-        {
-            // On va chercher une case vide ou une case appartenant à l'IA
-            unsigned int ligne = 0;
-            unsigned int colonne = 0;
-            // si choice = 0 on cherchera un groupe de l'ia, si choice = 1 on cherche une case vide
-            int choice = rand()%2;
-
-            // On recupere le joueur 2 (ia)
-            state::Player* player_ia = moteur.getPlayer(2).get();
-
-            for (unsigned int i = 0; i < moteur.getState().getCharacters()->getHeight(); i++) 
-            {
-                for (unsigned int j = 0; j < moteur.getState().getCharacters()->getWidth(); j++) 
-                {
-                    // Si on cherche un groupe de creatures et qu'il est de pointeur non nul
-                    if (choice == 0 && moteur.getState().getCharacters()->get(i,j).get() != 0)
-                    {
-                        // Si ce groupe appartient à l'ia et qu'il a au plus 5 creatures
-                        int creaNbr = moteur.getState().getCharacters()->get(i,j)->getCreaturesNbr();
-                        if (moteur.getState().getCharacters()->get(i,j)->getPlayer() == player_ia && creaNbr > 0 && creaNbr < 6)
-                        {
-                            ligne = i;
-                            colonne = j;
-
-                            // On sort de la boucle for j
-                            break;
-                        }
-                    }
-                    // Si on cherche une case vide (ON DOIT VERIFIER QUE LA CASE EST AUTORISEE !!)
-                    else if (choice == 1 && moteur.getState().getCharacters()->verifValiditeCase(i,j) && moteur.getState().getCharacters()->get(i,j).get() == NULL )
-                    {
-                        ligne = i;
-                        colonne = j;
-
-                        // On sort de la boucle for j
-                        break;
-                    }
-
-                }
-
-                // On sort de la boucle for i
-                if (ligne != 0 || colonne != 0)
-                    break;
-            }
-
-            if (ligne == 0 && colonne == 0)
-                throw runtime_error("Aucune case n'a ete trouvée pour placer une nouvelle creature de l'IA !");
-
-            coordsDestination[0] = ligne;
-            coordsDestination[1] = colonne;
-        }
-        
-        else
-            throw runtime_error("L'IA ne dispose plus de creatures à placer dans la grille !");
-        
-        return coordsDestination;
-    }
-        
-        
 }

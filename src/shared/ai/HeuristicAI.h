@@ -25,9 +25,7 @@ namespace ai {
   public:
     HeuristicAI (int randomSeed);
     void run (engine::Engine& moteur);
-    std::vector<int> skyCellResearch (engine::Engine& moteur);
-    std::vector<int> placeCellResearch (engine::Engine& moteur);
-    std::vector<int> playerCellResearch (engine::Engine& moteur, int player);
+    std::vector<int> moveCellResearch (engine::Engine& moteur);
     // Setters and Getters
   };
 

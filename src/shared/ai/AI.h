@@ -25,6 +25,12 @@ namespace ai {
     AI ();
     virtual void run (engine::Engine& moteur) = 0;
     void initIA (engine::Engine& moteur);
+    virtual std::vector<int> moveCellResearch (engine::Engine& moteur) = 0;
+    std::vector<int> placeCellResearch (engine::Engine& moteur);
+    std::vector<int> skyCellResearch (engine::Engine& moteur);
+    std::vector<int> playerCellResearch (engine::Engine& moteur, int player);
+    bool isAdjacent (int init_i, int init_j, int final_i, int final_j);
+    std::vector<int> inAdjacentResearch (engine::Engine& moteur, int init_i, int init_j);
     // Setters and Getters
     const std::vector<std::shared_ptr<engine::Command> >& getListCommands() const;
     void setListCommands(const std::vector<std::shared_ptr<engine::Command> >& listCommands);
