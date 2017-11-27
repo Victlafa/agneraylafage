@@ -45,7 +45,7 @@ namespace state
     
     void ElementTab::set (Element* elem, int i, int j){
         list.at(i*width + j).reset(elem);
-        std::cout << "ElementTab : set : getElemType : " << elem->getElemType() << std::endl;
+        //std::cout << "ElementTab : set : getElemType : " << elem->getElemType() << std::endl;
         list.at(i*width + j)->setX(i);
         list.at(i*width + j)->setY(j);
     }
