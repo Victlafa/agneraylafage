@@ -79,7 +79,7 @@ namespace engine {
         
         // On place un forgeron en (ligne,colonne)
         std::cout << "Creation d'un forgeron associé au joueur 1" << std::endl;
-        CreaturesGroup* forgeron = new CreaturesGroup(ID::BLACKSMITH, 2, moteur.getPlayer(1).get());
+        CreaturesGroup* forgeron = new CreaturesGroup(ID::BLACKSMITH, 5, moteur.getPlayer(1).get());
         
         std::cout << "Joueur associe au forgeron : " << forgeron->getPlayer() << std::endl;
         moteur.getState().getCharacters()->set(forgeron,ligne,colonne);
@@ -89,7 +89,7 @@ namespace engine {
         
         // On place un cuisinier dans la case à droite
         std::cout << "Creation d'un cuisinier associé au joueur 2" << std::endl;
-        CreaturesGroup* cuisinier = new CreaturesGroup(ID::COOKER, 2, moteur.getPlayer(2).get());
+        CreaturesGroup* cuisinier = new CreaturesGroup(ID::COOKER, 3, moteur.getPlayer(2).get());
         moteur.getState().getCharacters()->set(cuisinier,ligne,colonne + 1);
         std::cout << "Nbre de creatures de defense avant deplacement : " << cuisinier->getCreaturesNbr() << std::endl;
         std::cout << "Joueur defenseur : " << cuisinier->getPlayer() << std::endl;
@@ -131,7 +131,7 @@ namespace engine {
         int colonne = 4;
         
         // On place un forgeron en (ligne,colonne)
-        CreaturesGroup* forgeron = new CreaturesGroup(ID::BLACKSMITH, 2, moteur.getPlayer(1).get());
+        CreaturesGroup* forgeron = new CreaturesGroup(ID::BLACKSMITH, 5, moteur.getPlayer(1).get());
         
         std::cout << "Joueur associe au forgeron : " << forgeron->getPlayer() << std::endl;
         moteur.getState().getCharacters()->set(forgeron,ligne,colonne);
@@ -170,7 +170,7 @@ namespace engine {
         int colonne = 4;
         
         // On place un forgeron en (ligne,colonne)
-        CreaturesGroup* forgeron = new CreaturesGroup(ID::BLACKSMITH, 1, moteur.getPlayer(1).get());
+        CreaturesGroup* forgeron = new CreaturesGroup(ID::BLACKSMITH, 5, moteur.getPlayer(1).get());
         
         std::cout << "Joueur associe au forgeron : " << forgeron->getPlayer() << std::endl;
         moteur.getState().getCharacters()->set(forgeron,ligne,colonne);

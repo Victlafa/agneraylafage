@@ -76,10 +76,10 @@ int main(int argc,char* argv[])
 //            cout << "\n" << endl;
 //            TestsNewGameCommand();
 //            cout << "\n" << endl;
-//            TestsMoveCommandAdv();
-//            cout << "\n" << endl;
-//            TestsMoveCommandPlayer();
-//            cout << "\n" << endl;
+            TestsMoveCommandAdv();
+            cout << "\n" << endl;
+            TestsMoveCommandPlayer();
+            cout << "\n" << endl;
 //            TestsSpecialCommandBBQ();
 //            cout << "\n" << endl;
 //            TestsSpecialCommandSKY();
