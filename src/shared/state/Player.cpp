@@ -23,7 +23,7 @@ namespace state{
       
       Player::Player(CreaturesID type) : clanName(type), speCellsNames()
       {
-          cellNbr = 0;
+          cellNbr = 3;
           zonesNbr = 0;
           conquestPoints = 0;
           creaturesLeft = 0;
