@@ -15,9 +15,13 @@ namespace state
         characters.reset(new ElementTab(TypeID::CREATURESGROUP));
         player1.reset(new Player(typePl1));
         
-        // Pour l'IA on tire au sort un type de creatures
-        int typePl2 = rand()%4 + 1;
-        player2.reset(new Player((CreaturesID)typePl2));
+        CreaturesID tirage = typePl1;
+        
+        // On tire au sort un type de creature qu'on associe à l'IA (on s'arrange pour qu'il soit different de celui du joueur) :
+        while (tirage == typePl1)
+            tirage = (CreaturesID)(rand()%4 + 1);
+        
+        player2.reset(new Player((CreaturesID)tirage));
         
         // On initialise le tableau de creatures de sorte à associer 3 groupes de 2 creatures à chaque joueur
         this->initCreatures();
