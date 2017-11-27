@@ -107,19 +107,21 @@ namespace state
             intRand[4*j + 3] = rand_j_J2;
 
             characters->set(new CreaturesGroup((ID)(player1->getClanName()), 2, player1.get()), rand_i, rand_j);
+            std::cout << "State::initCreatures - appel isSpecial ligne 111" << std::endl;
             // On regarde si le groupe a ete place sur une cellule speciale ou pas
             if (grid->isSpecial(rand_i,rand_j))
                 // Si c'est le cas, on signale que le joueur detient cette cellule speciale
-                grid->assignSpecialCell(player1.get(),nullptr,(ID)player1->getClanName());
+                grid->assignSpecialCell(player1.get(),nullptr,grid->get(rand_i,rand_j)->getElemType());
             
             std::cout << "State.cpp : Coordonnees joueur 1 : " << "(" << intRand[4*j] << "," << intRand[4*j+1] << ") " << std::endl;
             std::cout << "State.cpp : verif type : " << characters->get(rand_i,rand_j)->getElemType() << std::endl;
             
             characters->set(new CreaturesGroup((ID)(player2->getClanName()), 2, player2.get()), rand_i_J2, rand_j_J2);
+            std::cout << "State::initCreatures - appel isSpecial ligne 120" << std::endl;
             // On regarde si le groupe a ete place sur une cellule speciale ou pas
             if (grid->isSpecial(rand_i_J2,rand_j_J2))
                 // Si c'est le cas, on signale que le joueur detient cette cellule speciale
-                grid->assignSpecialCell(player2.get(),nullptr,(ID)player2->getClanName());
+                grid->assignSpecialCell(player2.get(),nullptr,grid->get(rand_i_J2,rand_j_J2)->getElemType());
             
             std::cout << "State.cpp : Coordonnees joueur 2 : " << "(" << intRand[4*j+2] << "," << intRand[4*j+3] << ")" << std::endl;
             std::cout << "State.cpp : verif type : " << characters->get(rand_i_J2,rand_j_J2)->getElemType() << std::endl;

@@ -12,8 +12,12 @@ namespace state
         placed = false;
         this->setPlayer(joueur);
         
-        this->setCreaturesNbr(nbrCrea);
-        std::cout << "CreaturesGroup.cpp : Nombre de créatures dans la cellule : " << nbrCrea << std::endl;
+        if (nbrCrea < 1 && nbrCrea > 5)
+            throw std::runtime_error("Constructeur de CreaturesGroup - le nombre de creatures doit se trouver entre 1 et 5 inclus !");
+        else
+            this->setCreaturesNbr(nbrCrea);
+        
+        //std::cout << "CreaturesGroup.cpp : Nombre de créatures dans la cellule : " << nbrCrea << std::endl;
     }
     
     CreaturesGroup::CreaturesGroup (ID type, Player* joueur, const Element& elem) : Element(type, CellState::NOTCELL)

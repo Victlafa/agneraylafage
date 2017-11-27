@@ -47,8 +47,13 @@ namespace state
     void ElementTab::set (Element* elem, int i, int j){
         list.at(i*width + j).reset(elem);
         //std::cout << "ElementTab : set : getElemType : " << elem->getElemType() << std::endl;
-        list.at(i*width + j)->setX(i);
-        list.at(i*width + j)->setY(j);
+        
+        if (elem != nullptr)
+        {
+            list.at(i*width + j)->setX(i);
+            list.at(i*width + j)->setY(j);
+        }
+        
     }
     
     const std::unique_ptr<Element>& ElementTab::operator()(int i, int j) const{
@@ -203,36 +208,55 @@ namespace state
     void ElementTab::moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem, int fight){
         
         // Nbre de creatures de la cellule attaquante
-        int creaNbrAtt = list.at(i_elem*width + j_elem)->getCreaturesNbr();
+        int creaNbrAtt = this->get(i_elem,j_elem)->getCreaturesNbr();
         
         // Nbre de creatures de la cellule destination
         int creaNbrDef = 0;
         // A definir seulement si la case de destination est non vide !
-        if (list.at(new_i_elem*width + new_j_elem) != NULL)
-            creaNbrDef = list.at(new_i_elem*width + new_j_elem)->getCreaturesNbr();
+        if (this->get(new_i_elem,new_j_elem) != NULL)
+            creaNbrDef = this->get(new_i_elem,new_j_elem)->getCreaturesNbr();
         
         // On verifie si le deplacement est possible ou non
         
         // La case destination est-elle autorisée ?
         if (verifValiditeCase(new_i_elem,new_j_elem))
         {
-            // On veut savoir si la case est speciale ou non
-            bool isSpe = isSpecial(new_i_elem,new_j_elem);
-            
+                        
             // La case destination est-elle vide ?
-            if (list.at(new_i_elem*width + new_j_elem) == NULL)
+            if (this->get(new_i_elem,new_j_elem) == NULL)
             {
                 // Si c'est le cas, on procède au déplacement
                 
-                // On fixe le nbre de creatures de la case attaquante à 1
-                list.at(i_elem*width + j_elem)->setCreaturesNbr(1);
-                // On cree un nouveau groupe que l'on place dans la case vide avec N - 1 creatures
-                Element* newGroup = new CreaturesGroup(list.at(i_elem*width + j_elem)->getElemType(),list.at(i_elem*width + j_elem)->getCreaturesNbr() - 1,list.at(i_elem*width + j_elem)->getPlayer());
-                this->set(newGroup,new_i_elem,new_j_elem);
-
-                // si la cellule obtenue est speciale, on ajoute le nom du type à la liste de noms du joueur
-                if (isSpe)
-                    this->assignSpecialCell(this->get(new_i_elem, new_j_elem)->getPlayer(), nullptr, this->get(new_i_elem, new_j_elem)->getElemType());
+                // On cree un nouveau groupe que l'on place dans la case vide avec N - 1 creatures SAUF si la case de depart n'en contenait qu'une !
+                if (creaNbrAtt > 1)
+                {
+                    Element* newGroup = new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(),creaNbrAtt - 1,this->get(i_elem, j_elem)->getPlayer());
+                    this->set(newGroup,new_i_elem,new_j_elem);
+                    // On fixe le nbre de creatures de la case attaquante à 1
+                    this->get(i_elem,j_elem)->setCreaturesNbr(1);
+                }
+                
+                else
+                {
+                    Element* newGroup = new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(),1,this->get(i_elem, j_elem)->getPlayer());
+                    this->set(newGroup,new_i_elem,new_j_elem);
+                    // On fixe le nbre de creatures de la case attaquante à 0
+                    this->get(i_elem,j_elem)->setCreaturesNbr(0);
+                }
+                
+                // On verifie que le mouvement a bien été effectué
+                if (this->get(new_i_elem,new_j_elem) != nullptr)
+                {
+                    // Si c'est le cas on veut savoir si la case est speciale ou non
+                    std::cout << "ElementTab::moveElement - appel isSpecial ligne 242" << std::endl;
+                    
+                    // si la cellule obtenue est speciale, on ajoute le nom du type à la liste de noms du joueur
+                    if (isSpecial(new_i_elem, new_j_elem))
+                        this->assignSpecialCell(this->get(new_i_elem, new_j_elem)->getPlayer(), nullptr, this->get(new_i_elem, new_j_elem)->getElemType());
+                }
+                else
+                    throw std::runtime_error("Le deplacement vers une case vide ne s'est pas deroulé correctement, la case est toujours vide");
+                
             }
             
             // Est-elle occupée par le joueur qui se déplace ou par l'adversaire ?
@@ -241,27 +265,34 @@ namespace state
                 
                 if (fight >= 0 && fight < 4) {
                     
-                    // On fixe le nbre de creatures de la case attaquante à 1
-                    list.at(i_elem * width + j_elem)->setCreaturesNbr(1);
+                    // Si la case de depart contenait plus de 1 creature
+                    if (this->get(i_elem, j_elem)->getCreaturesNbr() > 1)
+                        // On fixe le nbre de creatures de la case attaquante à 1
+                        this->get(i_elem,j_elem)->setCreaturesNbr(1);
+                    else
+                        // On le fixe à 0
+                        this->get(i_elem,j_elem)->setCreaturesNbr(0);
                     
                     // La case destination est occupée par le joueur qui se deplace
                     if (fight == 0)
                         // On fixe le nbre de creatures de la case destination
-                        list.at(new_i_elem * width + new_j_elem)->setCreaturesNbr((creaNbrDef + creaNbrAtt - 1) % 5);
+                        (creaNbrAtt != 1) ? this->get(new_i_elem,new_j_elem)->setCreaturesNbr((creaNbrDef + creaNbrAtt - 1) % 5) : this->get(new_i_elem,new_j_elem)->setCreaturesNbr((creaNbrDef + 1) % 5);
                     
                     // Le joueur 1 ou le joueur 2 a gagné le combat sans aucune pitie en etant l'attaquant
                     else if (fight == 1 || fight == 2)
                     {
+                        // On veut savoir si la case est speciale ou non
+                        std::cout << "ElementTab::moveElement - appel isSpecial ligne 271" << std::endl;
+                        
                         // si la cellule attaquee est speciale, on ajoute/supprime le nom du type à la liste de noms des joueurs
-                        if (isSpe)
+                        if (isSpecial(new_i_elem, new_j_elem))
                             this->assignSpecialCell(this->get(i_elem,j_elem)->getPlayer(),this->get(new_i_elem,new_j_elem)->getPlayer(),this->get(new_i_elem,new_j_elem)->getElemType());
                         
                         // On detruit les creatures de la case defense en on remplaçant par celles de l'attaquant
-                        this->set(new CreaturesGroup(list.at(i_elem * width + j_elem)->getElemType(), (creaNbrAtt - 1) % 5, NULL), new_i_elem, new_j_elem);
+                        (creaNbrAtt != 1) ? this->set(new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(), (creaNbrAtt - 1) % 5, this->get(i_elem, j_elem)->getPlayer()), new_i_elem, new_j_elem) : this->set(new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(),1, this->get(i_elem, j_elem)->getPlayer()), new_i_elem, new_j_elem);
                         
                     }
                         
-                    
 //                    else
 //                        std::cout << "Le defenseur a gagne" << std::endl;
                     // Si fight = 3 ie le defenseur a gagne, on detruit seulement les creatures envoyées au combat par l'attaquant
@@ -269,13 +300,8 @@ namespace state
                 }
                 
                 else
-                {
                     throw std::runtime_error("Le déplacement n'a pas pu etre effectué !");
-                }
-                
             }
-                
-            
         }
         
         else
@@ -328,6 +354,7 @@ namespace state
         // La case destination est-elle autorisée ?
         if (verifValiditeCase(new_i_elem,new_j_elem))
         {
+            std::cout << "ElementTab::placeElement - appel isSpecial ligne 332" << std::endl;
             // On veut aussi savoir si la case destination est speciale ou pas
             bool isSpe = isSpecial(new_i_elem,new_j_elem);
             
@@ -417,6 +444,7 @@ namespace state
     bool ElementTab::isSpecial(int i, int j)
     {
         ID typeCell = this->get(i,j)->getElemType();
+        std::cout << "ElementTab::isSpecial - coords ("  << i << "," << j << ") - type : " << typeCell << std::endl;
         
         if (typeCell == ID::BARBECUE || typeCell == ID::CANDY || typeCell == ID::POOL || typeCell == ID::SKY)
             return true;
