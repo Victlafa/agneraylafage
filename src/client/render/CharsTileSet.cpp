@@ -51,9 +51,10 @@ namespace render
                 return creatures[3][elem.getCreaturesNbr()-1];
                 break;
             default :
-                return creatures[4][0];
-                //return *(new Tile(-1,-1,-1,-1));
-                //std::cout << "erreur attribution CharsTileSet" << std::endl;
+                //return creatures[4][0];
+                std::cout << "erreur attribution CharsTileSet" << std::endl;
+                return *(new Tile(-1,-1,-1,-1));
+                
                 break;
         }
         /*
