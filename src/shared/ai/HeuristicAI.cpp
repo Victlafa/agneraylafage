@@ -20,27 +20,7 @@ namespace ai
     {
         // On initialise les attributs de l'IA
         this->initIA(moteur);
-        
-        // On s'arrange pour que l'IA ait au moins une creature a placer en stock
-        //moteur.getPlayer(2)->setCreaturesLeft(6);
-        
-        // On lui attribue trois cellules speciales
-//        std::vector<std::string> speCells;
-//        speCells.push_back("sky");
-//        speCells.push_back("barbecue");
-//        speCells.push_back("candy");
-//        moteur.getPlayer(2)->setSpeCellsNames(speCells);
-        
-        //std::cout << moteur.getPlayer(2)->getSpeCellsNames()[0] << std::endl;
-        //std::cout << moteur.getPlayer(2)->getSpeCellsNames()[1] << std::endl;
-        //std::cout << moteur.getPlayer(2)->getSpeCellsNames()[2] << std::endl;
-        
-        std::vector<int> coordsJoueur1 = playerCellResearch(moteur,1);
-        std::vector<int> coordsJoueur2 = playerCellResearch(moteur,2);
-        
-        std::cout << "Nombre de cellules appartenant au joueur 1 : " << coordsJoueur1.size()/2 << std::endl;
-        std::cout << "Nombre de cellules appartenant au joueur 2 : " << coordsJoueur2.size()/2 << std::endl;
-        
+                
         // On souhaite tester la capacité speciale liee au ciel
         // On doit pour cela choisir une cellule adverse à attaquer sur la carte ainsi qu'une case de depart
         std::vector<int> choixCellules = skyCellResearch(moteur);
@@ -49,12 +29,10 @@ namespace ai
         listCommands.push_back( std::shared_ptr<engine::Command> ( new engine::SpecialCellCommand(choixCellules[0],choixCellules[1],choixCellules[2],choixCellules[3],2,"sky") ) );
         
         // On souhaite introduire une commande de deplacement/conquete
-        // On tire pour cela au sort une cellule du joueur 1 à attaquer
-        
-        
-        
-        listCommands.at(0)->execute(moteur.getState());
-        std::cout << "Une commande de l'ia heuristique a été en principe executée !" << std::endl;
+        // On tire pour cela au sort une cellule de l'ia et une cellule du joueur 1 à attaquer
+        std::vector<int> coordsDeplacement = moveCellResearch(moteur);
+        // On ajoute la commande associee à ce deplacement
+        listCommands.push_back(std::shared_ptr<engine::Command> ( new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], 2)));
         
         // On vide la liste des commandes
         listCommands.clear();
