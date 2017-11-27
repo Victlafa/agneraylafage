@@ -265,19 +265,22 @@ namespace state
                 
                 if (fight >= 0 && fight < 4) {
                     
-                    // Si la case de depart contenait plus de 1 creature
-                    if (this->get(i_elem, j_elem)->getCreaturesNbr() > 1)
-                        // On fixe le nbre de creatures de la case attaquante à 1
-                        this->get(i_elem,j_elem)->setCreaturesNbr(1);
-                    else
-                        // On le fixe à 0
-                        this->get(i_elem,j_elem)->setCreaturesNbr(0);
-                    
                     // La case destination est occupée par le joueur qui se deplace
                     if (fight == 0)
+                    {
+                        // On definit ces variables afin de tenir compte du fait que chaque cellule doit contenir au maximum 5 creatures
+                        // On doit aussi tenir compte du fait que si la cellule de depart comporte une creature, celle-ci se deplace en laissant sa case vide
+                        // Dans les autres cas, on doit laisser au moins une creature sur la case de depart lors du deplacement
+                        int oldDef = creaNbrDef;
+                        int newDef_several = ((creaNbrDef + creaNbrAtt - 1) <= 5) ? (creaNbrDef + creaNbrAtt - 1) : 5;
+                        int newDef_one = ((creaNbrDef + 1) <= 5) ? (creaNbrDef + 1) : 5;
+                        
                         // On fixe le nbre de creatures de la case destination
-                        (creaNbrAtt != 1) ? this->get(new_i_elem,new_j_elem)->setCreaturesNbr((creaNbrDef + creaNbrAtt - 1) % 5) : this->get(new_i_elem,new_j_elem)->setCreaturesNbr((creaNbrDef + 1) % 5);
-                    
+                        (creaNbrAtt != 1) ? this->get(new_i_elem,new_j_elem)->setCreaturesNbr(newDef_several) : this->get(new_i_elem,new_j_elem)->setCreaturesNbr(newDef_one);
+                        // On fixe le nouveau nbre de creatures de la case de depart
+                        (creaNbrAtt != 1) ? this->get(i_elem,j_elem)->setCreaturesNbr(creaNbrAtt - newDef_several + oldDef) : this->get(i_elem,j_elem)->setCreaturesNbr(creaNbrAtt - newDef_one + oldDef);
+                    }
+                        
                     // Le joueur 1 ou le joueur 2 a gagné le combat sans aucune pitie en etant l'attaquant
                     else if (fight == 1 || fight == 2)
                     {
@@ -287,6 +290,9 @@ namespace state
                         // si la cellule attaquee est speciale, on ajoute/supprime le nom du type à la liste de noms des joueurs
                         if (isSpecial(new_i_elem, new_j_elem))
                             this->assignSpecialCell(this->get(i_elem,j_elem)->getPlayer(),this->get(new_i_elem,new_j_elem)->getPlayer(),this->get(new_i_elem,new_j_elem)->getElemType());
+                        
+                        // On fixe le nouveau nbre de creatures de la case de depart
+                        (creaNbrAtt != 1) ? this->get(i_elem,j_elem)->setCreaturesNbr(1) : this->get(i_elem,j_elem)->setCreaturesNbr(0);
                         
                         // On detruit les creatures de la case defense en on remplaçant par celles de l'attaquant
                         (creaNbrAtt != 1) ? this->set(new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(), (creaNbrAtt - 1) % 5, this->get(i_elem, j_elem)->getPlayer()), new_i_elem, new_j_elem) : this->set(new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(),1, this->get(i_elem, j_elem)->getPlayer()), new_i_elem, new_j_elem);
