@@ -464,13 +464,9 @@ namespace render {
 
         // On crée un Layer qui permettra de gerer l'affichage des cellules
         ElementTabLayer cellLayer(*(etat.getGrid().get()),0);
-        //const std::shared_ptr<render::TileSet> cellTileSet = new CellTileSet();
-        //cellLayer.setTileset(cellTileSet);
         
         // On crée un Layer qui permettra de gerer l'affichage des creatures
         ElementTabLayer charsLayer(*(etat.getCharacters().get()),1);
-        //const std::shared_ptr<render::TileSet> charsTileSet = new CharsTileSet();
-        //charsLayer.setTileset(charsTileSet);
         
         // On initialise les surfaces de ces deux Layers
         cellLayer.initSurface();
@@ -594,20 +590,13 @@ namespace render {
                 }
                 else
                 {
-                    //std::cout << "chars null en (" << i << "," << j << ")" << std::endl;
                     listXTextChars.push_back(450);
                     listYTextChars.push_back(450);
                 }
                 
-                //std::cout << "(" << i << "," << j << ")" << std::endl;
-                
             }
         }
         
-        /*for (int i = 0; i < 29; i++) 
-        {
-            std::cout << "TestsRender : i = " << i << " listx : " << listXTextChars.at(i) << " listy " << listYTextChars.at(i) << std::endl;
-        }*/
         // Coordonnées du tableau correspondant à la coordonnée i de la liste
         // Initialisees sur la premiere case de la grille AFFICHEE
         int xi=0, yi=2;
@@ -623,12 +612,10 @@ namespace render {
             quadsListCell.push_back(sf::VertexArray(sf::Quads, 4));
             surfCell->setQuadsList(quadsListCell);
             
-            //if(listXTextChars[i]!=-1){
             
             // On ajoute un quad à la liste des quads de creatures
             quadsListChars.push_back(sf::VertexArray(sf::Quads, 4));
             surfChars->setQuadsList(quadsListChars);
-                //std::cout << "i : " << i << " not null" << std::endl;
             //}
             
             // On se deplace dans la grille selon les indices i et j - modif des coords x,y,xi,yi
@@ -674,53 +661,28 @@ namespace render {
             }
 
             
-//            xTextCell = listXTextCell[i];
-//            yTextCell = listYTextCell[i];
-//            
-//            xTextChars = listXTextChars[i];
-//            yTextChars = listYTextChars[i];
             
             // On initialise un Tile pour la cellule en i_eme position 
             Tile cellTile(listXTextCell[i], listYTextCell[i]);
             // On initialise un Tile pour le groupe de creatures en i_eme position 
             Tile charsTile(listXTextChars[i], listYTextChars[i]);
             
-            //std::cout << "xtextcell : " << xTextCell << " ytextcell : " << yTextCell << std::endl;
-            //std::cout << "xtextchars : " << xTextChars << " ytextchars : " << yTextChars << std::endl;
-            //std::cout << "i : " << i << " xi : " << xi << " yi : " << yi << std::endl;
-            
             // S'il y a une cellule en position i du tableau de cellules
             if(etat.getGrid()->get(xi,yi)!=NULL){
-                //quadsListCell = surfCell->getQuadsList();
-                //std::cout << "size quadslist : " << quadsListCell.size() << std::endl;
-                //quadsListCell.reserve(quadsListCell.size()+4);
-                //std::cout << "size quadslist : " << quadsListCell.size() << std::endl;
-                //surfCell->setQuadsList(quadsListCell);
-                //std::cout << "size quadslist : " << surfCell->getQuadsList().size() << std::endl;
-                //std::cout << "xtextcell 2 : " << ( (cellLayer.getTileset()).get() )->getTile( etat.getGrid()->get(xi,yi) ).getX() << " ytextcell 2 : " << ( (cellLayer.getTileset()).get() )->getTile( etat.getGrid()->get(xi,yi) ).getY() << std::endl;
-                
                 // On fixe la position de la cellule dans l'affichage final
                 surfCell->setFinalLocation(i, shift, x, y, cellTile);
                 // On fixe la position du sprite dans l'image texture de base
                 surfCell->setTextureLocation(i, cellTile);
-
-                //surfCell->setFinalLocation(i, xTextCell, yTextCell, ( (cellLayer.getTileset()).get() )->getTile( etat.getGrid()->get(xi,yi) ));
-                //surfCell->setTextureLocation(i, ( (cellLayer.getTileset()).get() )->getTile( etat.getGrid()->get(xi,yi) ));
             }
             
             // S'il y a une cellule en position i du tableau de creatures
-            //if(etat.getCharacters()->get(xi,yi)!=NULL){
-                //quadsListChars = surfChars->getQuadsList();
-                //quadsListChars.reserve(quadsListChars.size()+4);
-                //surfChars->setQuadsList(quadsListChars);
+            if(NULL!=etat.getCharacters()->get(xi,yi)) std::cout << "xi et yi : " << xi << " " << yi << std::endl;
                 
                 // On fixe la position du groupe de creatures dans l'affichage final
                 surfChars->setFinalLocation(i, shift, x, y, charsTile);
                 // On fixe la position du sprite dans l'image texture de base
                 surfChars->setTextureLocation(i, charsTile);
-                
-                //surfChars->setFinalLocation(i, shift, xTextChars, yTextChars, ( (charsLayer.getTileset()).get() )->getTile( etat.getCharacters()->get(xi,yi) ));
-                //surfChars->setTextureLocation(i, ( (charsLayer.getTileset()).get() )->getTile( etat.getCharacters()->get(xi,yi) ));
+               
             //}
                 /*else{
                 Tile nullTile = charsLayer.getTileset()->getTile;
@@ -729,7 +691,7 @@ namespace render {
             }*/
             
             shift += 1;
-            //std::cout << "xi et yi : " << xi << " " << yi << std::endl;
+            
             yi = (yi+1)%7;
 
         }
