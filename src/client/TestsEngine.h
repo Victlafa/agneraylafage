@@ -19,12 +19,15 @@
 #include <iostream>
 
 namespace engine{
-    void TestsFightCommand();
-    void TestsMoveCharCommand();
     void TestsPoisonCommand();
     void TestsNewGameCommand();
-    void TestsMoveCommand();
-    void TestsSpecialCommand();
+    void TestsMoveCommandAdv();
+    void TestsMoveCommandPlayer();
+    void TestsMoveCommandNoOne();
+    void TestsSpecialCommandBBQ();
+    void TestsSpecialCommandSKY();
+    void TestsSpecialCommandCANDY();
+    void TestsPlaceCommand();
 }
 
 #endif /* TESTSENGINE_H */

@@ -71,12 +71,27 @@ int main(int argc,char* argv[])
 
             srand(time(NULL));
             
-            //TestsFightCommand();
-            //TestsMoveCharCommand();
-            //TestsPoisonCommand();
-            //TestsNewGameCommand();
-            //TestsMoveCommand();
-            TestsSpecialCommand();
+            // COMMANDES FONCTIONNELLES
+//            TestsPoisonCommand();
+//            cout << "\n" << endl;
+//            TestsNewGameCommand();
+//            cout << "\n" << endl;
+//            TestsMoveCommandAdv();
+//            cout << "\n" << endl;
+//            TestsMoveCommandPlayer();
+//            cout << "\n" << endl;
+//            TestsSpecialCommandBBQ();
+//            cout << "\n" << endl;
+//            TestsSpecialCommandSKY();
+//            cout << "\n" << endl;
+//            TestsSpecialCommandCANDY();
+//            cout << "\n" << endl;
+            
+            // COMMANDES A FINIR OU A CORRIGER
+            cout << "\n" << endl;
+            TestsMoveCommandNoOne();
+            //TestsPlaceCommand();
+            
         }
         
         else if (argc >= 2 && (string) argv[1] == "random_ai") {
