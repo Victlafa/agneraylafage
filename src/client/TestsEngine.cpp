@@ -131,14 +131,14 @@ namespace engine {
         int colonne = 4;
         
         // On place un forgeron en (ligne,colonne)
-        CreaturesGroup* forgeron = new CreaturesGroup(ID::BLACKSMITH, 5, moteur.getPlayer(1).get());
+        CreaturesGroup* forgeron = new CreaturesGroup(ID::BLACKSMITH, 2, moteur.getPlayer(1).get());
         
         std::cout << "Joueur associe au forgeron : " << forgeron->getPlayer() << std::endl;
         moteur.getState().getCharacters()->set(forgeron,ligne,colonne);
         std::cout << "Nbre de creatures sur case de depart avant deplacement : " << forgeron->getCreaturesNbr() << std::endl;
         
         // On place un autre forgeron dans la case à droite
-        CreaturesGroup* forgeron2 = new CreaturesGroup(ID::BLACKSMITH, 2, moteur.getPlayer(1).get());
+        CreaturesGroup* forgeron2 = new CreaturesGroup(ID::BLACKSMITH, 1, moteur.getPlayer(1).get());
         moteur.getState().getCharacters()->set(forgeron2,ligne,colonne + 1);
         std::cout << "Nbre de creatures sur la case destination avant deplacement : " << forgeron2->getCreaturesNbr() << std::endl;
         

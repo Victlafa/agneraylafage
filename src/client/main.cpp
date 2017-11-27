@@ -76,10 +76,12 @@ int main(int argc,char* argv[])
 //            cout << "\n" << endl;
 //            TestsNewGameCommand();
 //            cout << "\n" << endl;
-            TestsMoveCommandAdv();
-            cout << "\n" << endl;
+//            TestsMoveCommandAdv();
+//            cout << "\n" << endl;
             TestsMoveCommandPlayer();
             cout << "\n" << endl;
+//            TestsMoveCommandNoOne();
+//            cout << "\n" << endl;
 //            TestsSpecialCommandBBQ();
 //            cout << "\n" << endl;
 //            TestsSpecialCommandSKY();
@@ -88,8 +90,7 @@ int main(int argc,char* argv[])
 //            cout << "\n" << endl;
             
             // COMMANDES A FINIR OU A CORRIGER
-            cout << "\n" << endl;
-            TestsMoveCommandNoOne();
+
             //TestsPlaceCommand();
             
         }
