@@ -17,7 +17,7 @@ namespace state
         else
             this->setCreaturesNbr(nbrCrea);
         
-        //std::cout << "CreaturesGroup.cpp : Nombre de créatures dans la cellule : " << nbrCrea << std::endl;
+        std::cout << "CreaturesGroup.cpp : Nombre de créatures dans la cellule : " << nbrCrea << std::endl;
     }
     
     CreaturesGroup::CreaturesGroup (ID type, Player* joueur, const Element& elem) : Element(type, CellState::NOTCELL)

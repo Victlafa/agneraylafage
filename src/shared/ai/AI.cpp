@@ -20,15 +20,10 @@ namespace ai{
     // On initialise les parametres de base de l'IA
     void AI::initIA (engine::Engine& moteur)
     {
-        CreaturesID typeJoueur1 = moteur.getPlayer(1)->getClanName();
         Player* player_ia = moteur.getPlayer(2).get();
-        CreaturesID tirage = typeJoueur1;
+                
+        // Le tirage au sort du clan de l'IA est effectué dans la classe State, qui est générée automatiquement dans le moteur
         
-        // On tire au sort un type de creature qu'on associe à l'IA (on s'arrange pour qu'il soit different de celui du joueur) :
-        while (tirage == typeJoueur1)
-            tirage = (CreaturesID)(rand()%4 + 1);
-        
-        player_ia->setClanName(tirage);
         player_ia->setCellNbr(3);
         player_ia->setCreaturesLeft(3);
         
@@ -222,25 +217,25 @@ namespace ai{
             adjacent_Cells.push_back(init_j);
         }
         // l'adjacente n°2 ?
-        if (moteur.getState().getCharacters()->verifValiditeCase(init_i - 1,init_j + 1) && init_i > 0 && init_j < moteur.getState().getCharacters()->getWidth() &&  moteur.getState().getCharacters()->isOccupiedByOpp(init_i - 1, init_j + 1, moteur.getPlayer(1).get()))
+        if (moteur.getState().getCharacters()->verifValiditeCase(init_i - 1,init_j + 1) && init_i > 0 && init_j < (int)(moteur.getState().getCharacters()->getWidth()) &&  moteur.getState().getCharacters()->isOccupiedByOpp(init_i - 1, init_j + 1, moteur.getPlayer(1).get()))
         {
             adjacent_Cells.push_back(init_i - 1);
             adjacent_Cells.push_back(init_j + 1);
         }
         // l'adjacente n°3 ?
-        if (moteur.getState().getCharacters()->verifValiditeCase(init_i,init_j+1) && init_j < moteur.getState().getCharacters()->getWidth() && moteur.getState().getCharacters()->isOccupiedByOpp(init_i, init_j + 1, moteur.getPlayer(1).get()))
+        if (moteur.getState().getCharacters()->verifValiditeCase(init_i,init_j+1) && init_j < (int)(moteur.getState().getCharacters()->getWidth()) && moteur.getState().getCharacters()->isOccupiedByOpp(init_i, init_j + 1, moteur.getPlayer(1).get()))
         {
             adjacent_Cells.push_back(init_i);
             adjacent_Cells.push_back(init_j + 1);
         }
         // l'adjacente n°4 ?
-        if (moteur.getState().getCharacters()->verifValiditeCase(init_i + 1,init_j) && init_i < moteur.getState().getCharacters()->getHeight() && moteur.getState().getCharacters()->isOccupiedByOpp(init_i + 1, init_j, moteur.getPlayer(1).get()))
+        if (moteur.getState().getCharacters()->verifValiditeCase(init_i + 1,init_j) && init_i < (int)(moteur.getState().getCharacters()->getHeight()) && moteur.getState().getCharacters()->isOccupiedByOpp(init_i + 1, init_j, moteur.getPlayer(1).get()))
         {
             adjacent_Cells.push_back(init_i + 1);
             adjacent_Cells.push_back(init_j);
         }
         // l'adjacente n°5 ?
-        if (moteur.getState().getCharacters()->verifValiditeCase(init_i + 1,init_j - 1) && init_j > 0 && init_i < moteur.getState().getCharacters()->getHeight() && moteur.getState().getCharacters()->isOccupiedByOpp(init_i + 1, init_j - 1, moteur.getPlayer(1).get()))
+        if (moteur.getState().getCharacters()->verifValiditeCase(init_i + 1,init_j - 1) && init_j > 0 && init_i < (int)(moteur.getState().getCharacters()->getHeight()) && moteur.getState().getCharacters()->isOccupiedByOpp(init_i + 1, init_j - 1, moteur.getPlayer(1).get()))
         {
             adjacent_Cells.push_back(init_i + 1);
             adjacent_Cells.push_back(init_j - 1);
