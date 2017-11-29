@@ -24,9 +24,9 @@ namespace ai {
     // Operations
   public:
     HeuristicAI (int randomSeed);
-    void run (engine::Engine& moteur);
-    std::vector<int> moveCellResearch (engine::Engine& moteur);
-    std::vector<int> adjacentEnnemyResearch (engine::Engine& moteur, int init_i, int init_j);
+    void run (engine::Engine& moteur, int player);
+    std::vector<int> moveCellResearch (engine::Engine& moteur, int player);
+    std::vector<int> adjacentEnnemyResearch (engine::Engine& moteur, int player, int init_i, int init_j);
     std::vector<int> betterIAResearch (engine::Engine& moteur, std::vector<int>& listeIA);
     std::vector<int> weakerEnnemyResearch (engine::Engine& moteur, std::vector<int>& listePlayer);
     // Setters and Getters

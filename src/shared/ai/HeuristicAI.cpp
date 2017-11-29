@@ -16,10 +16,10 @@ namespace ai
         randGen.seed(randomSeed);
     }
     
-    void HeuristicAI::run (engine::Engine& moteur)
+    void HeuristicAI::run (engine::Engine& moteur, int player)
     {
         // On initialise les attributs de l'IA
-        this->initIA(moteur);
+        this->initIA(moteur,player);
                 
         // On souhaite tester la capacité speciale liee au ciel
         // On doit pour cela choisir une cellule adverse à attaquer sur la carte ainsi qu'une case de depart
@@ -30,7 +30,7 @@ namespace ai
         
         // On souhaite introduire une commande de deplacement/conquete
         // On tire pour cela au sort une cellule de l'ia et une cellule du joueur 1 à attaquer
-        std::vector<int> coordsDeplacement = moveCellResearch(moteur);
+        std::vector<int> coordsDeplacement = moveCellResearch(moteur,player);
         
         std::cout << "Coordonnees tirees au hasard pour depart de l'IA heuristique : (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ")" << std::endl;
         std::cout << "Coordonnees tirees au hasard pour destination de l'IA heuristique : (" << coordsDeplacement[2] << "," << coordsDeplacement[3] << ")" << std::endl;
@@ -42,7 +42,7 @@ namespace ai
             std::cout << "La case destination est vide" << std::endl;
         
         // On ajoute la commande associee à ce deplacement
-        listCommands.push_back(std::shared_ptr<engine::Command> ( new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], 2)));
+        listCommands.push_back(std::shared_ptr<engine::Command> ( new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player)));
         
         for (int i = 0; i < (int)(listCommands.size()); i++)
             listCommands[i]->execute(moteur.getState());
@@ -60,12 +60,12 @@ namespace ai
     }
     
     // On cherche une cellule attaquante pour l'IA ainsi qu'une cellule destination adverse ADJACENTE
-    std::vector<int> HeuristicAI::moveCellResearch (engine::Engine& moteur)
+    std::vector<int> HeuristicAI::moveCellResearch (engine::Engine& moteur, int player)
     {
         // On recupere la liste des coordonnees des cellules possedees par le joueur reel
-        std::vector<int> real_cells = this->playerCellResearch(moteur,1);  // OOKKKK
+        std::vector<int> real_cells = this->playerCellResearch(moteur,3-player);  // OOKKKK
         // On recupere la liste des coordonnees des cellules possedees par l'IA
-        std::vector<int> ia_cells = this->playerCellResearch(moteur,2);  // OOKKKKK
+        std::vector<int> ia_cells = this->playerCellResearch(moteur,player);  // OOKKKKK
 //        std::cout << "Nombre de cellules possedées par l'IA : " << ia_cells.size()/2 << std::endl;
 //        
 //        for (int k=0; k < ia_cells.size(); k ++)
@@ -126,7 +126,7 @@ namespace ai
             // On recupere parmi les cellules de l'IA voisines du joueur 1 celle qui compte le plus de creatures
             startCell = betterIAResearch(moteur,adjacent_cells);
             // Parmi les cellules adjacentes à cette dernière cellule, on tire celle qui compte le moins de creatures :
-            finalDestination = this->adjacentEnnemyResearch(moteur,startCell[0],startCell[1]);
+            finalDestination = this->adjacentEnnemyResearch(moteur,player,startCell[0],startCell[1]);
         }
         
         coordsMove[0] = startCell[0];
@@ -138,7 +138,7 @@ namespace ai
     }
     
     // Dans les cellules adjacentes à la cellule argument, on renvoie celle qui rapportera probablement le plus de points à l'IA
-    std::vector<int> HeuristicAI::adjacentEnnemyResearch (engine::Engine& moteur, int init_i, int init_j)
+    std::vector<int> HeuristicAI::adjacentEnnemyResearch (engine::Engine& moteur, int player, int init_i, int init_j)
     {
         //std::cout << "HeuristicAI::adjacentEnnemyResearch - coordonnees argument : (" << init_i << "," << init_j << ")" << std::endl;
         
@@ -167,7 +167,7 @@ namespace ai
                 //std::cout << "HeuristicAI::adjacentEnnemyResearch - coordonnees possible adjacence : (" << possibleAdjs[2*i] << "," << possibleAdjs[2*i+1] << ")" << std::endl;
                 
                 // On verifie si la cellule adjacente possible est occupee ou non par l'adversaire
-                occupation = moteur.getState().getCharacters()->isOccupiedByOpp(possibleAdjs[2 * i], possibleAdjs[2 * i + 1], moteur.getPlayer(2).get());
+                occupation = moteur.getState().getCharacters()->isOccupiedByOpp(possibleAdjs[2 * i], possibleAdjs[2 * i + 1], moteur.getPlayer(player).get());
 
                 if (occupation) {
                     //std::cout << "HeuristicAI::adjacentEnnemyResearch - coordonnees adjacence : (" << possibleAdjs[2*i] << "," << possibleAdjs[2*i+1] << ")" << std::endl;
