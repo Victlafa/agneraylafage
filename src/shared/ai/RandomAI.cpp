@@ -20,13 +20,13 @@ namespace ai{
         randGen.seed(randomSeed);
     }
     
-    void RandomAI::run (engine::Engine& moteur) 
+    void RandomAI::run (engine::Engine& moteur, int player) 
     {
         // On initialise les attributs de l'IA
-        this->initIA(moteur);
+        this->initIA(moteur,player);
         
         // On s'arrange pour que l'IA ait au moins une creature a placer en stock
-        moteur.getPlayer(2)->setCreaturesLeft(6);
+        moteur.getPlayer(player)->setCreaturesLeft(6);
         
         // On cherche dans la grille une cellule appartenant à l'IA ainsi qu'une cellule de destination adjacente pour un deplacement
         std::vector<int> coords; // = moveCellResearch(moteur);
@@ -36,13 +36,13 @@ namespace ai{
         // On ajoute 5 commandes de placement et 5 de deplacement à l'IA
         for (int i = 0; i < 5; i++)
         {
-            coords = moveCellResearch(moteur);
-            placeCoords = placeCellResearch(moteur);
+            coords = moveCellResearch(moteur,player);
+            placeCoords = placeCellResearch(moteur,player);
             // On ajoute une commande de deplacement
-            listCommands.push_back(std::shared_ptr<engine::Command>(new engine::MoveCommand(coords[0], coords[1], coords[2], coords[3], 2)));
+            listCommands.push_back(std::shared_ptr<engine::Command>(new engine::MoveCommand(coords[0], coords[1], coords[2], coords[3], player)));
             // On ajoute une commande de placement de nouvelle creature seulement si les coordonnees de placement sont differentes de celles du deplacement
             if (placeCoords[0] != coords[0] && placeCoords[1] != coords[1])
-                listCommands.push_back(std::shared_ptr<engine::Command>(new engine::PlaceCommand(placeCoords[0], placeCoords[1], 2, (state::ID)moteur.getPlayer(2)->getClanName())));
+                listCommands.push_back(std::shared_ptr<engine::Command>(new engine::PlaceCommand(placeCoords[0], placeCoords[1], player, (state::ID)moteur.getPlayer(player)->getClanName())));
         
         }
         
@@ -61,7 +61,7 @@ namespace ai{
     }
         
     // On cherche une cellule attaquante pour l'IA ainsi qu'une cellule destination adverse ADJACENTE
-    std::vector<int> RandomAI::moveCellResearch (engine::Engine& moteur)
+    std::vector<int> RandomAI::moveCellResearch (engine::Engine& moteur, int player)
     {
         // On va chercher une creature de l'IA dans le moteur donné en argument
         unsigned int ligne = 0;
@@ -70,7 +70,7 @@ namespace ai{
         unsigned int new_ligne = 0;
         unsigned int new_colonne = 0;
         // On recupere le joueur 2 (ia)
-        state::Player* player_ia = moteur.getPlayer(2).get();
+        state::Player* player_ia = moteur.getPlayer(player).get();
         std::vector<int> coordsDestination(4);
         
         for (unsigned int i = 0; i < moteur.getState().getCharacters()->getHeight(); i++) 
@@ -137,7 +137,7 @@ namespace ai{
     }
     
         // Dans les cellules adjacentes à la cellule argument, on en renvoie une au hasard
-    std::vector<int> RandomAI::adjacentEnnemyResearch (engine::Engine& moteur, int init_i, int init_j)
+    std::vector<int> RandomAI::adjacentEnnemyResearch (engine::Engine& moteur, int player, int init_i, int init_j)
     {        
         // On declare un tableau dans lequel on mettra les coordonnees des cellules adjacentes
         std::vector<int> adjacent_Cells;
@@ -162,7 +162,7 @@ namespace ai{
             {
                 
                 // On verifie si la cellule adjacente possible est occupee ou non par l'adversaire
-                occupation = moteur.getState().getCharacters()->isOccupiedByOpp(possibleAdjs[2 * i], possibleAdjs[2 * i + 1], moteur.getPlayer(2).get());
+                occupation = moteur.getState().getCharacters()->isOccupiedByOpp(possibleAdjs[2 * i], possibleAdjs[2 * i + 1], moteur.getPlayer(player).get());
 
                 if (occupation) {
                     // Si les deux conditions sont verifiees, la cellule adjacente etudiee appartient au joueur reel 
