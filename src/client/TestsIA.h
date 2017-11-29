@@ -16,6 +16,7 @@
 
 #include "../shared/state.h"
 #include "../shared/engine.h"
+#include "../client/render.h"
 #include "../shared/ai.h"
 #include <iostream>
 #include <vector>
