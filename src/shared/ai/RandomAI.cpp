@@ -138,47 +138,39 @@ namespace ai{
     
         // Dans les cellules adjacentes à la cellule argument, on en renvoie une au hasard
     std::vector<int> RandomAI::adjacentEnnemyResearch (engine::Engine& moteur, int init_i, int init_j)
-    {
+    {        
         // On declare un tableau dans lequel on mettra les coordonnees des cellules adjacentes
         std::vector<int> adjacent_Cells;
         std::vector<int> finalCell;
+        std::vector<int> possibleAdjs = this->getAdjacences(init_i,init_j);
+        bool verifBornes = false;
+        bool occupation = false;
+        int tabWidth = moteur.getState().getCharacters()->getWidth();
+        int tabHeight = moteur.getState().getCharacters()->getHeight();
         int random;
+        
+        for (int i = 0; i < 6; i++)
+        {
+            // On verifie les bornes (pour ne pas se retrouver à chercher une case hors de la grille !)
+            if (i >= 0 && i < 3)
+                verifBornes = (possibleAdjs[2 * i] >= 0 && possibleAdjs[2 * i + 1] < tabWidth);
+            else if (i >= 3 && i < 6)
+                verifBornes = (possibleAdjs[2 * i] < tabHeight && possibleAdjs[2 * i + 1] >= 0);
+
+            // On verifie de plus si l'adjacence amene à une case valide
+            if (verifBornes && moteur.getState().getCharacters()->verifValiditeCase(possibleAdjs[2*i],possibleAdjs[2*i+1]))
+            {
                 
-        // L'adjacente n°1 appartient-elle à l'adversaire ?
-        if (moteur.getState().getCharacters()->verifValiditeCase(init_i - 1,init_j) && init_i > 0 && moteur.getState().getCharacters()->isOccupiedByOpp(init_i - 1, init_j, moteur.getPlayer(1).get()))
-        {
-            adjacent_Cells.push_back(init_i - 1);
-            adjacent_Cells.push_back(init_j);
-        }
-        // l'adjacente n°2 ?
-        if (moteur.getState().getCharacters()->verifValiditeCase(init_i - 1,init_j + 1) && init_i > 0 && init_j < (int)(moteur.getState().getCharacters()->getWidth()) &&  moteur.getState().getCharacters()->isOccupiedByOpp(init_i - 1, init_j + 1, moteur.getPlayer(1).get()))
-        {
-            adjacent_Cells.push_back(init_i - 1);
-            adjacent_Cells.push_back(init_j + 1);
-        }
-        // l'adjacente n°3 ?
-        if (moteur.getState().getCharacters()->verifValiditeCase(init_i,init_j+1) && init_j < (int)(moteur.getState().getCharacters()->getWidth()) && moteur.getState().getCharacters()->isOccupiedByOpp(init_i, init_j + 1, moteur.getPlayer(1).get()))
-        {
-            adjacent_Cells.push_back(init_i);
-            adjacent_Cells.push_back(init_j + 1);
-        }
-        // l'adjacente n°4 ?
-        if (moteur.getState().getCharacters()->verifValiditeCase(init_i + 1,init_j) && init_i < (int)(moteur.getState().getCharacters()->getHeight()) && moteur.getState().getCharacters()->isOccupiedByOpp(init_i + 1, init_j, moteur.getPlayer(1).get()))
-        {
-            adjacent_Cells.push_back(init_i + 1);
-            adjacent_Cells.push_back(init_j);
-        }
-        // l'adjacente n°5 ?
-        if (moteur.getState().getCharacters()->verifValiditeCase(init_i + 1,init_j - 1) && init_j > 0 && init_i < (int)(moteur.getState().getCharacters()->getHeight()) && moteur.getState().getCharacters()->isOccupiedByOpp(init_i + 1, init_j - 1, moteur.getPlayer(1).get()))
-        {
-            adjacent_Cells.push_back(init_i + 1);
-            adjacent_Cells.push_back(init_j - 1);
-        }
-        // l'adjacente n°6 ?
-        if (moteur.getState().getCharacters()->verifValiditeCase(init_i,init_j-1) && init_j > 0 && moteur.getState().getCharacters()->isOccupiedByOpp(init_i, init_j - 1, moteur.getPlayer(1).get()))
-        {
-            adjacent_Cells.push_back(init_i);
-            adjacent_Cells.push_back(init_j - 1);
+                // On verifie si la cellule adjacente possible est occupee ou non par l'adversaire
+                occupation = moteur.getState().getCharacters()->isOccupiedByOpp(possibleAdjs[2 * i], possibleAdjs[2 * i + 1], moteur.getPlayer(2).get());
+
+                if (occupation) {
+                    // Si les deux conditions sont verifiees, la cellule adjacente etudiee appartient au joueur reel 
+                    adjacent_Cells.push_back(possibleAdjs[2 * i]);
+                    adjacent_Cells.push_back(possibleAdjs[2 * i + 1]);
+                }
+            }
+            
         }
         
         // Si on trouve aucune cellule adjacente adverse

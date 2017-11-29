@@ -63,10 +63,17 @@ namespace ai
     std::vector<int> HeuristicAI::moveCellResearch (engine::Engine& moteur)
     {
         // On recupere la liste des coordonnees des cellules possedees par le joueur reel
-        std::vector<int> real_cells = this->playerCellResearch(moteur,1);
+        std::vector<int> real_cells = this->playerCellResearch(moteur,1);  // OOKKKK
         // On recupere la liste des coordonnees des cellules possedees par l'IA
-        std::vector<int> ia_cells = this->playerCellResearch(moteur,2);
-        std::cout << "Nombre de cellules possedées par l'IA : " << ia_cells.size()/2 << std::endl;
+        std::vector<int> ia_cells = this->playerCellResearch(moteur,2);  // OOKKKKK
+//        std::cout << "Nombre de cellules possedées par l'IA : " << ia_cells.size()/2 << std::endl;
+//        
+//        for (int k=0; k < ia_cells.size(); k ++)
+//            std::cout << ia_cells[k] << " ";
+//        std::cout << "\n" << std::endl;
+//        for (int a=0; a < real_cells.size(); a ++)
+//            std::cout << real_cells[a] << " ";
+//        std::cout << std::endl;
         
         // On declare un tableau où on mettra temporairement les coordonnees des cellules de l'IA qui ont des cellules du joueur 1 pour voisines
         std::vector<int> adjacent_cells;
@@ -75,22 +82,21 @@ namespace ai
         // On declare le tableau qui comportera les coordonnees à renvoyer
         std::vector<int> coordsMove(4);
         
-        if (ia_cells.size() % 2 != 0)
-            throw std::runtime_error("HeuristicAI::moveCellResearch - la liste des coords de l'IA a une taille impaire !");
-        
         // On fait le tour de la liste de l'ia
         for (int i = 0; i < (int)(ia_cells.size()/2); i++)
         { 
-            std::cout << "i : " << i << "\n";
-            // Pour chaque cellule de l'ia on explore toutes les cellules du joueur 1
+            //std::cout << "i : " << i << "\n";
+            // Pour chaque cellule de l'ia on explore toutes les cellules du joueur 1, on sort de cette seconde boucle for si on en trouve une
             for (int j = 0; j < (int)(real_cells.size()/2); j++){
             
-                std::cout << "     j :" << j << " ";
-            
-                // Si on trouve pour la cellule de l'ia au moins une cellule adjacente appartenant au joueur 1
-                if (isAdjacent(ia_cells[2*i],ia_cells[2*i+1],real_cells[2*i],real_cells[2*i+1]))
+                //std::cout << "     j :" << j << " ";
+                
+                //std::cout << "Validite cellule : " << moteur.getState().getCharacters()->verifValiditeCase(real_cells[2*j],real_cells[2*j+1]) << std::endl;
+                // Si la cellule du joueur est valide et qu'elle est adjacente à celle de l'IA
+                if (moteur.getState().getCharacters()->verifValiditeCase(real_cells[2*j],real_cells[2*j+1]) && isAdjacent(ia_cells[2*i],ia_cells[2*i+1],real_cells[2*j],real_cells[2*j+1]))
                 {
-                    std::cout << "Cellule adjacente trouvee : " << std::endl;
+                    std::cout << "Cellule de l'ia : (" << ia_cells[2*i] << "," << ia_cells[2*i+1] << ")" << std::endl;
+                    std::cout << "Cellule adjacente trouvee correspondante : (" << real_cells[2*j] << "," << real_cells[2*j+1] << ")" << std::endl;
                     // On ajoute les coordonnees de l'ia à adjacent_cells
                     adjacent_cells.push_back(ia_cells[2*i]);
                     adjacent_cells.push_back(ia_cells[2*i+1]);
@@ -101,7 +107,7 @@ namespace ai
             std::cout << std::endl;
         }
         
-        std::cout << "fin de la boucle for" << std::endl;
+        //std::cout << "fin de la boucle for" << std::endl;
             
         std::vector<int> startCell;
         
@@ -117,8 +123,6 @@ namespace ai
         // S'il y a des cellules du joueur voisines de celles de l'IA
         else
         {
-            if (adjacent_cells.size() == 0)
-                throw std::runtime_error("WTF ?!");
             // On recupere parmi les cellules de l'IA voisines du joueur 1 celle qui compte le plus de creatures
             startCell = betterIAResearch(moteur,adjacent_cells);
             // Parmi les cellules adjacentes à cette dernière cellule, on tire celle qui compte le moins de creatures :
@@ -136,7 +140,7 @@ namespace ai
     // Dans les cellules adjacentes à la cellule argument, on renvoie celle qui rapportera probablement le plus de points à l'IA
     std::vector<int> HeuristicAI::adjacentEnnemyResearch (engine::Engine& moteur, int init_i, int init_j)
     {
-        std::cout << "HeuristicAI::adjacentEnnemyResearch - coordonnees argument : (" << init_i << "," << init_j << ")" << std::endl;
+        //std::cout << "HeuristicAI::adjacentEnnemyResearch - coordonnees argument : (" << init_i << "," << init_j << ")" << std::endl;
         
         // On declare un tableau dans lequel on mettra les coordonnees des cellules adjacentes
         std::vector<int> adjacent_Cells;
@@ -151,20 +155,22 @@ namespace ai
         {
             // On verifie les bornes (pour ne pas se retrouver à chercher une case hors de la grille !)
             if (i >= 0 && i < 3)
-                verifBornes = (possibleAdjs[2 * i] > 0 && possibleAdjs[2 * i + 1] < tabHeight - 1);
-            else if (i >= 3 && i < 5)
-                verifBornes = (possibleAdjs[2 * i] < tabWidth - 1 && possibleAdjs[2 * i + 1] > 0);
+                verifBornes = (possibleAdjs[2 * i] >= 0 && possibleAdjs[2 * i + 1] < tabWidth);
+            else if (i >= 3 && i < 6)
+                verifBornes = (possibleAdjs[2 * i] < tabHeight && possibleAdjs[2 * i + 1] >= 0);
+            
+            //std::cout << "HeuristicAI::adjacentEnnemyResearch - verifBornes : " << verifBornes << std::endl;
 
             // On verifie de plus si l'adjacence amene à une case valide
             if (verifBornes && moteur.getState().getCharacters()->verifValiditeCase(possibleAdjs[2*i],possibleAdjs[2*i+1]))
             {
-                std::cout << "HeuristicAI::adjacentEnnemyResearch - coordonnees possible adjacence : (" << possibleAdjs[2*i] << "," << possibleAdjs[2*i+1] << ")" << std::endl;
+                //std::cout << "HeuristicAI::adjacentEnnemyResearch - coordonnees possible adjacence : (" << possibleAdjs[2*i] << "," << possibleAdjs[2*i+1] << ")" << std::endl;
                 
                 // On verifie si la cellule adjacente possible est occupee ou non par l'adversaire
-                occupation = moteur.getState().getCharacters()->isOccupiedByOpp(possibleAdjs[2 * i], possibleAdjs[2 * i + 1], moteur.getPlayer(1).get());
+                occupation = moteur.getState().getCharacters()->isOccupiedByOpp(possibleAdjs[2 * i], possibleAdjs[2 * i + 1], moteur.getPlayer(2).get());
 
                 if (occupation) {
-                    std::cout << "HeuristicAI::adjacentEnnemyResearch - coordonnees adjacence : (" << possibleAdjs[2*i] << "," << possibleAdjs[2*i+1] << ")" << std::endl;
+                    //std::cout << "HeuristicAI::adjacentEnnemyResearch - coordonnees adjacence : (" << possibleAdjs[2*i] << "," << possibleAdjs[2*i+1] << ")" << std::endl;
                     // Si les deux conditions sont verifiees, la cellule adjacente etudiee appartient au joueur reel 
                     adjacent_Cells.push_back(possibleAdjs[2 * i]);
                     adjacent_Cells.push_back(possibleAdjs[2 * i + 1]);
@@ -173,7 +179,7 @@ namespace ai
             
         }
         
-        std::cout << "HeuristicAI::adjacentEnnemyResearch - fin recherche cellule adjacente" << std::endl;
+        //std::cout << "HeuristicAI::adjacentEnnemyResearch - fin recherche cellule adjacente" << std::endl;
         
         // Si on trouve aucune cellule adjacente adverse
         if (adjacent_Cells.size() == 0)

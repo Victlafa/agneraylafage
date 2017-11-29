@@ -175,6 +175,7 @@ namespace ai{
                     // Si ce groupe appartient au joueur designe
                     if (moteur.getState().getCharacters()->get(i,j)->getPlayer() == moteur.getPlayer(player).get())
                     {
+                        //std::cout << "AI::playerCellResearch - la cellule (" << i << "," << j << ") appartient au joueur " << moteur.getPlayer(player).get() << std::endl;
                         // On ajoute les coordonnees à la liste
                         coordonnees.push_back(i);
                         coordonnees.push_back(j);
