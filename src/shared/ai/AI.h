@@ -23,13 +23,13 @@ namespace ai {
     // Operations
   public:
     AI ();
-    virtual void run (engine::Engine& moteur) = 0;
-    void initIA (engine::Engine& moteur);
-    virtual std::vector<int> moveCellResearch (engine::Engine& moteur) = 0;
-    virtual std::vector<int> adjacentEnnemyResearch (engine::Engine& moteur, int init_i, int init_j) = 0;
+    virtual void run (engine::Engine& moteur, int player) = 0;
+    void initIA (engine::Engine& moteur, int player);
+    virtual std::vector<int> moveCellResearch (engine::Engine& moteur, int player) = 0;
+    virtual std::vector<int> adjacentEnnemyResearch (engine::Engine& moteur, int player, int init_i, int init_j) = 0;
     std::vector<int> adjacentCellResearch (engine::Engine& moteur, int init_i, int init_j);
-    std::vector<int> placeCellResearch (engine::Engine& moteur);
-    std::vector<int> skyCellResearch (engine::Engine& moteur);
+    std::vector<int> placeCellResearch (engine::Engine& moteur, int player);
+    std::vector<int> skyCellResearch (engine::Engine& moteur, int player);
     std::vector<int> playerCellResearch (engine::Engine& moteur, int player);
     bool isAdjacent (int init_i, int init_j, int final_i, int final_j);
     std::vector<int> getAdjacences (int i, int j);

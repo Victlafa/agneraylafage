@@ -19,9 +19,9 @@ namespace ai{
     void AI::setListCommands(const std::vector<std::shared_ptr<engine::Command> >& listCommands) { this->listCommands = listCommands; }
     
     // On initialise les parametres de base de l'IA
-    void AI::initIA (engine::Engine& moteur)
+    void AI::initIA (engine::Engine& moteur, int player)
     {
-        Player* player_ia = moteur.getPlayer(2).get();
+        Player* player_ia = moteur.getPlayer(player).get();
                 
         // Le tirage au sort du clan de l'IA est effectué dans la classe State, qui est générée automatiquement dans le moteur
         
@@ -31,13 +31,13 @@ namespace ai{
     }
     
     // On cherche une cellule destination pour l'IA afin de placer sur la carte un de ses groupes en reserve
-    std::vector<int> AI::placeCellResearch (engine::Engine& moteur)
+    std::vector<int> AI::placeCellResearch (engine::Engine& moteur, int player)
     {
         
-        std::vector<int> coordsDestination(2);
+        std::vector<int> coordsDestination(player);
         
         // On verifie que le joueur dispose encore en stock de creatures à placer sur la grille
-        if (moteur.getState().getPlayer(2)->getCreaturesLeft() > 0)
+        if (moteur.getState().getPlayer(player)->getCreaturesLeft() > 0)
         {
             // On va chercher une case vide ou une case appartenant à l'IA
             unsigned int ligne = 0;
@@ -46,7 +46,7 @@ namespace ai{
             int choice = rand()%2;
 
             // On recupere le joueur 2 (ia)
-            state::Player* player_ia = moteur.getPlayer(2).get();
+            state::Player* player_ia = moteur.getPlayer(player).get();
 
             for (unsigned int i = 0; i < moteur.getState().getCharacters()->getHeight(); i++) 
             {
@@ -97,7 +97,7 @@ namespace ai{
     }
     
     // On cherche une cellule attaquante pour l'IA ainsi qu'une cellule destination adverse n'importe où sur la carte
-    std::vector<int> AI::skyCellResearch (engine::Engine& moteur)
+    std::vector<int> AI::skyCellResearch (engine::Engine& moteur, int player)
     {
         // On va chercher une creature de l'IA dans le moteur donné en argument
         unsigned int ligne = 0;
@@ -106,9 +106,9 @@ namespace ai{
         unsigned int new_ligne = 0;
         unsigned int new_colonne = 0;
         // On recupere le joueur 1
-        state::Player* player_real = moteur.getPlayer(1).get();
+        state::Player* player_real = moteur.getPlayer(3-player).get();
         // On recupere le joueur 2 (ia)
-        state::Player* player_ia = moteur.getPlayer(2).get();
+        state::Player* player_ia = moteur.getPlayer(player).get();
         // De meme avec le tableau de creatures
         state::ElementTab* creaturesTab = moteur.getState().getCharacters().get();
         
