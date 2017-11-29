@@ -15,6 +15,7 @@
 #define TESTSENGINE_H
 
 #include "../shared/state.h"
+#include "../client/render.h"
 #include "../shared/engine.h"
 #include <iostream>
 
