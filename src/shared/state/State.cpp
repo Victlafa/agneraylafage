@@ -25,6 +25,7 @@ namespace state
         
         // On initialise le tableau de creatures de sorte à associer 3 groupes de 2 creatures à chaque joueur
         this->initCreatures();
+        
     }
     
     State::~State (){}
