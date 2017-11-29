@@ -135,4 +135,64 @@ namespace ai{
         
         return coordsDestination;
     }
+    
+        // Dans les cellules adjacentes à la cellule argument, on en renvoie une au hasard
+    std::vector<int> RandomAI::adjacentEnnemyResearch (engine::Engine& moteur, int init_i, int init_j)
+    {
+        // On declare un tableau dans lequel on mettra les coordonnees des cellules adjacentes
+        std::vector<int> adjacent_Cells;
+        std::vector<int> finalCell;
+        int random;
+                
+        // L'adjacente n°1 appartient-elle à l'adversaire ?
+        if (moteur.getState().getCharacters()->verifValiditeCase(init_i - 1,init_j) && init_i > 0 && moteur.getState().getCharacters()->isOccupiedByOpp(init_i - 1, init_j, moteur.getPlayer(1).get()))
+        {
+            adjacent_Cells.push_back(init_i - 1);
+            adjacent_Cells.push_back(init_j);
+        }
+        // l'adjacente n°2 ?
+        if (moteur.getState().getCharacters()->verifValiditeCase(init_i - 1,init_j + 1) && init_i > 0 && init_j < (int)(moteur.getState().getCharacters()->getWidth()) &&  moteur.getState().getCharacters()->isOccupiedByOpp(init_i - 1, init_j + 1, moteur.getPlayer(1).get()))
+        {
+            adjacent_Cells.push_back(init_i - 1);
+            adjacent_Cells.push_back(init_j + 1);
+        }
+        // l'adjacente n°3 ?
+        if (moteur.getState().getCharacters()->verifValiditeCase(init_i,init_j+1) && init_j < (int)(moteur.getState().getCharacters()->getWidth()) && moteur.getState().getCharacters()->isOccupiedByOpp(init_i, init_j + 1, moteur.getPlayer(1).get()))
+        {
+            adjacent_Cells.push_back(init_i);
+            adjacent_Cells.push_back(init_j + 1);
+        }
+        // l'adjacente n°4 ?
+        if (moteur.getState().getCharacters()->verifValiditeCase(init_i + 1,init_j) && init_i < (int)(moteur.getState().getCharacters()->getHeight()) && moteur.getState().getCharacters()->isOccupiedByOpp(init_i + 1, init_j, moteur.getPlayer(1).get()))
+        {
+            adjacent_Cells.push_back(init_i + 1);
+            adjacent_Cells.push_back(init_j);
+        }
+        // l'adjacente n°5 ?
+        if (moteur.getState().getCharacters()->verifValiditeCase(init_i + 1,init_j - 1) && init_j > 0 && init_i < (int)(moteur.getState().getCharacters()->getHeight()) && moteur.getState().getCharacters()->isOccupiedByOpp(init_i + 1, init_j - 1, moteur.getPlayer(1).get()))
+        {
+            adjacent_Cells.push_back(init_i + 1);
+            adjacent_Cells.push_back(init_j - 1);
+        }
+        // l'adjacente n°6 ?
+        if (moteur.getState().getCharacters()->verifValiditeCase(init_i,init_j-1) && init_j > 0 && moteur.getState().getCharacters()->isOccupiedByOpp(init_i, init_j - 1, moteur.getPlayer(1).get()))
+        {
+            adjacent_Cells.push_back(init_i);
+            adjacent_Cells.push_back(init_j - 1);
+        }
+        
+        // Si on trouve aucune cellule adjacente adverse
+        if (adjacent_Cells.size() == 0)
+            // On leve une exception car on part du principe que la cellule argument a au moins une cellule adverse adjacente
+            throw std::runtime_error("RandomAI::adjacentEnnemyResearch - La cellule donnee en argument n'a pas de voisine appartenant à l'adversaire !");
+        
+        // On tire une cellule au hasard parmi la liste
+        random = rand()%(int)(adjacent_Cells.size()/2);
+        finalCell[0] = adjacent_Cells[2*random];
+        finalCell[1] = adjacent_Cells[2*random + 1];
+        
+        return finalCell;
+        
+    }
+
 }

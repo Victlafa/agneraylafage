@@ -8,6 +8,7 @@
 #include "../shared/engine/Command.h"
 #include "../shared/state.h"
 #include <time.h>
+#include <iostream>
 
 using namespace state;
 
@@ -186,7 +187,7 @@ namespace ai{
         return coordonnees;
     }
     
-    // Test d'adjacence de deux cellules ennemies
+    // Test d'adjacence : on veut savoir si la cellule init est adjacente à la final
     bool AI::isAdjacent (int init_i, int init_j, int final_i, int final_j)
     {
         bool verif1 = ((final_i == init_i - 1) && final_j == init_j);
@@ -196,68 +197,77 @@ namespace ai{
         bool verif5 = ((final_i == init_i + 1) && (final_j == init_j - 1));
         bool verif6 = (final_i == init_i && (final_j == init_j - 1));
         
+        std::cout << "AI::isAdjacent : " << (verif1 || verif2 || verif3 || verif4 || verif5 || verif6) << std::endl;
+        
         if (verif1 || verif2 || verif3 || verif4 || verif5 || verif6)
             return true;
         else
             return false;
     }
     
-    // Dans les cellules adjacentes à la cellule argument, on en renvoie une au hasard appartenant à l'adversaire
-    std::vector<int> AI::inAdjacentResearch (engine::Engine& moteur, int init_i, int init_j)
+    // On cherche une case adjacente quelconque à la cellule argument (caractérisée par ses coords) pour un deplacement
+    std::vector<int> AI::adjacentCellResearch (engine::Engine& moteur, int ligne, int colonne)
     {
-        // On declare un tableau dans lequel on mettra les coordonnees des cellules adjacentes
-        std::vector<int> adjacent_Cells;
-        std::vector<int> finalCell;
-        int random;
-                
-        // L'adjacente n°1 appartient-elle à l'adversaire ?
-        if (moteur.getState().getCharacters()->verifValiditeCase(init_i - 1,init_j) && init_i > 0 && moteur.getState().getCharacters()->isOccupiedByOpp(init_i - 1, init_j, moteur.getPlayer(1).get()))
-        {
-            adjacent_Cells.push_back(init_i - 1);
-            adjacent_Cells.push_back(init_j);
-        }
-        // l'adjacente n°2 ?
-        if (moteur.getState().getCharacters()->verifValiditeCase(init_i - 1,init_j + 1) && init_i > 0 && init_j < (int)(moteur.getState().getCharacters()->getWidth()) &&  moteur.getState().getCharacters()->isOccupiedByOpp(init_i - 1, init_j + 1, moteur.getPlayer(1).get()))
-        {
-            adjacent_Cells.push_back(init_i - 1);
-            adjacent_Cells.push_back(init_j + 1);
-        }
-        // l'adjacente n°3 ?
-        if (moteur.getState().getCharacters()->verifValiditeCase(init_i,init_j+1) && init_j < (int)(moteur.getState().getCharacters()->getWidth()) && moteur.getState().getCharacters()->isOccupiedByOpp(init_i, init_j + 1, moteur.getPlayer(1).get()))
-        {
-            adjacent_Cells.push_back(init_i);
-            adjacent_Cells.push_back(init_j + 1);
-        }
-        // l'adjacente n°4 ?
-        if (moteur.getState().getCharacters()->verifValiditeCase(init_i + 1,init_j) && init_i < (int)(moteur.getState().getCharacters()->getHeight()) && moteur.getState().getCharacters()->isOccupiedByOpp(init_i + 1, init_j, moteur.getPlayer(1).get()))
-        {
-            adjacent_Cells.push_back(init_i + 1);
-            adjacent_Cells.push_back(init_j);
-        }
-        // l'adjacente n°5 ?
-        if (moteur.getState().getCharacters()->verifValiditeCase(init_i + 1,init_j - 1) && init_j > 0 && init_i < (int)(moteur.getState().getCharacters()->getHeight()) && moteur.getState().getCharacters()->isOccupiedByOpp(init_i + 1, init_j - 1, moteur.getPlayer(1).get()))
-        {
-            adjacent_Cells.push_back(init_i + 1);
-            adjacent_Cells.push_back(init_j - 1);
-        }
-        // l'adjacente n°6 ?
-        if (moteur.getState().getCharacters()->verifValiditeCase(init_i,init_j-1) && init_j > 0 && moteur.getState().getCharacters()->isOccupiedByOpp(init_i, init_j - 1, moteur.getPlayer(1).get()))
-        {
-            adjacent_Cells.push_back(init_i);
-            adjacent_Cells.push_back(init_j - 1);
-        }
+        int new_ligne = ligne;
+        int new_colonne = colonne;
+        std::vector<int> destination(2);
         
-        // Si on trouve aucune cellule adjacente adverse
-        if (adjacent_Cells.size() == 0)
-            // On leve une exception car on part du principe que la cellule argument a au moins une cellule adverse adjacente
-            throw std::runtime_error("AI::inAdjacentResearch - La cellule donnee en argument n'a pas de voisine appartenant à l'adversaire !");
+        // Deplacement possible vers l'adjacente n°1 ?
+        if (ligne > 0 && moteur.getState().getCharacters()->get(ligne-1,colonne).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne - 1,colonne))
+            new_ligne -= 1;
+        // Vers l'adjacente n°2 ?
+        else if (ligne > 0 && colonne < (int)(moteur.getState().getCharacters()->getWidth()) && moteur.getState().getCharacters()->get(ligne-1,colonne + 1).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne - 1,colonne))
+        {
+            new_ligne -= 1; new_colonne += 1;
+        }
+        // Vers l'adjacente n°3 ?
+        else if (colonne < (int)(moteur.getState().getCharacters()->getWidth()) && moteur.getState().getCharacters()->get(ligne,colonne + 1).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne,colonne+1))
+            new_colonne += 1;
+        // Vers l'adjacente n°4 ?
+        else if (ligne < (int)(moteur.getState().getCharacters()->getHeight()) && moteur.getState().getCharacters()->get(ligne + 1,colonne).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne + 1,colonne))
+            new_ligne += 1;
+        // Vers l'adjacente n°5 ?
+        else if (colonne > 0 && ligne < (int)(moteur.getState().getCharacters()->getHeight()) && moteur.getState().getCharacters()->get(ligne + 1,colonne).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne + 1,colonne))
+        {
+            new_ligne += 1; new_colonne -= 1;
+        }
+        // Vers l'adjacente n°6 ?
+        else if (colonne > 0 && moteur.getState().getCharacters()->get(ligne,colonne-1).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne,colonne-1))
+            new_colonne -= 1;
+        else
+            throw std::runtime_error("AI::moveCellResearch - La case selectionnee pour l'IA ne permet aucun deplacement");
         
-        // On tire une cellule adjacente au hasard 
-        random = rand()%((int)(adjacent_Cells.size()/2));
-        finalCell[0] = adjacent_Cells[2*random];
-        finalCell[1] = adjacent_Cells[2*random + 1];
+        destination[0] = new_ligne;
+        destination[1] = new_colonne;
         
-        return finalCell;
-        
+        return destination;
     }
+    
+    // Retourne la liste des coordonnees des 6 cellules adjacentes à la cellule dont les coordonnees sont fournies en argument
+    std::vector<int> AI::getAdjacences (int i, int j)
+    {
+        std::vector<int> liste;
+        
+        // Adjacente 1 :
+        liste.push_back(i-1);
+        liste.push_back(j);
+        // 2 :
+        liste.push_back(i-1);
+        liste.push_back(j+1);
+        // 3 :
+        liste.push_back(i);
+        liste.push_back(j+1);
+        // 4 :
+        liste.push_back(i+1);
+        liste.push_back(j);
+        // 5 :
+        liste.push_back(i+1);
+        liste.push_back(j-1);
+        // 6 :
+        liste.push_back(i);
+        liste.push_back(j-1);
+        
+        return liste;
+    }
+
 }

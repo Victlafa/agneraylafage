@@ -26,6 +26,7 @@ namespace ai {
     RandomAI (int randomSeed);
     void run (engine::Engine& moteur);
     std::vector<int> moveCellResearch (engine::Engine& moteur);
+    std::vector<int> adjacentEnnemyResearch (engine::Engine& moteur, int init_i, int init_j);
     // Setters and Getters
   };
 
