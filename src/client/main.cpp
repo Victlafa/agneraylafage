@@ -71,64 +71,29 @@ int main(int argc,char* argv[])
 
             srand(time(NULL));
             
-            state::State *etat = new State(CreaturesID::BLACKSMITHS);
-            
-            sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
-
-            ElementTabLayer cellLayer(*(etat.getGrid().get()),0);
-            ElementTabLayer charsLayer(*(etat.getCharacters().get()),1);
-
-            cellLayer.initSurface();charsLayer.initSurface();
-
-            // Declaration et chargement des textures à exploiter pour l'affichage
-            sf::Texture hexaTexture;
-            sf::Texture charsTexture;
-
-            // Le premier cas marche chez Victoire, le second chez Aurore
-            if (!hexaTexture.loadFromFile("./res/hexa.png")) hexaTexture.loadFromFile("../res/hexa.png");
-            else std::cout << "Erreur chargement texture hexa !\n" << std::endl;
-
-            if (!charsTexture.loadFromFile("./res/groupes.png")) charsTexture.loadFromFile("../res/groupes.png");
-            else std::cout << "Erreur chargement texture groupes !\n" << std::endl;
-
-            // On associe les textures chargees aux Surfaces des Layers de cellules et de groupes de creatures
-            cellLayer.getSurface()->setTexture(hexaTexture);
-            charsLayer.getSurface()->setTexture(charsTexture);
-
-            while (window.isOpen()) {
-                sf::Event event;
-                while (window.pollEvent(event)) {
-                    if (event.type == sf::Event::Closed) window.close();
-                }
-
-                window.clear();
-                cellLayer.getSurface()->draw(window, &hexaTexture);
-                charsLayer.getSurface()->draw(window, &charsTexture);
-
-                window.display();
-            }
             
             // COMMANDES FONCTIONNELLES
-//            TestsPoisonCommand();
-//            cout << "\n" << endl;
+            TestsPoisonCommand();
+            cout << "\n" << endl;
 //            TestsNewGameCommand();
 //            cout << "\n" << endl;
-//            TestsMoveCommandAdv();
-//            cout << "\n" << endl;
+            TestsMoveCommandNoOne();
+            cout << "\n" << endl;
+            TestsMoveCommandAdv();
+            cout << "\n" << endl;
             TestsMoveCommandPlayer();
             cout << "\n" << endl;
-//            TestsMoveCommandNoOne();
-//            cout << "\n" << endl;
-//            TestsSpecialCommandBBQ();
-//            cout << "\n" << endl;
-//            TestsSpecialCommandSKY();
-//            cout << "\n" << endl;
-//            TestsSpecialCommandCANDY();
-//            cout << "\n" << endl;
+            TestsSpecialCommandBBQ();
+            cout << "\n" << endl;
+            TestsSpecialCommandSKY();
+            cout << "\n" << endl;
+            TestsSpecialCommandCANDY();
+            cout << "\n" << endl;
             
             // COMMANDES A FINIR OU A CORRIGER
 
-            //TestsPlaceCommand();
+            TestsPlaceCommand();
+            cout << "\n" << endl;
             
         }
         
