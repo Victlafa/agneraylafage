@@ -167,31 +167,31 @@ namespace render{
                     // S'il y a un groupe de creatures dans la case etudiee
                     if(NULL!=tab.get(i,j)){
 
-                        std::cout << "TestsRender : elemType : " << tab.get(i,j)->getElemType() << std::endl;
+                        //std::cout << "TestsRender : elemType : " << tab.get(i,j)->getElemType() << std::endl;
                         // On recupere les coordonnees de la texture en fonction de son type et du nombre de creatures
                         switch(tab.get(i,j)->getElemType()){
                             case state::ID::BLACKSMITH :
                                 listXTextChars.push_back(50*(2*(tab.get(i,j)->getCreaturesNbr())-1));
                                 listYTextChars.push_back(50);
-                                std::cout << "TestsRender : xTextPush : " << 50*(2*(tab.get(i,j)->getCreaturesNbr())-1) << " yTextPush : " << 50 << std::endl;
+                                //std::cout << "TestsRender : xTextPush : " << 50*(2*(tab.get(i,j)->getCreaturesNbr())-1) << " yTextPush : " << 50 << std::endl;
                                 break;
                             case state::ID::COOKER :
                                 listXTextChars.push_back(50*(2*(tab.get(i,j)->getCreaturesNbr())-1));
                                 listYTextChars.push_back(150);
-                                std::cout << "TestsRender : xTextPush : " << 50*(2*(tab.get(i,j)->getCreaturesNbr())-1) << " yTextPush : " << 150 << std::endl;
+                                //std::cout << "TestsRender : xTextPush : " << 50*(2*(tab.get(i,j)->getCreaturesNbr())-1) << " yTextPush : " << 150 << std::endl;
                                 break;
                             case state::ID::LUMBERJACK :
                                 listXTextChars.push_back(50*(2*(tab.get(i,j)->getCreaturesNbr())-1));
                                 listYTextChars.push_back(250);
-                                std::cout << "TestsRender : xTextPush : " << 50*(2*(tab.get(i,j)->getCreaturesNbr())-1) << " yTextPush : " << 250 << std::endl;
+                                //std::cout << "TestsRender : xTextPush : " << 50*(2*(tab.get(i,j)->getCreaturesNbr())-1) << " yTextPush : " << 250 << std::endl;
                                 break;
                             case state::ID::MINER :
                                 listXTextChars.push_back(50*(2*(tab.get(i,j)->getCreaturesNbr())-1));
                                 listYTextChars.push_back(350);
-                                std::cout << "TestsRender : xTextPush : " << 50*(2*(tab.get(i,j)->getCreaturesNbr())-1) << " yTextPush : " << 350 << std::endl;
+                                //std::cout << "TestsRender : xTextPush : " << 50*(2*(tab.get(i,j)->getCreaturesNbr())-1) << " yTextPush : " << 350 << std::endl;
                                 break;
                             default :
-                                std::cout << "TestsRender : default  elemType : " << tab.get(i,j)->getElemType() << std::endl;
+                                //std::cout << "TestsRender : default  elemType : " << tab.get(i,j)->getElemType() << std::endl;
                                 //std::cout << "erreur définition coordonnées textures" << std::endl;
                                 listXTextChars.push_back(350);
                                 listYTextChars.push_back(350);
@@ -264,7 +264,7 @@ namespace render{
 
                 // S'il y a une cellule en position i du tableau de creatures
                 if(NULL!=tab.get(xi,yi)){
-                    std::cout << "xi : " << xi << " yi : " << yi << " et i : " << i << std::endl;
+                    //std::cout << "xi : " << xi << " yi : " << yi << " et i : " << i << std::endl;
                     //std::cout << "x et y : " << x << " " << y << std::endl;
                 }
 
