@@ -7,15 +7,39 @@
 #include "Engine.h"
 #include "../engine.h"
 #include "../shared/state.h"
+#include "../client/render.h"
 #include <iostream>
 using namespace state;
+using namespace render;
 
 namespace engine
 {
-    Engine::Engine(CreaturesID typePl1) : currentState(typePl1) { }
+    Engine::Engine(CreaturesID typePl1) : currentState(typePl1) { 
+        render::ElementTabLayer cellLayer(*(currentState.getGrid().get()),0);
+        render::ElementTabLayer charsLayer(*(currentState.getCharacters().get()),1);
+
+        cellLayer.initSurface();charsLayer.initSurface();
+
+        // Declaration et chargement des textures à exploiter pour l'affichage
+        sf::Texture hexaTexture;
+        sf::Texture charsTexture;
+
+        // Le premier cas marche chez Victoire, le second chez Aurore
+        if (!hexaTexture.loadFromFile("./res/hexa.png")) hexaTexture.loadFromFile("../res/hexa.png");
+        else std::cout << "Erreur chargement texture hexa !\n" << std::endl;
+
+        if (!charsTexture.loadFromFile("./res/groupes.png")) charsTexture.loadFromFile("../res/groupes.png");
+        else std::cout << "Erreur chargement texture groupes !\n" << std::endl;
+
+        // On associe les textures chargees aux Surfaces des Layers de cellules et de groupes de creatures
+        cellLayer.getSurface()->setTexture(hexaTexture);
+        charsLayer.getSurface()->setTexture(charsTexture);
+    }
     
     Engine::~Engine (){}
+    
     state::State& Engine::getState () {return this->currentState;}
+    
     const std::unique_ptr<state::Player>& Engine::getPlayer (int num) const 
     {
         if (num == 1)
@@ -26,6 +50,7 @@ namespace engine
             throw std::runtime_error("Vous avez entré un mauvais numéro dans getPlayer !\n");
             return NULL;
     }
+    
     void Engine::addPassiveCommands () {
 //        Command* lastCommand = currentCommands.end()->second.get();
 //        
@@ -41,6 +66,7 @@ namespace engine
 //        }
 //            
     }
+    
     void Engine::addCommand (int priority, Command* cmd) {
         // On ajoute une commande :
         currentCommands.emplace(priority,std::unique_ptr<Command>(cmd));
@@ -49,6 +75,7 @@ namespace engine
         //addPassiveCommands();
         
     }
+    
     void Engine::update (){
         // On execute les commandes par ordre de priorite 
         for (std::map<int,std::unique_ptr<Command> >::iterator mapIt = currentCommands.begin(); mapIt != currentCommands.end(); mapIt ++)

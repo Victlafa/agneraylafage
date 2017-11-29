@@ -109,26 +109,27 @@ int main(int argc,char* argv[])
             }
             
             // COMMANDES FONCTIONNELLES
-//            TestsPoisonCommand();
-//            cout << "\n" << endl;
+            TestsPoisonCommand();
+            cout << "\n" << endl;
 //            TestsNewGameCommand();
 //            cout << "\n" << endl;
-//            TestsMoveCommandAdv();
-//            cout << "\n" << endl;
+            TestsMoveCommandNoOne();
+            cout << "\n" << endl;
+            TestsMoveCommandAdv();
+            cout << "\n" << endl;
             TestsMoveCommandPlayer();
             cout << "\n" << endl;
-//            TestsMoveCommandNoOne();
-//            cout << "\n" << endl;
-//            TestsSpecialCommandBBQ();
-//            cout << "\n" << endl;
-//            TestsSpecialCommandSKY();
-//            cout << "\n" << endl;
-//            TestsSpecialCommandCANDY();
-//            cout << "\n" << endl;
+            TestsSpecialCommandBBQ();
+            cout << "\n" << endl;
+            TestsSpecialCommandSKY();
+            cout << "\n" << endl;
+            TestsSpecialCommandCANDY();
+            cout << "\n" << endl;
             
             // COMMANDES A FINIR OU A CORRIGER
 
-            //TestsPlaceCommand();
+            TestsPlaceCommand();
+            cout << "\n" << endl;
             
         }
         

@@ -472,7 +472,6 @@ namespace render {
         cellLayer.initSurface();
         charsLayer.initSurface();
         
-        
         // Declaration et chargement des textures à exploiter pour l'affichage
         sf::Texture hexaTexture;
         sf::Texture charsTexture;
