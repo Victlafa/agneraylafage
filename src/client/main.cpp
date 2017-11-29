@@ -75,8 +75,8 @@ int main(int argc,char* argv[])
             
             sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
-            ElementTabLayer cellLayer(*(etat.getGrid().get()),0);
-            ElementTabLayer charsLayer(*(etat.getCharacters().get()),1);
+            ElementTabLayer cellLayer(*(etat->getGrid().get()),0);
+            ElementTabLayer charsLayer(*(etat->getCharacters().get()),1);
 
             cellLayer.initSurface();charsLayer.initSurface();
 
