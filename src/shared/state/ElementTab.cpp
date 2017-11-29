@@ -248,7 +248,7 @@ namespace state
                 if (this->get(new_i_elem,new_j_elem) != nullptr)
                 {
                     // Si c'est le cas on veut savoir si la case est speciale ou non
-                    std::cout << "ElementTab::moveElement - appel isSpecial ligne 242" << std::endl;
+                    //std::cout << "ElementTab::moveElement - appel isSpecial ligne 242" << std::endl;
                     
                     // si la cellule obtenue est speciale, on ajoute le nom du type à la liste de noms du joueur
                     if (isSpecial(new_i_elem, new_j_elem))
@@ -285,7 +285,7 @@ namespace state
                     else if (fight == 1 || fight == 2)
                     {
                         // On veut savoir si la case est speciale ou non
-                        std::cout << "ElementTab::moveElement - appel isSpecial ligne 271" << std::endl;
+                        //std::cout << "ElementTab::moveElement - appel isSpecial ligne 271" << std::endl;
                         
                         // si la cellule attaquee est speciale, on ajoute/supprime le nom du type à la liste de noms des joueurs
                         if (isSpecial(new_i_elem, new_j_elem))
@@ -323,8 +323,8 @@ namespace state
             get(i,j)->setCellState(CellState::POISONED);
             
             //(Cell)(*pCell,CellState::POISONED); //.setCellState(CellState::POISONED);
-            std::cout << "etat de la cellule : " << this->get(i,j)->getCellState() << std::endl;
-            std::cout << "La case (" << i << "," << j << ") a normalement ete empoisonnee\n" << std::endl;
+            //std::cout << "etat de la cellule : " << this->get(i,j)->getCellState() << std::endl;
+            //std::cout << "La case (" << i << "," << j << ") a normalement ete empoisonnee\n" << std::endl;
         }
         
         else
@@ -360,7 +360,7 @@ namespace state
         // La case destination est-elle autorisée ?
         if (verifValiditeCase(new_i_elem,new_j_elem))
         {
-            std::cout << "ElementTab::placeElement - appel isSpecial ligne 332" << std::endl;
+            //std::cout << "ElementTab::placeElement - appel isSpecial ligne 332" << std::endl;
             // On veut aussi savoir si la case destination est speciale ou pas
             bool isSpe = isSpecial(new_i_elem,new_j_elem);
             
@@ -376,7 +376,7 @@ namespace state
                 // On verifie que le placement a bien ete effectue
                 if (this->get(new_i_elem,new_j_elem) != NULL && this->get(new_i_elem,new_j_elem)->getCreaturesNbr() == 1)
                 {
-                    std::cout << "Une creature de l'IA a bien ete placee dans la grille" << std::endl;
+                    //std::cout << "Une creature de l'IA a bien ete placee dans la grille" << std::endl;
                     
                     // si la cellule obtenue est speciale, on ajoute le nom du type à la liste de noms du joueur
                     if (isSpe)
@@ -396,10 +396,7 @@ namespace state
                 list.at(new_i_elem*width + new_j_elem)->setCreaturesNbr(nbrCrea + 1);
                 
                 // On verifie que le placement a bien ete effectue
-                if (this->get(new_i_elem,new_j_elem) != NULL && this->get(new_i_elem,new_j_elem)->getCreaturesNbr() == nbrCrea + 1)
-                    std::cout << "Une creature de l'IA a bien ete placee dans la grille" << std::endl;
-                
-                else
+                if (this->get(new_i_elem,new_j_elem) == nullptr)
                     throw std::runtime_error("Le placement d'une creature du joueur dans une de ses cases n'a pas ete effectue !");
             }
             
@@ -450,7 +447,7 @@ namespace state
     bool ElementTab::isSpecial(int i, int j)
     {
         ID typeCell = this->get(i,j)->getElemType();
-        std::cout << "ElementTab::isSpecial - coords ("  << i << "," << j << ") - type : " << typeCell << std::endl;
+        //std::cout << "ElementTab::isSpecial - coords ("  << i << "," << j << ") - type : " << typeCell << std::endl;
         
         if (typeCell == ID::BARBECUE || typeCell == ID::CANDY || typeCell == ID::POOL || typeCell == ID::SKY)
             return true;
