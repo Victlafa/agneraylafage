@@ -294,15 +294,23 @@ namespace state
                         // On fixe le nouveau nbre de creatures de la case de depart
                         (creaNbrAtt != 1) ? this->get(i_elem,j_elem)->setCreaturesNbr(1) : this->get(i_elem,j_elem)->setCreaturesNbr(0);
                         
-                        // On detruit les creatures de la case defense en on remplaçant par celles de l'attaquant
-                        (creaNbrAtt != 1) ? this->set(new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(), (creaNbrAtt - 1) % 5, this->get(i_elem, j_elem)->getPlayer()), new_i_elem, new_j_elem) : this->set(new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(),1, this->get(i_elem, j_elem)->getPlayer()), new_i_elem, new_j_elem);
+                        // On detruit les creatures de la case defense en les remplaçant par celles de l'attaquant
+                        (creaNbrAtt != 1) ? this->set(new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(), creaNbrAtt - 1, this->get(i_elem, j_elem)->getPlayer()), new_i_elem, new_j_elem) : this->set(new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(),1, this->get(i_elem, j_elem)->getPlayer()), new_i_elem, new_j_elem);
                         
                     }
                         
-//                    else
-//                        std::cout << "Le defenseur a gagne" << std::endl;
-                    // Si fight = 3 ie le defenseur a gagne, on detruit seulement les creatures envoyées au combat par l'attaquant
-                    // Dans ce cas là on voit juste le nombre de creatures de la case attaquante tomber à 1
+                    else
+                    {
+                        this->get(i_elem, j_elem)->setCreaturesNbr(1);
+                        // std::cout << "Le defenseur a gagne" << std::endl;
+                        // Si fight = 3 ie le defenseur a gagne, on detruit seulement les creatures envoyées au combat par l'attaquant
+                        // Dans ce cas là on voit juste le nombre de creatures de la case attaquante tomber à 1
+//                        if (this->get(i_elem, j_elem)->getCreaturesNbr() != 1)
+//                            this->get(i_elem, j_elem)->setCreaturesNbr(1);
+//                        else
+                            
+                    }
+
                 }
                 
                 else
