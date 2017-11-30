@@ -23,7 +23,7 @@ namespace ai{
     
     void RandomAI::run (engine::Engine& moteur, int player) 
     {
-        if (moteur.getTour() != 1)
+        if (moteur.getTour() == 1)
             // On initialise les attributs de l'IA
             this->initIA(moteur,player);
         
@@ -36,14 +36,14 @@ namespace ai{
         for (int i = 0; i < 5; i++)
         {
             coords = moveCellResearch(moteur,player);
-            placeCoords = placeCellResearch(moteur,player);
+//            placeCoords = placeCellResearch(moteur,player);
             // On ajoute une commande de deplacement
             listCommands.push_back(std::shared_ptr<engine::Command>(new engine::MoveCommand(coords[0], coords[1], coords[2], coords[3], player)));
             // On ajoute une commande de placement de nouvelle creature seulement si les coordonnees de placement sont differentes de celles du deplacement
-            if (placeCoords[0] != coords[0] && placeCoords[1] != coords[1]){
-                listCommands.push_back(std::shared_ptr<engine::Command>(new engine::PlaceCommand(placeCoords[0], placeCoords[1], player, (state::ID)moteur.getPlayer(player)->getClanName())));
-                //std::cout <<  << std::endl;
-            }
+//            if (placeCoords[0] != coords[0] && placeCoords[1] != coords[1]){
+//                listCommands.push_back(std::shared_ptr<engine::Command>(new engine::PlaceCommand(placeCoords[0], placeCoords[1], player, (state::ID)moteur.getPlayer(player)->getClanName())));
+//                //std::cout <<  << std::endl;
+//            }
         }
         
         // On souhaite en executer 5 de façon aleatoire

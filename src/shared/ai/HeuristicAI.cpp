@@ -20,7 +20,7 @@ namespace ai
     
     void HeuristicAI::run (engine::Engine& moteur, int player)
     {
-        if (moteur.getTour() != 1)
+        if (moteur.getTour() == 1)
             // On initialise les attributs de l'IA
             this->initIA(moteur,player);
         
@@ -77,17 +77,9 @@ namespace ai
     std::vector<int> HeuristicAI::moveCellResearch (engine::Engine& moteur, int player)
     {
         // On recupere la liste des coordonnees des cellules possedees par le joueur reel
-        std::vector<int> real_cells = this->playerCellResearch(moteur,3-player);  // OOKKKK
+        std::vector<int> real_cells = this->playerCellResearch(moteur,3-player);  
         // On recupere la liste des coordonnees des cellules possedees par l'IA
-        std::vector<int> ia_cells = this->playerCellResearch(moteur,player);  // OOKKKKK
-//        std::cout << "Nombre de cellules possedées par l'IA : " << ia_cells.size()/2 << std::endl;
-//        
-//        for (int k=0; k < ia_cells.size(); k ++)
-//            std::cout << ia_cells[k] << " ";
-//        std::cout << "\n" << std::endl;
-//        for (int a=0; a < real_cells.size(); a ++)
-//            std::cout << real_cells[a] << " ";
-//        std::cout << std::endl;
+        std::vector<int> ia_cells = this->playerCellResearch(moteur,player); 
         
         // On declare un tableau où on mettra temporairement les coordonnees des cellules de l'IA qui ont des cellules du joueur 1 pour voisines
         std::vector<int> adjacent_cells;
@@ -99,13 +91,9 @@ namespace ai
         // On fait le tour de la liste de l'ia
         for (int i = 0; i < (int)(ia_cells.size()/2); i++)
         { 
-            //std::cout << "i : " << i << "\n";
             // Pour chaque cellule de l'ia on explore toutes les cellules du joueur 1, on sort de cette seconde boucle for si on en trouve une
             for (int j = 0; j < (int)(real_cells.size()/2); j++){
             
-                //std::cout << "     j :" << j << " ";
-                
-                //std::cout << "Validite cellule : " << moteur.getState().getCharacters()->verifValiditeCase(real_cells[2*j],real_cells[2*j+1]) << std::endl;
                 // Si la cellule du joueur est valide et qu'elle est adjacente à celle de l'IA
                 if (moteur.getState().getCharacters()->verifValiditeCase(real_cells[2*j],real_cells[2*j+1]) && isAdjacent(ia_cells[2*i],ia_cells[2*i+1],real_cells[2*j],real_cells[2*j+1]))
                 {

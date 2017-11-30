@@ -15,7 +15,7 @@ using namespace render;
 namespace engine
 {
     Engine::Engine(CreaturesID typePl1) : currentState(typePl1) { 
-        tour = 0;
+        tour = 1;
         render::ElementTabLayer cellLayer(*(currentState.getGrid().get()),0);
         render::ElementTabLayer charsLayer(*(currentState.getCharacters().get()),1);
 
