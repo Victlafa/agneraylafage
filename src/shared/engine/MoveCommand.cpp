@@ -29,15 +29,22 @@ namespace engine{
         {
             // Si la case de destination est occupée par l'adversaire, on engage un combat
             if (state.getCharacters()->isOccupiedByOpp(finalPos[0], finalPos[1], state.getPlayer(player).get())) {
+                std::cout << "MoveCommand::execute - Un combat commence !" << std::endl;
                 fight->execute(state);
                 state.getCharacters()->moveElement(initPos[0], initPos[1], finalPos[0], finalPos[1], fight->getWinner());
-            } else
+            } 
+            else
+            {
+                std::cout << "MoveCommand::execute - Il y a déplacement sans combat !" << std::endl;
                 // S'il n'y a pas combat on procede directement au deplacement
                 state.getCharacters()->moveElement(initPos[0], initPos[1], finalPos[0], finalPos[1], 0);
+            }
+                
 
             // On associe la case d'arrivée au joueur gagnant
             if (fight->getWinner() == 1 || fight->getWinner() == 2) {
-                std::cout << "MoveCommand::execute - Joueur gagnant : " << state.getPlayer(fight->getWinner()).get() << std::endl;
+                //std::cout << "MoveCommand::execute - Joueur gagnant : " << state.getPlayer(fight->getWinner()).get() << std::endl;
+                std::cout << "MoveCommand::execute - Joueur gagnant du combat : " << fight->getWinner() << std::endl;
                 state.getCharacters()->get(finalPos[0], finalPos[1])->setPlayer(state.getPlayer(fight->getWinner()).get());
             }
         }

@@ -15,6 +15,7 @@ using namespace render;
 namespace engine
 {
     Engine::Engine(CreaturesID typePl1) : currentState(typePl1) { 
+        tour = 0;
         render::ElementTabLayer cellLayer(*(currentState.getGrid().get()),0);
         render::ElementTabLayer charsLayer(*(currentState.getCharacters().get()),1);
 
@@ -86,4 +87,11 @@ namespace engine
     void Engine::poisonCell(bool poison,int i_cell, int j_cell){
         currentState.getGrid()->poisonCell(poison,i_cell,j_cell);
     }
+    
+    void Engine::increaseTour ()
+    {
+        tour += 1;
+    }
+    
+    int Engine::getTour () {return tour; }
 }

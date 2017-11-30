@@ -25,6 +25,7 @@ namespace engine {
   private:
     state::State currentState;
     std::map<int,std::unique_ptr<Command> > currentCommands;
+    int tour;
     // Operations
   public:
     Engine (state::CreaturesID typePl1);
@@ -35,6 +36,8 @@ namespace engine {
     state::State& getState ();
     const std::unique_ptr<state::Player>& getPlayer (int num) const;
     void poisonCell (bool poison, int i_cell, int j_cell);
+    void increaseTour ();
+    int getTour ();
     // Setters and Getters
   };
 
