@@ -20,15 +20,8 @@ namespace ai
     {
         // On initialise les attributs de l'IA
         this->initIA(moteur,player);
-                
-        // On souhaite tester la capacité speciale liee au ciel
-        // On doit pour cela choisir une cellule adverse à attaquer sur la carte ainsi qu'une case de depart
-        //std::vector<int> choixCellules = skyCellResearch(moteur);
         
-        // On ajoute la commande associee à cette attaque à la liste des commandes
-        //listCommands.push_back( std::shared_ptr<engine::Command> ( new engine::SpecialCellCommand(choixCellules[0],choixCellules[1],choixCellules[2],choixCellules[3],2,"sky") ) );
-        
-        // On souhaite introduire une commande de deplacement/conquete
+        // 1. PHASE DE CONQUETE
         // On tire pour cela au sort une cellule de l'ia et une cellule du joueur 1 à attaquer
         std::vector<int> coordsDeplacement = moveCellResearch(moteur,player);
         
@@ -54,6 +47,14 @@ namespace ai
         else
             throw std::runtime_error("La case de destination est tjrs vide meme apres deplacement !");
         
+        // 2. PHASE DE RENFORT
+        // L'IA reçoit autant de creatures à placer qu'elle dispose de territoires
+        //int nbrCell = moteur.getPlayer(2)->getCellNbr();
+        //moteur.getPlayer(2)->setCreaturesLeft(nbrCell);
+        
+        // On recupere une liste des coordonnees des cellules qu'occuperont ces creatures
+        //for (int i = 0; i < nbrCell; i++)
+            
         
         // On vide la liste des commandes
         listCommands.clear();

@@ -26,7 +26,7 @@ namespace ai{
         // Le tirage au sort du clan de l'IA est effectué dans la classe State, qui est générée automatiquement dans le moteur
         
         player_ia->setCellNbr(3);
-        player_ia->setCreaturesLeft(3);
+        //player_ia->setCreaturesLeft(3);
         
     }
     
