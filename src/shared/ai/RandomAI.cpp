@@ -18,15 +18,14 @@ namespace ai{
     RandomAI::RandomAI (int randomSeed) : AI()
     {
         randGen.seed(randomSeed);
+        
     }
     
     void RandomAI::run (engine::Engine& moteur, int player) 
     {
-        // On initialise les attributs de l'IA
-        this->initIA(moteur,player);
-        
-        // On s'arrange pour que l'IA ait au moins une creature a placer en stock
-        moteur.getPlayer(player)->setCreaturesLeft(6);
+        if (moteur.getTour() != 1)
+            // On initialise les attributs de l'IA
+            this->initIA(moteur,player);
         
         // On cherche dans la grille une cellule appartenant à l'IA ainsi qu'une cellule de destination adjacente pour un deplacement
         std::vector<int> coords; // = moveCellResearch(moteur);

@@ -14,21 +14,24 @@ namespace ai
     HeuristicAI::HeuristicAI (int randomSeed)
     {
         randGen.seed(randomSeed);
+        // On initialise les attributs de l'IA
+        //this->initIA(moteur,player);
     }
     
     void HeuristicAI::run (engine::Engine& moteur, int player)
     {
-        // On initialise les attributs de l'IA
-        this->initIA(moteur,player);
+        if (moteur.getTour() != 1)
+            // On initialise les attributs de l'IA
+            this->initIA(moteur,player);
         
         // 1. PHASE DE CONQUETE
         // On tire pour cela au sort une cellule de l'ia et une cellule du joueur 1 à attaquer
         std::vector<int> coordsDeplacement = moveCellResearch(moteur,player);
         
-        std::cout << "Coordonnees tirees au hasard pour depart de l'IA heuristique : (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ")" << std::endl;
-        std::cout << "Coordonnees tirees au hasard pour destination de l'IA heuristique : (" << coordsDeplacement[2] << "," << coordsDeplacement[3] << ")" << std::endl;
+        std::cout << "Coordonnees tirees au hasard pour depart de l'IA n°" << player << " : (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ")" << std::endl;
+        std::cout << "Coordonnees tirees au hasard pour destination de l'IA n°" << player << " : (" << coordsDeplacement[2] << "," << coordsDeplacement[3] << ")" << std::endl;
         
-        std::cout << "Nombre de creatures de l'IA heuristique sur (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ") avant deplacement :" << moteur.getState().getCharacters()->get(coordsDeplacement[0],coordsDeplacement[1])->getCreaturesNbr() << std::endl;
+        std::cout << "Nombre de creatures de l'IA n°" << player << " sur (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ") avant deplacement :" << moteur.getState().getCharacters()->get(coordsDeplacement[0],coordsDeplacement[1])->getCreaturesNbr() << std::endl;
         if (moteur.getState().getCharacters()->get(coordsDeplacement[2],coordsDeplacement[3]) != NULL)
             std::cout << "Nombre de creatures sur (" << coordsDeplacement[2] << "," << coordsDeplacement[3] << ") avant deplacement : " << moteur.getState().getCharacters()->get(coordsDeplacement[2],coordsDeplacement[3])->getCreaturesNbr() << std::endl;
         else
@@ -40,7 +43,7 @@ namespace ai
         for (int i = 0; i < (int)(listCommands.size()); i++)
             listCommands[i]->execute(moteur.getState());
         
-        std::cout << "Nombre de creatures de l'IA heuristique sur (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ") apres deplacement :" << moteur.getState().getCharacters()->get(coordsDeplacement[0],coordsDeplacement[1])->getCreaturesNbr() << std::endl;
+        std::cout << "Nombre de creatures de l'IA n°" << player << " sur (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ") apres deplacement :" << moteur.getState().getCharacters()->get(coordsDeplacement[0],coordsDeplacement[1])->getCreaturesNbr() << std::endl;
         
         if (moteur.getState().getCharacters()->get(coordsDeplacement[2],coordsDeplacement[3]) != NULL)
             std::cout << "Nombre de creatures sur (" << coordsDeplacement[2] << "," << coordsDeplacement[3] << ") apres deplacement : " << moteur.getState().getCharacters()->get(coordsDeplacement[2],coordsDeplacement[3])->getCreaturesNbr() << std::endl;
@@ -49,12 +52,22 @@ namespace ai
         
         // 2. PHASE DE RENFORT
         // L'IA reçoit autant de creatures à placer qu'elle dispose de territoires
-        //int nbrCell = moteur.getPlayer(2)->getCellNbr();
-        //moteur.getPlayer(2)->setCreaturesLeft(nbrCell);
-        
-        // On recupere une liste des coordonnees des cellules qu'occuperont ces creatures
-        //for (int i = 0; i < nbrCell; i++)
+//        int nbrCell = moteur.getPlayer(player)->getCellNbr();
+//        moteur.getPlayer(player)->setCreaturesLeft(nbrCell);
+//        // On declare un tableau qui contiendra les coords des cellules selectionnees pour le placement de nouvelles creatures
+//        std::vector<int> newCreasCoordsTotales;
+//        std::vector<int> newCreasCoordsUnitaires(2);
+//        
+//        // On recupere une liste des coordonnees des cellules qu'occuperont ces creatures et on ajoute les commandes au fur et à mesure à la liste
+//        for (int i = 0; i < nbrCell; i++)
+//        {
+//            newCreasCoordsUnitaires = this->placeCellResearch(moteur,2,newCreasCoordsTotales);
+//            newCreasCoordsTotales.push_back(newCreasCoordsUnitaires[0]);
+//            newCreasCoordsTotales.push_back(newCreasCoordsUnitaires[1]);
+//            listCommands.push_back(std::shared_ptr<engine::Command>(new engine::PlaceCommand(newCreasCoordsUnitaires[0], newCreasCoordsUnitaires[1], player, (state::ID)moteur.getPlayer(2)->getClanName())));
+//        }
             
+        
         
         // On vide la liste des commandes
         listCommands.clear();
@@ -96,8 +109,8 @@ namespace ai
                 // Si la cellule du joueur est valide et qu'elle est adjacente à celle de l'IA
                 if (moteur.getState().getCharacters()->verifValiditeCase(real_cells[2*j],real_cells[2*j+1]) && isAdjacent(ia_cells[2*i],ia_cells[2*i+1],real_cells[2*j],real_cells[2*j+1]))
                 {
-                    std::cout << "Cellule de l'ia : (" << ia_cells[2*i] << "," << ia_cells[2*i+1] << ")" << std::endl;
-                    std::cout << "Cellule adjacente trouvee correspondante : (" << real_cells[2*j] << "," << real_cells[2*j+1] << ")" << std::endl;
+                    //std::cout << "Cellule de l'ia : (" << ia_cells[2*i] << "," << ia_cells[2*i+1] << ")" << std::endl;
+                    //std::cout << "Cellule adjacente trouvee correspondante : (" << real_cells[2*j] << "," << real_cells[2*j+1] << ")" << std::endl;
                     // On ajoute les coordonnees de l'ia à adjacent_cells
                     adjacent_cells.push_back(ia_cells[2*i]);
                     adjacent_cells.push_back(ia_cells[2*i+1]);
@@ -197,7 +210,7 @@ namespace ai
     // Parmi la liste fournie en argument (liste de coordonnees de cellules), on recherche la cellule qui comporte le plus de creatures
     std::vector<int> HeuristicAI::betterIAResearch (engine::Engine& moteur, std::vector<int>& listeIA)
     {
-        std::cout << "Entree dans betterIAResearch" << std::endl;
+        //std::cout << "Entree dans betterIAResearch" << std::endl;
         
         if (listeIA.size() == 0)
             throw std::runtime_error("HeuristicAI::betterIAResearch - la liste donnée en argument est vide !");
@@ -212,7 +225,7 @@ namespace ai
         // On parcoure la liste des coordonnees donnée en argument
         for (int i = 1; i < (int)(listeIA.size()/2); i++)
         {
-            std::cout << "HeuristicAI::betterIAResearch - (" << listeIA[2*i] << "," << listeIA[2*i+1] << ")" << std::endl;
+            //std::cout << "HeuristicAI::betterIAResearch - (" << listeIA[2*i] << "," << listeIA[2*i+1] << ")" << std::endl;
             // Pour chaque couple de coords, si le nbre de creatures de la cellule correspondante est superieur à celui defini 
             if (moteur.getState().getCharacters()->get(listeIA[2*i],listeIA[2*i + 1])->getCreaturesNbr() > nbrMaxCreatures)
             {
@@ -224,7 +237,7 @@ namespace ai
             }
         }
         
-        std::cout << "Sortie de betterIAResearch" << std::endl;
+        //std::cout << "Sortie de betterIAResearch" << std::endl;
         
         // On renvoie betterCell
         return betterCell;

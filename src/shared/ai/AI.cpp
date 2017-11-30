@@ -84,14 +84,14 @@ namespace ai{
             }
 
             if (ligne == 0 && colonne == 0)
-                throw std::runtime_error("Aucune case n'a ete trouvée pour placer une nouvelle creature de l'IA !");
+                throw std::runtime_error("AI::placeCellResearch - Aucune case n'a ete trouvée pour placer une nouvelle creature de l'IA !");
 
             coordsDestination[0] = ligne;
             coordsDestination[1] = colonne;
         }
         
         else
-            throw std::runtime_error("L'IA ne dispose plus de creatures à placer dans la grille !");
+            throw std::runtime_error("AI::placeCellResearch - L'IA ne dispose plus de creatures à placer dans la grille !");
         
         return coordsDestination;
     }
@@ -198,7 +198,7 @@ namespace ai{
         bool verif5 = ((final_i == init_i + 1) && (final_j == init_j - 1));
         bool verif6 = (final_i == init_i && (final_j == init_j - 1));
         
-        std::cout << "AI::isAdjacent : " << (verif1 || verif2 || verif3 || verif4 || verif5 || verif6) << std::endl;
+        //std::cout << "AI::isAdjacent : " << (verif1 || verif2 || verif3 || verif4 || verif5 || verif6) << std::endl;
         
         if (verif1 || verif2 || verif3 || verif4 || verif5 || verif6)
             return true;
