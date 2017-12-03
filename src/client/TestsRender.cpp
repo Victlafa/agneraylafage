@@ -24,9 +24,8 @@ namespace render {
         std::cout << "DEBUT TESTS ELEMENTTABLAYER" << std::endl << std::endl;
 
         // On déclare et initialise un tableau d'éléments :
-        std::shared_ptr<state::ElementTab> grid;
-        grid.reset(new state::ElementTab(state::TypeID::CELL,7, 5));
-        grid.get()->init();
+        std::shared_ptr<state::CellTab> grid;
+        grid.reset(new state::CellTab(7, 5));
         
         // On initialise un plan pour ce tableau, de type Cell:
         ElementTabLayer gridLayer(*grid.get(), 0);

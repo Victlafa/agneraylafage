@@ -16,8 +16,7 @@ void TestsElementTab()
     size_t a, b;
     a=3;b=4;
     
-    std::shared_ptr<ElementTab> elemTab ( new ElementTab(TypeID::CELL,a,b) );
-    elemTab->init();
+    std::shared_ptr<CellTab> elemTab ( new CellTab(a,b) );
     
     Element* elemTest = new Element();
     
