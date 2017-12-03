@@ -16,10 +16,8 @@ namespace engine
 {
     Engine::Engine(CreaturesID typePl1) : currentState(typePl1) { 
         tour = 1;
-        render::ElementTabLayer cellLayer(*(currentState.getGrid().get()),0);
-        render::ElementTabLayer charsLayer(*(currentState.getCharacters().get()),1);
-
-        cellLayer.initSurface();charsLayer.initSurface();
+        render::CellTabLayer cellLayer(*(currentState.getGrid().get()));
+        render::CreaturesTabLayer charsLayer(*(currentState.getCharacters().get()));
 
         // Declaration et chargement des textures à exploiter pour l'affichage
         sf::Texture hexaTexture;
