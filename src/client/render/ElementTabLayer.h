@@ -18,14 +18,14 @@ namespace render {
   /// class ElementTabLayer - 
   class ElementTabLayer : public render::Layer {
     // Attributes
-  private:
+  protected:
     const state::ElementTab& tab;
-    int type;
     // Operations
   public:
-    ElementTabLayer (const state::ElementTab& tab, int type);
-    void initSurface ();
+    ElementTabLayer (const state::ElementTab& tab);
+    virtual void initSurface () = 0;
     // Setters and Getters
+    const state::ElementTab& getTab() const;
   };
 
 };
