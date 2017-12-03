@@ -103,26 +103,26 @@ namespace ai{
         // On cherche une case adjacente pour un potentiel deplacement
         
         // Deplacement possible vers l'adjacente n°1 ?
-        if (ligne > 0 && moteur.getState().getCharacters()->get(ligne-1,colonne).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne - 1,colonne))
+        if (ligne > 0 && moteur.getState().getCharacters()->get(ligne-1,colonne).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne - 1,colonne))
             new_ligne -= 1;
         // Vers l'adjacente n°2 ?
-        else if (ligne > 0 && colonne < moteur.getState().getCharacters()->getWidth() && moteur.getState().getCharacters()->get(ligne-1,colonne + 1).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne - 1,colonne))
+        else if (ligne > 0 && colonne < moteur.getState().getCharacters()->getWidth() && moteur.getState().getCharacters()->get(ligne-1,colonne + 1).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne - 1,colonne))
         {
             new_ligne -= 1; new_colonne += 1;
         }
         // Vers l'adjacente n°3 ?
-        else if (colonne < moteur.getState().getCharacters()->getWidth() && moteur.getState().getCharacters()->get(ligne,colonne + 1).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne,colonne+1))
+        else if (colonne < moteur.getState().getCharacters()->getWidth() && moteur.getState().getCharacters()->get(ligne,colonne + 1).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne,colonne+1))
             new_colonne += 1;
         // Vers l'adjacente n°4 ?
-        else if (ligne < moteur.getState().getCharacters()->getHeight() && moteur.getState().getCharacters()->get(ligne + 1,colonne).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne + 1,colonne))
+        else if (ligne < moteur.getState().getCharacters()->getHeight() && moteur.getState().getCharacters()->get(ligne + 1,colonne).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne + 1,colonne))
             new_ligne += 1;
         // Vers l'adjacente n°5 ?
-        else if (colonne > 0 && ligne < moteur.getState().getCharacters()->getHeight() && moteur.getState().getCharacters()->get(ligne + 1,colonne).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne + 1,colonne))
+        else if (colonne > 0 && ligne < moteur.getState().getCharacters()->getHeight() && moteur.getState().getCharacters()->get(ligne + 1,colonne).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne + 1,colonne))
         {
             new_ligne += 1; new_colonne -= 1;
         }
         // Vers l'adjacente n°6 ?
-        else if (colonne > 0 && moteur.getState().getCharacters()->get(ligne,colonne-1).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne,colonne-1))
+        else if (colonne > 0 && moteur.getState().getCharacters()->get(ligne,colonne-1).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne,colonne-1))
             new_colonne -= 1;
         else
             std::cout << "RandomAI::moveCellResearch - La case selectionnee pour l'IA ne permet aucun deplacement" << std::endl;
@@ -158,7 +158,7 @@ namespace ai{
                 verifBornes = (possibleAdjs[2 * i] < tabHeight && possibleAdjs[2 * i + 1] >= 0);
 
             // On verifie de plus si l'adjacence amene à une case valide
-            if (verifBornes && moteur.getState().getCharacters()->verifValiditeCase(possibleAdjs[2*i],possibleAdjs[2*i+1]))
+            if (verifBornes && moteur.getState().getCharacters()->isEnable(possibleAdjs[2*i],possibleAdjs[2*i+1]))
             {
                 
                 // On verifie si la cellule adjacente possible est occupee ou non par l'adversaire

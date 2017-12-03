@@ -95,7 +95,7 @@ namespace ai
             for (int j = 0; j < (int)(real_cells.size()/2); j++){
             
                 // Si la cellule du joueur est valide et qu'elle est adjacente à celle de l'IA
-                if (moteur.getState().getCharacters()->verifValiditeCase(real_cells[2*j],real_cells[2*j+1]) && isAdjacent(ia_cells[2*i],ia_cells[2*i+1],real_cells[2*j],real_cells[2*j+1]))
+                if (moteur.getState().getCharacters()->isEnable(real_cells[2*j],real_cells[2*j+1]) && isAdjacent(ia_cells[2*i],ia_cells[2*i+1],real_cells[2*j],real_cells[2*j+1]))
                 {
                     //std::cout << "Cellule de l'ia : (" << ia_cells[2*i] << "," << ia_cells[2*i+1] << ")" << std::endl;
                     //std::cout << "Cellule adjacente trouvee correspondante : (" << real_cells[2*j] << "," << real_cells[2*j+1] << ")" << std::endl;
@@ -164,7 +164,7 @@ namespace ai
             //std::cout << "HeuristicAI::adjacentEnnemyResearch - verifBornes : " << verifBornes << std::endl;
 
             // On verifie de plus si l'adjacence amene à une case valide
-            if (verifBornes && moteur.getState().getCharacters()->verifValiditeCase(possibleAdjs[2*i],possibleAdjs[2*i+1]))
+            if (verifBornes && moteur.getState().getCharacters()->isEnable(possibleAdjs[2*i],possibleAdjs[2*i+1]))
             {
                 //std::cout << "HeuristicAI::adjacentEnnemyResearch - coordonnees possible adjacence : (" << possibleAdjs[2*i] << "," << possibleAdjs[2*i+1] << ")" << std::endl;
                 

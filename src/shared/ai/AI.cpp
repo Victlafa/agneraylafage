@@ -67,7 +67,7 @@ namespace ai{
                         }
                     }
                     // Si on cherche une case vide (ON DOIT VERIFIER QUE LA CASE EST AUTORISEE !!)
-                    else if (choice == 1 && moteur.getState().getCharacters()->verifValiditeCase(i,j) && moteur.getState().getCharacters()->get(i,j).get() == NULL )
+                    else if (choice == 1 && moteur.getState().getCharacters()->isEnable(i,j) && moteur.getState().getCharacters()->get(i,j).get() == NULL )
                     {
                         ligne = i;
                         colonne = j;
@@ -110,7 +110,7 @@ namespace ai{
         // On recupere le joueur 2 (ia)
         state::Player* player_ia = moteur.getPlayer(player).get();
         // De meme avec le tableau de creatures
-        state::ElementTab* creaturesTab = moteur.getState().getCharacters().get();
+        state::CreaturesTab* creaturesTab = moteur.getState().getCharacters().get();
         
         // On declare le tableau de sortie de la methode
         std::vector<int> coordsDestination(4);
@@ -214,26 +214,26 @@ namespace ai{
         std::vector<int> destination(2);
         
         // Deplacement possible vers l'adjacente n°1 ?
-        if (ligne > 0 && moteur.getState().getCharacters()->get(ligne-1,colonne).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne - 1,colonne))
+        if (ligne > 0 && moteur.getState().getCharacters()->get(ligne-1,colonne).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne - 1,colonne))
             new_ligne -= 1;
         // Vers l'adjacente n°2 ?
-        else if (ligne > 0 && colonne < (int)(moteur.getState().getCharacters()->getWidth()) && moteur.getState().getCharacters()->get(ligne-1,colonne + 1).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne - 1,colonne))
+        else if (ligne > 0 && colonne < (int)(moteur.getState().getCharacters()->getWidth()) && moteur.getState().getCharacters()->get(ligne-1,colonne + 1).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne - 1,colonne))
         {
             new_ligne -= 1; new_colonne += 1;
         }
         // Vers l'adjacente n°3 ?
-        else if (colonne < (int)(moteur.getState().getCharacters()->getWidth()) && moteur.getState().getCharacters()->get(ligne,colonne + 1).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne,colonne+1))
+        else if (colonne < (int)(moteur.getState().getCharacters()->getWidth()) && moteur.getState().getCharacters()->get(ligne,colonne + 1).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne,colonne+1))
             new_colonne += 1;
         // Vers l'adjacente n°4 ?
-        else if (ligne < (int)(moteur.getState().getCharacters()->getHeight()) && moteur.getState().getCharacters()->get(ligne + 1,colonne).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne + 1,colonne))
+        else if (ligne < (int)(moteur.getState().getCharacters()->getHeight()) && moteur.getState().getCharacters()->get(ligne + 1,colonne).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne + 1,colonne))
             new_ligne += 1;
         // Vers l'adjacente n°5 ?
-        else if (colonne > 0 && ligne < (int)(moteur.getState().getCharacters()->getHeight()) && moteur.getState().getCharacters()->get(ligne + 1,colonne).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne + 1,colonne))
+        else if (colonne > 0 && ligne < (int)(moteur.getState().getCharacters()->getHeight()) && moteur.getState().getCharacters()->get(ligne + 1,colonne).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne + 1,colonne))
         {
             new_ligne += 1; new_colonne -= 1;
         }
         // Vers l'adjacente n°6 ?
-        else if (colonne > 0 && moteur.getState().getCharacters()->get(ligne,colonne-1).get() == NULL && moteur.getState().getCharacters()->verifValiditeCase(ligne,colonne-1))
+        else if (colonne > 0 && moteur.getState().getCharacters()->get(ligne,colonne-1).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne,colonne-1))
             new_colonne -= 1;
         else
             throw std::runtime_error("AI::moveCellResearch - La case selectionnee pour l'IA ne permet aucun deplacement");
