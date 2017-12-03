@@ -128,7 +128,7 @@ namespace ai {
         std::cout << "Ici s'affrontent deux IAs heuristiques qui peuvent pour le moment seulement se déplacer et combattre avec les quelques créatures qu'elles ont au départ de la partie." << std::endl;
         std::cout << "La démonstration se fera sur 10 tours. Il est possible que lors de certains tours il n'y ait pas de déplacements car nous n'avons pas encore pu faire en sorte qu'à la fin de chaque tour, des renforts viennent s'ajouter à la carte." << std::endl;
         std::cout << "De plus nous avons donné la priorité aux combats. Il est donc possible que des groupes de creatures ne cherchent pas à se disperser tant qu'elles n'ont pas d'ennemies à proximité." << std::endl;
-        std::cout << "(Cliquer sur une touche de clavier pour passer à l'étape suivante)" << std::endl;
+        std::cout << "(APPUYER sur une touche de clavier pour passer à l'étape suivante)" << std::endl;
         
         while (tour != 20 && window.isOpen()) {
             sf::Event event;
@@ -142,7 +142,7 @@ namespace ai {
                     moteur.update();
                     tour++;
                     moteur.increaseTour();
-                    std::cout << "\n(Cliquer sur une touche de clavier pour passer à l'étape suivante)" << std::endl;
+                    std::cout << "\n(APPUYER sur une touche de clavier pour passer à l'étape suivante)" << std::endl;
                 }
                 
             }
