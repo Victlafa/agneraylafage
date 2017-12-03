@@ -28,15 +28,10 @@ namespace engine {
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
         // On crée un Layer qui permettra de gerer l'affichage des cellules
-        ElementTabLayer cellLayer(*(moteur.getState().getGrid().get()),0);
+        CellTabLayer cellLayer(*(moteur.getState().getGrid().get()));
         
         // On crée un Layer qui permettra de gerer l'affichage des creatures
-        ElementTabLayer charsLayer(*(moteur.getState().getCharacters().get()),1);
-        
-        // On initialise les surfaces de ces deux Layers
-        cellLayer.initSurface();
-        charsLayer.initSurface();
-        
+        CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));
         
         // Declaration et chargement des textures à exploiter pour l'affichage
         sf::Texture hexaTexture;
@@ -123,15 +118,10 @@ namespace engine {
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
         // On crée un Layer qui permettra de gerer l'affichage des cellules
-        ElementTabLayer cellLayer(*(moteur.getState().getGrid().get()),0);
+        CellTabLayer cellLayer(*(moteur.getState().getGrid().get()));
         
         // On crée un Layer qui permettra de gerer l'affichage des creatures
-        ElementTabLayer charsLayer(*(moteur.getState().getCharacters().get()),1);
-        
-        // On initialise les surfaces de ces deux Layers
-        cellLayer.initSurface();
-        charsLayer.initSurface();
-        
+        CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));
         
         // Declaration et chargement des textures à exploiter pour l'affichage
         sf::Texture hexaTexture;
@@ -201,15 +191,10 @@ namespace engine {
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
         // On crée un Layer qui permettra de gerer l'affichage des cellules
-        ElementTabLayer cellLayer(*(moteur.getState().getGrid().get()),0);
+        CellTabLayer cellLayer(*(moteur.getState().getGrid().get()));
         
         // On crée un Layer qui permettra de gerer l'affichage des creatures
-        ElementTabLayer charsLayer(*(moteur.getState().getCharacters().get()),1);
-        
-        // On initialise les surfaces de ces deux Layers
-        cellLayer.initSurface();
-        charsLayer.initSurface();
-        
+        CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));
         
         // Declaration et chargement des textures à exploiter pour l'affichage
         sf::Texture hexaTexture;
@@ -279,7 +264,11 @@ namespace engine {
                     iter++;
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==3)){
                     // On affiche les positions de la creature
-                    std::cout << "Nbre de creatures d'attaque apres deplacement : " << forgeron->getCreaturesNbr() << std::endl;
+                    if (forgeron)
+                        std::cout << "Nbre de creatures d'attaque apres deplacement : " << forgeron->getCreaturesNbr() << std::endl;
+                    else
+                        throw std::runtime_error("TestsEngine::TestsMoveCommandAdv - ligne 270 - La variable forgeron n'est pas initialisee");
+                    
                     std::cout << "Nbre de creatures de defense apres deplacement : " << moteur.getState().getCharacters()->get(ligne, colonne +1)->getCreaturesNbr() << std::endl;
                     std::cout << "Joueur present en attaque : " << moteur.getState().getCharacters()->get(ligne, colonne)->getPlayer() << std::endl;
                     std::cout << "Joueur present en defense : " << moteur.getState().getCharacters()->get(ligne, colonne + 1)->getPlayer() << std::endl;
@@ -319,15 +308,10 @@ namespace engine {
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
         // On crée un Layer qui permettra de gerer l'affichage des cellules
-        ElementTabLayer cellLayer(*(moteur.getState().getGrid().get()),0);
+        CellTabLayer cellLayer(*(moteur.getState().getGrid().get()));
         
         // On crée un Layer qui permettra de gerer l'affichage des creatures
-        ElementTabLayer charsLayer(*(moteur.getState().getCharacters().get()),1);
-        
-        // On initialise les surfaces de ces deux Layers
-        cellLayer.initSurface();
-        charsLayer.initSurface();
-        
+        CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));
         
         // Declaration et chargement des textures à exploiter pour l'affichage
         sf::Texture hexaTexture;
@@ -392,7 +376,11 @@ namespace engine {
         
                     iter++;
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==3)){
-                    std::cout << "Nbre de creatures sur case de depart apres deplacement : " << forgeron->getCreaturesNbr() << std::endl;
+                    if (forgeron)
+                        std::cout << "Nbre de creatures sur case de depart apres deplacement : " << forgeron->getCreaturesNbr() << std::endl;
+                    else
+                        throw std::runtime_error("TestsEngine::TestsMoveCommandPlayer - ligne 382 - La variable forgeron n'est pas initialisee");
+                    
                     std::cout << "Nbre de creatures sur case de destination apres deplacement : " << moteur.getState().getCharacters()->get(ligne, colonne +1)->getCreaturesNbr() << std::endl;
         
                     iter++;
@@ -424,15 +412,10 @@ namespace engine {
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
         // On crée un Layer qui permettra de gerer l'affichage des cellules
-        ElementTabLayer cellLayer(*(moteur.getState().getGrid().get()),0);
+        CellTabLayer cellLayer(*(moteur.getState().getGrid().get()));
         
         // On crée un Layer qui permettra de gerer l'affichage des creatures
-        ElementTabLayer charsLayer(*(moteur.getState().getCharacters().get()),1);
-        
-        // On initialise les surfaces de ces deux Layers
-        cellLayer.initSurface();
-        charsLayer.initSurface();
-        
+        CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));
         
         // Declaration et chargement des textures à exploiter pour l'affichage
         sf::Texture hexaTexture;
@@ -493,7 +476,11 @@ namespace engine {
         
                     iter++;
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==3)){
-                    std::cout << "Nbre de creatures sur case de depart apres deplacement : " << forgeron->getCreaturesNbr() << std::endl;
+                    if (forgeron)
+                        std::cout << "Nbre de creatures sur case de depart apres deplacement : " << forgeron->getCreaturesNbr() << std::endl;
+                    else
+                        throw std::runtime_error("TestsEngine::TestsMoveCommandNoOne - ligne 482 - La variable forgeron n'est pas initialisee");
+                    
                     std::cout << "Nbre de creatures sur case de destination apres deplacement : " << moteur.getState().getCharacters()->get(ligne, colonne +1)->getCreaturesNbr() << std::endl;
         
                     iter++;
@@ -550,14 +537,10 @@ namespace engine {
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
         // On crée un Layer qui permettra de gerer l'affichage des cellules
-        ElementTabLayer cellLayer(*(moteur.getState().getGrid().get()),0);
+        CellTabLayer cellLayer(*(moteur.getState().getGrid().get()));
         
         // On crée un Layer qui permettra de gerer l'affichage des creatures
-        ElementTabLayer charsLayer(*(moteur.getState().getCharacters().get()),1);
-        
-        // On initialise les surfaces de ces deux Layers
-        cellLayer.initSurface();
-        charsLayer.initSurface();
+        CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));
         
         // Declaration et chargement des textures à exploiter pour l'affichage
         sf::Texture hexaTexture;
@@ -670,15 +653,10 @@ namespace engine {
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
         // On crée un Layer qui permettra de gerer l'affichage des cellules
-        ElementTabLayer cellLayer(*(moteur.getState().getGrid().get()),0);
+        CellTabLayer cellLayer(*(moteur.getState().getGrid().get()));
         
         // On crée un Layer qui permettra de gerer l'affichage des creatures
-        ElementTabLayer charsLayer(*(moteur.getState().getCharacters().get()),1);
-        
-        // On initialise les surfaces de ces deux Layers
-        cellLayer.initSurface();
-        charsLayer.initSurface();
-        
+        CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));
         
         // Declaration et chargement des textures à exploiter pour l'affichage
         sf::Texture hexaTexture;
@@ -774,15 +752,10 @@ namespace engine {
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
         // On crée un Layer qui permettra de gerer l'affichage des cellules
-        ElementTabLayer cellLayer(*(moteur.getState().getGrid().get()),0);
+        CellTabLayer cellLayer(*(moteur.getState().getGrid().get()));
         
         // On crée un Layer qui permettra de gerer l'affichage des creatures
-        ElementTabLayer charsLayer(*(moteur.getState().getCharacters().get()),1);
-        
-        // On initialise les surfaces de ces deux Layers
-        cellLayer.initSurface();
-        charsLayer.initSurface();
-        
+        CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));
         
         // Declaration et chargement des textures à exploiter pour l'affichage
         sf::Texture hexaTexture;

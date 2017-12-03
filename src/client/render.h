@@ -11,4 +11,6 @@
 #include "render/StateTileSet.h"
 #include "render/CellTileSet.h"
 #include "render/CharsTileSet.h"
+#include "render/CreaturesTabLayer.h"
+#include "render/CellTabLayer.h"
 #endif

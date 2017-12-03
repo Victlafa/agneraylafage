@@ -26,15 +26,10 @@ namespace ai {
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
         // On crée un Layer qui permettra de gerer l'affichage des cellules
-        render::ElementTabLayer cellLayer(*(moteur.getState().getGrid().get()),0);
+        render::CellTabLayer cellLayer(*(moteur.getState().getGrid().get()));
         
         // On crée un Layer qui permettra de gerer l'affichage des creatures
-        render::ElementTabLayer charsLayer(*(moteur.getState().getCharacters().get()),1);
-        
-        // On initialise les surfaces de ces deux Layers
-        cellLayer.initSurface();
-        charsLayer.initSurface();
-        
+        render::CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));        
         
         // Declaration et chargement des textures à exploiter pour l'affichage
         sf::Texture hexaTexture;
@@ -96,10 +91,10 @@ namespace ai {
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
         // On crée un Layer qui permettra de gerer l'affichage des cellules
-        render::ElementTabLayer cellLayer(*(moteur.getState().getGrid().get()),0);
+        render::CellTabLayer cellLayer(*(moteur.getState().getGrid().get()));
         
         // On crée un Layer qui permettra de gerer l'affichage des creatures
-        render::ElementTabLayer charsLayer(*(moteur.getState().getCharacters().get()),1);
+        render::CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));
         
         // On initialise les surfaces de ces deux Layers
         cellLayer.initSurface();

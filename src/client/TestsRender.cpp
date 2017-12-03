@@ -28,9 +28,8 @@ namespace render {
         grid.reset(new state::CellTab(7, 5));
         
         // On initialise un plan pour ce tableau, de type Cell:
-        ElementTabLayer gridLayer(*grid.get(), 0);
-        // Initialisation de sa surface :
-        gridLayer.initSurface();
+        CellTabLayer gridLayer(*grid.get());
+        
         // Initialisation de la fenêtre :
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Affichage d'une ligne d'hexagones :)");
 
@@ -462,14 +461,10 @@ namespace render {
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
         // On crée un Layer qui permettra de gerer l'affichage des cellules
-        ElementTabLayer cellLayer(*(etat.getGrid().get()),0);
+        CellTabLayer cellLayer(*(etat.getGrid().get()));
         
         // On crée un Layer qui permettra de gerer l'affichage des creatures
-        ElementTabLayer charsLayer(*(etat.getCharacters().get()),1);
-        
-        // On initialise les surfaces de ces deux Layers
-        cellLayer.initSurface();
-        charsLayer.initSurface();
+        CreaturesTabLayer charsLayer(*(etat.getCharacters().get()));
         
         // Declaration et chargement des textures à exploiter pour l'affichage
         sf::Texture hexaTexture;
