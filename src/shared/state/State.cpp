@@ -11,8 +11,8 @@ namespace state
 
     State::State(CreaturesID typePl1){
         totalCellNbr = 29;
-        grid.reset(new ElementTab(TypeID::CELL));
-        characters.reset(new ElementTab(TypeID::CREATURESGROUP));
+        grid.reset(new CellTab(7,5));
+        characters.reset(new CreaturesTab(7,5));
         player1.reset(new Player(typePl1));
         
         CreaturesID tirage = typePl1;
@@ -31,11 +31,11 @@ namespace state
     State::~State (){}
     
     // Setters and Getters
-    const std::unique_ptr<ElementTab>& State::getGrid() const{
+    const std::unique_ptr<CellTab>& State::getGrid() const{
         return grid;
     }
     
-    const std::unique_ptr<ElementTab>& State::getCharacters () const{
+    const std::unique_ptr<CreaturesTab>& State::getCharacters () const{
         return characters;
     }
     
@@ -54,8 +54,8 @@ namespace state
     
     void State::reset(CreaturesID typeCreatures)
     {
-        grid.reset(new ElementTab(TypeID::CELL));
-        characters.reset(new ElementTab(TypeID::CREATURESGROUP));
+        grid.reset(new CellTab(7,5));
+        characters.reset(new CreaturesTab(7,5));
         player1.reset(new Player(typeCreatures));
         int creaEnnemi = rand()%4 + 1;
         player2.reset(new Player((CreaturesID)creaEnnemi));
@@ -90,8 +90,8 @@ namespace state
                 rand_i = rand() % characters->getHeight();
                 rand_j = rand() % characters->getWidth();
                 // On verifie la validite des coordonnees : ont-elles deja été tirees ? Correspondent-elles à des cases interdites ?
-                verifJ1 = characters->verifUnicite(intRand,rand_i,rand_j);
-                verifCaseJ1 = characters->verifValiditeCase(rand_i,rand_j);
+                verifJ1 = characters->isUnique(intRand,rand_i,rand_j);
+                verifCaseJ1 = characters->isEnable(rand_i,rand_j);
                 
             } while ((!verifJ1) || (!verifCaseJ1));
             
@@ -103,8 +103,8 @@ namespace state
                 rand_i_J2 = rand() % characters->getHeight();
                 rand_j_J2 = rand() % characters->getWidth();
                 // On verifie la validite des coordonnees : ont-elles deja été tirees ? Correspondent-elles à des cases interdites ?
-                verifJ2 = characters->verifUnicite(intRand,rand_i_J2, rand_j_J2);
-                verifCaseJ2 = characters->verifValiditeCase(rand_i_J2, rand_j_J2);
+                verifJ2 = characters->isUnique(intRand,rand_i_J2, rand_j_J2);
+                verifCaseJ2 = characters->isEnable(rand_i_J2, rand_j_J2);
                 
             } while ((!verifJ2) || (!verifCaseJ2));
 

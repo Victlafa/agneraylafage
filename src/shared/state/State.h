@@ -5,13 +5,17 @@
 #include <memory>
 
 namespace state {
-  class ElementTab;
+  class CellTab;
+  class CreaturesTab;
   class Player;
+  class ElementTab;
 }
 
-#include "ElementTab.h"
+#include "CellTab.h"
+#include "CreaturesTab.h"
 #include "Player.h"
 #include "CreaturesID.h"
+#include "ElementTab.h"
 
 namespace state {
 
@@ -20,8 +24,8 @@ namespace state {
     // Associations
     // Attributes
   private:
-    std::unique_ptr<ElementTab> grid;
-    std::unique_ptr<ElementTab> characters;
+    std::unique_ptr<CellTab> grid;
+    std::unique_ptr<CreaturesTab> characters;
     std::unique_ptr<Player> player1;
     std::unique_ptr<Player> player2;
     int totalCellNbr;
@@ -29,8 +33,8 @@ namespace state {
   public:
     State (CreaturesID typePl1);
     ~State ();
-    const std::unique_ptr<ElementTab>& getGrid () const;
-    const std::unique_ptr<ElementTab>& getCharacters () const;
+    const std::unique_ptr<CellTab>& getGrid () const;
+    const std::unique_ptr<CreaturesTab>& getCharacters () const;
     int getCellNbr () const;
     const std::unique_ptr<Player>& getPlayer (int number) const;
     void reset (CreaturesID typeCreatures);
