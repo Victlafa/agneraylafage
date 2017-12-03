@@ -14,5 +14,7 @@
 #include "state/CreaturesGroup.h"
 #include "state/PlayerResources.h"
 #include "state/ElementTab.h"
+#include "state/CellTab.h"
+#include "state/CreaturesTab.h"
 #include "state/State.h"
 #endif
