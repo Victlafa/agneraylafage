@@ -15,7 +15,7 @@ namespace state
     
     bool CreaturesTab::isOccupiedByOpp (int i, int j, Player* joueur)
     {
-        if ((this->get(i,j).get() != nullptr) && get(i,j)->getPlayer() != joueur)
+        if ((this->get(i,j).get() != NULL) && get(i,j)->getPlayer() != joueur)
                 return true;
         else
             return false;

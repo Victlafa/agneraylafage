@@ -144,11 +144,11 @@ namespace state
         }
         
         // Mise à jour de la liste du gagnant :
-        if (winner != nullptr)
+        if (winner != NULL)
             winner->modifySpeCellsNames(stringType,true);
         
         // Mise à jour de la liste du perdant :
-        if (loser != nullptr)
+        if (loser != NULL)
             loser->modifySpeCellsNames(stringType,false);
     }
     
