@@ -97,8 +97,8 @@ namespace engine {
             charsLayer.initSurface();
             
             window.clear();
-            cellLayer.getSurface()->draw(window, &hexaTexture);
-            charsLayer.getSurface()->draw(window, &charsTexture);
+            cellLayer.getSurface()->draw(window);
+            charsLayer.getSurface()->draw(window);
 
             window.display();
         }
@@ -174,8 +174,8 @@ namespace engine {
             charsLayer.initSurface();
             
             window.clear();
-            cellLayer.getSurface()->draw(window, &hexaTexture);
-            charsLayer.getSurface()->draw(window, &charsTexture);
+            cellLayer.getSurface()->draw(window);
+            charsLayer.getSurface()->draw(window);
 
             window.display();
         }
@@ -292,8 +292,8 @@ namespace engine {
             charsLayer.initSurface();
             
             window.clear();
-            cellLayer.getSurface()->draw(window, &hexaTexture);
-            charsLayer.getSurface()->draw(window, &charsTexture);
+            cellLayer.getSurface()->draw(window);
+            charsLayer.getSurface()->draw(window);
 
             window.display();
         }
@@ -396,8 +396,8 @@ namespace engine {
             charsLayer.initSurface();
             
             window.clear();
-            cellLayer.getSurface()->draw(window, &hexaTexture);
-            charsLayer.getSurface()->draw(window, &charsTexture);
+            cellLayer.getSurface()->draw(window);
+            charsLayer.getSurface()->draw(window);
 
             window.display();
         }
@@ -496,8 +496,8 @@ namespace engine {
             charsLayer.initSurface();
             
             window.clear();
-            cellLayer.getSurface()->draw(window, &hexaTexture);
-            charsLayer.getSurface()->draw(window, &charsTexture);
+            cellLayer.getSurface()->draw(window);
+            charsLayer.getSurface()->draw(window);
 
             window.display();
         }
@@ -614,8 +614,8 @@ namespace engine {
             charsLayer.initSurface();
             
             window.clear();
-            cellLayer.getSurface()->draw(window, &hexaTexture);
-            charsLayer.getSurface()->draw(window, &charsTexture);
+            cellLayer.getSurface()->draw(window);
+            charsLayer.getSurface()->draw(window);
 
             window.display();
         }
@@ -731,8 +731,8 @@ namespace engine {
             charsLayer.initSurface();
             
             window.clear();
-            cellLayer.getSurface()->draw(window, &hexaTexture);
-            charsLayer.getSurface()->draw(window, &charsTexture);
+            cellLayer.getSurface()->draw(window);
+            charsLayer.getSurface()->draw(window);
 
             window.display();
         }
@@ -819,8 +819,8 @@ namespace engine {
             charsLayer.initSurface();
             
             window.clear();
-            cellLayer.getSurface()->draw(window, &hexaTexture);
-            charsLayer.getSurface()->draw(window, &charsTexture);
+            cellLayer.getSurface()->draw(window);
+            charsLayer.getSurface()->draw(window);
 
             window.display();
         }

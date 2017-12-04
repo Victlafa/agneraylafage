@@ -40,7 +40,7 @@ namespace render {
                 if (event.type == sf::Event::Closed) window.close();
             }
             window.clear();
-            gridLayer.getSurface()->draw(window, &gridLayer.getSurface()->getTexture());
+            gridLayer.getSurface()->draw(window);
             window.display();
         }
 
@@ -492,8 +492,8 @@ namespace render {
             }
 
             window.clear();
-            cellLayer.getSurface()->draw(window, &hexaTexture);
-            charsLayer.getSurface()->draw(window, &charsTexture);
+            cellLayer.getSurface()->draw(window);
+            charsLayer.getSurface()->draw(window);
 
             window.display();
         }

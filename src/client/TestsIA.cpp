@@ -29,24 +29,7 @@ namespace ai {
         render::CellTabLayer cellLayer(*(moteur.getState().getGrid().get()));
         
         // On crée un Layer qui permettra de gerer l'affichage des creatures
-        render::CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));        
-        
-        // Declaration et chargement des textures à exploiter pour l'affichage
-        sf::Texture hexaTexture;
-        sf::Texture charsTexture;
-        
-        // Le premier cas marche chez Victoire, le second chez Aurore
-        if (!hexaTexture.loadFromFile("./res/hexa.png")) 
-            if(!hexaTexture.loadFromFile("../res/hexa.png"))
-                std::cout << "Erreur chargement texture hexa !\n" << std::endl;
-        
-        if (!charsTexture.loadFromFile("./res/groupes.png")) 
-            if(!charsTexture.loadFromFile("../res/groupes.png"))
-                std::cout << "Erreur chargement texture groupes !\n" << std::endl;
-        
-        // On associe les textures chargees aux Surfaces des Layers de cellules et de groupes de creatures
-        cellLayer.getSurface()->setTexture(hexaTexture);
-        charsLayer.getSurface()->setTexture(charsTexture);
+        render::CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));    
         
         int tour = 0;
         
@@ -67,8 +50,8 @@ namespace ai {
             charsLayer.initSurface();
             
             window.clear();
-            cellLayer.getSurface()->draw(window, &hexaTexture);
-            charsLayer.getSurface()->draw(window, &charsTexture);
+            cellLayer.getSurface()->draw(window);
+            charsLayer.getSurface()->draw(window);
 
             window.display();
         }
@@ -80,44 +63,17 @@ namespace ai {
     {
         srand(time(NULL));
         
-        // On initialise un moteur
-        // On choisit les mineurs pour le joueur 1
+        // On initialise un moteur, on choisit les mineurs pour le joueur 1
         engine::Engine moteur(CreaturesID::MINERS);
-        
         // On initialise une ia
         HeuristicAI ia(rand()%30000);
- 
-        
+        // Declaration de la fenetre
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
-
         // On crée un Layer qui permettra de gerer l'affichage des cellules
         render::CellTabLayer cellLayer(*(moteur.getState().getGrid().get()));
-        
         // On crée un Layer qui permettra de gerer l'affichage des creatures
         render::CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));
-        
-        // On initialise les surfaces de ces deux Layers
-        cellLayer.initSurface();
-        charsLayer.initSurface();
-        
-        
-        // Declaration et chargement des textures à exploiter pour l'affichage
-        sf::Texture hexaTexture;
-        sf::Texture charsTexture;
-        
-        // Le premier cas marche chez Victoire, le second chez Aurore
-        if (!hexaTexture.loadFromFile("./res/hexa.png")) 
-            if(!hexaTexture.loadFromFile("../res/hexa.png"))
-                std::cout << "Erreur chargement texture hexa !\n" << std::endl;
-        
-        if (!charsTexture.loadFromFile("./res/groupes.png")) 
-            if(!charsTexture.loadFromFile("../res/groupes.png"))
-                std::cout << "Erreur chargement texture groupes !\n" << std::endl;
-        
-        // On associe les textures chargees aux Surfaces des Layers de cellules et de groupes de creatures
-        cellLayer.getSurface()->setTexture(hexaTexture);
-        charsLayer.getSurface()->setTexture(charsTexture);
-        
+        // On affichera sur un nombre limité de tours
         int tour = 0;
         
         std::cout << "Ici s'affrontent deux IAs heuristiques qui peuvent pour le moment seulement se déplacer et combattre avec les quelques créatures qu'elles ont au départ de la partie." << std::endl;
@@ -125,15 +81,21 @@ namespace ai {
         std::cout << "De plus nous avons donné la priorité aux combats. Il est donc possible que des groupes de creatures ne cherchent pas à se disperser tant qu'elles n'ont pas d'ennemies à proximité." << std::endl;
         std::cout << "(APPUYER sur une touche de clavier pour passer à l'étape suivante)" << std::endl;
         
+        sf::Event event;
+        
         while (tour != 20 && window.isOpen()) {
-            sf::Event event;
+            
             while (window.pollEvent(event)) {
-                
+                // Fermeture de la fenetre ?
                 if (event.type == sf::Event::Closed) window.close();
+                // Appui sur une touche de clavier ?
                 else if(event.type == sf::Event::EventType::KeyReleased){
                     std::cout << "\n--------------    Tour n°" << tour/2 + 1 << ", c'est à l'IA n°" << tour%2 + 1 << " de jouer    --------------" << std::endl;
+                    // Tour de l'IA n°1
                     if(tour%2==0) ia.run(moteur,1);
+                    // Tour de l'IA n°2
                     else ia.run(moteur,2);
+                    // Execution des commandes demandées par les IA
                     moteur.update();
                     tour++;
                     moteur.increaseTour();
@@ -142,15 +104,14 @@ namespace ai {
                 
             }
 
+            // On met à jour l'affichage
             cellLayer.initSurface();
             charsLayer.initSurface();
             
             window.clear();
-            cellLayer.getSurface()->draw(window, &hexaTexture);
-            charsLayer.getSurface()->draw(window, &charsTexture);
+            cellLayer.getSurface()->draw(window);
+            charsLayer.getSurface()->draw(window);
             
-            
-
             window.display();
         }
         

@@ -100,8 +100,8 @@ int main(int argc,char* argv[])
                 }
 
                 window.clear();
-                cellLayer.getSurface()->draw(window, &hexaTexture);
-                charsLayer.getSurface()->draw(window, &charsTexture);
+                cellLayer.getSurface()->draw(window);
+                charsLayer.getSurface()->draw(window);
 
                 window.display();
             }
