@@ -18,21 +18,24 @@ namespace ai {
   /// class AI - 
   class AI {
     // Attributes
+  private:
+    engine::Engine* moteur;
   protected:
     std::vector<std::shared_ptr<engine::Command> > listCommands;
     // Operations
   public:
-    AI ();
-    virtual void run (engine::Engine& moteur, int player) = 0;
-    void initIA (engine::Engine& moteur, int player);
-    virtual std::vector<int> moveCellResearch (engine::Engine& moteur, int player) = 0;
-    virtual std::vector<int> adjacentEnnemyResearch (engine::Engine& moteur, int player, int init_i, int init_j) = 0;
-    std::vector<int> adjacentCellResearch (engine::Engine& moteur, int init_i, int init_j);
-    std::vector<int> placeCellResearch (engine::Engine& moteur, int player);
-    std::vector<int> skyCellResearch (engine::Engine& moteur, int player);
-    std::vector<int> playerCellResearch (engine::Engine& moteur, int player);
+    AI (engine::Engine* moteur);
+    virtual void run (int player) = 0;
+    void initIA (int player);
+    virtual std::vector<int> moveCellResearch (int player) = 0;
+    virtual std::vector<int> adjacentEnnemyResearch (int player, int init_i, int init_j) = 0;
+    std::vector<int> adjacentCellResearch (int init_i, int init_j);
+    std::vector<int> placeCellResearch (int player);
+    std::vector<int> skyCellResearch (int player);
+    std::vector<int> playerCellResearch (int player);
     bool isAdjacent (int init_i, int init_j, int final_i, int final_j);
     std::vector<int> getAdjacences (int i, int j);
+    engine::Engine* getMoteur () const;
     // Setters and Getters
     const std::vector<std::shared_ptr<engine::Command> >& getListCommands() const;
     void setListCommands(const std::vector<std::shared_ptr<engine::Command> >& listCommands);

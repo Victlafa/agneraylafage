@@ -7,33 +7,36 @@
 #include "HeuristicAI.h"
 #include <iostream>
 #include "../shared/engine.h"
+#include "../shared/state/CreaturesTab.h"
 
+using namespace state;
 
 namespace ai
 {
-    HeuristicAI::HeuristicAI (int randomSeed)
+    HeuristicAI::HeuristicAI (engine::Engine* moteur, int randomSeed) : AI(moteur)
     {
         randGen.seed(randomSeed);
         // On initialise les attributs de l'IA
         //this->initIA(moteur,player);
     }
     
-    void HeuristicAI::run (engine::Engine& moteur, int player)
+    void HeuristicAI::run (int player)
     {
-        if (moteur.getTour() == 1)
+        if (getMoteur()->getTour() == 1)
             // On initialise les attributs de l'IA
-            this->initIA(moteur,player);
+            this->initIA(player);
         
         // 1. PHASE DE CONQUETE
         // On tire pour cela au sort une cellule de l'ia et une cellule du joueur 1 à attaquer
-        std::vector<int> coordsDeplacement = moveCellResearch(moteur,player);
+        std::vector<int> coordsDeplacement = moveCellResearch(player);
+        CreaturesTab* creaTab = getMoteur()->getState().getCharacters().get();
         
         std::cout << "Coordonnees tirees au hasard pour depart de l'IA n°" << player << " : (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ")" << std::endl;
         std::cout << "Coordonnees tirees au hasard pour destination de l'IA n°" << player << " : (" << coordsDeplacement[2] << "," << coordsDeplacement[3] << ")" << std::endl;
         
-        std::cout << "Nombre de creatures de l'IA n°" << player << " sur (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ") avant deplacement :" << moteur.getState().getCharacters()->get(coordsDeplacement[0],coordsDeplacement[1])->getCreaturesNbr() << std::endl;
-        if (moteur.getState().getCharacters()->get(coordsDeplacement[2],coordsDeplacement[3]) != NULL)
-            std::cout << "Nombre de creatures sur (" << coordsDeplacement[2] << "," << coordsDeplacement[3] << ") avant deplacement : " << moteur.getState().getCharacters()->get(coordsDeplacement[2],coordsDeplacement[3])->getCreaturesNbr() << std::endl;
+        std::cout << "Nombre de creatures de l'IA n°" << player << " sur (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ") avant deplacement :" << creaTab->get(coordsDeplacement[0],coordsDeplacement[1])->getCreaturesNbr() << std::endl;
+        if (creaTab->get(coordsDeplacement[2],coordsDeplacement[3]) != NULL)
+            std::cout << "Nombre de creatures sur (" << coordsDeplacement[2] << "," << coordsDeplacement[3] << ") avant deplacement : " << creaTab->get(coordsDeplacement[2],coordsDeplacement[3])->getCreaturesNbr() << std::endl;
         else
             std::cout << "La case destination est vide" << std::endl;
         
@@ -41,12 +44,12 @@ namespace ai
         listCommands.push_back(std::shared_ptr<engine::Command> ( new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player)));
         
         for (int i = 0; i < (int)(listCommands.size()); i++)
-            listCommands[i]->execute(moteur.getState());
+            listCommands[i]->execute(getMoteur()->getState());
         
-        std::cout << "Nombre de creatures de l'IA n°" << player << " sur (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ") apres deplacement :" << moteur.getState().getCharacters()->get(coordsDeplacement[0],coordsDeplacement[1])->getCreaturesNbr() << std::endl;
+        std::cout << "Nombre de creatures de l'IA n°" << player << " sur (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ") apres deplacement :" << creaTab->get(coordsDeplacement[0],coordsDeplacement[1])->getCreaturesNbr() << std::endl;
         
-        if (moteur.getState().getCharacters()->get(coordsDeplacement[2],coordsDeplacement[3]) != NULL)
-            std::cout << "Nombre de creatures sur (" << coordsDeplacement[2] << "," << coordsDeplacement[3] << ") apres deplacement : " << moteur.getState().getCharacters()->get(coordsDeplacement[2],coordsDeplacement[3])->getCreaturesNbr() << std::endl;
+        if (creaTab->get(coordsDeplacement[2],coordsDeplacement[3]) != NULL)
+            std::cout << "Nombre de creatures sur (" << coordsDeplacement[2] << "," << coordsDeplacement[3] << ") apres deplacement : " << creaTab->get(coordsDeplacement[2],coordsDeplacement[3])->getCreaturesNbr() << std::endl;
         else
             throw std::runtime_error("La case de destination est tjrs vide meme apres deplacement !");
         
@@ -74,12 +77,12 @@ namespace ai
     }
     
     // On cherche une cellule attaquante pour l'IA ainsi qu'une cellule destination adverse ADJACENTE
-    std::vector<int> HeuristicAI::moveCellResearch (engine::Engine& moteur, int player)
+    std::vector<int> HeuristicAI::moveCellResearch (int player)
     {
         // On recupere la liste des coordonnees des cellules possedees par le joueur reel
-        std::vector<int> real_cells = this->playerCellResearch(moteur,3-player);  
+        std::vector<int> real_cells = this->playerCellResearch(3-player);  
         // On recupere la liste des coordonnees des cellules possedees par l'IA
-        std::vector<int> ia_cells = this->playerCellResearch(moteur,player); 
+        std::vector<int> ia_cells = this->playerCellResearch(player); 
         
         // On declare un tableau où on mettra temporairement les coordonnees des cellules de l'IA qui ont des cellules du joueur 1 pour voisines
         std::vector<int> adjacent_cells;
@@ -95,7 +98,7 @@ namespace ai
             for (int j = 0; j < (int)(real_cells.size()/2); j++){
             
                 // Si la cellule du joueur est valide et qu'elle est adjacente à celle de l'IA
-                if (moteur.getState().getCharacters()->isEnable(real_cells[2*j],real_cells[2*j+1]) && isAdjacent(ia_cells[2*i],ia_cells[2*i+1],real_cells[2*j],real_cells[2*j+1]))
+                if (getMoteur()->getState().getCharacters()->isEnable(real_cells[2*j],real_cells[2*j+1]) && isAdjacent(ia_cells[2*i],ia_cells[2*i+1],real_cells[2*j],real_cells[2*j+1]))
                 {
                     //std::cout << "Cellule de l'ia : (" << ia_cells[2*i] << "," << ia_cells[2*i+1] << ")" << std::endl;
                     //std::cout << "Cellule adjacente trouvee correspondante : (" << real_cells[2*j] << "," << real_cells[2*j+1] << ")" << std::endl;
@@ -117,18 +120,18 @@ namespace ai
         if (adjacent_cells.size() == 0)
         {
             // On recupere la cellule de l'IA qui comporte le plus de creatures parmi la liste complete de ses cellules
-            startCell = betterIAResearch(moteur,ia_cells);
+            startCell = betterIAResearch(ia_cells);
             // Autour de cette cellule on selectionne une cellule au hasard
-            finalDestination = this->adjacentCellResearch(moteur,startCell[0],startCell[1]);
+            finalDestination = this->adjacentCellResearch(startCell[0],startCell[1]);
         }
         
         // S'il y a des cellules du joueur voisines de celles de l'IA
         else
         {
             // On recupere parmi les cellules de l'IA voisines du joueur 1 celle qui compte le plus de creatures
-            startCell = betterIAResearch(moteur,adjacent_cells);
+            startCell = betterIAResearch(adjacent_cells);
             // Parmi les cellules adjacentes à cette dernière cellule, on tire celle qui compte le moins de creatures :
-            finalDestination = this->adjacentEnnemyResearch(moteur,player,startCell[0],startCell[1]);
+            finalDestination = this->adjacentEnnemyResearch(player,startCell[0],startCell[1]);
         }
         
         coordsMove[0] = startCell[0];
@@ -140,7 +143,7 @@ namespace ai
     }
     
     // Dans les cellules adjacentes à la cellule argument, on renvoie celle qui rapportera probablement le plus de points à l'IA
-    std::vector<int> HeuristicAI::adjacentEnnemyResearch (engine::Engine& moteur, int player, int init_i, int init_j)
+    std::vector<int> HeuristicAI::adjacentEnnemyResearch (int player, int init_i, int init_j)
     {
         //std::cout << "HeuristicAI::adjacentEnnemyResearch - coordonnees argument : (" << init_i << "," << init_j << ")" << std::endl;
         
@@ -150,8 +153,9 @@ namespace ai
         std::vector<int> possibleAdjs = this->getAdjacences(init_i,init_j);
         bool verifBornes = false;
         bool occupation = false;
-        int tabWidth = moteur.getState().getCharacters()->getWidth();
-        int tabHeight = moteur.getState().getCharacters()->getHeight();
+        int tabWidth = getMoteur()->getState().getCharacters()->getWidth();
+        int tabHeight = getMoteur()->getState().getCharacters()->getHeight();
+        CreaturesTab* creaTab = getMoteur()->getState().getCharacters().get();
         
         for (int i = 0; i < 6; i++)
         {
@@ -164,12 +168,12 @@ namespace ai
             //std::cout << "HeuristicAI::adjacentEnnemyResearch - verifBornes : " << verifBornes << std::endl;
 
             // On verifie de plus si l'adjacence amene à une case valide
-            if (verifBornes && moteur.getState().getCharacters()->isEnable(possibleAdjs[2*i],possibleAdjs[2*i+1]))
+            if (verifBornes && creaTab->isEnable(possibleAdjs[2*i],possibleAdjs[2*i+1]))
             {
                 //std::cout << "HeuristicAI::adjacentEnnemyResearch - coordonnees possible adjacence : (" << possibleAdjs[2*i] << "," << possibleAdjs[2*i+1] << ")" << std::endl;
                 
                 // On verifie si la cellule adjacente possible est occupee ou non par l'adversaire
-                occupation = moteur.getState().getCharacters()->isOccupiedByOpp(possibleAdjs[2 * i], possibleAdjs[2 * i + 1], moteur.getPlayer(player).get());
+                occupation = creaTab->isOccupiedByOpp(possibleAdjs[2 * i], possibleAdjs[2 * i + 1], getMoteur()->getPlayer(player).get());
 
                 if (occupation) {
                     //std::cout << "HeuristicAI::adjacentEnnemyResearch - coordonnees adjacence : (" << possibleAdjs[2*i] << "," << possibleAdjs[2*i+1] << ")" << std::endl;
@@ -189,14 +193,14 @@ namespace ai
             throw std::runtime_error("HeuristicAI::adjacentEnnemyResearch - La cellule donnee en argument n'a pas de voisine appartenant à l'adversaire !");
         
         // On cherche parmi les cellules adjacentes celles qui comporte le moins de creatures
-        finalCell = weakerEnnemyResearch(moteur,adjacent_Cells);
+        finalCell = weakerEnnemyResearch(adjacent_Cells);
         
         return finalCell;
         
     }
     
     // Parmi la liste fournie en argument (liste de coordonnees de cellules), on recherche la cellule qui comporte le plus de creatures
-    std::vector<int> HeuristicAI::betterIAResearch (engine::Engine& moteur, std::vector<int>& listeIA)
+    std::vector<int> HeuristicAI::betterIAResearch (std::vector<int>& listeIA)
     {
         //std::cout << "Entree dans betterIAResearch" << std::endl;
         
@@ -215,10 +219,10 @@ namespace ai
         {
             //std::cout << "HeuristicAI::betterIAResearch - (" << listeIA[2*i] << "," << listeIA[2*i+1] << ")" << std::endl;
             // Pour chaque couple de coords, si le nbre de creatures de la cellule correspondante est superieur à celui defini 
-            if (moteur.getState().getCharacters()->get(listeIA[2*i],listeIA[2*i + 1])->getCreaturesNbr() > nbrMaxCreatures)
+            if (getMoteur()->getState().getCharacters()->get(listeIA[2*i],listeIA[2*i + 1])->getCreaturesNbr() > nbrMaxCreatures)
             {
                 // On redefini le nombre max de creature
-                nbrMaxCreatures = moteur.getState().getCharacters()->get(listeIA[2*i],listeIA[2*i + 1])->getCreaturesNbr();
+                nbrMaxCreatures = getMoteur()->getState().getCharacters()->get(listeIA[2*i],listeIA[2*i + 1])->getCreaturesNbr();
                 // On change les valeurs de la liste betterCell
                 betterCell[0] = listeIA[2*i];
                 betterCell[1] = listeIA[2*i + 1];
@@ -232,7 +236,7 @@ namespace ai
     }
     
     // Parmi la liste fournie en argument (liste de coordonnees de cellules), on recherche la cellule qui comporte le moins de creatures
-    std::vector<int> HeuristicAI::weakerEnnemyResearch (engine::Engine& moteur, std::vector<int>& listePlayer)
+    std::vector<int> HeuristicAI::weakerEnnemyResearch (std::vector<int>& listePlayer)
     {
         if (listePlayer.size() % 2 != 0)
             throw std::runtime_error("HeuristicAI::weakerEnnemyResearch - la liste donnée en argument de la methode a une longueur impaire !");
@@ -246,10 +250,10 @@ namespace ai
         for (int i = 1; i < (int)(listePlayer.size()/2); i++)
         {
             // Pour chaque couple de coords, si le nbre de creatures de la cellule correspondante est superieur à celui defini 
-            if (moteur.getState().getCharacters()->get(listePlayer[2*i],listePlayer[2*i + 1])->getCreaturesNbr() < nbrMaxCreatures)
+            if (getMoteur()->getState().getCharacters()->get(listePlayer[2*i],listePlayer[2*i + 1])->getCreaturesNbr() < nbrMaxCreatures)
             {
                 // On redefini le nombre max de creature
-                nbrMaxCreatures = moteur.getState().getCharacters()->get(listePlayer[2*i],listePlayer[2*i + 1])->getCreaturesNbr();
+                nbrMaxCreatures = getMoteur()->getState().getCharacters()->get(listePlayer[2*i],listePlayer[2*i + 1])->getCreaturesNbr();
                 // On change les valeurs de la liste betterCell
                 weakerCell[0] = listePlayer[2*i];
                 weakerCell[1] = listePlayer[2*i + 1];

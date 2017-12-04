@@ -12,20 +12,21 @@
 #include <time.h>
 
 using namespace std;
+using namespace state;
 
 namespace ai{
     
-    RandomAI::RandomAI (int randomSeed) : AI()
+    RandomAI::RandomAI (engine::Engine* moteur, int randomSeed) : AI(moteur)
     {
         randGen.seed(randomSeed);
         
     }
     
-    void RandomAI::run (engine::Engine& moteur, int player) 
+    void RandomAI::run (int player) 
     {
-        if (moteur.getTour() == 1)
+        if (getMoteur()->getTour() == 1)
             // On initialise les attributs de l'IA
-            this->initIA(moteur,player);
+            this->initIA(player);
         
         // On cherche dans la grille une cellule appartenant à l'IA ainsi qu'une cellule de destination adjacente pour un deplacement
         std::vector<int> coords; // = moveCellResearch(moteur);
@@ -35,7 +36,7 @@ namespace ai{
         // On ajoute 5 commandes de placement et 5 de deplacement à l'IA
         for (int i = 0; i < 5; i++)
         {
-            coords = moveCellResearch(moteur,player);
+            coords = moveCellResearch(player);
 //            placeCoords = placeCellResearch(moteur,player);
             // On ajoute une commande de deplacement
             listCommands.push_back(std::shared_ptr<engine::Command>(new engine::MoveCommand(coords[0], coords[1], coords[2], coords[3], player)));
@@ -52,7 +53,7 @@ namespace ai{
         for (int j = 0; j < 5; j ++)
         {
             randCommand = randGen()%(listCommands.size());
-            listCommands.at(randCommand)->execute(moteur.getState());
+            listCommands.at(randCommand)->execute(getMoteur()->getState());
             cout << "RandomAI::run - Une commande de l'ia random a été en principe executée !" << endl;
         }
         
@@ -61,7 +62,7 @@ namespace ai{
     }
         
     // On cherche une cellule attaquante pour l'IA ainsi qu'une cellule destination adverse ADJACENTE
-    std::vector<int> RandomAI::moveCellResearch (engine::Engine& moteur, int player)
+    std::vector<int> RandomAI::moveCellResearch (int player)
     {
         // On va chercher une creature de l'IA dans le moteur donné en argument
         unsigned int ligne = 0;
@@ -70,18 +71,19 @@ namespace ai{
         unsigned int new_ligne = 0;
         unsigned int new_colonne = 0;
         // On recupere le joueur 2 (ia)
-        state::Player* player_ia = moteur.getPlayer(player).get();
+        state::Player* player_ia = getMoteur()->getPlayer(player).get();
         std::vector<int> coordsDestination(4);
+        CreaturesTab* creaTab = getMoteur()->getState().getCharacters().get();
         
-        for (unsigned int i = 0; i < moteur.getState().getCharacters()->getHeight(); i++) 
+        for (unsigned int i = 0; i < creaTab->getHeight(); i++) 
         {
-            for (unsigned int j = 0; j < moteur.getState().getCharacters()->getWidth(); j++) 
+            for (unsigned int j = 0; j < creaTab->getWidth(); j++) 
             {
                 // Si on trouve un groupe de creatures de pointeur non nul
-                if (moteur.getState().getCharacters()->get(i,j).get() != 0)
+                if (creaTab->get(i,j).get() != 0)
                 {
                     // Si ce groupe appartient à l'ia et qu'il a au moins une creature
-                    if (moteur.getState().getCharacters()->get(i,j)->getPlayer() == player_ia && moteur.getState().getCharacters()->get(i,j)->getCreaturesNbr() > 0)
+                    if (creaTab->get(i,j)->getPlayer() == player_ia && creaTab->get(i,j)->getCreaturesNbr() > 0)
                     {
                         ligne = i;
                         colonne = j;
@@ -103,26 +105,26 @@ namespace ai{
         // On cherche une case adjacente pour un potentiel deplacement
         
         // Deplacement possible vers l'adjacente n°1 ?
-        if (ligne > 0 && moteur.getState().getCharacters()->get(ligne-1,colonne).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne - 1,colonne))
+        if (ligne > 0 && creaTab->get(ligne-1,colonne).get() == NULL && creaTab->isEnable(ligne - 1,colonne))
             new_ligne -= 1;
         // Vers l'adjacente n°2 ?
-        else if (ligne > 0 && colonne < moteur.getState().getCharacters()->getWidth() && moteur.getState().getCharacters()->get(ligne-1,colonne + 1).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne - 1,colonne))
+        else if (ligne > 0 && colonne < creaTab->getWidth() && creaTab->get(ligne-1,colonne + 1).get() == NULL && creaTab->isEnable(ligne - 1,colonne))
         {
             new_ligne -= 1; new_colonne += 1;
         }
         // Vers l'adjacente n°3 ?
-        else if (colonne < moteur.getState().getCharacters()->getWidth() && moteur.getState().getCharacters()->get(ligne,colonne + 1).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne,colonne+1))
+        else if (colonne < creaTab->getWidth() && creaTab->get(ligne,colonne + 1).get() == NULL && creaTab->isEnable(ligne,colonne+1))
             new_colonne += 1;
         // Vers l'adjacente n°4 ?
-        else if (ligne < moteur.getState().getCharacters()->getHeight() && moteur.getState().getCharacters()->get(ligne + 1,colonne).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne + 1,colonne))
+        else if (ligne < creaTab->getHeight() && creaTab->get(ligne + 1,colonne).get() == NULL && creaTab->isEnable(ligne + 1,colonne))
             new_ligne += 1;
         // Vers l'adjacente n°5 ?
-        else if (colonne > 0 && ligne < moteur.getState().getCharacters()->getHeight() && moteur.getState().getCharacters()->get(ligne + 1,colonne).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne + 1,colonne))
+        else if (colonne > 0 && ligne < creaTab->getHeight() && creaTab->get(ligne + 1,colonne).get() == NULL && creaTab->isEnable(ligne + 1,colonne))
         {
             new_ligne += 1; new_colonne -= 1;
         }
         // Vers l'adjacente n°6 ?
-        else if (colonne > 0 && moteur.getState().getCharacters()->get(ligne,colonne-1).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne,colonne-1))
+        else if (colonne > 0 && creaTab->get(ligne,colonne-1).get() == NULL && creaTab->isEnable(ligne,colonne-1))
             new_colonne -= 1;
         else
             std::cout << "RandomAI::moveCellResearch - La case selectionnee pour l'IA ne permet aucun deplacement" << std::endl;
@@ -137,7 +139,7 @@ namespace ai{
     }
     
         // Dans les cellules adjacentes à la cellule argument, on en renvoie une au hasard
-    std::vector<int> RandomAI::adjacentEnnemyResearch (engine::Engine& moteur, int player, int init_i, int init_j)
+    std::vector<int> RandomAI::adjacentEnnemyResearch (int player, int init_i, int init_j)
     {        
         // On declare un tableau dans lequel on mettra les coordonnees des cellules adjacentes
         std::vector<int> adjacent_Cells;
@@ -145,8 +147,8 @@ namespace ai{
         std::vector<int> possibleAdjs = this->getAdjacences(init_i,init_j);
         bool verifBornes = false;
         bool occupation = false;
-        int tabWidth = moteur.getState().getCharacters()->getWidth();
-        int tabHeight = moteur.getState().getCharacters()->getHeight();
+        int tabWidth = getMoteur()->getState().getCharacters()->getWidth();
+        int tabHeight = getMoteur()->getState().getCharacters()->getHeight();
         int random;
         
         for (int i = 0; i < 6; i++)
@@ -158,11 +160,11 @@ namespace ai{
                 verifBornes = (possibleAdjs[2 * i] < tabHeight && possibleAdjs[2 * i + 1] >= 0);
 
             // On verifie de plus si l'adjacence amene à une case valide
-            if (verifBornes && moteur.getState().getCharacters()->isEnable(possibleAdjs[2*i],possibleAdjs[2*i+1]))
+            if (verifBornes && getMoteur()->getState().getCharacters()->isEnable(possibleAdjs[2*i],possibleAdjs[2*i+1]))
             {
                 
                 // On verifie si la cellule adjacente possible est occupee ou non par l'adversaire
-                occupation = moteur.getState().getCharacters()->isOccupiedByOpp(possibleAdjs[2 * i], possibleAdjs[2 * i + 1], moteur.getPlayer(player).get());
+                occupation = getMoteur()->getState().getCharacters()->isOccupiedByOpp(possibleAdjs[2 * i], possibleAdjs[2 * i + 1], getMoteur()->getPlayer(player).get());
 
                 if (occupation) {
                     // Si les deux conditions sont verifiees, la cellule adjacente etudiee appartient au joueur reel 

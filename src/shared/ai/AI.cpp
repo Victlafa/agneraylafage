@@ -13,15 +13,17 @@
 using namespace state;
 
 namespace ai{
-    AI::AI () : listCommands() {}
+    AI::AI (engine::Engine* moteur) : listCommands()
+    { this->moteur = moteur; }
     // Setters and Getters
     const std::vector<std::shared_ptr<engine::Command> >& AI::getListCommands() const { return listCommands; }
     void AI::setListCommands(const std::vector<std::shared_ptr<engine::Command> >& listCommands) { this->listCommands = listCommands; }
+    engine::Engine* AI::getMoteur() const { return this->moteur; }
     
     // On initialise les parametres de base de l'IA
-    void AI::initIA (engine::Engine& moteur, int player)
+    void AI::initIA (int player)
     {
-        Player* player_ia = moteur.getPlayer(player).get();
+        Player* player_ia = this->moteur->getPlayer(player).get();
                 
         // Le tirage au sort du clan de l'IA est effectué dans la classe State, qui est générée automatiquement dans le moteur
         
@@ -31,13 +33,13 @@ namespace ai{
     }
     
     // On cherche une cellule destination pour l'IA afin de placer sur la carte un de ses groupes en reserve
-    std::vector<int> AI::placeCellResearch (engine::Engine& moteur, int player)
+    std::vector<int> AI::placeCellResearch (int player)
     {
         
         std::vector<int> coordsDestination(player);
         
         // On verifie que le joueur dispose encore en stock de creatures à placer sur la grille
-        if (moteur.getState().getPlayer(player)->getCreaturesLeft() > 0)
+        if (moteur->getState().getPlayer(player)->getCreaturesLeft() > 0)
         {
             // On va chercher une case vide ou une case appartenant à l'IA
             unsigned int ligne = 0;
@@ -46,18 +48,18 @@ namespace ai{
             int choice = rand()%2;
 
             // On recupere le joueur 2 (ia)
-            state::Player* player_ia = moteur.getPlayer(player).get();
+            state::Player* player_ia = moteur->getPlayer(player).get();
 
-            for (unsigned int i = 0; i < moteur.getState().getCharacters()->getHeight(); i++) 
+            for (unsigned int i = 0; i < moteur->getState().getCharacters()->getHeight(); i++) 
             {
-                for (unsigned int j = 0; j < moteur.getState().getCharacters()->getWidth(); j++) 
+                for (unsigned int j = 0; j < moteur->getState().getCharacters()->getWidth(); j++) 
                 {
                     // Si on cherche un groupe de creatures et qu'il est de pointeur non nul
-                    if (choice == 0 && moteur.getState().getCharacters()->get(i,j).get() != 0)
+                    if (choice == 0 && moteur->getState().getCharacters()->get(i,j).get() != 0)
                     {
                         // Si ce groupe appartient à l'ia et qu'il a au plus 5 creatures
-                        int creaNbr = moteur.getState().getCharacters()->get(i,j)->getCreaturesNbr();
-                        if (moteur.getState().getCharacters()->get(i,j)->getPlayer() == player_ia && creaNbr > 0 && creaNbr < 6)
+                        int creaNbr = moteur->getState().getCharacters()->get(i,j)->getCreaturesNbr();
+                        if (moteur->getState().getCharacters()->get(i,j)->getPlayer() == player_ia && creaNbr > 0 && creaNbr < 6)
                         {
                             ligne = i;
                             colonne = j;
@@ -67,7 +69,7 @@ namespace ai{
                         }
                     }
                     // Si on cherche une case vide (ON DOIT VERIFIER QUE LA CASE EST AUTORISEE !!)
-                    else if (choice == 1 && moteur.getState().getCharacters()->isEnable(i,j) && moteur.getState().getCharacters()->get(i,j).get() == NULL )
+                    else if (choice == 1 && moteur->getState().getCharacters()->isEnable(i,j) && moteur->getState().getCharacters()->get(i,j).get() == NULL )
                     {
                         ligne = i;
                         colonne = j;
@@ -97,7 +99,7 @@ namespace ai{
     }
     
     // On cherche une cellule attaquante pour l'IA ainsi qu'une cellule destination adverse n'importe où sur la carte
-    std::vector<int> AI::skyCellResearch (engine::Engine& moteur, int player)
+    std::vector<int> AI::skyCellResearch (int player)
     {
         // On va chercher une creature de l'IA dans le moteur donné en argument
         unsigned int ligne = 0;
@@ -106,11 +108,11 @@ namespace ai{
         unsigned int new_ligne = 0;
         unsigned int new_colonne = 0;
         // On recupere le joueur 1
-        state::Player* player_real = moteur.getPlayer(3-player).get();
+        state::Player* player_real = moteur->getPlayer(3-player).get();
         // On recupere le joueur 2 (ia)
-        state::Player* player_ia = moteur.getPlayer(player).get();
+        state::Player* player_ia = moteur->getPlayer(player).get();
         // De meme avec le tableau de creatures
-        state::CreaturesTab* creaturesTab = moteur.getState().getCharacters().get();
+        state::CreaturesTab* creaturesTab = moteur->getState().getCharacters().get();
         
         // On declare le tableau de sortie de la methode
         std::vector<int> coordsDestination(4);
@@ -160,20 +162,20 @@ namespace ai{
     }
     
     // On cherche les coordonnees de toutes les cellules appartenant au joueur dont le num est donne en argument
-    std::vector<int> AI::playerCellResearch (engine::Engine& moteur, int player)
+    std::vector<int> AI::playerCellResearch (int player)
     {
         std::vector<int> coordonnees;
         
         // On parcourt toutes les cellules de la grille
-        for (unsigned int i = 0; i < moteur.getState().getCharacters()->getHeight(); i++) 
+        for (unsigned int i = 0; i < moteur->getState().getCharacters()->getHeight(); i++) 
         {
-            for (unsigned int j = 0; j < moteur.getState().getCharacters()->getWidth(); j++) 
+            for (unsigned int j = 0; j < moteur->getState().getCharacters()->getWidth(); j++) 
             {
                 // Si une creature est presente a la position etudiee
-                if (moteur.getState().getCharacters()->get(i,j).get() != 0)
+                if (moteur->getState().getCharacters()->get(i,j).get() != 0)
                 {
                     // Si ce groupe appartient au joueur designe
-                    if (moteur.getState().getCharacters()->get(i,j)->getPlayer() == moteur.getPlayer(player).get())
+                    if (moteur->getState().getCharacters()->get(i,j)->getPlayer() == moteur->getPlayer(player).get())
                     {
                         //std::cout << "AI::playerCellResearch - la cellule (" << i << "," << j << ") appartient au joueur " << moteur.getPlayer(player).get() << std::endl;
                         // On ajoute les coordonnees à la liste
@@ -207,33 +209,34 @@ namespace ai{
     }
     
     // On cherche une case adjacente quelconque à la cellule argument (caractérisée par ses coords) pour un deplacement
-    std::vector<int> AI::adjacentCellResearch (engine::Engine& moteur, int ligne, int colonne)
+    std::vector<int> AI::adjacentCellResearch (int ligne, int colonne)
     {
         int new_ligne = ligne;
         int new_colonne = colonne;
         std::vector<int> destination(2);
+        CreaturesTab* creaTab = moteur->getState().getCharacters().get();
         
         // Deplacement possible vers l'adjacente n°1 ?
-        if (ligne > 0 && moteur.getState().getCharacters()->get(ligne-1,colonne).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne - 1,colonne))
+        if (ligne > 0 && creaTab->get(ligne-1,colonne).get() == NULL && creaTab->isEnable(ligne - 1,colonne))
             new_ligne -= 1;
         // Vers l'adjacente n°2 ?
-        else if (ligne > 0 && colonne < (int)(moteur.getState().getCharacters()->getWidth()) && moteur.getState().getCharacters()->get(ligne-1,colonne + 1).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne - 1,colonne))
+        else if (ligne > 0 && colonne < (int)(creaTab->getWidth()) && creaTab->get(ligne-1,colonne + 1).get() == NULL && creaTab->isEnable(ligne - 1,colonne))
         {
             new_ligne -= 1; new_colonne += 1;
         }
         // Vers l'adjacente n°3 ?
-        else if (colonne < (int)(moteur.getState().getCharacters()->getWidth()) && moteur.getState().getCharacters()->get(ligne,colonne + 1).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne,colonne+1))
+        else if (colonne < (int)(creaTab->getWidth()) && creaTab->get(ligne,colonne + 1).get() == NULL && creaTab->isEnable(ligne,colonne+1))
             new_colonne += 1;
         // Vers l'adjacente n°4 ?
-        else if (ligne < (int)(moteur.getState().getCharacters()->getHeight()) && moteur.getState().getCharacters()->get(ligne + 1,colonne).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne + 1,colonne))
+        else if (ligne < (int)(creaTab->getHeight()) &&creaTab->get(ligne + 1,colonne).get() == NULL && creaTab->isEnable(ligne + 1,colonne))
             new_ligne += 1;
         // Vers l'adjacente n°5 ?
-        else if (colonne > 0 && ligne < (int)(moteur.getState().getCharacters()->getHeight()) && moteur.getState().getCharacters()->get(ligne + 1,colonne).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne + 1,colonne))
+        else if (colonne > 0 && ligne < (int)(creaTab->getHeight()) && creaTab->get(ligne + 1,colonne).get() == NULL && creaTab->isEnable(ligne + 1,colonne))
         {
             new_ligne += 1; new_colonne -= 1;
         }
         // Vers l'adjacente n°6 ?
-        else if (colonne > 0 && moteur.getState().getCharacters()->get(ligne,colonne-1).get() == NULL && moteur.getState().getCharacters()->isEnable(ligne,colonne-1))
+        else if (colonne > 0 && creaTab->get(ligne,colonne-1).get() == NULL && creaTab->isEnable(ligne,colonne-1))
             new_colonne -= 1;
         else
             throw std::runtime_error("AI::moveCellResearch - La case selectionnee pour l'IA ne permet aucun deplacement");

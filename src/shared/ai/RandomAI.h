@@ -23,10 +23,10 @@ namespace ai {
     std::mt19937 randGen;
     // Operations
   public:
-    RandomAI (int randomSeed);
-    void run (engine::Engine& moteur, int player);
-    std::vector<int> moveCellResearch (engine::Engine& moteur, int player);
-    std::vector<int> adjacentEnnemyResearch (engine::Engine& moteur, int player, int init_i, int init_j);
+    RandomAI (engine::Engine* moteur, int randomSeed);
+    void run (int player);
+    std::vector<int> moveCellResearch (int player);
+    std::vector<int> adjacentEnnemyResearch (int player, int init_i, int init_j);
     // Setters and Getters
   };
 

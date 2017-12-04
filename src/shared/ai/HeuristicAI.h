@@ -23,12 +23,12 @@ namespace ai {
     std::mt19937 randGen;
     // Operations
   public:
-    HeuristicAI (int randomSeed);
-    void run (engine::Engine& moteur, int player);
-    std::vector<int> moveCellResearch (engine::Engine& moteur, int player);
-    std::vector<int> adjacentEnnemyResearch (engine::Engine& moteur, int player, int init_i, int init_j);
-    std::vector<int> betterIAResearch (engine::Engine& moteur, std::vector<int>& listeIA);
-    std::vector<int> weakerEnnemyResearch (engine::Engine& moteur, std::vector<int>& listePlayer);
+    HeuristicAI (engine::Engine* moteur, int randomSeed);
+    void run (int player);
+    std::vector<int> moveCellResearch (int player);
+    std::vector<int> adjacentEnnemyResearch (int player, int init_i, int init_j);
+    std::vector<int> betterIAResearch (std::vector<int>& listeIA);
+    std::vector<int> weakerEnnemyResearch (std::vector<int>& listePlayer);
     // Setters and Getters
   };
 
