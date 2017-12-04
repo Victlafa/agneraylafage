@@ -42,10 +42,10 @@ namespace engine{
                 creaTab->placeElement(finalPos[0], finalPos[1], creaType);
                 // On lui associe le joueur qui l'a placee
                 creaTab->get(finalPos[0], finalPos[1])->setPlayer(state.getPlayer(player).get());
-                cout << "PlaceCommand::execute - Une creature du joueur " << state.getPlayer(player).get() << "a été placée en " << finalPos[0] << "," << finalPos[1] << endl;
+                //cout << "PlaceCommand::execute - Une creature du joueur " << state.getPlayer(player).get() << "a été placée en " << finalPos[0] << "," << finalPos[1] << endl;
                 // On diminue le nombre restant de creatures du joueur
                 state.getPlayer(player)->decreaseCreaLeft();
-                cout << "Nombre de creatures restantes : " << state.getPlayer(player)->getCreaturesLeft() << endl;
+                //cout << "Nombre de creatures restantes : " << state.getPlayer(player)->getCreaturesLeft() << endl;
                 // Si la cellule ne contient qu'une creature, cela signifie que le joueur vient de prendre possession de la cellule
                 // On augmente donc le nombre de cellules du joueur concerne 
                 if (creaTab->get(finalPos[0], finalPos[1])->getCreaturesNbr() == 1)
