@@ -83,7 +83,7 @@ namespace ai {
         
         sf::Event event;
         
-        while (tour != 20 && window.isOpen()) {
+        while (tour != 40 && window.isOpen()) {
             
             while (window.pollEvent(event)) {
                 // Fermeture de la fenetre ?
@@ -102,6 +102,18 @@ namespace ai {
                     std::cout << "\n(APPUYER sur une touche de clavier pour passer à l'étape suivante)" << std::endl;
                 }
                 
+            }
+            
+            if (moteur.getState().getCellNbr() == moteur.getPlayer(1)->getCellNbr())
+            {
+                cout << "L'IA n°1 a conquit toute la carte !" << endl;
+                break;
+            }
+            
+            else if (moteur.getState().getCellNbr() == moteur.getPlayer(2)->getCellNbr())
+            {
+                cout << "L'IA n°2 a conquit toute la carte !" << endl;
+                break;
             }
             
             // On met à jour l'affichage
