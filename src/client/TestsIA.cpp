@@ -90,7 +90,7 @@ namespace ai {
                 if (event.type == sf::Event::Closed) window.close();
                 // Appui sur une touche de clavier ?
                 else if(event.type == sf::Event::EventType::KeyReleased){
-                    std::cout << "\n--------------    Tour n°" << tour/2 + 1 << ", c'est à l'IA n°" << tour%2 + 1 << " de jouer    --------------" << std::endl;
+                    std::cout << "\n--------------    Tour n°" << tour/2 + 1 << ", c'est à l'IA n°" << tour%2 + 1 << " de jouer    --------------" << std::endl << std::endl;
                     // Tour de l'IA n°1
                     if(tour%2==0) ia.run(1);
                     // Tour de l'IA n°2
