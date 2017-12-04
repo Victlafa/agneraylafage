@@ -21,7 +21,7 @@ namespace ai {
         engine::Engine moteur(CreaturesID::COOKERS);
         
         // On initialise une ia
-        RandomAI ia(rand()%30000);
+        RandomAI ia(&moteur, rand()%30000);
  
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
@@ -38,8 +38,8 @@ namespace ai {
             while (window.pollEvent(event)) {
                 if (event.type == sf::Event::Closed) window.close();
                 else if(event.type == sf::Event::EventType::KeyReleased){
-                    if(tour%2==0) ia.run(moteur,1);
-                    else ia.run(moteur,2);
+                    if(tour%2==0) ia.run(1);
+                    else ia.run(2);
                     moteur.update();
                     std::cout << "Fin du tour " << tour << std::endl;
                     tour++;
@@ -66,7 +66,7 @@ namespace ai {
         // On initialise un moteur, on choisit les mineurs pour le joueur 1
         engine::Engine moteur(CreaturesID::MINERS);
         // On initialise une ia
-        HeuristicAI ia(rand()%30000);
+        HeuristicAI ia(&moteur, rand()%30000);
         // Declaration de la fenetre
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
         // On crée un Layer qui permettra de gerer l'affichage des cellules
@@ -92,9 +92,9 @@ namespace ai {
                 else if(event.type == sf::Event::EventType::KeyReleased){
                     std::cout << "\n--------------    Tour n°" << tour/2 + 1 << ", c'est à l'IA n°" << tour%2 + 1 << " de jouer    --------------" << std::endl;
                     // Tour de l'IA n°1
-                    if(tour%2==0) ia.run(moteur,1);
+                    if(tour%2==0) ia.run(1);
                     // Tour de l'IA n°2
-                    else ia.run(moteur,2);
+                    else ia.run(2);
                     // Execution des commandes demandées par les IA
                     moteur.update();
                     tour++;
@@ -103,7 +103,7 @@ namespace ai {
                 }
                 
             }
-
+            
             // On met à jour l'affichage
             cellLayer.initSurface();
             charsLayer.initSurface();
