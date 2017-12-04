@@ -49,7 +49,7 @@ namespace engine{
             }
         }
         else
-            throw std::runtime_error("La case de destination doit etre adjacente à celle de depart !");
+            throw std::runtime_error("MoveCommand::execute - La case de destination doit etre adjacente à celle de depart !");
         
             
     }

@@ -69,7 +69,7 @@ namespace engine
             if (fighter != 1 && fighter != 2)
             {
                 winner = 0;
-                throw std::runtime_error("Erreur dans le choix de l'argument fighter du constructeur Fight::Fight, on doit entrer 1 ou 2");
+                throw std::runtime_error("Fight::gainConquest - Erreur dans le choix de l'argument fighter du constructeur Fight::Fight, on doit entrer 1 ou 2");
             }
                 
             else
