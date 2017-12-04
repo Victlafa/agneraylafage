@@ -96,7 +96,7 @@ namespace ai {
                     // Tour de l'IA n°2
                     else ia.run(2);
                     // Execution des commandes demandées par les IA
-                    moteur.update();
+                    //moteur.update();
                     tour++;
                     moteur.increaseTour();
                     std::cout << "\n(APPUYER sur une touche de clavier pour passer à l'étape suivante)" << std::endl;
