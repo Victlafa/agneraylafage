@@ -7,15 +7,17 @@
 namespace render
 {
     
-    Surface::Surface ()
-    {
-        //this->quadsList.resize(29*4);
-    }
+    Surface::Surface () {}
     
     void Surface::loadTexture (const std::string& imgFile)
     {
-        if(!this->texture.loadFromFile("./res/" + imgFile)) 
-            std::cout<< "Erreur chargement texture de Surface ! \n"<< std::endl;
+        sf::Texture newTexture;
+        
+        if(!newTexture.loadFromFile("./res/" + imgFile)) 
+            newTexture.loadFromFile("../res/" + imgFile);
+        
+        this->setTexture(newTexture);
+            //std::cout<< "Erreur chargement texture de Surface ! \n"<< std::endl;
     }
     
     void Surface::setFinalLocation (int index, int shift, int x, int y, const Tile& tex)
@@ -45,10 +47,10 @@ namespace render
         this->quadsList[index][3].texCoords = sf::Vector2f(x - halfWidth, y + halfHeight);
     }
     
-    void Surface::draw (sf::RenderTarget& target, sf::RenderStates states) const
+    void Surface::draw (sf::RenderTarget& target) const
     {
         for (auto elem : quadsList)
-            target.draw(elem,states);
+            target.draw(elem,&texture);
     }
     
     void Surface::initQuads ()

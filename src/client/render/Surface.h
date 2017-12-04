@@ -24,7 +24,7 @@ namespace render {
     void loadTexture (const std::string& imgFile);
     void setFinalLocation (int index, int shift, int x, int y, const Tile& tex);
     void setTextureLocation (int index, const Tile& tex);
-    void draw (sf::RenderTarget& target, sf::RenderStates states) const;
+    void draw (sf::RenderTarget& target) const;
     void initQuads ();
     // Setters and Getters
     const sf::Texture& getTexture() const;

@@ -14,6 +14,7 @@ namespace render
     {
         this->tileset = std::shared_ptr<CharsTileSet>(new CharsTileSet());
         this->initSurface();
+        this->surface->loadTexture("groupes.png");
     }
     void CreaturesTabLayer::initSurface ()
 {
@@ -23,7 +24,6 @@ namespace render
         int halfWidth = 0;
         this->surface->initQuads();
         
-        //this->surface->loadTexture("groupes.png");
         halfWidth = 50;
 
         // Listes temporaires qui permettront d'initialiser les Surface

@@ -14,6 +14,7 @@ namespace render
     {
         this->tileset = std::shared_ptr<CellTileSet>(new CellTileSet());
         this->initSurface();
+        this->surface->loadTexture("hexa.png");
     }
     void CellTabLayer::initSurface ()
     {
