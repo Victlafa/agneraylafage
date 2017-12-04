@@ -57,27 +57,6 @@ namespace render
                 
                 break;
         }
-        /*
-        if (elem.getElemType() == state::TypeID::CREATURESGROUP)
-        {
-            state::CreaturesGroup group = (const state::CreaturesGroup)elem;
-            
-            if (group.getCreaturesType() == state::CreaturesID::COOKER)
-                return creatures[0][group.getCreaturesNbr()];
-            else if (group.getCreaturesType() == state::CreaturesID::BLACKSMITH)
-                return creatures[1][group.getCreaturesNbr()];
-            else if (group.getCreaturesType() == state::CreaturesID::LUMBERJACK)
-                return creatures[2][group.getCreaturesNbr()];
-            else if (group.getCreaturesType() == state::CreaturesID::MINER)
-                return creatures[3][group.getCreaturesNbr()];
-            else
-                return *(new Tile(-1,-1,-1,-1));
-                
-        }
-        
-        else
-            return *(new Tile(-1,-1,-1,-1));
-        */
         
     }
 
@@ -104,35 +83,6 @@ namespace render
                 std::cout << "erreur attribution CharsTileSet" << std::endl;
                 break;
         }
-        /*
-        if (elem->getElemType() == state::TypeID::CREATURESGROUP)
-        {
-            
-            switch(( (const state::CreaturesGroup)(*elem) ).getCreaturesType()){
-                case state::CreaturesID::BLACKSMITH :
-                    return this->creatures[0][elem->getCreaturesNbr()];
-                   break;
-                case state::CreaturesID::COOKER :
-                    return this->creatures[1][elem->getCreaturesNbr()];
-                    break;
-                case state::CreaturesID::LUMBERJACK :
-                    return this->creatures[2][elem->getCreaturesNbr()];
-                    break;
-                case state::CreaturesID::MINER :
-                    return this->creatures[3][elem->getCreaturesNbr()];
-                    break;
-                default :
-                    return *(new Tile(-1,-1,-1,-1));
-                    std::cout << "erreur attribution CellTileSet" << std::endl;
-                    break;
-            }
-
-        }
-        else
-        {
-            return *(new Tile(-1,-1,-1,-1));
-            std::cout << "bug2" << std::endl;
-        }*/
     }
 }
 
