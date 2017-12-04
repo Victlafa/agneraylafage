@@ -16,23 +16,6 @@ namespace engine
 {
     Engine::Engine(CreaturesID typePl1) : currentState(typePl1) { 
         tour = 1;
-        render::CellTabLayer cellLayer(*(currentState.getGrid().get()));
-        render::CreaturesTabLayer charsLayer(*(currentState.getCharacters().get()));
-
-        // Declaration et chargement des textures à exploiter pour l'affichage
-        sf::Texture hexaTexture;
-        sf::Texture charsTexture;
-
-        // Le premier cas marche chez Victoire, le second chez Aurore
-        if (!hexaTexture.loadFromFile("./res/hexa.png")) hexaTexture.loadFromFile("../res/hexa.png");
-        else std::cout << "Erreur chargement texture hexa !\n" << std::endl;
-
-        if (!charsTexture.loadFromFile("./res/groupes.png")) charsTexture.loadFromFile("../res/groupes.png");
-        else std::cout << "Erreur chargement texture groupes !\n" << std::endl;
-
-        // On associe les textures chargees aux Surfaces des Layers de cellules et de groupes de creatures
-        cellLayer.getSurface()->setTexture(hexaTexture);
-        charsLayer.getSurface()->setTexture(charsTexture);
     }
     
     Engine::~Engine (){}
