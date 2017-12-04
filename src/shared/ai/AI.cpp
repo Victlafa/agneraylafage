@@ -38,7 +38,7 @@ namespace ai{
     {
         // Les deux premiers elements du tableau seront les coordonnees de la cellule choisie. Le troisieme element sera le nombre de creatures que comportera la cellule apres l'execution du placement
         std::vector<int> coordsDestination(3);
-        
+                
         // On verifie que le joueur dispose encore en stock de creatures à placer sur la grille
         if (moteur->getState().getPlayer(player)->getCreaturesLeft() > 0)
         {
@@ -49,6 +49,8 @@ namespace ai{
             // si choice = 0 on cherchera un groupe de l'ia, si choice = 1 on cherche une case vide
             // S'il n'y a plus de case vide disponible, on met d'office choice à 0
             int choice = (moteur->getState().getFreeCellNbr() == 0) ? 0 : rand()%2;
+            // S'il reste un nombre de cases libres inférieur à 5 et différent de 0, on favorise le choix de ces cases
+            if (moteur->getState().getFreeCellNbr() > 0 && moteur->getState().getFreeCellNbr() < 5) choice = 1;
             
             // On recupere le joueur
             state::Player* player_ia = moteur->getPlayer(player).get();
@@ -65,12 +67,15 @@ namespace ai{
                         // Si on cherche un groupe de creatures appartenant au joueur qui souhaite placer une creature et qu'il est de pointeur non nul
                         if (choice == 0 && moteur->getState().getCharacters()->get(i, j).get() != 0 && moteur->getState().getCharacters()->get(i, j)->getPlayer() == player_ia) {
                             //cout << "Cellule du joueur disponible " << "i : " << i << "|| j : " << j << endl; // Oooooooookkkk
-                            // Si ce groupe appartient à l'ia et qu'il a au plus 5 creatures
+                            // Si ce groupe appartient à l'ia et qu'il a au plus 4 creatures
                             int creaNbr = moteur->getState().getCharacters()->get(i, j)->getCreaturesNbr();
+                            
                             if (creaNbr > 0 && creaNbr < 5) {
+                                // Il est valide et on le selectionne
                                 ligne = i;
                                 colonne = j;
                                 coordsDestination[2] = moteur->getState().getCharacters()->get(ligne,colonne)->getCreaturesNbr() + 1;
+                                //cout << "Nombre de creatures prevu apres placement : " << coordsDestination[2] << endl;
 
                                 // On sort de la boucle for j
                                 break;

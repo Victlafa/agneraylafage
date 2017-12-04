@@ -28,7 +28,7 @@ namespace ai
             this->initIA(player);
         
         // 1. PHASE DE CONQUETE
-        cout << "---------------- PHASE DE CONQUETE ----------------" << endl;
+        cout << "-------------------------------- PHASE DE CONQUETE --------------------------------" << endl << endl;
         // On tire pour cela au sort une cellule de l'ia et une cellule du joueur 1 à attaquer
         std::vector<int> coordsDeplacement = moveCellResearch(player);
         CreaturesTab* creaTab = getMoteur()->getState().getCharacters().get();
@@ -52,17 +52,19 @@ namespace ai
         listCommands.clear();
         
         // 2. PHASE DE RENFORT
-        cout << "---------------- PHASE DE RENFORT ----------------" << endl;
+        cout << endl;
+        cout << "-------------------------------- PHASE DE RENFORT --------------------------------" << endl << endl;
         
-        // L'IA reçoit autant de creatures à placer qu'elle dispose de territoires. On plafonne à 5 !
+        // L'IA reçoit autant de creatures à placer qu'elle dispose de territoires. On plafonne à 8 !
         int nbrCell = (getMoteur()->getPlayer(player)->getCellNbr() > 8) ? 8 : getMoteur()->getPlayer(player)->getCellNbr();
         
         getMoteur()->getPlayer(player)->setCreaturesLeft(nbrCell);
-        cout << "L'IA n°" << player << " dispose maintenant de " << nbrCell << " cellules, elle peut donc placer autant de nouvelles creatures sur la carte." << endl;
+        cout << "L'IA n°" << player << " dispose maintenant de " << nbrCell << " cellules, elle peut donc placer autant de nouvelles creatures sur la carte. (plafonné à 8)" << endl;
         
         // On declare un tableau qui contiendra les coords des cellules selectionnees pour le placement de nouvelles creatures
         std::vector<int> newCreasCoordsTotales(0);
         std::vector<int> newCreasCoordsUnitaires(3);
+        engine::PlaceCommand* placement;
         
         // On recupere une liste des coordonnees des cellules qu'occuperont ces creatures et on ajoute les commandes au fur et à mesure à la liste
         for (int i = 0; i < nbrCell; i++)
@@ -76,14 +78,11 @@ namespace ai
                 newCreasCoordsTotales.push_back(newCreasCoordsUnitaires[1]);
             }
             
-            listCommands.push_back(std::shared_ptr<engine::Command>(new engine::PlaceCommand(newCreasCoordsUnitaires[0], newCreasCoordsUnitaires[1], player, (state::ID)getMoteur()->getPlayer(player)->getClanName())));
+            placement = new engine::PlaceCommand(newCreasCoordsUnitaires[0], newCreasCoordsUnitaires[1], player, (state::ID)getMoteur()->getPlayer(player)->getClanName());
+            placement->execute(getMoteur()->getState());
+            cout << "Nombre de cellules vides restantes apres placement : " << getMoteur()->getState().getFreeCellNbr() << endl;
+            cout << "Nombre de cellules du joueur : " << getMoteur()->getPlayer(player)->getCellNbr() << endl;
         }
-            
-        for (int i = 0; i < (int)(listCommands.size()); i++)
-            listCommands[i]->execute(getMoteur()->getState());
-        
-        // On vide la liste des commandes
-        listCommands.clear();
     }
     
     // On cherche une cellule attaquante pour l'IA ainsi qu'une cellule destination adverse ADJACENTE
