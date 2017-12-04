@@ -30,12 +30,13 @@ namespace ai {
     virtual std::vector<int> moveCellResearch (int player) = 0;
     virtual std::vector<int> adjacentEnnemyResearch (int player, int init_i, int init_j) = 0;
     std::vector<int> adjacentCellResearch (int init_i, int init_j);
-    std::vector<int> placeCellResearch (int player);
+    std::vector<int> placeCellResearch (int player, std::vector<int>& disabledPlaces);
     std::vector<int> skyCellResearch (int player);
     std::vector<int> playerCellResearch (int player);
     bool isAdjacent (int init_i, int init_j, int final_i, int final_j);
     std::vector<int> getAdjacences (int i, int j);
     engine::Engine* getMoteur () const;
+    bool isAvailable (int i, int j, std::vector<int>& disabledPlaces);
     // Setters and Getters
     const std::vector<std::shared_ptr<engine::Command> >& getListCommands() const;
     void setListCommands(const std::vector<std::shared_ptr<engine::Command> >& listCommands);

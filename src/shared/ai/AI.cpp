@@ -11,6 +11,7 @@
 #include <iostream>
 
 using namespace state;
+using namespace std;
 
 namespace ai{
     AI::AI (engine::Engine* moteur) : listCommands()
@@ -33,10 +34,10 @@ namespace ai{
     }
     
     // On cherche une cellule destination pour l'IA afin de placer sur la carte un de ses groupes en reserve
-    std::vector<int> AI::placeCellResearch (int player)
+    std::vector<int> AI::placeCellResearch (int player, std::vector<int>& disabledPlaces)
     {
         
-        std::vector<int> coordsDestination(player);
+        std::vector<int> coordsDestination(2);
         
         // On verifie que le joueur dispose encore en stock de creatures à placer sur la grille
         if (moteur->getState().getPlayer(player)->getCreaturesLeft() > 0)
@@ -47,20 +48,34 @@ namespace ai{
             // si choice = 0 on cherchera un groupe de l'ia, si choice = 1 on cherche une case vide
             int choice = rand()%2;
 
-            // On recupere le joueur 2 (ia)
+            // On recupere le joueur
             state::Player* player_ia = moteur->getPlayer(player).get();
 
             for (unsigned int i = 0; i < moteur->getState().getCharacters()->getHeight(); i++) 
             {
                 for (unsigned int j = 0; j < moteur->getState().getCharacters()->getWidth(); j++) 
                 {
-                    // Si on cherche un groupe de creatures et qu'il est de pointeur non nul
-                    if (choice == 0 && moteur->getState().getCharacters()->get(i,j).get() != 0)
+                    // On verifie si les coordonnees etudiees ne sont pas deja prevues pour un autre placement durant ce tour
+                    if (isAvailable(i,j,disabledPlaces))
                     {
-                        // Si ce groupe appartient à l'ia et qu'il a au plus 5 creatures
-                        int creaNbr = moteur->getState().getCharacters()->get(i,j)->getCreaturesNbr();
-                        if (moteur->getState().getCharacters()->get(i,j)->getPlayer() == player_ia && creaNbr > 0 && creaNbr < 6)
-                        {
+                        //cout << "i : " << i << "|| j : " << j << endl;  // Oooooookkkkk
+                        
+                        // Si on cherche un groupe de creatures appartenant au joueur qui souhaite placer une creature et qu'il est de pointeur non nul
+                        if (choice == 0 && moteur->getState().getCharacters()->get(i, j).get() != 0 && moteur->getState().getCharacters()->get(i, j)->getPlayer() == player_ia) {
+                            //cout << "Cellule du joueur disponible " << "i : " << i << "|| j : " << j << endl; // Oooooooookkkk
+                            // Si ce groupe appartient à l'ia et qu'il a au plus 5 creatures
+                            int creaNbr = moteur->getState().getCharacters()->get(i, j)->getCreaturesNbr();
+                            if (creaNbr > 0 && creaNbr < 5) {
+                                ligne = i;
+                                colonne = j;
+
+                                // On sort de la boucle for j
+                                break;
+                            }
+                        }                            
+                        
+                        // Si on cherche une case vide (ON DOIT VERIFIER QUE LA CASE EST AUTORISEE !!)
+                        else if (choice == 1 && moteur->getState().getCharacters()->isEnable(i, j) && moteur->getState().getCharacters()->get(i, j).get() == NULL) {
                             ligne = i;
                             colonne = j;
 
@@ -68,15 +83,7 @@ namespace ai{
                             break;
                         }
                     }
-                    // Si on cherche une case vide (ON DOIT VERIFIER QUE LA CASE EST AUTORISEE !!)
-                    else if (choice == 1 && moteur->getState().getCharacters()->isEnable(i,j) && moteur->getState().getCharacters()->get(i,j).get() == NULL )
-                    {
-                        ligne = i;
-                        colonne = j;
-
-                        // On sort de la boucle for j
-                        break;
-                    }
+                    
 
                 }
 
@@ -94,6 +101,9 @@ namespace ai{
         
         else
             throw std::runtime_error("AI::placeCellResearch - L'IA ne dispose plus de creatures à placer dans la grille !");
+        
+        if (moteur->getState().getCharacters()->get(coordsDestination[0], coordsDestination[1]) != NULL && moteur->getState().getCharacters()->get(coordsDestination[0], coordsDestination[1])->getCreaturesNbr() == 5)
+            throw std::runtime_error("AI::placeCellResearch - La cellule destination selectionnee dispose deja de 5 creatures !");
         
         return coordsDestination;
     }
@@ -272,6 +282,22 @@ namespace ai{
         liste.push_back(j-1);
         
         return liste;
+    }
+    
+    // Renvoie true si les coordonnees i et j ne sont pas presentes dans la liste disabledPlaces
+    bool AI::isAvailable (int i, int j, std::vector<int>& disabledPlaces)
+    {
+        if (disabledPlaces.size() == 0)
+            return true;
+        else
+        {
+            for (int i = 0; i < (int) disabledPlaces.size() / 2; i++) {
+                if (disabledPlaces[2 * i] == i && disabledPlaces[2 * i + 1] == j)
+                    return false;
+            }
+            return true;
+        }
+        
     }
 
 }

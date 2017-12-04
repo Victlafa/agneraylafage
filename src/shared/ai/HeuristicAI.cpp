@@ -10,6 +10,7 @@
 #include "../shared/state/CreaturesTab.h"
 
 using namespace state;
+using namespace std;
 
 namespace ai
 {
@@ -27,18 +28,16 @@ namespace ai
             this->initIA(player);
         
         // 1. PHASE DE CONQUETE
+        cout << "---------------- PHASE DE CONQUETE ----------------" << endl;
         // On tire pour cela au sort une cellule de l'ia et une cellule du joueur 1 à attaquer
         std::vector<int> coordsDeplacement = moveCellResearch(player);
         CreaturesTab* creaTab = getMoteur()->getState().getCharacters().get();
         
-        std::cout << "Coordonnees tirees au hasard pour depart de l'IA n°" << player << " : (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ")" << std::endl;
-        std::cout << "Coordonnees tirees au hasard pour destination de l'IA n°" << player << " : (" << coordsDeplacement[2] << "," << coordsDeplacement[3] << ")" << std::endl;
+        std::cout << "HeuristicAI::run - Depart de l'IA n°" << player << " : (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ")" << std::endl;
+        std::cout << "HeuristicAI::run - Destination de l'IA n°" << player << " : (" << coordsDeplacement[2] << "," << coordsDeplacement[3] << ")" << std::endl;
         
-        std::cout << "Nombre de creatures de l'IA n°" << player << " sur (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ") avant deplacement :" << creaTab->get(coordsDeplacement[0],coordsDeplacement[1])->getCreaturesNbr() << std::endl;
-        if (creaTab->get(coordsDeplacement[2],coordsDeplacement[3]) != NULL)
-            std::cout << "Nombre de creatures sur (" << coordsDeplacement[2] << "," << coordsDeplacement[3] << ") avant deplacement : " << creaTab->get(coordsDeplacement[2],coordsDeplacement[3])->getCreaturesNbr() << std::endl;
-        else
-            std::cout << "La case destination est vide" << std::endl;
+        if (creaTab->get(coordsDeplacement[2],coordsDeplacement[3]) == NULL)
+            std::cout << "HeuristicAI::run - La case destination est vide" << std::endl;
         
         // On ajoute la commande associee à ce deplacement
         listCommands.push_back(std::shared_ptr<engine::Command> ( new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player)));
@@ -46,31 +45,34 @@ namespace ai
         for (int i = 0; i < (int)(listCommands.size()); i++)
             listCommands[i]->execute(getMoteur()->getState());
         
-        std::cout << "Nombre de creatures de l'IA n°" << player << " sur (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ") apres deplacement :" << creaTab->get(coordsDeplacement[0],coordsDeplacement[1])->getCreaturesNbr() << std::endl;
-        
-        if (creaTab->get(coordsDeplacement[2],coordsDeplacement[3]) != NULL)
-            std::cout << "Nombre de creatures sur (" << coordsDeplacement[2] << "," << coordsDeplacement[3] << ") apres deplacement : " << creaTab->get(coordsDeplacement[2],coordsDeplacement[3])->getCreaturesNbr() << std::endl;
-        else
-            throw std::runtime_error("La case de destination est tjrs vide meme apres deplacement !");
+        // On verifie que le deplacement de la phase de conquete a bien ete effectue
+        if (creaTab->get(coordsDeplacement[2],coordsDeplacement[3]) == NULL)
+            throw std::runtime_error("HeuristicAI::run - La case de destination est tjrs vide meme apres deplacement !");
+                                     
+        listCommands.clear();
         
         // 2. PHASE DE RENFORT
+        cout << "---------------- PHASE DE RENFORT ----------------" << endl;
         // L'IA reçoit autant de creatures à placer qu'elle dispose de territoires
-//        int nbrCell = moteur.getPlayer(player)->getCellNbr();
-//        moteur.getPlayer(player)->setCreaturesLeft(nbrCell);
-//        // On declare un tableau qui contiendra les coords des cellules selectionnees pour le placement de nouvelles creatures
-//        std::vector<int> newCreasCoordsTotales;
-//        std::vector<int> newCreasCoordsUnitaires(2);
-//        
-//        // On recupere une liste des coordonnees des cellules qu'occuperont ces creatures et on ajoute les commandes au fur et à mesure à la liste
-//        for (int i = 0; i < nbrCell; i++)
-//        {
-//            newCreasCoordsUnitaires = this->placeCellResearch(moteur,2,newCreasCoordsTotales);
-//            newCreasCoordsTotales.push_back(newCreasCoordsUnitaires[0]);
-//            newCreasCoordsTotales.push_back(newCreasCoordsUnitaires[1]);
-//            listCommands.push_back(std::shared_ptr<engine::Command>(new engine::PlaceCommand(newCreasCoordsUnitaires[0], newCreasCoordsUnitaires[1], player, (state::ID)moteur.getPlayer(2)->getClanName())));
-//        }
-            
+        int nbrCell = getMoteur()->getPlayer(player)->getCellNbr();
+        getMoteur()->getPlayer(player)->setCreaturesLeft(nbrCell);
+        cout << "L'IA n°" << player << " dispose maintenant de " << nbrCell << " cellules, elle peut donc placer autant de nouvelles creatures sur la carte." << endl;
         
+        // On declare un tableau qui contiendra les coords des cellules selectionnees pour le placement de nouvelles creatures
+        std::vector<int> newCreasCoordsTotales(0);
+        std::vector<int> newCreasCoordsUnitaires(2);
+        
+        // On recupere une liste des coordonnees des cellules qu'occuperont ces creatures et on ajoute les commandes au fur et à mesure à la liste
+        for (int i = 0; i < nbrCell; i++)
+        {
+            newCreasCoordsUnitaires = this->placeCellResearch(player,newCreasCoordsTotales);
+            newCreasCoordsTotales.push_back(newCreasCoordsUnitaires[0]);
+            newCreasCoordsTotales.push_back(newCreasCoordsUnitaires[1]);
+            listCommands.push_back(std::shared_ptr<engine::Command>(new engine::PlaceCommand(newCreasCoordsUnitaires[0], newCreasCoordsUnitaires[1], player, (state::ID)getMoteur()->getPlayer(player)->getClanName())));
+        }
+            
+        for (int i = 0; i < (int)(listCommands.size()); i++)
+            listCommands[i]->execute(getMoteur()->getState());
         
         // On vide la liste des commandes
         listCommands.clear();
