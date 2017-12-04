@@ -36,8 +36,8 @@ namespace ai{
     // On cherche une cellule destination pour l'IA afin de placer sur la carte un de ses groupes en reserve
     std::vector<int> AI::placeCellResearch (int player, std::vector<int>& disabledPlaces)
     {
-        
-        std::vector<int> coordsDestination(2);
+        // Les deux premiers elements du tableau seront les coordonnees de la cellule choisie. Le troisieme element sera le nombre de creatures que comportera la cellule apres l'execution du placement
+        std::vector<int> coordsDestination(3);
         
         // On verifie que le joueur dispose encore en stock de creatures à placer sur la grille
         if (moteur->getState().getPlayer(player)->getCreaturesLeft() > 0)
@@ -45,9 +45,11 @@ namespace ai{
             // On va chercher une case vide ou une case appartenant à l'IA
             unsigned int ligne = 0;
             unsigned int colonne = 0;
+            
             // si choice = 0 on cherchera un groupe de l'ia, si choice = 1 on cherche une case vide
-            int choice = rand()%2;
-
+            // S'il n'y a plus de case vide disponible, on met d'office choice à 0
+            int choice = (moteur->getState().getFreeCellNbr() == 0) ? 0 : rand()%2;
+            
             // On recupere le joueur
             state::Player* player_ia = moteur->getPlayer(player).get();
 
@@ -68,6 +70,7 @@ namespace ai{
                             if (creaNbr > 0 && creaNbr < 5) {
                                 ligne = i;
                                 colonne = j;
+                                coordsDestination[2] = moteur->getState().getCharacters()->get(ligne,colonne)->getCreaturesNbr() + 1;
 
                                 // On sort de la boucle for j
                                 break;
@@ -76,8 +79,10 @@ namespace ai{
                         
                         // Si on cherche une case vide (ON DOIT VERIFIER QUE LA CASE EST AUTORISEE !!)
                         else if (choice == 1 && moteur->getState().getCharacters()->isEnable(i, j) && moteur->getState().getCharacters()->get(i, j).get() == NULL) {
+                            //cout << "Cellule vide disponible " << "i : " << i << "|| j : " << j << endl; // Oooooooookkkk
                             ligne = i;
                             colonne = j;
+                            coordsDestination[2] = 1;
 
                             // On sort de la boucle for j
                             break;
@@ -97,6 +102,7 @@ namespace ai{
 
             coordsDestination[0] = ligne;
             coordsDestination[1] = colonne;
+            
         }
         
         else
@@ -291,10 +297,13 @@ namespace ai{
             return true;
         else
         {
-            for (int i = 0; i < (int) disabledPlaces.size() / 2; i++) {
-                if (disabledPlaces[2 * i] == i && disabledPlaces[2 * i + 1] == j)
+            //cout << "Elements de disabledPlaces : ";
+            for (int k = 0; k < (int) disabledPlaces.size() / 2; k++) {
+                //cout << disabledPlaces[2*k] << "," << disabledPlaces[2*k+1] << " ";
+                if (disabledPlaces[2 * k] == i && disabledPlaces[2 * k + 1] == j)
                     return false;
             }
+            //cout << endl;
             return true;
         }
         
