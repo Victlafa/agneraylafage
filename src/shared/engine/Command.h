@@ -2,24 +2,35 @@
 #ifndef ENGINE__COMMAND__H
 #define ENGINE__COMMAND__H
 
+#include <stack>
+#include <memory>
 
+namespace engine {
+  class Action;
+};
 namespace state {
   class State;
 }
 
 #include "CommandTypeID.h"
+#include "Action.h"
 #include "state/State.h"
 
 namespace engine {
 
   /// class Command - 
   class Command {
+    // Attributes
+  protected:
+    int player;
     // Operations
   public:
     virtual ~Command ();
     virtual CommandTypeID getTypeID () const = 0;
-    virtual void execute (state::State& state) = 0;
+    virtual void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state) = 0;
     // Setters and Getters
+    int getPlayer() const;
+    void setPlayer(int player);
   };
 
 };
