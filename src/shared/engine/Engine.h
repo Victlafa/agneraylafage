@@ -4,6 +4,7 @@
 
 #include <map>
 #include <memory>
+#include <stack>
 
 namespace state {
   class State;
@@ -26,6 +27,8 @@ namespace engine {
     state::State currentState;
     std::map<int,std::unique_ptr<Command> > currentCommands;
     int tour;
+  protected:
+    std::stack<std::shared_ptr<Action> > pileAction;
     // Operations
   public:
     Engine (state::CreaturesID typePl1);
@@ -39,6 +42,8 @@ namespace engine {
     void increaseTour ();
     int getTour ();
     // Setters and Getters
+    const std::stack<std::shared_ptr<Action> >& getPileAction() const;
+    void setPileAction(const std::stack<std::shared_ptr<Action> >& pileAction);
   };
 
 };
