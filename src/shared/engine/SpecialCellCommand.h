@@ -2,12 +2,12 @@
 #ifndef ENGINE__SPECIALCELLCOMMAND__H
 #define ENGINE__SPECIALCELLCOMMAND__H
 
-#include <memory>
 #include <vector>
-#include <string>
+#include <stack>
+#include <memory>
 
 namespace engine {
-  class Fight;
+  class Action;
 };
 namespace state {
   class State;
@@ -16,7 +16,8 @@ namespace engine {
   class Command;
 }
 
-#include "Fight.h"
+#include "SpecialTypeID.h"
+#include "Action.h"
 #include "CommandTypeID.h"
 #include "Command.h"
 
@@ -25,33 +26,24 @@ namespace engine {
   /// class SpecialCellCommand - 
   class SpecialCellCommand : public engine::Command {
     // Associations
+    engine::SpecialTypeID* specialType;
     // Attributes
   protected:
-    std::shared_ptr<Fight> fight;
-    std::vector<int> initPos;
-    std::vector<int> finalPos;
-    int player;
-    std::string type;
+    std::vector<int> init;
+    std::vector<int> target;
     // Operations
   public:
-    SpecialCellCommand (int init_i, int init_j, int final_i, int final_j, int player, std::string type);
-    bool isOwner (state::State& state);
+    SpecialCellCommand (int init_i, int init_j, int target_i, int target_j, int player, SpecialTypeID type);
+    void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
     CommandTypeID getTypeID () const;
-    void execute (state::State& state);
-    void skyPower (state::State& state);
-    void sugarPower (state::State& state);
-    void bbqPoolPower (state::State& state);
+    SpecialTypeID getSpecialTypeID () const;
     // Setters and Getters
-    const std::shared_ptr<Fight>& getFight() const;
-    void setFight(const std::shared_ptr<Fight>& fight);
-    const std::vector<int>& getInitPos() const;
-    void setInitPos(const std::vector<int>& initPos);
-    const std::vector<int>& getFinalPos() const;
-    void setFinalPos(const std::vector<int>& finalPos);
-    int getPlayer() const;
-    void setPlayer(int player);
-    const std::string& getType() const;
-    void setType(const std::string& type);
+    SpecialTypeID getSpecialType() const;
+    void setSpecialType(SpecialTypeID specialType);
+    const std::vector<int>& getInit() const;
+    void setInit(const std::vector<int>& init);
+    const std::vector<int>& getTarget() const;
+    void setTarget(const std::vector<int>& target);
   };
 
 };
