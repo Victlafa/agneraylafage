@@ -23,7 +23,7 @@ namespace state {
     CreaturesTab (size_t width, size_t height);
     ~CreaturesTab ();
     bool isOccupiedByOpp (int i, int j, Player* joueur);
-    void moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem, int fight);
+    std::vector<int> moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem, int fight);
     void placeElement (int new_i_elem, int new_j_elem, ID creaType);
     bool isEnable (unsigned int i, unsigned int j);
     bool isUnique (std::vector<int>& listeTmp, int i, int j);

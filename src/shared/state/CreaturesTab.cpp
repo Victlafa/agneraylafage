@@ -7,6 +7,7 @@
 #include "CreaturesTab.h"
 #include "CreaturesID.h"
 #include "CreaturesGroup.h"
+#include "ID.h"
 
 namespace state
 {
@@ -21,17 +22,22 @@ namespace state
             return false;
     }
     
-    void CreaturesTab::moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem, int fight)
+    // Effectue un deplacement entre deux cellules et renvoie les nombres de creatures qu'elles possedaient avant le deplacement
+    std::vector<int> CreaturesTab::moveElement (int i_elem, int j_elem, int new_i_elem, int new_j_elem, int fight)
     {
-                
+        std::vector<int> oldCreaNbr(2);
+        
         // Nbre de creatures de la cellule attaquante
         int creaNbrAtt = this->get(i_elem,j_elem)->getCreaturesNbr();
-        
+                
         // Nbre de creatures de la cellule destination
         int creaNbrDef = 0;
         // A definir seulement si la case de destination est non vide !
         if (this->get(new_i_elem,new_j_elem) != NULL)
             creaNbrDef = this->get(new_i_elem,new_j_elem)->getCreaturesNbr();
+        
+        oldCreaNbr[0] = creaNbrAtt;
+        oldCreaNbr[1] = creaNbrDef;
         
         // On verifie si le deplacement est possible ou non
         
@@ -137,6 +143,8 @@ namespace state
         
         else
             throw std::runtime_error("CreaturesTab::moveElement - Le déplacement n'a pas pu etre effectué car la case de destination est interdite !"); 
+        
+        return oldCreaNbr;
         
     }
     
