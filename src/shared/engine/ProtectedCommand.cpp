@@ -12,31 +12,21 @@ using namespace state;
 
 namespace engine
 {
-    ProtectedCommand::ProtectedCommand (int i_cell, int j_cell) : cell(2) {
-        cell[0] = i_cell;
-        cell[1] = j_cell;
+    ProtectedCommand::ProtectedCommand (int i_cell, int j_cell) : target(2) {
+        target[0] = i_cell;
+        target[1] = j_cell;
     };
     
-    bool ProtectedCommand::isProtected(state::State& state){
-        CellState etatCell = ((Cell)*state.getGrid()->get(cell[0],cell[1])).getCellState();
-        std::cout << "etat de la cellule : " << etatCell << std::endl;
-        if (etatCell == CellState::PROTECTED)
-            return true;
-        else
-            return false;
-    }
-    
-    void ProtectedCommand::protectProcess (state::State& state)
-    {
-        
-    }
-    
     CommandTypeID ProtectedCommand::getTypeID () const {return CommandTypeID::PROTECTED; }
-    void ProtectedCommand::execute (state::State& state)
+    
+    void ProtectedCommand::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state)
     {
-        protectProcess(state);
+        ProtectedAction action;
+        action.apply();
     }
+    
     // Setters and Getters
-    const std::vector<int>& ProtectedCommand::getCell() const{return cell;}
-    void ProtectedCommand::setCell(const std::vector<int>& cell) {this->cell = cell;}
+    const std::vector<int>& ProtectedCommand::getTarget() const{return target;}
+   
+   void ProtectedCommand::setTarget(const std::vector<int>& target) {this->target = target;}
 }
