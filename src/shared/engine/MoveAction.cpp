@@ -6,6 +6,9 @@
 
 #include "MoveAction.h"
 #include <iostream>
+#include "../state/CreaturesGroup.h"
+
+using namespace state;
 
 namespace engine{
     
@@ -22,7 +25,7 @@ namespace engine{
         
     }
     bool MoveAction::getIsThereFight () { return isThereFight; }
-    std::vector<int>& MoveAction::getInitCreaturesNbr () const { return initCreaturesNbr; }
+    const std::vector<int>& MoveAction::getInitCreaturesNbr () const { return initCreaturesNbr; }
     void MoveAction::apply (state::State& state) {
 
         // Si la case de destination est occupée par l'adversaire, on engage un combat
@@ -55,7 +58,8 @@ namespace engine{
         // On replace les creatures sur les deux cases telles qu'elles etaient avant le combat
         // Joueur qui se deplace
         // S'il y a un groupe sur la cellule de depart
-        if (CreaturesGroup* attGroup = etat.getCharacters()->get(initPos[0],initPos[1]) != NULL)
+        Element* attGroup = etat.getCharacters()->get(initPos[0],initPos[1]).get();
+        if (attGroup)
         {
             // On lui associe le joueur concerne
             attGroup->setPlayer(etat.getPlayer(player).get());
@@ -70,21 +74,22 @@ namespace engine{
         }
 
         // Si la cellule d'arrivee est occupee apres deplacement
-        if (CreaturesGroup* attGroup = etat.getCharacters()->get(finalPos[0],finalPos[1]) != NULL)
+        Element* defGroup = etat.getCharacters()->get(finalPos[0],finalPos[1]).get();
+        if (defGroup)
         {
             // Si elle appartenait à l'adversaire avant deplacement/combat
             if (fight->getCreasDefender() != 0)
             {
                 // On lui restitue ses creatures
-                attGroup->setPlayer(etat.getPlayer(3-player).get());
-                attGroup->setCreaturesNbr(fight->getCreasDefender());
+                defGroup->setPlayer(etat.getPlayer(3-player).get());
+                defGroup->setCreaturesNbr(fight->getCreasDefender());
             }
             // Si elle appartenait au joueur en cours (il n'y a donc pas eu combat)
             else if (fight->getCreasDefender() == 0 && initCreaturesNbr[1] != 0)
             {
                 // On lui restitue ses creatures
-                attGroup->setPlayer(etat.getPlayer(player).get());
-                attGroup->setCreaturesNbr(initCreaturesNbr[1]);
+                defGroup->setPlayer(etat.getPlayer(player).get());
+                defGroup->setCreaturesNbr(initCreaturesNbr[1]);
             }
             // Si elle etait vide
             else

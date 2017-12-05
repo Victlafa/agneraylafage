@@ -61,7 +61,7 @@ namespace engine
     void Engine::update (){
         // On execute les commandes par ordre de priorite 
         for (std::map<int,std::unique_ptr<Command> >::iterator mapIt = currentCommands.begin(); mapIt != currentCommands.end(); mapIt ++)
-            mapIt->second->execute(currentState);
+            mapIt->second->execute(pileAction,currentState);
         currentCommands.clear();
     }
     

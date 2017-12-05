@@ -63,6 +63,8 @@ namespace engine{
     }
     
     // Setters and Getters
-    int getPos() const {return pos;}
-    void setPos(int pos) {this->pos = pos;}
+    const std::vector<int>& PlaceCommand::getFinalPos() const { return finalPos; }
+    void PlaceCommand::setFinalPos(const std::vector<int>& finalPos) { this->finalPos = finalPos; }
+    state::ID PlaceCommand::getCreaType() const { return creaType; }
+    void PlaceCommand::setCreaType(state::ID creaType) {this->creaType = creaType; }
 }

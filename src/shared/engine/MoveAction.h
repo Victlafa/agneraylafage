@@ -37,7 +37,7 @@ namespace engine {
     MoveAction ();
     MoveAction (int init_i, int init_j, int final_i, int final_j, int player);
     bool getIsThereFight ();
-    std::vector<int>& getInitCreaturesNbr () const;
+    const std::vector<int>& getInitCreaturesNbr () const;
     void apply (state::State& state);
     void undo (state::State& etat);
     // Setters and Getters

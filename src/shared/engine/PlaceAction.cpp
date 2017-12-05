@@ -16,9 +16,8 @@ namespace engine{
         this->player = player;
         this->creaType = type;
     }
-    CommandTypeID PlaceAction::getTypeID () const { return CommandTypeID::PLACE; }
     
-    void PlaceAction::execute (state::State& state) {
+    void PlaceAction::apply (state::State& state) {
         
         // On verifie que le joueur dispose encore en stock de creatures à placer sur la grille
         if (state.getPlayer(player)->getCreaturesLeft() > 0)
@@ -45,7 +44,23 @@ namespace engine{
         
     }
     
-    void undo (state::State& etat){}
+    void PlaceAction::undo (state::State& etat)
+    {
+        // On supprime une creature du groupe de la cellule concernée
+        // On verifie que la cellule est bien non vide
+        if (state.getCharacters()->get(i_final,j_final).get())
+        {
+            int creaNbr = state.getCharacters()->get(i_final,j_final)->getCreaturesNbr();
+            state.getCharacters()->get(i_final,j_final)->setCreaturesNbr(creaNbr - 1);
+            
+            // Si la cellule ainsi modifiee devient vide
+            if (state.getCharacters()->get(i_final,j_final)->getCreaturesNbr() <= 0)
+                // On supprime definitivement le groupe de creatures
+                state.getCharacters()->set(nullptr,i_final,j_final);
+        }
+        else
+            throw std::runtime_error("PlaceAction::undo - impossible de supprimer une creature de la cellule car celle-ci est deja vide !");
+    }
     
     // Setters and Getters
     const std::vector<int>& PlaceAction::getFinalPos() const { return finalPos; }
