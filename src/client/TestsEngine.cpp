@@ -589,7 +589,7 @@ namespace engine {
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==2)){
                     // On ajoute une commande au moteur
                     // Test de la capacite speciale liee au barbecue ou à la piscine
-                    moteur.addCommand(1,new SpecialCellCommand(ligneDep,colonneDep,ligneArr,colonneArr,1,"barbecue"));
+                    moteur.addCommand(1,new SpecialCellCommand(ligneDep,colonneDep,ligneArr,colonneArr,1,SpecialTypeID::BARBECUE));
                     std::cout << "Nombre de creatures dans la case de l'IA avant utilisation du barbecue : " << moteur.getState().getCharacters()->get(ligneArr,colonneArr)->getCreaturesNbr() << std::endl;
 
                     // On execute les commandes
@@ -705,7 +705,7 @@ namespace engine {
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==2)){
                     // On ajoute une commande au moteur
                     // Test de la capacite speciale liee au jet-pack
-                    moteur.addCommand(1,new SpecialCellCommand(ligneDep,colonneDep,ligneArr,colonneArr,1,"sky"));
+                    moteur.addCommand(1,new SpecialCellCommand(ligneDep,colonneDep,ligneArr,colonneArr,1,SpecialTypeID::SKY));
                     std::cout << "Nombre de creatures dans la case de l'IA avant utilisation du jet-pack : " << moteur.getState().getCharacters()->get(ligneArr,colonneArr)->getCreaturesNbr() << std::endl;
                     moteur.update();
         
@@ -799,7 +799,7 @@ namespace engine {
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==1)){
                     // On ajoute une commande au moteur
                     // Test de la capacite speciale liee au jet-pack
-                    moteur.addCommand(1,new SpecialCellCommand(0,0,0,0,1,"candy"));
+                    moteur.addCommand(1,new SpecialCellCommand(0,0,0,0,1,SpecialTypeID::SUGAR));
                     // On execute les commandes
                     moteur.update();
                     std::cout << "Nombre de creatures dans la reserve du joueur 1 apres utilisation sucreries : " << moteur.getPlayer(1)->getCreaturesLeft() << std::endl;
