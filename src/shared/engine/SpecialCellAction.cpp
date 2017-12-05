@@ -38,7 +38,7 @@ namespace engine
     
     CommandTypeID SpecialCellAction::getTypeID () const { return CommandTypeID::SPECIAL; }
     
-    void SpecialCellAction::execute (state::State& state)
+    void SpecialCellAction::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state)
     {
         // On verifie si le joueur utilisant la capa speciale en jeu dispose bien de cette capa !
         if (isOwner(state))
