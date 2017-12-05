@@ -83,25 +83,37 @@ namespace ai {
         
         sf::Event event;
         
-        while (tour != 20 && window.isOpen()) {
+        while (tour != 40 && window.isOpen()) {
             
             while (window.pollEvent(event)) {
                 // Fermeture de la fenetre ?
                 if (event.type == sf::Event::Closed) window.close();
                 // Appui sur une touche de clavier ?
                 else if(event.type == sf::Event::EventType::KeyReleased){
-                    std::cout << "\n--------------    Tour n°" << tour/2 + 1 << ", c'est à l'IA n°" << tour%2 + 1 << " de jouer    --------------" << std::endl;
+                    std::cout << "\n--------------    Tour n°" << tour/2 + 1 << ", c'est à l'IA n°" << tour%2 + 1 << " de jouer    --------------" << std::endl << std::endl;
                     // Tour de l'IA n°1
                     if(tour%2==0) ia.run(1);
                     // Tour de l'IA n°2
                     else ia.run(2);
                     // Execution des commandes demandées par les IA
-                    moteur.update();
+                    //moteur.update();
                     tour++;
                     moteur.increaseTour();
                     std::cout << "\n(APPUYER sur une touche de clavier pour passer à l'étape suivante)" << std::endl;
                 }
                 
+            }
+            
+            if (moteur.getState().getCellNbr() == moteur.getPlayer(1)->getCellNbr())
+            {
+                cout << "L'IA n°1 a conquit toute la carte !" << endl;
+                break;
+            }
+            
+            else if (moteur.getState().getCellNbr() == moteur.getPlayer(2)->getCellNbr())
+            {
+                cout << "L'IA n°2 a conquit toute la carte !" << endl;
+                break;
             }
             
             // On met à jour l'affichage

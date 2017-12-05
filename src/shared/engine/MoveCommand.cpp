@@ -23,7 +23,7 @@ namespace engine{
     
     void MoveCommand::execute (state::State& state) {
         
-        // On verifie si la case de destination est adjacente à celle de depart
+        // On verifie si la case de destination est adjacente à celle de departs
         bool verif1 = ((finalPos[0] == initPos[0] - 1) && finalPos[1] == initPos[1]);
         bool verif2 = ((finalPos[0] == initPos[0] - 1) && (finalPos[1] == initPos[1] + 1));
         bool verif3 = (finalPos[0] == initPos[0] && (finalPos[1] == initPos[1] + 1));

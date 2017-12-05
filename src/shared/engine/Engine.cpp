@@ -29,7 +29,7 @@ namespace engine
         else if (num == 2)
             return currentState.getPlayer(2);
         else
-            throw std::runtime_error("Vous avez entré un mauvais numéro dans getPlayer !\n");
+            throw std::runtime_error("Engine::getPlayer - Vous avez entré un mauvais numéro en argument !\n");
             return NULL;
     }
     

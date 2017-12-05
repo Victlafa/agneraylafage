@@ -131,12 +131,12 @@ namespace state
                 }
                 
                 else
-                    throw std::runtime_error("Le déplacement n'a pas pu etre effectué !");
+                    throw std::runtime_error("CreaturesTab::moveElement - Le déplacement n'a pas pu etre effectué !");
             }
         }
         
         else
-            throw std::runtime_error("Le déplacement n'a pas pu etre effectué car la case de destination est interdite !");
+            throw std::runtime_error("CreaturesTab::moveElement - Le déplacement n'a pas pu etre effectué car la case de destination est interdite !"); 
         
     }
     
@@ -160,6 +160,9 @@ namespace state
                 this->set(newGroup,new_i_elem,new_j_elem);
                 
                 // On verifie que le placement a bien ete effectue
+                if (this->get(new_i_elem,new_j_elem) == NULL)
+                    throw std::runtime_error("CreaturesTab::placeElement - Le placement dans une case vide n'a pas ete effectue !");
+                
 //                if (this->get(new_i_elem,new_j_elem) != NULL && this->get(new_i_elem,new_j_elem)->getCreaturesNbr() == 1)
 //                {
 //                    //std::cout << "Une creature de l'IA a bien ete placee dans la grille" << std::endl;
@@ -183,16 +186,16 @@ namespace state
                 
                 // On verifie que le placement a bien ete effectue
                 if (this->get(new_i_elem,new_j_elem) == nullptr)
-                    throw std::runtime_error("Le placement d'une creature du joueur dans une de ses cases n'a pas ete effectue !");
+                    throw std::runtime_error("CreaturesTab::placeElement - Le placement d'une creature du joueur dans une de ses cases n'a pas ete effectue !"); 
             }
             
             // Elle est occupee par l'adversaire
             else
-                throw std::runtime_error("Le joueur ne peut pas placer de creatures de sa reserve dans une cellule adverse !");
+                throw std::runtime_error("CreaturesTab::placeElement - Le joueur ne peut pas placer de creatures de sa reserve dans une cellule adverse !");
         }
         
         else
-            throw std::runtime_error("Le placement n'a pas pu etre effectué car la case de destination est interdite !");
+            throw std::runtime_error("CreaturesTab::placeElement - Le placement n'a pas pu etre effectué car la case de destination est interdite !");
         
     }
     
