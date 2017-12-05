@@ -2,11 +2,12 @@
 #ifndef ENGINE__MOVECOMMAND__H
 #define ENGINE__MOVECOMMAND__H
 
-#include <memory>
 #include <vector>
+#include <stack>
+#include <memory>
 
 namespace engine {
-  class Fight;
+  class Action;
 };
 namespace state {
   class State;
@@ -15,37 +16,28 @@ namespace engine {
   class Command;
 }
 
-#include "Fight.h"
 #include "CommandTypeID.h"
+#include "Action.h"
 #include "Command.h"
 
 namespace engine {
 
   /// class MoveCommand - 
   class MoveCommand : public engine::Command {
-    // Associations
     // Attributes
   protected:
-    std::shared_ptr<Fight> fight;
     std::vector<int> initPos;
     std::vector<int> finalPos;
-    int player;
     // Operations
   public:
-    MoveCommand ();
     MoveCommand (int init_i, int init_j, int final_i, int final_j, int player);
-    bool verifyProximity ();
     CommandTypeID getTypeID () const;
-    void execute (state::State& state);
+    void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
     // Setters and Getters
-    const std::shared_ptr<Fight>& getFight() const;
-    void setFight(const std::shared_ptr<Fight>& fight);
     const std::vector<int>& getInitPos() const;
     void setInitPos(const std::vector<int>& initPos);
     const std::vector<int>& getFinalPos() const;
     void setFinalPos(const std::vector<int>& finalPos);
-    int getPlayer() const;
-    void setPlayer(int player);
   };
 
 };
