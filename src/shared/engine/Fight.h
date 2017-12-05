@@ -23,7 +23,7 @@ namespace engine {
     Fight (int i_fighter, int j_fighter, int i_defender, int j_defender, int fighter);
     bool fightProcess (state::State& state);
     void gainConquest (state::State& state);
-    void execute (state::State& state);
+    void apply (state::State& state);
     // Setters and Getters
     const std::vector<int>& getFighterPos() const;
     void setFighterPos(const std::vector<int>& fighterPos);
