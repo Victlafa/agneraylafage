@@ -75,4 +75,9 @@ namespace engine
     }
     
     int Engine::getTour () {return tour; }
+    
+    const std::stack<std::shared_ptr<Action> >& getPileAction() const {return pileAction;}
+    
+    void setPileAction(const std::stack<std::shared_ptr<Action> >& pileAction) {this->pileAction = pileAction;}
+    
 }
