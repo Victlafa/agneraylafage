@@ -8,4 +8,7 @@
 namespace engine
 {
     Command::~Command() {}
+    
+    int Command::getPlayer() const { return player; }
+    void Command::setPlayer(int player) { this->player = player; }
 }

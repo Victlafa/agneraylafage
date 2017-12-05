@@ -31,11 +31,16 @@ namespace engine
         
     }
     
-    CommandTypeID ProtectedAction::getTypeID () const {return CommandTypeID::PROTECTED; }
-    void ProtectedAction::execute (state::State& state)
+    void ProtectedAction::apply (state::State& state)
     {
         protectProcess(state);
     }
+    
+    void ProtectedAction::undo (state::State& etat)
+    {
+        
+    }
+    
     // Setters and Getters
     const std::vector<int>& ProtectedAction::getCell() const{return cell;}
     void ProtectedAction::setCell(const std::vector<int>& cell) {this->cell = cell;}

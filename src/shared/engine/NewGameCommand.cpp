@@ -14,7 +14,7 @@ namespace engine
     CommandTypeID NewGameCommand::getTypeID () const{
         return CommandTypeID::NEWGAME;
     }
-    void NewGameCommand::execute (state::State& state){
+    void NewGameCommand::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state){
         
     }
 }

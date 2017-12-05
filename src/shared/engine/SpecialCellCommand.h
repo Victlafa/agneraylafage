@@ -29,21 +29,20 @@ namespace engine {
     engine::SpecialTypeID* specialType;
     // Attributes
   protected:
-    std::vector<int> init;
-    std::vector<int> target;
+    std::vector<int> initPos;
+    std::vector<int> finalPos;
     // Operations
   public:
     SpecialCellCommand (int init_i, int init_j, int target_i, int target_j, int player, SpecialTypeID type);
     void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
     CommandTypeID getTypeID () const;
-    SpecialTypeID getSpecialTypeID () const;
     // Setters and Getters
     SpecialTypeID getSpecialType() const;
     void setSpecialType(SpecialTypeID specialType);
-    const std::vector<int>& getInit() const;
-    void setInit(const std::vector<int>& init);
-    const std::vector<int>& getTarget() const;
-    void setTarget(const std::vector<int>& target);
+    const std::vector<int>& getInitPos() const;
+    void setInitPos(const std::vector<int>& initPos);
+    const std::vector<int>& getFinalPos() const;
+    void setFinalPos(const std::vector<int>& finalPos);
   };
 
 };

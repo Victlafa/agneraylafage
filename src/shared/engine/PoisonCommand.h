@@ -2,6 +2,7 @@
 #ifndef ENGINE__POISONCOMMAND__H
 #define ENGINE__POISONCOMMAND__H
 
+#include <vector>
 #include <stack>
 #include <memory>
 
@@ -25,15 +26,15 @@ namespace engine {
   class PoisonCommand : public engine::Command {
     // Attributes
   protected:
-    int target;
+    std::vector<int> targetCell;
     // Operations
   public:
     PoisonCommand (int i, int j);
     void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
     CommandTypeID getTypeID () const;
     // Setters and Getters
-    int getTarget() const;
-    void setTarget(int target);
+    const std::vector<int>& getTargetCell() const;
+    void setTargetCell(const std::vector<int>& targetCell);
   };
 
 };

@@ -12,43 +12,20 @@ using namespace state;
 
 namespace engine
 {
-    PoisonCommand::PoisonCommand (int i_cell, int j_cell) : cell(2) {
-        cell[0] = i_cell;
-        cell[1] = j_cell;
-    }
+    PoisonCommand::PoisonCommand (int i_cell, int j_cell) : targetCell(2) {
+        targetCell[0] = i_cell;
+        targetCell[1] = j_cell;
+    } 
     
-    bool PoisonCommand::isPoisoned (state::State& state){
-        bool isPoison = state.getGrid()->isPoisoned(cell[0],cell[1]);
-        if (isPoison)
-            return true;
-        else
-            return false;
-    }
     
-    void PoisonCommand::killCreatures (state::State& state){
-        srand(time(NULL));
-        int nbCreaTuees = 0;
+    void PoisonCommand::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state){
         
-        if (isPoisoned(state)) {
-            int tirageJeu = rand() % 6 + 1;
-            int nbCrea = state.getCharacters()->get(cell[0], cell[1])->getCreaturesNbr();
-            for (int i = 0; i < nbCrea; i++) {
-                if (tirageJeu > rand() % 6 + 1)
-                    nbCreaTuees += 1;
-            }
-
-            state.getCharacters()->get(cell[0], cell[1])->setCreaturesNbr(nbCrea - nbCreaTuees);
-        }
-        else
-            std::cout << "La cellule n'est pas empoisonnee, pas d'effet" << std::endl;
-         
     }
     
-    CommandTypeID PoisonCommand::getTypeID () const {return CommandTypeID::POISON;}
-    void PoisonCommand::execute (state::State& state){
-        killCreatures(state);
-    }
+    
     // Setters and Getters
-    const std::vector<int>& PoisonCommand::getCell() const{return cell;}
-    void PoisonCommand::setCell(const std::vector<int>& cell){this->cell = cell;}
+    CommandTypeID PoisonCommand::getTypeID () const {return CommandTypeID::POISON;}
+    const std::vector<int>& PoisonCommand::getTargetCell() const { return targetCell; }
+    void PoisonCommand::setTargetCell(const std::vector<int>& targetCell) {this->targetCell = targetCell; }
+    
 }

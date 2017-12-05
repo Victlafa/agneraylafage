@@ -21,7 +21,7 @@ namespace engine{
     
     CommandTypeID MoveCommand::getTypeID () const { return CommandTypeID::MOVE; }
     
-    void MoveCommand::execute (state::State& state) {
+    void MoveCommand::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state) {
         
 //        // On verifie si la case de destination est adjacente à celle de departs
 //        bool verif1 = ((finalPos[0] == initPos[0] - 1) && finalPos[1] == initPos[1]);
