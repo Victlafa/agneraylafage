@@ -9,7 +9,6 @@
 
 namespace engine{
     
-    MoveCommand::MoveCommand() {}
     MoveCommand::MoveCommand (int init_i, int init_j, int final_i, int final_j, int player) : initPos(2), finalPos(2) {
         initPos[0] = init_i;
         initPos[1] = init_j;

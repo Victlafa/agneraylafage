@@ -6,6 +6,7 @@
 
 #include "NewGameAction.h"
 #include "../shared/state/CreaturesID.h"
+#include <iostream>
 
 using namespace state;
 

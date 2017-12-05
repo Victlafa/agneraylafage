@@ -26,7 +26,7 @@ namespace engine {
   /// class SpecialCellCommand - 
   class SpecialCellCommand : public engine::Command {
     // Associations
-    engine::SpecialTypeID* specialType;
+    engine::SpecialTypeID specialType;
     // Attributes
   protected:
     std::vector<int> initPos;

@@ -12,7 +12,7 @@ using namespace state;
 
 namespace engine
 {
-    ProtectedCommand::ProtectedAction (int i_cell, int j_cell) : cell(2) {
+    ProtectedAction::ProtectedAction (int i_cell, int j_cell) : cell(2) {
         cell[0] = i_cell;
         cell[1] = j_cell;
     };
