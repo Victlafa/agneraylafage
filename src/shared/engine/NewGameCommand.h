@@ -2,7 +2,12 @@
 #ifndef ENGINE__NEWGAMECOMMAND__H
 #define ENGINE__NEWGAMECOMMAND__H
 
+#include <stack>
+#include <memory>
 
+namespace engine {
+  class Action;
+};
 namespace state {
   class State;
 };
@@ -10,6 +15,7 @@ namespace engine {
   class Command;
 }
 
+#include "Action.h"
 #include "CommandTypeID.h"
 #include "Command.h"
 
@@ -19,9 +25,9 @@ namespace engine {
   class NewGameCommand : public engine::Command {
     // Operations
   public:
-    NewGameCommand ( );
+    NewGameCommand ();
+    void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
     CommandTypeID getTypeID () const;
-    void execute (state::State& state);
     // Setters and Getters
   };
 
