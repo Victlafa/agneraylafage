@@ -79,7 +79,7 @@ namespace ai
             }
             
             placement = new engine::PlaceCommand(newCreasCoordsUnitaires[0], newCreasCoordsUnitaires[1], player, (state::ID)getMoteur()->getPlayer(player)->getClanName());
-            placement->execute(getMoteur()->getState());
+            placement->execute(getMoteur()->getPileAction(), getMoteur()->getState());
             cout << "Nombre de cellules vides restantes apres placement : " << getMoteur()->getState().getFreeCellNbr() << endl;
             cout << "Nombre de cellules du joueur : " << getMoteur()->getPlayer(player)->getCellNbr() << endl;
         }
