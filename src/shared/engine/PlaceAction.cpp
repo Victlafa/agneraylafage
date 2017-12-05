@@ -16,9 +16,8 @@ namespace engine{
         this->player = player;
         this->creaType = type;
     }
-    CommandTypeID PlaceAction::getTypeID () const { return CommandTypeID::PLACE; }
     
-    void PlaceAction::execute (state::State& state) {
+    void PlaceAction::apply (state::State& state) {
         
         // On verifie que le joueur dispose encore en stock de creatures à placer sur la grille
         if (state.getPlayer(player)->getCreaturesLeft() > 0)
