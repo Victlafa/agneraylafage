@@ -44,7 +44,7 @@ namespace ai
         listCommands.push_back(std::shared_ptr<engine::Command> ( new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player)));
         
         for (int i = 0; i < (int)(listCommands.size()); i++)
-            listCommands[i]->execute(getMoteur()->getState());
+            listCommands[i]->execute(getMoteur()->getPileAction(),getMoteur()->getState());
         
         std::cout << "Nombre de creatures de l'IA n°" << player << " sur (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ") apres deplacement :" << creaTab->get(coordsDeplacement[0],coordsDeplacement[1])->getCreaturesNbr() << std::endl;
         
