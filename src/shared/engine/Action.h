@@ -7,6 +7,8 @@ namespace state {
   class State;
 }
 
+#include "state/State.h"
+
 namespace engine {
 
   /// class Action - 

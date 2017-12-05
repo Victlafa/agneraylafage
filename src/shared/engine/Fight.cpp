@@ -19,6 +19,9 @@ namespace engine
         defenderPos[0] = i_defender;
         defenderPos[1] = j_defender;
         this->fighter = fighter;
+        winner = -1;
+        creasFighter = 0;
+        creasDefender = 0;
     }
     
     // Renvoie true si c'est le joueur 1 qui remporte le combat, sinon renvoie false
@@ -26,6 +29,8 @@ namespace engine
     {
         int nbCrea1 = state.getCharacters()->get(fighterPos[0],fighterPos[1])->getCreaturesNbr();
         int nbCrea2 = state.getCharacters()->get(defenderPos[0],defenderPos[1])->getCreaturesNbr();
+        creasFighter = nbCrea1;
+        creasDefender = nbCrea2;
         
         int totalPlayer1 = 0;
         int totalPlayer2 = 0;
@@ -82,11 +87,29 @@ namespace engine
         
     }
     
-    void Fight::execute (state::State& state)
+    int Fight::getCreasFighter () const { return creasFighter; }
+    int Fight::getCreasDefender () const { return creasDefender; }
+    
+    void Fight::apply (state::State& state)
     {
         //std::cout << "Debut du combat" << std::endl;
         gainConquest(state);
         //std::cout << "Fin du combat" << std::endl;
+        
+    }
+    
+    void Fight::undo (state::State& etat)
+    {
+        // On efface les points de victoire et nombres de cellules attribues selon victoire et defaite
+        // S'il n'y avait pas eu egalite ou victoire du defenseur
+        if (winner == 1 || winner == 2)
+        {
+            etat.getPlayer(winner)->setConquestPoints(etat.getPlayer(winner)->getConquestPoints() - 1);
+            etat.getPlayer(winner)->setCellNbr(etat.getPlayer(winner)->getCellNbr() - 1);
+            etat.getPlayer(3 - winner)->setCellNbr(etat.getPlayer(3 - winner)->getCellNbr() + 1);
+        }
+        
+        // S'il y avait eu egalite ou victoire du defenseur, il n'y a pas de modifs à faire au niveau des points de victoire et nbre de cellules
         
     }
     

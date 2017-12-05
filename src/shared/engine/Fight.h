@@ -13,6 +13,9 @@ namespace engine {
   /// class Fight - 
   class Fight {
     // Attributes
+  private:
+    int creasFighter;
+    int creasDefender;
   protected:
     std::vector<int> fighterPos;
     std::vector<int> defenderPos;
@@ -23,7 +26,10 @@ namespace engine {
     Fight (int i_fighter, int j_fighter, int i_defender, int j_defender, int fighter);
     bool fightProcess (state::State& state);
     void gainConquest (state::State& state);
+    int getCreasFighter () const;
+    int getCreasDefender () const;
     void apply (state::State& state);
+    void undo (state::State& etat);
     // Setters and Getters
     const std::vector<int>& getFighterPos() const;
     void setFighterPos(const std::vector<int>& fighterPos);
