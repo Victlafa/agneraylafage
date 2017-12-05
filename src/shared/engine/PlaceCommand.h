@@ -3,7 +3,12 @@
 #define ENGINE__PLACECOMMAND__H
 
 #include <vector>
+#include <stack>
+#include <memory>
 
+namespace engine {
+  class Action;
+};
 namespace state {
   class State;
 };
@@ -12,6 +17,7 @@ namespace engine {
 }
 
 #include "state/ID.h"
+#include "Action.h"
 #include "CommandTypeID.h"
 #include "Command.h"
 
@@ -21,19 +27,16 @@ namespace engine {
   class PlaceCommand : public engine::Command {
     // Attributes
   protected:
-    std::vector<int> finalPos;
-    int player;
+    std::vector<int> pos;
     state::ID creaType;
     // Operations
   public:
-    PlaceCommand (int i_final, int j_final, int player, state::ID type);
+    PlaceCommand (int i, int j, int player, state::ID type);
+    void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
     CommandTypeID getTypeID () const;
-    void execute (state::State& state);
     // Setters and Getters
-    const std::vector<int>& getFinalPos() const;
-    void setFinalPos(const std::vector<int>& finalPos);
-    int getPlayer() const;
-    void setPlayer(int player);
+    const std::vector<int>& getPos() const;
+    void setPos(const std::vector<int>& pos);
     state::ID getCreaType() const;
     void setCreaType(state::ID creaType);
   };
