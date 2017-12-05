@@ -44,10 +44,15 @@ namespace engine
          
     }
     
-    CommandTypeID PoisonAction::getTypeID () const {return CommandTypeID::POISON;}
-    void PoisonAction::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state){
+    void PoisonAction::apply (state::State& state){
         killCreatures(state);
     }
+    
+    void PoisonAction::undo (state::State& etat)
+    {
+        
+    }
+    
     // Setters and Getters
     const std::vector<int>& PoisonAction::getCell() const{return cell;}
     void PoisonAction::setCell(const std::vector<int>& cell){this->cell = cell;}

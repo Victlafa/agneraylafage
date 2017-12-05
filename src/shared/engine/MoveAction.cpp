@@ -6,33 +6,40 @@
 
 #include "MoveAction.h"
 #include <iostream>
+#include "../state/CreaturesGroup.h"
+
+using namespace state;
 
 namespace engine{
     
     MoveAction::MoveAction() {}
-    MoveAction::MoveAction (int init_i, int init_j, int final_i, int final_j, int player) : initPos(2), finalPos(2) {
+    MoveAction::MoveAction (int init_i, int init_j, int final_i, int final_j, int player) : initCreaturesNbr(2), initPos(2), finalPos(2) {
         initPos[0] = init_i;
         initPos[1] = init_j;
         finalPos[0] = final_i;
         finalPos[1] = final_j;
         this->player = player;
         fight.reset(new Fight(init_i,init_j,final_i,final_j,player));
+        isThereFight = false;
+        
         
     }
-    
+    bool MoveAction::getIsThereFight () { return isThereFight; }
+    const std::vector<int>& MoveAction::getInitCreaturesNbr () const { return initCreaturesNbr; }
     void MoveAction::apply (state::State& state) {
 
         // Si la case de destination est occupée par l'adversaire, on engage un combat
         if (state.getCharacters()->isOccupiedByOpp(finalPos[0], finalPos[1], state.getPlayer(player).get())) {
             std::cout << "MoveAction::apply - Un combat commence !" << std::endl;
             fight->apply(state);
-            state.getCharacters()->moveElement(initPos[0], initPos[1], finalPos[0], finalPos[1], fight->getWinner());
+            initCreaturesNbr = state.getCharacters()->moveElement(initPos[0], initPos[1], finalPos[0], finalPos[1], fight->getWinner());
+            isThereFight = true;
         } 
         else
         {
             std::cout << "MoveAction::execute - Il y a déplacement sans combat !" << std::endl;
             // S'il n'y a pas combat on procede directement au deplacement
-            state.getCharacters()->moveElement(initPos[0], initPos[1], finalPos[0], finalPos[1], 0);
+            initCreaturesNbr = state.getCharacters()->moveElement(initPos[0], initPos[1], finalPos[0], finalPos[1], 0);
         }
 
 
@@ -45,9 +52,74 @@ namespace engine{
             
     }
     
-    
-    void undo (state::State& etat){};
-    
+    void MoveAction::undo (state::State& etat) 
+    {
+        
+        // On replace les creatures sur les deux cases telles qu'elles etaient avant le combat
+        // Joueur qui se deplace
+        // S'il y a un groupe sur la cellule de depart
+        Element* attGroup = etat.getCharacters()->get(initPos[0],initPos[1]).get();
+        if (attGroup)
+        {
+            // On lui associe le joueur concerne
+            attGroup->setPlayer(etat.getPlayer(player).get());
+            // On lui restitue le bon nombre de creatures
+            attGroup->setCreaturesNbr(initCreaturesNbr[0]);
+        }
+        // Si la case est vide, on créé un nouveau groupe
+        else
+        {
+            CreaturesGroup* newGroup = new CreaturesGroup((ID)etat.getPlayer(player)->getClanName(),initCreaturesNbr[0],etat.getPlayer(player).get());
+            etat.getCharacters()->set(newGroup,initPos[0],initPos[1]);
+        }
+
+        // Si la cellule d'arrivee est occupee apres deplacement
+        Element* defGroup = etat.getCharacters()->get(finalPos[0],finalPos[1]).get();
+        if (defGroup)
+        {
+            // Si elle appartenait à l'adversaire avant deplacement/combat
+            if (fight->getCreasDefender() != 0)
+            {
+                // On lui restitue ses creatures
+                defGroup->setPlayer(etat.getPlayer(3-player).get());
+                defGroup->setCreaturesNbr(fight->getCreasDefender());
+            }
+            // Si elle appartenait au joueur en cours (il n'y a donc pas eu combat)
+            else if (fight->getCreasDefender() == 0 && initCreaturesNbr[1] != 0)
+            {
+                // On lui restitue ses creatures
+                defGroup->setPlayer(etat.getPlayer(player).get());
+                defGroup->setCreaturesNbr(initCreaturesNbr[1]);
+            }
+            // Si elle etait vide
+            else
+                // On detruit le groupe qui se trouve actuellement dessus
+                etat.getCharacters()->set(nullptr,finalPos[0],finalPos[1]);
+                
+        }
+        // Si elle est vide
+        else
+        {
+            CreaturesGroup* newGroup;
+            
+            // Si elle appartenait à l'adversaire avant deplacement/combat
+            if (fight->getCreasDefender() != 0)
+            {
+                // On lui restitue ses creatures
+                newGroup = new CreaturesGroup((ID)etat.getPlayer(3-player)->getClanName(),fight->getCreasDefender(),etat.getPlayer(3-player).get());
+                etat.getCharacters()->set(newGroup,finalPos[0],finalPos[1]);
+            }
+            // Si elle appartenait au joueur en cours (il n'y a donc pas eu combat)
+            else if (fight->getCreasDefender() == 0 && initCreaturesNbr[1] != 0)
+            {
+                // On lui restitue ses creatures
+                newGroup = new CreaturesGroup((ID)etat.getPlayer(player)->getClanName(),initCreaturesNbr[1],etat.getPlayer(player).get());
+                etat.getCharacters()->set(newGroup,finalPos[0],finalPos[1]);
+            }
+        }  
+        
+        
+    };
     
     // Setters and Getters
     const std::shared_ptr<Fight>& MoveAction::getFight() const {return fight;}
@@ -58,5 +130,6 @@ namespace engine{
     void MoveAction::setFinalPos(const std::vector<int>& finalPos) {this->finalPos = finalPos;}
     int MoveAction::getPlayer() const {return player;}
     void MoveAction::setPlayer(int player) {this->player = player;}
+    
     
 }

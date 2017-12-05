@@ -2,8 +2,8 @@
 #ifndef ENGINE__MOVEACTION__H
 #define ENGINE__MOVEACTION__H
 
-#include <memory>
 #include <vector>
+#include <memory>
 
 namespace engine {
   class Fight;
@@ -24,6 +24,9 @@ namespace engine {
   class MoveAction : public engine::Action {
     // Associations
     // Attributes
+  private:
+    bool isThereFight;
+    std::vector<int> initCreaturesNbr;
   protected:
     std::shared_ptr<Fight> fight;
     std::vector<int> initPos;
@@ -33,7 +36,8 @@ namespace engine {
   public:
     MoveAction ();
     MoveAction (int init_i, int init_j, int final_i, int final_j, int player);
-    bool verifyProximity ();
+    bool getIsThereFight ();
+    const std::vector<int>& getInitCreaturesNbr () const;
     void apply (state::State& state);
     void undo (state::State& etat);
     // Setters and Getters

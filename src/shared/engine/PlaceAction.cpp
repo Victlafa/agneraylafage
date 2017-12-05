@@ -6,6 +6,10 @@
 
 #include "PlaceAction.h"
 #include <iostream>
+#include "../state/CreaturesTab.h"
+#include "../state/State.h"
+
+using namespace state;
 
 namespace engine{
     
@@ -23,28 +27,57 @@ namespace engine{
         if (state.getPlayer(player)->getCreaturesLeft() > 0)
         {
             // Si c'est le cas on cherche à placer une creature
+            CreaturesTab* creaTab = state.getCharacters().get();
             
             // Si la case de destination est occupée par l'adversaire, on leve une exception
-            if (state.getCharacters()->isOccupiedByOpp(finalPos[0], finalPos[1], state.getPlayer(player).get()))
-                throw std::runtime_error("La case où le joueur souhaite placer sa creature est occupée par l'adversaire !");
+            if (creaTab->isOccupiedByOpp(finalPos[0], finalPos[1], state.getPlayer(player).get()))
+                throw std::runtime_error("PlaceCommand::execute - La case où le joueur souhaite placer sa creature est occupée par l'adversaire !");
                 // De meme si la case de destination appartient au joueur mais qu'elle comporte deja 5 creatures
-            else if (state.getCharacters()->get(finalPos[0], finalPos[1]).get() != NULL && state.getCharacters()->get(finalPos[0], finalPos[1])->getCreaturesNbr() == 5)
-                throw std::runtime_error("La case où le joueur souhaite placer sa creature possède deja 5 creatures !");
+            else if (creaTab->get(finalPos[0], finalPos[1]).get() != NULL && creaTab->get(finalPos[0], finalPos[1])->getCreaturesNbr() == 5)
+                throw std::runtime_error("PlaceCommand::execute - La case où le joueur souhaite placer sa creature possède deja 5 creatures !");
                 // Dans les autres cas, on peut placer une nouvelle creature
             else {
                 // On place la creature dans la grille
-                state.getCharacters()->placeElement(finalPos[0], finalPos[1], creaType);
+                creaTab->placeElement(finalPos[0], finalPos[1], creaType);
                 // On lui associe le joueur qui l'a placee
-                state.getCharacters()->get(finalPos[0], finalPos[1])->setPlayer(state.getPlayer(player).get());
+                creaTab->get(finalPos[0], finalPos[1])->setPlayer(state.getPlayer(player).get());
+                //cout << "PlaceCommand::execute - Une creature du joueur " << state.getPlayer(player).get() << "a été placée en " << finalPos[0] << "," << finalPos[1] << endl;
+                // On diminue le nombre restant de creatures du joueur
+                state.getPlayer(player)->decreaseCreaLeft();
+                //cout << "Nombre de creatures restantes : " << state.getPlayer(player)->getCreaturesLeft() << endl;
+                // Si la cellule ne contient qu'une creature, cela signifie que le joueur vient de prendre possession de la cellule
+                // On augmente donc le nombre de cellules du joueur concerne 
+                if (creaTab->get(finalPos[0], finalPos[1])->getCreaturesNbr() == 1)
+                {
+                    int cellNbr = creaTab->get(finalPos[0], finalPos[1])->getPlayer()->getCellNbr();
+                    creaTab->get(finalPos[0], finalPos[1])->getPlayer()->setCellNbr(cellNbr + 1);
+                }
+                
             }
         }
         // Sinon, on leve une exception
         else
-            throw std::runtime_error("Le joueur ne dispose plus dans son stock de creatures à placer !");
+            throw std::runtime_error("PlaceCommand::execute - Le joueur ne dispose plus dans son stock de creatures à placer !");
         
     }
     
-    void undo (state::State& etat){}
+    void PlaceAction::undo (state::State& etat)
+    {
+        // On supprime une creature du groupe de la cellule concernée
+        // On verifie que la cellule est bien non vide
+        if (etat.getCharacters()->get(i_final,j_final).get())
+        {
+            int creaNbr = etat.getCharacters()->get(i_final,j_final)->getCreaturesNbr();
+            etat.getCharacters()->get(i_final,j_final)->setCreaturesNbr(creaNbr - 1);
+            
+            // Si la cellule ainsi modifiee devient vide
+            if (etat.getCharacters()->get(i_final,j_final)->getCreaturesNbr() <= 0)
+                // On supprime definitivement le groupe de creatures
+                etat.getCharacters()->set(nullptr,i_final,j_final);
+        }
+        else
+            throw std::runtime_error("PlaceAction::undo - impossible de supprimer une creature de la cellule car celle-ci est deja vide !");
+    }
     
     // Setters and Getters
     const std::vector<int>& PlaceAction::getFinalPos() const { return finalPos; }

@@ -27,7 +27,7 @@ namespace engine {
   class PlaceCommand : public engine::Command {
     // Attributes
   protected:
-    std::vector<int> pos;
+    std::vector<int> finalPos;
     state::ID creaType;
     // Operations
   public:
@@ -35,8 +35,8 @@ namespace engine {
     void execute (std::stack<std::shared_ptr<Action> >& pile, state::State& state);
     CommandTypeID getTypeID () const;
     // Setters and Getters
-    const std::vector<int>& getPos() const;
-    void setPos(const std::vector<int>& pos);
+    const std::vector<int>& getFinalPos() const;
+    void setFinalPos(const std::vector<int>& finalPos);
     state::ID getCreaType() const;
     void setCreaType(state::ID creaType);
   };

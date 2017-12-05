@@ -13,18 +13,21 @@ using namespace state;
 
 namespace engine
 {
-    PoisonCommand::PoisonCommand (int i_cell, int j_cell) : target(2) {
-        target[0] = i_cell;
-        target[1] = j_cell;
-    }
+    PoisonCommand::PoisonCommand (int i_cell, int j_cell) : targetCell(2) {
+        targetCell[0] = i_cell;
+        targetCell[1] = j_cell;
+    } 
     
-    CommandTypeID PoisonCommand::getTypeID () const {return CommandTypeID::POISON;}
     
     void PoisonCommand::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state){
         PoisonAction action;
         action.apply(state);
     }
+    
+    
     // Setters and Getters
-    const std::vector<int>& PoisonCommand::getTarget() const{return target;}
-    void PoisonCommand::setTarget(const std::vector<int>& cell){this->target = target;}
+    CommandTypeID PoisonCommand::getTypeID () const {return CommandTypeID::POISON;}
+    const std::vector<int>& PoisonCommand::getTargetCell() const { return targetCell;}
+    void PoisonCommand::setTargetCell(const std::vector<int>& targetCell) {this->targetCell = targetCell;}
+    
 }

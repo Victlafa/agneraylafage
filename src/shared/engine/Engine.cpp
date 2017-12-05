@@ -61,7 +61,7 @@ namespace engine
     void Engine::update (){
         // On execute les commandes par ordre de priorite 
         for (std::map<int,std::unique_ptr<Command> >::iterator mapIt = currentCommands.begin(); mapIt != currentCommands.end(); mapIt ++)
-            mapIt->second->execute(currentState);
+            mapIt->second->execute(pileAction,currentState);
         currentCommands.clear();
     }
     
@@ -76,8 +76,8 @@ namespace engine
     
     int Engine::getTour () {return tour; }
     
-    const std::stack<std::shared_ptr<Action> >& getPileAction() const {return pileAction;}
+    const std::stack<std::shared_ptr<Action> >& Engine::getPileAction() const {return pileAction;}
     
-    void setPileAction(const std::stack<std::shared_ptr<Action> >& pileAction) {this->pileAction = pileAction;}
+    void Engine::setPileAction(const std::stack<std::shared_ptr<Action> >& pileAction) {this->pileAction = pileAction;}
     
 }
