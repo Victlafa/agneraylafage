@@ -80,7 +80,8 @@ namespace engine {
                     iter++;
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==2)){
                     // Ajout d'une commande au moteur
-                    moteur.addCommand(1,new PoisonCommand(ligne,colonne));
+                    std::shared_ptr<Command> com(new PoisonCommand(ligne,colonne));
+                    moteur.addCommand(1,com);
                     // On execute les commandes
                     moteur.update();
                     std::cout << "Nombres de creatures presentes apres empoisonnement :" << moteur.getState().getCharacters()->get(ligne, colonne)->getCreaturesNbr() << std::endl;
@@ -153,7 +154,8 @@ namespace engine {
                     moteur.update();
                     iter++;
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==1)){
-                    moteur.addCommand(1,new NewGameCommand());
+                    std::shared_ptr<NewGameCommand> com(new NewGameCommand());
+                    moteur.addCommand(1,com);
                     moteur.update();
                     iter++;
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==2)){
@@ -258,7 +260,8 @@ namespace engine {
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==2)){
                     // On ajoute une commande au moteur
                     // On souhaite que la creature du joueur se deplace vers la droite
-                    moteur.addCommand(1,new MoveCommand(ligne,colonne,ligne,colonne + 1,1));
+                    std::shared_ptr<Command> com(new MoveCommand(ligne,colonne,ligne,colonne + 1,1));
+                    moteur.addCommand(1,com);
                     
                     moteur.update();
                     iter++;
@@ -370,7 +373,9 @@ namespace engine {
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==2)){
                     // On ajoute une commande au moteur
                     // On souhaite que la creature du joueur se deplace vers la droite
-                    moteur.addCommand(1,new MoveCommand(ligne,colonne,ligne,colonne + 1,1));
+                    std::shared_ptr<Command> com;
+                    com.reset(new MoveCommand(ligne,colonne,ligne,colonne + 1,1));
+                    moteur.addCommand(1,com);
                     // On execute les commandes
                     moteur.update();
         
@@ -470,7 +475,8 @@ namespace engine {
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==2)){
                     // On ajoute une commande au moteur
                     // On souhaite que la creature du joueur se deplace vers la droite
-                    moteur.addCommand(1,new MoveCommand(ligne,colonne,ligne,colonne + 1,1));
+                    std::shared_ptr<MoveCommand> com(new MoveCommand(ligne,colonne,ligne,colonne + 1,1));
+                    moteur.addCommand(1,com);
                     // On execute les commandes
                     moteur.update();
         
@@ -589,7 +595,8 @@ namespace engine {
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==2)){
                     // On ajoute une commande au moteur
                     // Test de la capacite speciale liee au barbecue ou à la piscine
-                    moteur.addCommand(1,new SpecialCellCommand(ligneDep,colonneDep,ligneArr,colonneArr,1,SpecialTypeID::BARBECUE));
+                    std::shared_ptr<SpecialCellCommand> com(new SpecialCellCommand(ligneDep,colonneDep,ligneArr,colonneArr,1,SpecialTypeID::BARBECUE));
+                    moteur.addCommand(1,com);
                     std::cout << "Nombre de creatures dans la case de l'IA avant utilisation du barbecue : " << moteur.getState().getCharacters()->get(ligneArr,colonneArr)->getCreaturesNbr() << std::endl;
 
                     // On execute les commandes
@@ -705,7 +712,8 @@ namespace engine {
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==2)){
                     // On ajoute une commande au moteur
                     // Test de la capacite speciale liee au jet-pack
-                    moteur.addCommand(1,new SpecialCellCommand(ligneDep,colonneDep,ligneArr,colonneArr,1,SpecialTypeID::SKY));
+                    std::shared_ptr<SpecialCellCommand> com(new SpecialCellCommand(ligneDep,colonneDep,ligneArr,colonneArr,1,SpecialTypeID::SKY));
+                    moteur.addCommand(1,com);
                     std::cout << "Nombre de creatures dans la case de l'IA avant utilisation du jet-pack : " << moteur.getState().getCharacters()->get(ligneArr,colonneArr)->getCreaturesNbr() << std::endl;
                     moteur.update();
         
@@ -799,7 +807,8 @@ namespace engine {
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==1)){
                     // On ajoute une commande au moteur
                     // Test de la capacite speciale liee au jet-pack
-                    moteur.addCommand(1,new SpecialCellCommand(0,0,0,0,1,SpecialTypeID::SUGAR));
+                    std::shared_ptr<SpecialCellCommand> com(new SpecialCellCommand(0,0,0,0,1,SpecialTypeID::SUGAR));
+                    moteur.addCommand(1,com);
                     // On execute les commandes
                     moteur.update();
                     std::cout << "Nombre de creatures dans la reserve du joueur 1 apres utilisation sucreries : " << moteur.getPlayer(1)->getCreaturesLeft() << std::endl;
