@@ -23,20 +23,23 @@ namespace engine{
     
     void MoveCommand::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state) {
         
-//        // On verifie si la case de destination est adjacente à celle de departs
-//        bool verif1 = ((finalPos[0] == initPos[0] - 1) && finalPos[1] == initPos[1]);
-//        bool verif2 = ((finalPos[0] == initPos[0] - 1) && (finalPos[1] == initPos[1] + 1));
-//        bool verif3 = (finalPos[0] == initPos[0] && (finalPos[1] == initPos[1] + 1));
-//        bool verif4 = ((finalPos[0] == initPos[0] + 1) && finalPos[1] == initPos[1]);
-//        bool verif5 = ((finalPos[0] == initPos[0] + 1) && (finalPos[1] == initPos[1] - 1));
-//        bool verif6 = (finalPos[0] == initPos[0] && (finalPos[1] == initPos[1] - 1));
-//        
-//        if (verif1 || verif2 || verif3 || verif4 || verif5 || verif6)
-//        {
-//            
-//        }
-//        else
-//            throw std::runtime_error("La case de destination doit etre adjacente à celle de depart !");
+        // On verifie si la case de destination est adjacente à celle de departs
+        bool verif1 = ((finalPos[0] == initPos[0] - 1) && finalPos[1] == initPos[1]);
+        bool verif2 = ((finalPos[0] == initPos[0] - 1) && (finalPos[1] == initPos[1] + 1));
+        bool verif3 = (finalPos[0] == initPos[0] && (finalPos[1] == initPos[1] + 1));
+        bool verif4 = ((finalPos[0] == initPos[0] + 1) && finalPos[1] == initPos[1]);
+        bool verif5 = ((finalPos[0] == initPos[0] + 1) && (finalPos[1] == initPos[1] - 1));
+        bool verif6 = (finalPos[0] == initPos[0] && (finalPos[1] == initPos[1] - 1));
+        
+        if (verif1 || verif2 || verif3 || verif4 || verif5 || verif6)
+        {
+            //prendre en compte le joueru
+            std::shared_ptr<Action> action;
+            action.reset(new MoveAction(initPos[0], initPos[1], finalPos[0], finalPos[1],1));
+            pile.push(action);
+        }
+        else
+            throw std::runtime_error("La case de destination doit etre adjacente à celle de depart !");
         
         
             
