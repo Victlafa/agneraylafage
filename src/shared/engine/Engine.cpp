@@ -49,18 +49,18 @@ namespace engine
 //            
     }
     
-    void Engine::addCommand (int priority, Command* cmd) {
+    void Engine::addCommand (int priority, std::shared_ptr<Command> cmd) {
         // On ajoute une commande :
-        currentCommands.emplace(priority,std::unique_ptr<Command>(cmd));
+        currentCommands.emplace(priority,cmd);
         // la map trie automatiquement les clés dans l'ordre croissant (en principe, à vérifier)
         // Ajout de commandes automatiques
-        //addPassiveCommands();
+        addPassiveCommands();
         
     }
     
     void Engine::update (){
         // On execute les commandes par ordre de priorite 
-        for (std::map<int,std::unique_ptr<Command> >::iterator mapIt = currentCommands.begin(); mapIt != currentCommands.end(); mapIt ++)
+        for (std::map<int,std::shared_ptr<Command> >::iterator mapIt = currentCommands.begin(); mapIt != currentCommands.end(); mapIt ++)
             mapIt->second->execute(pileAction,currentState);
         currentCommands.clear();
     }
@@ -69,15 +69,20 @@ namespace engine
         currentState.getGrid()->poisonCell(poison,i_cell,j_cell);
     }
     
-    void Engine::increaseTour ()
-    {
+    void Engine::increaseTour (){
         tour += 1;
     }
     
     int Engine::getTour () {return tour; }
     
-    const std::stack<std::shared_ptr<Action> >& Engine::getPileAction() const {return pileAction;}
+    void Engine::addAction (std::shared_ptr<Action> action){
+        pileAction.push(action);
+    }
     
-    void Engine::setPileAction(const std::stack<std::shared_ptr<Action> >& pileAction) {this->pileAction = pileAction;}
+    void Engine::undo(){
+        
+    }
+    
+    std::stack<std::shared_ptr<Action> >& Engine::getPileAction () {return pileAction;}
     
 }

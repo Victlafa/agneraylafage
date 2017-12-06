@@ -11,11 +11,13 @@ namespace state {
 };
 namespace engine {
   class Command;
+  class Action;
 }
 
 #include "state/State.h"
 #include "state/CreaturesID.h"
 #include "Command.h"
+#include "Action.h"
 
 namespace engine {
 
@@ -25,25 +27,25 @@ namespace engine {
     // Attributes
   private:
     state::State currentState;
-    std::map<int,std::unique_ptr<Command> > currentCommands;
+    std::map<int,std::shared_ptr<Command> > currentCommands;
     int tour;
-  protected:
     std::stack<std::shared_ptr<Action> > pileAction;
     // Operations
   public:
     Engine (state::CreaturesID typePl1);
     ~Engine ();
     void addPassiveCommands ();
-    void addCommand (int priority, Command* cmd);
+    void addCommand (int priority, std::shared_ptr<Command> cmd);
     void update ();
     state::State& getState ();
     const std::unique_ptr<state::Player>& getPlayer (int num) const;
     void poisonCell (bool poison, int i_cell, int j_cell);
     void increaseTour ();
     int getTour ();
+    void addAction (std::shared_ptr<Action> action);
+    void undo ();
+    std::stack<std::shared_ptr<Action> >& getPileAction ();
     // Setters and Getters
-    const std::stack<std::shared_ptr<Action> >& getPileAction() const;
-    void setPileAction(const std::stack<std::shared_ptr<Action> >& pileAction);
   };
 
 };
