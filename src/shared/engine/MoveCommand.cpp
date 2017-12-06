@@ -6,6 +6,7 @@
 
 #include "MoveCommand.h"
 #include <iostream>
+#include "MoveAction.h"
 
 namespace engine{
     
