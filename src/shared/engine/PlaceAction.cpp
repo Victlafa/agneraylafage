@@ -65,15 +65,15 @@ namespace engine{
     {
         // On supprime une creature du groupe de la cellule concernée
         // On verifie que la cellule est bien non vide
-        if (etat.getCharacters()->get(i_final,j_final).get())
+        if (etat.getCharacters()->get(finalPos[0],finalPos[1]).get())
         {
-            int creaNbr = etat.getCharacters()->get(i_final,j_final)->getCreaturesNbr();
-            etat.getCharacters()->get(i_final,j_final)->setCreaturesNbr(creaNbr - 1);
+            int creaNbr = etat.getCharacters()->get(finalPos[0],finalPos[1])->getCreaturesNbr();
+            etat.getCharacters()->get(finalPos[0],finalPos[1])->setCreaturesNbr(creaNbr - 1);
             
             // Si la cellule ainsi modifiee devient vide
-            if (etat.getCharacters()->get(i_final,j_final)->getCreaturesNbr() <= 0)
+            if (etat.getCharacters()->get(finalPos[0],finalPos[1])->getCreaturesNbr() <= 0)
                 // On supprime definitivement le groupe de creatures
-                etat.getCharacters()->set(nullptr,i_final,j_final);
+                etat.getCharacters()->set(NULL,finalPos[0],finalPos[1]);
         }
         else
             throw std::runtime_error("PlaceAction::undo - impossible de supprimer une creature de la cellule car celle-ci est deja vide !");
