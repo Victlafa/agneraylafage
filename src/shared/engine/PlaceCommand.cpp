@@ -7,6 +7,7 @@
 #include "PlaceCommand.h"
 #include <iostream>
 #include "../shared/state/CreaturesTab.h"
+#include "PlaceAction.h"
 
 using namespace std;
 using namespace state;
@@ -28,8 +29,8 @@ namespace engine{
     }
     
     // Setters and Getters
-    const std::vector<int> PlaceCommand::getFinalPos() const {return finalPos;}
-    void PlaceCommand::setFinalPos(const std::vector<int> pos) {this->finalPos = pos;}
+    const std::vector<int>& PlaceCommand::getFinalPos() const {return finalPos;}
+    void PlaceCommand::setFinalPos(const std::vector<int>& pos) {this->finalPos = pos;}
     state::ID PlaceCommand::getCreaType() const {return creaType;}
     void PlaceCommand::setCreaType(state::ID creaType) {this->creaType = creaType;}
 }
