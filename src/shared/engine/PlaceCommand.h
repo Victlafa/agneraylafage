@@ -32,7 +32,7 @@ namespace engine {
     // Operations
   public:
     PlaceCommand (int i, int j, int player, state::ID type);
-    void execute (std::stack<std::shared_ptr<Action> >& pile, state::State& state);
+    void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
     CommandTypeID getTypeID () const;
     // Setters and Getters
     const std::vector<int>& getFinalPos() const;
