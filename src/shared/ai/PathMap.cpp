@@ -11,12 +11,13 @@ namespace ai
     const std::vector<Direction> directions { Direction::NONE, Direction::NORDOUEST, Direction::NORDEST, Direction::EST, Direction::SUDEST, Direction::SUDOUEST, Direction::OUEST };
     
     
-    PathMap::PathMap (const state::ElementTab& grid)
+    PathMap::PathMap (const state::ElementTab& grid, const Point& destination)
     {
         weights.assign(29,-1);
         width = grid.getWidth();
         height = grid.getHeight();
         init(grid);
+        this->destination = destination;
     }
     
     int PathMap::getWeight (const Point& p) const { return weights.at(p.getY()*this->width + p.getX()); }
@@ -24,7 +25,7 @@ namespace ai
     { 
         weights.at(p.getY()*this->width + p.getX()) = weight;
     }
-    std::vector<int>& PathMap::getWeights () const { return weights; }
+    const std::vector<int>& PathMap::getWeights () const { return weights; }
     const Point& PathMap::getDestination () const { return destination; }
     
     void PathMap::init (const state::ElementTab& grid)
@@ -52,11 +53,15 @@ namespace ai
             for (Direction d : directions)
             {
                 auto pp = p.transform(d);
-                pp.setWeight(p.getWeight() + 1);
-                // Si le noeud fils a un poids superieur à son pere
-                if (this->getWeight(pp) > p.getWeight())
-                    // On ajoute le fils à la queue
-                    queue.push(pp);
+                if (pp.getX() != -1 && pp.getY() != -1 && pp.getWeight() != -1)
+                {
+                    pp.setWeight(p.getWeight() + 1);
+                    // Si le noeud fils a un poids superieur à son pere
+                    if (this->getWeight(pp) > p.getWeight())
+                        // On ajoute le fils à la queue
+                        queue.push(pp);
+                }
+                
             }
             
         }
