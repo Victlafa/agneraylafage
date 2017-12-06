@@ -7,6 +7,7 @@
 #include "ProtectedCommand.h"
 #include "../state.h"
 #include <iostream>
+#include "ProtectedAction.h"
 
 using namespace state;
 
@@ -21,8 +22,8 @@ namespace engine
     
     void ProtectedCommand::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state)
     {
-        ProtectedAction action;
-        action.apply();
+        ProtectedAction action(target[0],target[1]);
+        action.apply(state);
     }
     
     // Setters and Getters
