@@ -15,8 +15,7 @@ namespace engine {
   class Action {
     // Operations
   public:
-    virtual ~Action ();
-    virtual void apply (state::State& etat) const = 0;
+    virtual void apply (state::State& etat) = 0;
     virtual void undo (state::State& etat) = 0;
     // Setters and Getters
   };
