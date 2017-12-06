@@ -5,6 +5,9 @@
 #include <random>
 #include <vector>
 
+namespace ai {
+  class PathMap;
+};
 namespace engine {
   class Engine;
 };
@@ -12,15 +15,19 @@ namespace ai {
   class AI;
 }
 
+#include "PathMap.h"
 #include "AI.h"
 
 namespace ai {
 
   /// class HeuristicAI - 
   class HeuristicAI : public ai::AI {
+    // Associations
     // Attributes
   private:
     std::mt19937 randGen;
+    PathMap player1Map;
+    PathMap player2Map;
     // Operations
   public:
     HeuristicAI (engine::Engine* moteur, int randomSeed);
