@@ -40,7 +40,8 @@ namespace ai
             std::cout << "HeuristicAI::run - La case destination est vide" << std::endl;
         
         // On ajoute la commande associee à ce deplacement
-        listCommands.push_back(std::shared_ptr<engine::Command> ( new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player)));
+        //listCommands.push_back(std::shared_ptr<engine::Command> ( new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player)));
+        getMoteur()->addCommand(1,std::shared_ptr<engine::Command> ( new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player)));
         
         for (int i = 0; i < (int)(listCommands.size()); i++)
             listCommands[i]->execute(getMoteur()->getPileAction(),getMoteur()->getState());
@@ -79,7 +80,7 @@ namespace ai
             }
             
             placement = new engine::PlaceCommand(newCreasCoordsUnitaires[0], newCreasCoordsUnitaires[1], player, (state::ID)getMoteur()->getPlayer(player)->getClanName());
-            placement->execute(getMoteur()->getPileAction(), getMoteur()->getState());
+            placement->execute(getMoteur()->getPileAction(),getMoteur()->getState());
             cout << "Nombre de cellules vides restantes apres placement : " << getMoteur()->getState().getFreeCellNbr() << endl;
             cout << "Nombre de cellules du joueur : " << getMoteur()->getPlayer(player)->getCellNbr() << endl;
         }
