@@ -20,7 +20,7 @@ namespace engine
     
     
     void PoisonCommand::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state){
-        PoisonAction action;
+        PoisonAction action(targetCell[0],targetCell[1]);
         action.apply(state);
     }
     
