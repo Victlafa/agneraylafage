@@ -53,7 +53,7 @@ namespace ai{
         for (int j = 0; j < 5; j ++)
         {
             randCommand = randGen()%(listCommands.size());
-            listCommands.at(randCommand)->execute(getMoteur()->getState());
+            listCommands.at(randCommand)->execute(getMoteur()->getPileAction(),getMoteur()->getState());
             cout << "RandomAI::run - Une commande de l'ia random a été en principe executée !" << endl;
         }
         
