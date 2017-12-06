@@ -6,6 +6,7 @@
 namespace ai {
 
   enum Direction {
+    NONE     = 0,
     NORDOUEST     = 1,
     NORDEST     = 2,
     EST     = 3,

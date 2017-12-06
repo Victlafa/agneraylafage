@@ -8,6 +8,9 @@
 
 namespace ai
 {
+    const std::vector<Direction> directions { Direction::NONE, Direction::NORDOUEST, Direction::NORDEST, Direction::EST, Direction::SUDEST, Direction::SUDOUEST, Direction::OUEST };
+    
+    
     PathMap::PathMap (const state::ElementTab& grid)
     {
         weights.assign(29,-1);
@@ -16,13 +19,51 @@ namespace ai
         init(grid);
     }
     
-    int PathMap::getWeight (const Point& p) const { return p.getWeight(); }
-    void PathMap::setWeight (const Point& p, int weight) { p.setWeight(weight); }
+    int PathMap::getWeight (const Point& p) const { return weights.at(p.getY()*this->width + p.getX()); }
+    void PathMap::setWeight (const Point& p, int weight) 
+    { 
+        weights.at(p.getY()*this->width + p.getX()) = weight;
+    }
     std::vector<int>& PathMap::getWeights () const { return weights; }
+    const Point& PathMap::getDestination () const { return destination; }
+    
     void PathMap::init (const state::ElementTab& grid)
     {
         
     }
-    void PathMap::addSink (Point p) {}
+    
+    bool PathMap::dijkstra ()
+    {
+        bool found = false;
+        // On introduit le point de depart dans la queue
+        queue.push(Point(0,0,0));
+        
+        // Tant qu'elle n'est pas vide
+        while (!queue.empty())
+        {
+            // On en recupere le premier element
+            auto p = queue.top(); queue.pop();
+            // On en change le poids
+            setWeight(p,p.getWeight());
+            // Si on se trouve sur le point d'arrivée
+            if (p.getX() == destination.getX() && p.getY() == destination.getY())
+                found = true;
+            // En un point donné, on explore toutes les directions
+            for (Direction d : directions)
+            {
+                auto pp = p.transform(d);
+                pp.setWeight(p.getWeight() + 1);
+                // Si le noeud fils a un poids superieur à son pere
+                if (this->getWeight(pp) > p.getWeight())
+                    // On ajoute le fils à la queue
+                    queue.push(pp);
+            }
+            
+        }
+        
+        return found;
+        
+        
+    }
     void PathMap::update (const state::ElementTab& grid) {}
 }

@@ -5,11 +5,13 @@
 #include <vector>
 #include <queue>
 
+namespace ai {
+  class Point;
+};
 namespace state {
   class ElementTab;
 };
 namespace ai {
-  class Point;
   class PointCompareWeight;
 }
 
@@ -27,14 +29,16 @@ namespace ai {
     int height;
     std::vector<int> weights;
     std::priority_queue<Point,std::vector<Point>,PointCompareWeight> queue;
+    Point destination;
     // Operations
   public:
     PathMap (const state::ElementTab& grid);
     int getWeight (const Point& p) const;
     void setWeight (const Point& p, int weight);
     std::vector<int>& getWeights () const;
+    const Point& getDestination () const;
     void init (const state::ElementTab& grid);
-    void addSink (Point p);
+    bool dijkstra ();
     void update (const state::ElementTab& grid);
     // Setters and Getters
   };

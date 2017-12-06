@@ -8,11 +8,9 @@
 
 namespace ai
 {
+    // Renvoie true si le poids de a est plus petit que celui de b
     bool PointCompareWeight::operator() (const Point& a, const Point& b)
     {
-        if (a.getWeight() == b.getWeight())
-            return true;
-        else
-            return false;
+        return a.getWeight() < b.getWeight();
     }
 }
