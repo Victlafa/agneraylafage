@@ -32,10 +32,10 @@ namespace ai {
     Point destination;
     // Operations
   public:
-    PathMap (const state::ElementTab& grid);
+    PathMap (const state::ElementTab& grid, const Point& destination);
     int getWeight (const Point& p) const;
     void setWeight (const Point& p, int weight);
-    std::vector<int>& getWeights () const;
+    const std::vector<int>& getWeights () const;
     const Point& getDestination () const;
     void init (const state::ElementTab& grid);
     bool dijkstra ();
