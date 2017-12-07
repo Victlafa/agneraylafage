@@ -41,16 +41,19 @@ namespace ai
         
         // On ajoute la commande associee à ce deplacement
         //listCommands.push_back(std::shared_ptr<engine::Command> ( new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player)));
-        getMoteur()->addCommand(1,std::shared_ptr<engine::Command> ( new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player)));
+        //getMoteur()->addCommand(1,std::shared_ptr<engine::Command> ( new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player)));
         
-        for (int i = 0; i < (int)(listCommands.size()); i++)
-            listCommands[i]->execute(getMoteur()->getPileAction(),getMoteur()->getState());
+        //for (int i = 0; i < (int)(listCommands.size()); i++)
+            //listCommands[i]->execute(getMoteur()->getPileAction(),getMoteur()->getState());
+        
+        engine::MoveCommand* moveCmd = new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player);
+        moveCmd->execute(getMoteur()->getPileAction(),getMoteur()->getState());
         
         // On verifie que le deplacement de la phase de conquete a bien ete effectue
         if (creaTab->get(coordsDeplacement[2],coordsDeplacement[3]) == NULL)
             throw std::runtime_error("HeuristicAI::run - La case de destination est tjrs vide meme apres deplacement !");
                                      
-        listCommands.clear();
+        //listCommands.clear();
         
         // 2. PHASE DE RENFORT
         cout << endl;

@@ -10,8 +10,14 @@ namespace ai
 {
     const std::vector<Direction> directions { Direction::NONE, Direction::NORDOUEST, Direction::NORDEST, Direction::EST, Direction::SUDEST, Direction::SUDOUEST, Direction::OUEST };
     
+    PathMap::PathMap()
+    {
+        width = 7;
+        height = 5;
+        weights.assign(29,-1);
+    }
     
-    PathMap::PathMap (state::ElementTab* grid, const Point& start, const Point& destination) : destination(destination)
+    PathMap::PathMap (const Point& start, const Point& destination, state::ElementTab* grid) : start(start), destination(destination)
     {
         weights.assign(29,-1);
         width = grid->getWidth();
