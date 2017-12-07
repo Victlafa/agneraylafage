@@ -80,16 +80,23 @@ namespace engine {
                     iter++;
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==2)){
                     // Ajout d'une commande au moteur
-                    std::shared_ptr<Command> com(new PoisonCommand(ligne,colonne));
+                    std::shared_ptr<Command> com(new PoisonCommand(ligne,colonne, moteur.getState().getCharacters()->get(ligne,colonne)->getElemType(),1));
                     moteur.addCommand(1,com);
                     // On execute les commandes
                     moteur.update();
                     std::cout << "Nombres de creatures presentes apres empoisonnement :" << moteur.getState().getCharacters()->get(ligne, colonne)->getCreaturesNbr() << std::endl;
                     iter++;
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==3)){
-                    cout << "FIN TESTS POISONCOMMAND" << endl;
+                    cout << "Test undo Poison Command" << endl;
                     iter++;
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==4)){
+                    moteur.undo();
+                    std::cout << "Nombres de creatures presentes apres undo :" << moteur.getState().getCharacters()->get(ligne, colonne)->getCreaturesNbr() << std::endl;
+                    iter++;
+                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==5)){
+                    cout << "FIN TESTS POISONCOMMAND" << endl;
+                    iter++;
+                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==6)){
                     window.close();
                 }
             }
@@ -491,9 +498,16 @@ namespace engine {
         
                     iter++;
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==4)){
-                    cout << "FIN TESTS MOVECOMMAND - Deplacement vers une case vide" << endl;
+                    cout << "Test undo" << endl;
                     iter++;
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==5)){
+                    moteur.undo();
+                    std::cout << "Nbre de creatures sur case de destination apres deplacement : " << moteur.getState().getCharacters()->get(ligne, colonne +1)->getCreaturesNbr() << std::endl;
+                    iter++;
+                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==6)){
+                    cout << "FIN TESTS MOVECOMMAND - Deplacement vers une case vide" << endl;
+                    iter++;
+                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==7)){
                     window.close();
                 }
             }
