@@ -55,38 +55,38 @@ namespace ai
                                      
         //listCommands.clear();
         
-        // 2. PHASE DE RENFORT
-        cout << endl;
-        cout << "-------------------------------- PHASE DE RENFORT --------------------------------" << endl << endl;
-        
-        // L'IA reçoit autant de creatures à placer qu'elle dispose de territoires. On plafonne à 8 !
-        int nbrCell = (getMoteur()->getPlayer(player)->getCellNbr() > 8) ? 8 : getMoteur()->getPlayer(player)->getCellNbr();
-        
-        getMoteur()->getPlayer(player)->setCreaturesLeft(nbrCell);
-        cout << "L'IA n°" << player << " dispose maintenant de " << nbrCell << " cellules, elle peut donc placer autant de nouvelles creatures sur la carte. (plafonné à 8)" << endl;
-        
-        // On declare un tableau qui contiendra les coords des cellules selectionnees pour le placement de nouvelles creatures
-        std::vector<int> newCreasCoordsTotales(0);
-        std::vector<int> newCreasCoordsUnitaires(3);
-        engine::PlaceCommand* placement;
-        
-        // On recupere une liste des coordonnees des cellules qu'occuperont ces creatures et on ajoute les commandes au fur et à mesure à la liste
-        for (int i = 0; i < nbrCell; i++)
-        {
-            newCreasCoordsUnitaires = this->placeCellResearch(player,newCreasCoordsTotales);
-            // Si la cellule contiendra en principe 5 creatures apres placement
-            if (newCreasCoordsUnitaires[2] == 5)
-            {
-                // On fait en sorte qu'elle ne puisse plus etre choisie
-                newCreasCoordsTotales.push_back(newCreasCoordsUnitaires[0]);
-                newCreasCoordsTotales.push_back(newCreasCoordsUnitaires[1]);
-            }
-            
-            placement = new engine::PlaceCommand(newCreasCoordsUnitaires[0], newCreasCoordsUnitaires[1], player, (state::ID)getMoteur()->getPlayer(player)->getClanName());
-            placement->execute(getMoteur()->getPileAction(),getMoteur()->getState());
-            cout << "Nombre de cellules vides restantes apres placement : " << getMoteur()->getState().getFreeCellNbr() << endl;
-            cout << "Nombre de cellules du joueur : " << getMoteur()->getPlayer(player)->getCellNbr() << endl;
-        }
+//        // 2. PHASE DE RENFORT
+//        cout << endl;
+//        cout << "-------------------------------- PHASE DE RENFORT --------------------------------" << endl << endl;
+//        
+//        // L'IA reçoit autant de creatures à placer qu'elle dispose de territoires. On plafonne à 8 !
+//        int nbrCell = (getMoteur()->getPlayer(player)->getCellNbr() > 8) ? 8 : getMoteur()->getPlayer(player)->getCellNbr();
+//        
+//        getMoteur()->getPlayer(player)->setCreaturesLeft(nbrCell);
+//        cout << "L'IA n°" << player << " dispose maintenant de " << nbrCell << " cellules, elle peut donc placer autant de nouvelles creatures sur la carte. (plafonné à 8)" << endl;
+//        
+//        // On declare un tableau qui contiendra les coords des cellules selectionnees pour le placement de nouvelles creatures
+//        std::vector<int> newCreasCoordsTotales(0);
+//        std::vector<int> newCreasCoordsUnitaires(3);
+//        engine::PlaceCommand* placement;
+//        
+//        // On recupere une liste des coordonnees des cellules qu'occuperont ces creatures et on ajoute les commandes au fur et à mesure à la liste
+//        for (int i = 0; i < nbrCell; i++)
+//        {
+//            newCreasCoordsUnitaires = this->placeCellResearch(player,newCreasCoordsTotales);
+//            // Si la cellule contiendra en principe 5 creatures apres placement
+//            if (newCreasCoordsUnitaires[2] == 5)
+//            {
+//                // On fait en sorte qu'elle ne puisse plus etre choisie
+//                newCreasCoordsTotales.push_back(newCreasCoordsUnitaires[0]);
+//                newCreasCoordsTotales.push_back(newCreasCoordsUnitaires[1]);
+//            }
+//            
+//            placement = new engine::PlaceCommand(newCreasCoordsUnitaires[0], newCreasCoordsUnitaires[1], player, (state::ID)getMoteur()->getPlayer(player)->getClanName());
+//            placement->execute(getMoteur()->getPileAction(),getMoteur()->getState());
+//            cout << "Nombre de cellules vides restantes apres placement : " << getMoteur()->getState().getFreeCellNbr() << endl;
+//            cout << "Nombre de cellules du joueur : " << getMoteur()->getPlayer(player)->getCellNbr() << endl;
+//        }
     }
     
     // On cherche une cellule attaquante pour l'IA ainsi qu'une cellule destination adverse ADJACENTE
