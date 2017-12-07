@@ -80,7 +80,11 @@ namespace engine
     }
     
     void Engine::undo(){
-        
+       std::shared_ptr<Action> act;
+       std::cout << pileAction.size() << std::endl;
+       act = pileAction.top();
+       act->undo(this->currentState);
+       pileAction.pop();
     }
     
     std::stack<std::shared_ptr<Action> >& Engine::getPileAction () {return pileAction;}
