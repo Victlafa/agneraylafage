@@ -9,9 +9,14 @@ namespace state {
 };
 namespace engine {
   class Action;
+};
+namespace state {
+  class CreaturesGroup;
 }
 
+#include "state/ID.h"
 #include "Action.h"
+#include "state/CreaturesGroup.h"
 
 namespace engine {
 
@@ -20,9 +25,12 @@ namespace engine {
     // Attributes
   protected:
     std::vector<int> cell;
+    int nbrCreaBegin;
+    state::ID typeCreaBegin;
+    int playerBegin;
     // Operations
   public:
-    PoisonAction (int i_cell, int j_cell);
+    PoisonAction (int i_cell, int j_cell, state::ID state, int player);
     bool isPoisoned (state::State& state);
     void killCreatures (state::State& state);
     void apply (state::State& state);
@@ -30,6 +38,12 @@ namespace engine {
     // Setters and Getters
     const std::vector<int>& getCell() const;
     void setCell(const std::vector<int>& cell);
+    int getNbrCreaBegin() const;
+    void setNbrCreaBegin(int nbrCreaBegin);
+    state::ID getTypeCreaBegin() const;
+    void setTypeCreaBegin(state::ID typeCreaBegin);
+    int getPlayerBegin() const;
+    void setPlayerBegin(int playerBegin);
   };
 
 };
