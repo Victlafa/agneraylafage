@@ -26,8 +26,8 @@ namespace ai {
     // Attributes
   private:
     std::mt19937 randGen;
-    PathMap player1Map;
-    PathMap player2Map;
+    PathMap ia1Map;
+    PathMap ia2Map;
     // Operations
   public:
     HeuristicAI (engine::Engine* moteur, int randomSeed);

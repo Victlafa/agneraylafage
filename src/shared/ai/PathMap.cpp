@@ -11,13 +11,13 @@ namespace ai
     const std::vector<Direction> directions { Direction::NONE, Direction::NORDOUEST, Direction::NORDEST, Direction::EST, Direction::SUDEST, Direction::SUDOUEST, Direction::OUEST };
     
     
-    PathMap::PathMap (const state::ElementTab& grid, const Point& destination)
+    PathMap::PathMap (state::ElementTab* grid, const Point& start, const Point& destination) : destination(destination)
     {
         weights.assign(29,-1);
-        width = grid.getWidth();
-        height = grid.getHeight();
+        width = grid->getWidth();
+        height = grid->getHeight();
         init(grid);
-        this->destination = destination;
+        //this->destination = destination;
     }
     
     int PathMap::getWeight (const Point& p) const { return weights.at(p.getY()*this->width + p.getX()); }
@@ -26,9 +26,10 @@ namespace ai
         weights.at(p.getY()*this->width + p.getX()) = weight;
     }
     const std::vector<int>& PathMap::getWeights () const { return weights; }
+    const Point& PathMap::getStart () const { return start; }
     const Point& PathMap::getDestination () const { return destination; }
     
-    void PathMap::init (const state::ElementTab& grid)
+    void PathMap::init (state::ElementTab* grid)
     {
         
     }
