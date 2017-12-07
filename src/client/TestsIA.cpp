@@ -148,7 +148,7 @@ namespace ai {
         // On affichera sur un nombre limité de tours
         int tour = 0;
         
-        std::cout << "Ici s'affrontent deux IAs heuristiques qui peuvent pour le moment se déplacer et combattre avec les quelques créatures qu'elles ont au départ de la partie. Elles peuvent aussi placer de nouvelles creatures sur la carte pendant la phase de renfort." << std::endl;
+        std::cout << "Ici s'affrontent deux IAs heuristiques qui peuvent pour le moment se déplacer et combattre avec les quelques créatures qu'elles ont au départ de la partie." << std::endl;
         std::cout << "La démonstration se fera sur 6 tours. 3 tours en marche avant et 3 autres en rollback" << std::endl;
         std::cout << "De plus nous avons donné la priorité aux combats. Il est donc possible que des groupes de creatures ne cherchent pas à se disperser tant qu'elles n'ont pas d'ennemies à proximité." << std::endl;
         std::cout << "(APPUYER sur une touche de clavier pour passer à l'étape suivante)" << std::endl;
@@ -163,6 +163,10 @@ namespace ai {
                 // Appui sur une touche de clavier ?
                 else if(event.type == sf::Event::EventType::KeyReleased){
                     // On effectue des deplacements
+                    if (tour == 0)
+                        std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%     PHASES NORMALES DE JEU     %%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
+                    if (tour == 6)
+                        std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%     PHASES DE ROLLBACK     %%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
                     if (tour < 6)
                     {
                         std::cout << "\n--------------    Tour n°" << tour / 2 + 1 << ", c'est à l'IA n°" << tour % 2 + 1 << " de jouer    --------------" << std::endl << std::endl;
