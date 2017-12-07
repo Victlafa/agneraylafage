@@ -131,16 +131,13 @@ int main(int argc,char* argv[])
             
         }
         
-        else if (argc >= 2 && (string) argv[1] == "random_ai") {
+        else if (argc >= 2 && (string) argv[1] == "random_ai") TestsRandomIA();
+        
+        else if (argc >= 2 && (string) argv[1] == "heuristic_ai") TestsHeuristicIA();
+        
+        else if (argc >= 2 && (string) argv[1] == "rollback")
+        {
             
-            TestsRandomIA();
-        
-        }
-        
-        else if (argc >= 2 && (string) argv[1] == "heuristic_ai") {
-            
-            TestsHeuristicIA();
-        
         }
         
     } catch (const std::exception &e) {
