@@ -220,5 +220,10 @@ namespace ai {
         std::cout << "\nNotre démonstration est terminée :)" << std::endl;
     }
     
+    void TestsPathFinding()
+    {
+        
+    }
+    
     
 }
