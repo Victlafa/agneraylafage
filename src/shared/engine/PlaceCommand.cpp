@@ -24,8 +24,12 @@ namespace engine{
     CommandTypeID PlaceCommand::getTypeID () const { return CommandTypeID::PLACE; }
     
     void PlaceCommand::execute (std::stack<std::shared_ptr<Action> >& pile, state::State& state){
-        PlaceAction action(finalPos[0], finalPos[1], player, creaType);
-        action.apply(state);
+        std::shared_ptr<Action> action(new PlaceAction(finalPos[0], finalPos[1], player, creaType));
+        if(state.getCharacters()->get(finalPos[0],finalPos[1])->getPlayer()==state.getPlayer(player).get()){
+            pile.push(action);
+            action->apply(state);
+        }else
+            std::cout << "Ce n'est pas une case du joueur !" << std::endl;
     }
     
     // Setters and Getters

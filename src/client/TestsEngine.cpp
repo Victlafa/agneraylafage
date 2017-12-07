@@ -846,6 +846,118 @@ namespace engine {
     
     void TestsPlaceCommand()
     {
+         cout << "DEBUT TESTS PlaceCommand" << endl;
         
+        srand(time(NULL));
+        
+        // On initialise un moteur
+        // On choisit les cuisiniers pour le joueur 1
+        engine::Engine moteur(CreaturesID::COOKERS);
+        
+        sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
+
+        // On crée un Layer qui permettra de gerer l'affichage des cellules
+        CellTabLayer cellLayer(*(moteur.getState().getGrid().get()));
+        
+        // On crée un Layer qui permettra de gerer l'affichage des creatures
+        CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));
+        
+        // Declaration et chargement des textures à exploiter pour l'affichage
+        sf::Texture hexaTexture;
+        sf::Texture charsTexture;
+        
+        // Le premier cas marche chez Victoire, le second chez Aurore
+        if (!hexaTexture.loadFromFile("./res/hexa.png")) 
+            if(!hexaTexture.loadFromFile("../res/hexa.png"))
+                std::cout << "Erreur chargement texture hexa !\n" << std::endl;
+        
+        if (!charsTexture.loadFromFile("./res/groupes.png")) 
+            if(!charsTexture.loadFromFile("../res/groupes.png"))
+                std::cout << "Erreur chargement texture groupes !\n" << std::endl;
+        
+        // On associe les textures chargees aux Surfaces des Layers de cellules et de groupes de creatures
+        cellLayer.getSurface()->setTexture(hexaTexture);
+        charsLayer.getSurface()->setTexture(charsTexture);
+        
+        int iter = 0;
+        
+        int compt1=0, compt2=0, k=0;
+        
+        int lcell_i_player1[3] = {0,0,0};
+        int lcell_j_player1[3] = {0,0,0};
+        int lcell_i_player2[3] = {0,0,0};
+        int lcell_j_player2[3] = {0,0,0};
+        
+        //int i1,j1,i2,j2;
+        
+        for(int i=0; i<5; i++){
+            for(int j=0; j<7; j++){
+                if(moteur.getState().getCharacters()->get(i,j)!=NULL&&(i!=4&&j!=6)){
+                    if((*moteur.getState().getCharacters()->get(i,j)->getPlayer()).getClanName()==(*moteur.getPlayer(1).get()).getClanName()){
+                        lcell_i_player1[compt1]=i;
+                        lcell_i_player1[compt1]=j;
+                        compt1++;
+                        
+                    }else if((*moteur.getState().getCharacters()->get(i,j)->getPlayer()).getClanName()==(*moteur.getPlayer(2).get()).getClanName()){
+                        lcell_i_player2[compt2]=i;
+                        lcell_i_player2[compt2]=j;
+                        compt2++;
+                        
+                    }
+                }
+            }
+        }
+        
+        while (window.isOpen()) {
+            sf::Event event;
+            while (window.pollEvent(event)) {
+                
+                if (event.type == sf::Event::Closed) window.close();
+                else if((event.type == sf::Event::EventType::KeyReleased) && (iter==0)){
+                    std::cout <<  "On attribue 5 créatures à placer aux 2 joueurs" << std::endl;
+                    moteur.getPlayer(1)->setCreaturesLeft(5);
+                    moteur.getPlayer(2)->setCreaturesLeft(5);
+                    
+                    iter++;
+                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==1)){
+                    // On ajoute une commande au moteur
+                    for (int i=0; i<5; i++){
+                        k = rand()%3;
+                        if(moteur.getState().getCharacters()->get(lcell_i_player1[k],lcell_j_player1[k])!=NULL){
+                            std::shared_ptr<PlaceCommand> com(new PlaceCommand(lcell_i_player1[k],lcell_j_player1[k],1,moteur.getState().getCharacters()->get(lcell_i_player1[k],lcell_j_player1[k])->getElemType()));
+                            moteur.addCommand(1,com);
+                        }else std::cout << "element null" << std::endl;
+                    }
+                    // On execute les commandes
+                    moteur.update();
+                    std::cout << "Ajout des créatures du Joueur 1 " << std::endl;
+
+                    iter++;
+                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==2)){
+                    // On ajoute une commande au moteur
+                    for (int i=0; i<5; i++){
+                        k = rand()%3;
+                        std::shared_ptr<PlaceCommand> com(new PlaceCommand(lcell_i_player2[k],lcell_j_player2[k],2,moteur.getState().getCharacters()->get(lcell_i_player2[k],lcell_j_player2[k])->getElemType()));
+                        moteur.addCommand(1,com);
+                    }
+                    // On execute les commandes
+                    moteur.update();
+                    std::cout << "Ajout des créatures du Joueur 2 " << std::endl;
+
+                    iter++;
+                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==3)){
+                    window.close();
+                }
+            }
+
+            cellLayer.initSurface();
+            charsLayer.initSurface();
+            
+            window.clear();
+            cellLayer.getSurface()->draw(window);
+            charsLayer.getSurface()->draw(window);
+
+            window.display();
+        }
     }
 }
