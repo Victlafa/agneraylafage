@@ -131,7 +131,7 @@ namespace ai {
 
     }
     
-    void TestsRollback()
+    void TestsRollbackMove()
     {
         srand(time(NULL));
         
@@ -149,29 +149,43 @@ namespace ai {
         int tour = 0;
         
         std::cout << "Ici s'affrontent deux IAs heuristiques qui peuvent pour le moment se déplacer et combattre avec les quelques créatures qu'elles ont au départ de la partie. Elles peuvent aussi placer de nouvelles creatures sur la carte pendant la phase de renfort." << std::endl;
-        std::cout << "La démonstration se fera sur 10 tours." << std::endl;
+        std::cout << "La démonstration se fera sur 6 tours. 3 tours en marche avant et 3 autres en rollback" << std::endl;
         std::cout << "De plus nous avons donné la priorité aux combats. Il est donc possible que des groupes de creatures ne cherchent pas à se disperser tant qu'elles n'ont pas d'ennemies à proximité." << std::endl;
         std::cout << "(APPUYER sur une touche de clavier pour passer à l'étape suivante)" << std::endl;
         
         sf::Event event;
         
-        while (tour != 40 && window.isOpen()) {
+        while (tour != 13 && window.isOpen()) {
             
             while (window.pollEvent(event)) {
                 // Fermeture de la fenetre ?
                 if (event.type == sf::Event::Closed) window.close();
                 // Appui sur une touche de clavier ?
                 else if(event.type == sf::Event::EventType::KeyReleased){
-                    std::cout << "\n--------------    Tour n°" << tour/2 + 1 << ", c'est à l'IA n°" << tour%2 + 1 << " de jouer    --------------" << std::endl << std::endl;
-                    // Tour de l'IA n°1
-                    if(tour%2==0) ia.run(1);
-                    // Tour de l'IA n°2
-                    else ia.run(2);
-                    // Execution des commandes demandées par les IA
-                    //moteur.update();
+                    // On effectue des deplacements
+                    if (tour < 6)
+                    {
+                        std::cout << "\n--------------    Tour n°" << tour / 2 + 1 << ", c'est à l'IA n°" << tour % 2 + 1 << " de jouer    --------------" << std::endl << std::endl;
+                        // Tour de l'IA n°1
+                        if (tour % 2 == 0) ia.run(1);
+                            // Tour de l'IA n°2
+                        else ia.run(2);
+                        // Execution des commandes demandées par les IA
+                        //moteur.update();
+                        
+                        std::cout << "\n(APPUYER sur une touche de clavier pour passer à l'étape suivante)" << std::endl;
+                    }
+                    // On les annule
+                    else if (tour != 12)
+                    {
+                        std::cout << "\n--------------    Annulation du Tour n°" << 6 - (tour / 2) << ", de l'IA n°" << 2 - tour % 2<< "   --------------" << std::endl << std::endl;
+                        moteur.undo();
+                        std::cout << "\n(APPUYER sur une touche de clavier pour passer à l'étape suivante)" << std::endl;
+                    }
+                    
                     tour++;
                     moteur.increaseTour();
-                    std::cout << "\n(APPUYER sur une touche de clavier pour passer à l'étape suivante)" << std::endl;
+                    
                 }
                 
             }

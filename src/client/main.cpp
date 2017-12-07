@@ -137,7 +137,7 @@ int main(int argc,char* argv[])
         
         else if (argc >= 2 && (string) argv[1] == "rollback")
         {
-            
+            TestsRollbackMove();
         }
         
     } catch (const std::exception &e) {

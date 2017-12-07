@@ -31,7 +31,7 @@ using namespace state;
 namespace ai{
     void TestsRandomIA();
     void TestsHeuristicIA();
-    void TestsRollback();
+    void TestsRollbackMove();
     
 }
 
