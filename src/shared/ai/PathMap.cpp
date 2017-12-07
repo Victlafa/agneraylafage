@@ -17,12 +17,12 @@ namespace ai
         weights.assign(29,-1);
     }
     
-    PathMap::PathMap (const Point& start, const Point& destination, state::ElementTab* grid) : start(start), destination(destination)
+    PathMap::PathMap (state::Player* player, const Point& start, const Point& destination, state::ElementTab* grid) : start(start), destination(destination)
     {
         weights.assign(29,-1);
         width = grid->getWidth();
         height = grid->getHeight();
-        init(grid);
+        filter(grid,player);
         //this->destination = destination;
     }
     
@@ -35,7 +35,8 @@ namespace ai
     const Point& PathMap::getStart () const { return start; }
     const Point& PathMap::getDestination () const { return destination; }
     
-    void PathMap::init (state::ElementTab* grid)
+    // Pour le joueur selectionne, on doit recuperer sa cellule de depart ainsi que toutes celles de son adversaire pour ensuite trouver laquelle est la plus proche
+    void PathMap::filter (state::ElementTab* grid, state::Player* player)
     {
         
     }

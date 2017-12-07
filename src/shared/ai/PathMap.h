@@ -9,6 +9,7 @@ namespace ai {
   class Point;
 };
 namespace state {
+  class Player;
   class ElementTab;
 };
 namespace ai {
@@ -16,6 +17,7 @@ namespace ai {
 }
 
 #include "Point.h"
+#include "state/Player.h"
 #include "state/ElementTab.h"
 #include "PointCompareWeight.h"
 
@@ -34,13 +36,13 @@ namespace ai {
     // Operations
   public:
     PathMap ();
-    PathMap (const Point& start, const Point& destination, state::ElementTab* grid = nullptr);
+    PathMap (state::Player* player, const Point& start, const Point& destination, state::ElementTab* grid = nullptr);
     int getWeight (const Point& p) const;
     void setWeight (const Point& p, int weight);
     const std::vector<int>& getWeights () const;
     const Point& getStart () const;
     const Point& getDestination () const;
-    void init (state::ElementTab* grid);
+    void filter (state::ElementTab* grid, state::Player* player);
     bool dijkstra ();
     void update (const state::ElementTab& grid);
     // Setters and Getters

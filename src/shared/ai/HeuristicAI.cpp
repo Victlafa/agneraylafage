@@ -19,6 +19,7 @@ namespace ai
         randGen.seed(randomSeed);
         // On initialise les attributs de l'IA
         //this->initIA(moteur,player);
+        
     }
     
     void HeuristicAI::run (int player)
