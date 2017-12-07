@@ -36,7 +36,10 @@ namespace engine{
             //prendre en compte le joueru
             std::shared_ptr<Action> action;
             action.reset(new MoveAction(initPos[0], initPos[1], finalPos[0], finalPos[1],1));
+            std::cout << "taille avant push : " << pile.size() << std::endl;
             pile.push(action);
+            action->apply(state);
+            std::cout << "taille après push : " << pile.size() << std::endl;
         }
         else
             throw std::runtime_error("La case de destination doit etre adjacente à celle de depart !");
