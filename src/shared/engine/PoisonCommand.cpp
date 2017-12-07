@@ -13,15 +13,20 @@ using namespace state;
 
 namespace engine
 {
-    PoisonCommand::PoisonCommand (int i_cell, int j_cell) : targetCell(2) {
+    PoisonCommand::PoisonCommand (int i_cell, int j_cell, state::ID type, int player) : targetCell(2) {
         targetCell[0] = i_cell;
         targetCell[1] = j_cell;
+        this->type = type;
+        player = player;
     } 
     
     
     void PoisonCommand::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state){
-        PoisonAction action(targetCell[0],targetCell[1]);
-        action.apply(state);
+        std::shared_ptr<Action> action(new PoisonAction(targetCell[0],targetCell[1], type, player));
+        std::cout << "avant le push" << pile.size() << std::endl;
+        pile.push(action);
+        std::cout << "après le push" << pile.size() << std::endl;
+        action->apply(state);
     }
     
     
