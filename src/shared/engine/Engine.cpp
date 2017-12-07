@@ -11,6 +11,7 @@
 #include <iostream>
 using namespace state;
 using namespace render;
+using namespace std;
 
 namespace engine
 {
@@ -50,6 +51,7 @@ namespace engine
     }
     
     void Engine::addCommand (int priority, std::shared_ptr<Command> cmd) {
+        cout << "Entree dans Engine::addCommand" << endl;
         // On ajoute une commande :
         currentCommands.emplace(priority,cmd);
         // la map trie automatiquement les clés dans l'ordre croissant (en principe, à vérifier)
@@ -81,10 +83,15 @@ namespace engine
     
     void Engine::undo(){
        std::shared_ptr<Action> act;
-       std::cout << pileAction.size() << std::endl;
-       act = pileAction.top();
-       act->undo(this->currentState);
-       pileAction.pop();
+       std::cout << "Engine::undo - taille de la pile d'actions : " << pileAction.size() << std::endl;
+       
+       if (pileAction.size() != 0)
+       {
+           act = pileAction.top();
+           act->undo(this->currentState);
+           pileAction.pop();
+       }
+       
     }
     
     std::stack<std::shared_ptr<Action> >& Engine::getPileAction () {return pileAction;}

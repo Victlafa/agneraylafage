@@ -33,7 +33,8 @@ namespace ai {
     Point destination;
     // Operations
   public:
-    PathMap (state::ElementTab* grid = nullptr, const Point& start = Point(), const Point& destination = Point());
+    PathMap ();
+    PathMap (const Point& start, const Point& destination, state::ElementTab* grid = nullptr);
     int getWeight (const Point& p) const;
     void setWeight (const Point& p, int weight);
     const std::vector<int>& getWeights () const;
