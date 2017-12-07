@@ -32,6 +32,7 @@ namespace ai{
     void TestsRandomIA();
     void TestsHeuristicIA();
     void TestsRollbackMove();
+    void TestsPathFinding();
     
 }
 
