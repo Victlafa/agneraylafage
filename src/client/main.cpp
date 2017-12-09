@@ -140,6 +140,8 @@ int main(int argc,char* argv[])
             TestsRollbackMove();
         }
         
+        else if (argc >= 2 && (string) argv[1] == "thread") TestsThread();
+        
     } catch (const std::exception &e) {
         
         cout << "Erreur, catch du main" << endl;

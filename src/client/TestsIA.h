@@ -25,6 +25,7 @@
 //#include "ai/AI.h"
 //#include "ai/RandomAI.h"
 #include <time.h>
+#include <thread>
 
 using namespace state;
 
@@ -32,6 +33,7 @@ namespace ai{
     void TestsRandomIA();
     void TestsHeuristicIA();
     void TestsRollbackMove();
+    void TestsThread();
     
 }
 
