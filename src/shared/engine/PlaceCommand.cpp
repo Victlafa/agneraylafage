@@ -25,11 +25,12 @@ namespace engine{
     
     void PlaceCommand::execute (std::stack<std::shared_ptr<Action> >& pile, state::State& state){
         std::shared_ptr<Action> action(new PlaceAction(finalPos[0], finalPos[1], player, creaType));
-        if(state.getCharacters()->get(finalPos[0],finalPos[1]) != NULL && state.getCharacters()->get(finalPos[0],finalPos[1])->getPlayer()==state.getPlayer(player).get()){
+        if(!state.getCharacters()->isOccupiedByOpp(finalPos[0],finalPos[1],state.getPlayer(player).get())){
             pile.push(action);
             action->apply(state);
-        }else
-            std::cout << "Ce n'est pas une case du joueur !" << std::endl;
+        }
+        else
+            throw std::runtime_error("PlaceCommand::execute - La case de destination choisie appartient à l'adversaire !");
     }
     
     // Setters and Getters

@@ -38,6 +38,9 @@ namespace ai{
     {
         // Les deux premiers elements du tableau seront les coordonnees de la cellule choisie. Le troisieme element sera le nombre de creatures que comportera la cellule apres l'execution du placement
         std::vector<int> coordsDestination(3);
+        
+        // On recupere le tableau de creatures
+        CreaturesTab* creaTab = moteur->getState().getCharacters().get();
                 
         // On verifie que le joueur dispose encore en stock de creatures à placer sur la grille
         if (moteur->getState().getPlayer(player)->getCreaturesLeft() > 0)
@@ -54,52 +57,87 @@ namespace ai{
             
             // On recupere le joueur
             state::Player* player_ia = moteur->getPlayer(player).get();
+            
 
-            for (unsigned int i = 0; i < moteur->getState().getCharacters()->getHeight(); i++) 
-            {
-                for (unsigned int j = 0; j < moteur->getState().getCharacters()->getWidth(); j++) 
+//            for (unsigned int i = 0; i < moteur->getState().getCharacters()->getHeight(); i++) 
+//            {
+//                for (unsigned int j = 0; j < moteur->getState().getCharacters()->getWidth(); j++) 
+//                {
+//                    // On verifie si les coordonnees etudiees ne sont pas deja prevues pour un autre placement durant ce tour
+//                    if (isAvailable(i,j,disabledPlaces))
+//                    {
+//                        //cout << "i : " << i << "|| j : " << j << endl;  // Oooooookkkkk
+//                        
+//                        // Si on cherche un groupe de creatures appartenant au joueur qui souhaite placer une creature et qu'il est de pointeur non nul
+//                        if (choice == 0 && moteur->getState().getCharacters()->get(i, j).get() != 0 && moteur->getState().getCharacters()->get(i, j)->getPlayer() == player_ia) {
+//                            //cout << "Cellule du joueur disponible " << "i : " << i << "|| j : " << j << endl; // Oooooooookkkk
+//                            // Si ce groupe appartient à l'ia et qu'il a au plus 4 creatures
+//                            int creaNbr = moteur->getState().getCharacters()->get(i, j)->getCreaturesNbr();
+//                            
+//                            if (creaNbr > 0 && creaNbr < 5) {
+//                                // Il est valide et on le selectionne
+//                                ligne = i;
+//                                colonne = j;
+//                                coordsDestination[2] = moteur->getState().getCharacters()->get(ligne,colonne)->getCreaturesNbr() + 1;
+//                                //cout << "Nombre de creatures prevu apres placement : " << coordsDestination[2] << endl;
+//
+//                                // On sort de la boucle for j
+//                                break;
+//                            }
+//                        }                            
+//                        
+//                        // Si on cherche une case vide (ON DOIT VERIFIER QUE LA CASE EST AUTORISEE !!)
+//                        else if (choice == 1 && moteur->getState().getCharacters()->isEnable(i, j) && moteur->getState().getCharacters()->get(i, j).get() == NULL) {
+//                            //cout << "Cellule vide disponible " << "i : " << i << "|| j : " << j << endl; // Oooooooookkkk
+//                            ligne = i;
+//                            colonne = j;
+//                            coordsDestination[2] = 1;
+//
+//                            // On sort de la boucle for j
+//                            break;
+//                        }
+//                    }
+//                    
+//
+//                }
+//
+//                // On sort de la boucle for i
+//                if (ligne != 0 || colonne != 0)
+//                    break;
+//            }
+
+            // Si on cherche un groupe de creatures appartenant au joueur qui souhaite placer une creature et qu'il est de pointeur non null
+            if (choice == 0) {
+                // On recupere les coordonnees des cellules appartenant au joueur
+                std::vector<int> playerCells = playerCellResearch(player);
+                int random;
+                // Parmi ces groupes, on en tire un au hasard (jusqu'à ce qu'on en ait un avec au plus 4 creatures)
+                do
+                    random = rand()%(int)(playerCells.size()/2);
+                while (creaTab->get(playerCells[2*random], playerCells[2*random+1])->getCreaturesNbr() > 4);
+                
+                ligne = playerCells[2 * random];
+                colonne = playerCells[2 * random + 1];
+                coordsDestination[2] = creaTab->get(ligne, colonne)->getCreaturesNbr() + 1;
+                
+                if (creaTab->isOccupiedByOpp(ligne,colonne,player_ia))
+                    throw std::runtime_error("AI::placeCellResearch - La cellule choisie pour un placement appartient à l'adversaire !");
+            }
+
+            // Si on cherche une case vide (ON DOIT VERIFIER QUE LA CASE EST AUTORISEE !!)
+            else if (choice == 1) {
+                // On tire des coordonnees au hasard jusqu'à ce qu'on en trouve qui correspondent à une case vide valide
+                int i,j;
+                do
                 {
-                    // On verifie si les coordonnees etudiees ne sont pas deja prevues pour un autre placement durant ce tour
-                    if (isAvailable(i,j,disabledPlaces))
-                    {
-                        //cout << "i : " << i << "|| j : " << j << endl;  // Oooooookkkkk
-                        
-                        // Si on cherche un groupe de creatures appartenant au joueur qui souhaite placer une creature et qu'il est de pointeur non nul
-                        if (choice == 0 && moteur->getState().getCharacters()->get(i, j).get() != 0 && moteur->getState().getCharacters()->get(i, j)->getPlayer() == player_ia) {
-                            //cout << "Cellule du joueur disponible " << "i : " << i << "|| j : " << j << endl; // Oooooooookkkk
-                            // Si ce groupe appartient à l'ia et qu'il a au plus 4 creatures
-                            int creaNbr = moteur->getState().getCharacters()->get(i, j)->getCreaturesNbr();
-                            
-                            if (creaNbr > 0 && creaNbr < 5) {
-                                // Il est valide et on le selectionne
-                                ligne = i;
-                                colonne = j;
-                                coordsDestination[2] = moteur->getState().getCharacters()->get(ligne,colonne)->getCreaturesNbr() + 1;
-                                //cout << "Nombre de creatures prevu apres placement : " << coordsDestination[2] << endl;
-
-                                // On sort de la boucle for j
-                                break;
-                            }
-                        }                            
-                        
-                        // Si on cherche une case vide (ON DOIT VERIFIER QUE LA CASE EST AUTORISEE !!)
-                        else if (choice == 1 && moteur->getState().getCharacters()->isEnable(i, j) && moteur->getState().getCharacters()->get(i, j).get() == NULL) {
-                            //cout << "Cellule vide disponible " << "i : " << i << "|| j : " << j << endl; // Oooooooookkkk
-                            ligne = i;
-                            colonne = j;
-                            coordsDestination[2] = 1;
-
-                            // On sort de la boucle for j
-                            break;
-                        }
-                    }
-                    
-
+                    i = rand()%creaTab->getHeight();
+                    j = rand()%creaTab->getWidth();
                 }
-
-                // On sort de la boucle for i
-                if (ligne != 0 || colonne != 0)
-                    break;
+                while (!creaTab->isEnable(i,j) || creaTab->get(i,j) != nullptr);
+                
+                ligne = i;
+                colonne = j;
+                coordsDestination[2] = 1;
             }
 
             if (ligne == 0 && colonne == 0)
@@ -113,7 +151,7 @@ namespace ai{
         else
             throw std::runtime_error("AI::placeCellResearch - L'IA ne dispose plus de creatures à placer dans la grille !");
         
-        if (moteur->getState().getCharacters()->get(coordsDestination[0], coordsDestination[1]) != NULL && moteur->getState().getCharacters()->get(coordsDestination[0], coordsDestination[1])->getCreaturesNbr() == 5)
+        if (creaTab->get(coordsDestination[0], coordsDestination[1]) != NULL && creaTab->get(coordsDestination[0], coordsDestination[1])->getCreaturesNbr() == 5)
             throw std::runtime_error("AI::placeCellResearch - La cellule destination selectionnee dispose deja de 5 creatures !");
         
         return coordsDestination;
@@ -230,40 +268,12 @@ namespace ai{
             return false;
     }
     
-    // On cherche une case QUELCONQUE (donc vide ou pas) adjacente à la cellule argument (caractérisée par ses coords) pour un deplacement
+    // On cherche une case ALEATOIRE (donc vide ou pas) adjacente à la cellule argument (caractérisée par ses coords) pour un deplacement
     std::vector<int> AI::adjacentCellResearch (int ligne, int colonne)
     {
-        //int new_ligne = ligne;
-        //int new_colonne = colonne;
         std::vector<int> destination(2);
         std::vector<int> adjCells = getAdjacences(ligne,colonne);
         int random = rand() % (int)(adjCells.size()/2);
-        //CreaturesTab* creaTab = moteur->getState().getCharacters().get();
-        
-//        // Deplacement possible vers l'adjacente n°1 ?
-//        if (ligne > 0 /*&& creaTab->get(ligne-1,colonne).get() == NULL*/ && creaTab->isEnable(ligne - 1,colonne))
-//            new_ligne -= 1;
-//        // Vers l'adjacente n°2 ?
-//        else if (ligne > 0 && colonne < (int)(creaTab->getWidth()) && /*creaTab->get(ligne-1,colonne + 1).get() == NULL &&*/ creaTab->isEnable(ligne - 1,colonne))
-//        {
-//            new_ligne -= 1; new_colonne += 1;
-//        }
-//        // Vers l'adjacente n°3 ?
-//        else if (colonne < (int)(creaTab->getWidth()) /*&& creaTab->get(ligne,colonne + 1).get() == NULL*/ && creaTab->isEnable(ligne,colonne+1))
-//            new_colonne += 1;
-//        // Vers l'adjacente n°4 ?
-//        else if (ligne < (int)(creaTab->getHeight()) /*&& creaTab->get(ligne + 1,colonne).get() == NULL*/ && creaTab->isEnable(ligne + 1,colonne))
-//            new_ligne += 1;
-//        // Vers l'adjacente n°5 ?
-//        else if (colonne > 0 && ligne < (int)(creaTab->getHeight()) /*&& creaTab->get(ligne + 1,colonne).get() == NULL*/ && creaTab->isEnable(ligne + 1,colonne))
-//        {
-//            new_ligne += 1; new_colonne -= 1;
-//        }
-//        // Vers l'adjacente n°6 ?
-//        else if (colonne > 0 && /*creaTab->get(ligne,colonne-1).get() == NULL &&*/ creaTab->isEnable(ligne,colonne-1))
-//            new_colonne -= 1;
-        //else
-            //throw std::runtime_error("AI::moveCellResearch - La case selectionnee pour l'IA ne permet aucun deplacement");
         
         destination[0] = adjCells[2*random];
         destination[1] = adjCells[2*random+1];

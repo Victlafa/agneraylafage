@@ -76,7 +76,7 @@ namespace state
                 
                 // On verifie si le deplacement a ete effectue
                 if (this->get(new_i_elem,new_j_elem) == NULL && this->get(new_i_elem,new_j_elem)->getCreaturesNbr() != 0)
-                    std::runtime_error("CreaturesTab::moveElement - le déplacement vers une case vide n'a pas été effectué !");
+                    throw std::runtime_error("CreaturesTab::moveElement - le déplacement vers une case vide n'a pas été effectué !");
                 
             }
             
