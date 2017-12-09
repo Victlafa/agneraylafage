@@ -145,32 +145,33 @@ namespace ai{
         std::vector<int> adjacent_Cells;
         std::vector<int> finalCell;
         std::vector<int> possibleAdjs = this->getAdjacences(init_i,init_j);
-        bool verifBornes = false;
+        //bool verifBornes = false;
         bool occupation = false;
-        int tabWidth = getMoteur()->getState().getCharacters()->getWidth();
-        int tabHeight = getMoteur()->getState().getCharacters()->getHeight();
+        //int tabWidth = getMoteur()->getState().getCharacters()->getWidth();
+        //int tabHeight = getMoteur()->getState().getCharacters()->getHeight();
         int random;
         
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < (int)(possibleAdjs.size()/2); i++)
         {
             // On verifie les bornes (pour ne pas se retrouver à chercher une case hors de la grille !)
-            if (i >= 0 && i < 3)
-                verifBornes = (possibleAdjs[2 * i] >= 0 && possibleAdjs[2 * i + 1] < tabWidth);
-            else if (i >= 3 && i < 6)
-                verifBornes = (possibleAdjs[2 * i] < tabHeight && possibleAdjs[2 * i + 1] >= 0);
+//            if (i >= 0 && i < 3)
+//                verifBornes = (possibleAdjs[2 * i] >= 0 && possibleAdjs[2 * i + 1] < tabWidth);
+//            else if (i >= 3 && i < 6)
+//                verifBornes = (possibleAdjs[2 * i] < tabHeight && possibleAdjs[2 * i + 1] >= 0);
 
             // On verifie de plus si l'adjacence amene à une case valide
-            if (verifBornes && getMoteur()->getState().getCharacters()->isEnable(possibleAdjs[2*i],possibleAdjs[2*i+1]))
-            {
-                
-                // On verifie si la cellule adjacente possible est occupee ou non par l'adversaire
-                occupation = getMoteur()->getState().getCharacters()->isOccupiedByOpp(possibleAdjs[2 * i], possibleAdjs[2 * i + 1], getMoteur()->getPlayer(player).get());
+//            if (verifBornes && getMoteur()->getState().getCharacters()->isEnable(possibleAdjs[2*i],possibleAdjs[2*i+1]))
+//            {
+//                
+//                
+//            }
+            // On verifie si la cellule adjacente possible est occupee ou non par l'adversaire
+            occupation = getMoteur()->getState().getCharacters()->isOccupiedByOpp(possibleAdjs[2 * i], possibleAdjs[2 * i + 1], getMoteur()->getPlayer(player).get());
 
-                if (occupation) {
-                    // Si les deux conditions sont verifiees, la cellule adjacente etudiee appartient au joueur reel 
-                    adjacent_Cells.push_back(possibleAdjs[2 * i]);
-                    adjacent_Cells.push_back(possibleAdjs[2 * i + 1]);
-                }
+            if (occupation) {
+                // Si les deux conditions sont verifiees, la cellule adjacente etudiee appartient au joueur reel 
+                adjacent_Cells.push_back(possibleAdjs[2 * i]);
+                adjacent_Cells.push_back(possibleAdjs[2 * i + 1]);
             }
             
         }

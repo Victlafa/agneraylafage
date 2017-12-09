@@ -8,6 +8,7 @@
 #include "CreaturesID.h"
 #include "CreaturesGroup.h"
 #include "ID.h"
+#include <iostream>
 
 namespace state
 {
@@ -28,11 +29,14 @@ namespace state
         std::vector<int> oldCreaNbr(2);
         
         // Nbre de creatures de la cellule attaquante
-        int creaNbrAtt = this->get(i_elem,j_elem)->getCreaturesNbr();
+        int creaNbrAtt = 0;
+        if (this->get(i_elem,j_elem) != NULL && this->get(i_elem,j_elem)->getCreaturesNbr() != 0)
+            creaNbrAtt = this->get(i_elem,j_elem)->getCreaturesNbr();
+        else
+            throw std::runtime_error("CreaturesTab::moveElement - Il n'y a pas de groupe de creatures dans la cellule designee comme attaquante !");
                 
         // Nbre de creatures de la cellule destination
         int creaNbrDef = 0;
-        // A definir seulement si la case de destination est non vide !
         if (this->get(new_i_elem,new_j_elem) != NULL)
             creaNbrDef = this->get(new_i_elem,new_j_elem)->getCreaturesNbr();
         
@@ -43,49 +47,42 @@ namespace state
         
         // La case destination est-elle autorisée ?
         if (isEnable(new_i_elem,new_j_elem))
-        {
-                        
+        {      
             // La case destination est-elle vide ?
             if (this->get(new_i_elem,new_j_elem) == NULL)
             {
                 // Si c'est le cas, on procède au déplacement
-                
+                Element* newGroup;
                 // On cree un nouveau groupe que l'on place dans la case vide avec N - 1 creatures SAUF si la case de depart n'en contenait qu'une !
                 if (creaNbrAtt > 1)
                 {
-                    Element* newGroup = new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(),creaNbrAtt - 1,this->get(i_elem, j_elem)->getPlayer());
-                    this->set(newGroup,new_i_elem,new_j_elem);
+                    newGroup = new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(),creaNbrAtt - 1,this->get(i_elem, j_elem)->getPlayer());
                     // On fixe le nbre de creatures de la case attaquante à 1
                     this->get(i_elem,j_elem)->setCreaturesNbr(1);
                 }
                 
                 else
                 {
-                    Element* newGroup = new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(),1,this->get(i_elem, j_elem)->getPlayer());
-                    this->set(newGroup,new_i_elem,new_j_elem);
-                    // On fixe le nbre de creatures de la case attaquante à 0
-                    this->get(i_elem,j_elem)->setCreaturesNbr(0);
+                    newGroup = new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(),1,this->get(i_elem, j_elem)->getPlayer());
+                    // On detruit le groupe de creatures de la cellule attaquante
+                    this->set(nullptr,i_elem,j_elem);
+                    
+                    if (this->get(i_elem,j_elem).get() != nullptr)
+                        throw std::runtime_error("CreaturesTab::moveElement ligne 70 - la cellule attaquante n'a pas ete detruite !");
+                        
                 }
                 
-                // On verifie que le mouvement a bien été effectué
-//                if (this->get(new_i_elem,new_j_elem) != nullptr)
-//                {
-//                    // Si c'est le cas on veut savoir si la case est speciale ou non
-//                    //std::cout << "ElementTab::moveElement - appel isSpecial ligne 242" << std::endl;
-//                    
-//                    // si la cellule obtenue est speciale, on ajoute le nom du type à la liste de noms du joueur
-//                    if (isSpecial(new_i_elem, new_j_elem))
-//                        this->assignSpecialCell(this->get(new_i_elem, new_j_elem)->getPlayer(), nullptr, this->get(new_i_elem, new_j_elem)->getElemType());
-//                }
-//                else
-//                    throw std::runtime_error("Le deplacement vers une case vide ne s'est pas deroulé correctement, la case est toujours vide");
-//                
+                this->set(newGroup,new_i_elem,new_j_elem);
+                
+                // On verifie si le deplacement a ete effectue
+                if (this->get(new_i_elem,new_j_elem) == NULL && this->get(new_i_elem,new_j_elem)->getCreaturesNbr() != 0)
+                    std::runtime_error("CreaturesTab::moveElement - le déplacement vers une case vide n'a pas été effectué !");
+                
             }
             
             // Est-elle occupée par le joueur qui se déplace ou par l'adversaire ?
             else 
             {
-                
                 if (fight >= 0 && fight < 4) {
                     
                     // La case destination est occupée par le joueur qui se deplace
@@ -94,51 +91,39 @@ namespace state
                         // On definit ces variables afin de tenir compte du fait que chaque cellule doit contenir au maximum 5 creatures
                         // On doit aussi tenir compte du fait que si la cellule de depart comporte une creature, celle-ci se deplace en laissant sa case vide
                         // Dans les autres cas, on doit laisser au moins une creature sur la case de depart lors du deplacement
-                        int oldDef = creaNbrDef;
+                        
+                        // Nbre futur de creatures sur la case defense - cas où la case d'attaque comporte plusieurs creatures
                         int newDef_several = ((creaNbrDef + creaNbrAtt - 1) <= 5) ? (creaNbrDef + creaNbrAtt - 1) : 5;
+                        // Nbre futur de creatures sur la case defense - cas où la case d'attaque comporte une seule creature
                         int newDef_one = ((creaNbrDef + 1) <= 5) ? (creaNbrDef + 1) : 5;
                         
                         // On fixe le nbre de creatures de la case destination
                         (creaNbrAtt != 1) ? this->get(new_i_elem,new_j_elem)->setCreaturesNbr(newDef_several) : this->get(new_i_elem,new_j_elem)->setCreaturesNbr(newDef_one);
-                        // On fixe le nouveau nbre de creatures de la case de depart
-                        (creaNbrAtt != 1) ? this->get(i_elem,j_elem)->setCreaturesNbr(creaNbrAtt - newDef_several + oldDef) : this->get(i_elem,j_elem)->setCreaturesNbr(creaNbrAtt - newDef_one + oldDef);
+                        // On fixe le nouveau nbre de creatures de la case de depart (on la detruit si elle est videe lors du deplacement)
+                        (creaNbrAtt != 1) ? this->get(i_elem,j_elem)->setCreaturesNbr(creaNbrAtt - newDef_several + creaNbrDef) : this->set(nullptr,i_elem,j_elem);
                     }
                         
                     // Le joueur 1 ou le joueur 2 a gagné le combat sans aucune pitie en etant l'attaquant
                     else if (fight == 1 || fight == 2)
                     {
-                        // On veut savoir si la case est speciale ou non
-                        //std::cout << "ElementTab::moveElement - appel isSpecial ligne 271" << std::endl;
-                        
-                        // si la cellule attaquee est speciale, on ajoute/supprime le nom du type à la liste de noms des joueurs
-//                        if (isSpecial(new_i_elem, new_j_elem))
-//                            this->assignSpecialCell(this->get(i_elem,j_elem)->getPlayer(),this->get(new_i_elem,new_j_elem)->getPlayer(),this->get(new_i_elem,new_j_elem)->getElemType());
-//                        
-                        // On fixe le nouveau nbre de creatures de la case de depart
-                        (creaNbrAtt != 1) ? this->get(i_elem,j_elem)->setCreaturesNbr(1) : this->get(i_elem,j_elem)->setCreaturesNbr(0);
-                        
                         // On detruit les creatures de la case defense en les remplaçant par celles de l'attaquant
                         (creaNbrAtt != 1) ? this->set(new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(), creaNbrAtt - 1, this->get(i_elem, j_elem)->getPlayer()), new_i_elem, new_j_elem) : this->set(new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(),1, this->get(i_elem, j_elem)->getPlayer()), new_i_elem, new_j_elem);
                         
+                        // On fixe le nouveau nbre de creatures de la case de depart. Si la case de depart est destinee a etre videe, on la detruit
+                        (creaNbrAtt != 1) ? this->get(i_elem,j_elem)->setCreaturesNbr(1) : this->set(nullptr,i_elem,j_elem);
                     }
                         
+                    // Le defenseur a gagné ou il y a egalite : dans ce cas là le nombre de creatures en attaque tombe à 1
                     else
-                    {
                         this->get(i_elem, j_elem)->setCreaturesNbr(1);
-                        // std::cout << "Le defenseur a gagne" << std::endl;
-                        // Si fight = 3 ie le defenseur a gagne, on detruit seulement les creatures envoyées au combat par l'attaquant
-                        // Dans ce cas là on voit juste le nombre de creatures de la case attaquante tomber à 1
-//                        if (this->get(i_elem, j_elem)->getCreaturesNbr() != 1)
-//                            this->get(i_elem, j_elem)->setCreaturesNbr(1);
-//                        else
-                            
-                    }
 
                 }
                 
                 else
-                    throw std::runtime_error("CreaturesTab::moveElement - Le déplacement n'a pas pu etre effectué !");
+                    throw std::runtime_error("CreaturesTab::moveElement - Le déplacement n'a pas pu etre effectué (mauvaise valeur de l'argument fight, doit etre egal à 0,1,2 ou 3 !");
             }
+            
+            std::cout << "CreaturesTab::moveElement - Nombre d'elements CreaturesGroup dans la liste de CreaturesTab : " << this->getList().size() << std::endl;
         }
         
         else

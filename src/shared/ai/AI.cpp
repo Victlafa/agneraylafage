@@ -186,17 +186,18 @@ namespace ai{
     std::vector<int> AI::playerCellResearch (int player)
     {
         std::vector<int> coordonnees;
+        CreaturesTab* groupes = moteur->getState().getCharacters().get();
         
         // On parcourt toutes les cellules de la grille
-        for (unsigned int i = 0; i < moteur->getState().getCharacters()->getHeight(); i++) 
+        for (unsigned int i = 0; i < groupes->getHeight(); i++) 
         {
-            for (unsigned int j = 0; j < moteur->getState().getCharacters()->getWidth(); j++) 
+            for (unsigned int j = 0; j < groupes->getWidth(); j++) 
             {
-                // Si une creature est presente a la position etudiee
-                if (moteur->getState().getCharacters()->get(i,j).get() != 0)
+                // Si la case est autorisee et qu'une creature est presente a la position etudiee
+                if (groupes->isEnable(i,j) && groupes->get(i,j).get() != nullptr)
                 {
                     // Si ce groupe appartient au joueur designe
-                    if (moteur->getState().getCharacters()->get(i,j)->getPlayer() == moteur->getPlayer(player).get())
+                    if (groupes->get(i,j)->getPlayer() == moteur->getPlayer(player).get())
                     {
                         //std::cout << "AI::playerCellResearch - la cellule (" << i << "," << j << ") appartient au joueur " << moteur.getPlayer(player).get() << std::endl;
                         // On ajoute les coordonnees à la liste
@@ -229,68 +230,103 @@ namespace ai{
             return false;
     }
     
-    // On cherche une case adjacente quelconque à la cellule argument (caractérisée par ses coords) pour un deplacement
+    // On cherche une case QUELCONQUE (donc vide ou pas) adjacente à la cellule argument (caractérisée par ses coords) pour un deplacement
     std::vector<int> AI::adjacentCellResearch (int ligne, int colonne)
     {
-        int new_ligne = ligne;
-        int new_colonne = colonne;
+        //int new_ligne = ligne;
+        //int new_colonne = colonne;
         std::vector<int> destination(2);
-        CreaturesTab* creaTab = moteur->getState().getCharacters().get();
+        std::vector<int> adjCells = getAdjacences(ligne,colonne);
+        int random = rand() % (int)(adjCells.size()/2);
+        //CreaturesTab* creaTab = moteur->getState().getCharacters().get();
         
-        // Deplacement possible vers l'adjacente n°1 ?
-        if (ligne > 0 && creaTab->get(ligne-1,colonne).get() == NULL && creaTab->isEnable(ligne - 1,colonne))
-            new_ligne -= 1;
-        // Vers l'adjacente n°2 ?
-        else if (ligne > 0 && colonne < (int)(creaTab->getWidth()) && creaTab->get(ligne-1,colonne + 1).get() == NULL && creaTab->isEnable(ligne - 1,colonne))
-        {
-            new_ligne -= 1; new_colonne += 1;
-        }
-        // Vers l'adjacente n°3 ?
-        else if (colonne < (int)(creaTab->getWidth()) && creaTab->get(ligne,colonne + 1).get() == NULL && creaTab->isEnable(ligne,colonne+1))
-            new_colonne += 1;
-        // Vers l'adjacente n°4 ?
-        else if (ligne < (int)(creaTab->getHeight()) &&creaTab->get(ligne + 1,colonne).get() == NULL && creaTab->isEnable(ligne + 1,colonne))
-            new_ligne += 1;
-        // Vers l'adjacente n°5 ?
-        else if (colonne > 0 && ligne < (int)(creaTab->getHeight()) && creaTab->get(ligne + 1,colonne).get() == NULL && creaTab->isEnable(ligne + 1,colonne))
-        {
-            new_ligne += 1; new_colonne -= 1;
-        }
-        // Vers l'adjacente n°6 ?
-        else if (colonne > 0 && creaTab->get(ligne,colonne-1).get() == NULL && creaTab->isEnable(ligne,colonne-1))
-            new_colonne -= 1;
-        else
-            throw std::runtime_error("AI::moveCellResearch - La case selectionnee pour l'IA ne permet aucun deplacement");
+//        // Deplacement possible vers l'adjacente n°1 ?
+//        if (ligne > 0 /*&& creaTab->get(ligne-1,colonne).get() == NULL*/ && creaTab->isEnable(ligne - 1,colonne))
+//            new_ligne -= 1;
+//        // Vers l'adjacente n°2 ?
+//        else if (ligne > 0 && colonne < (int)(creaTab->getWidth()) && /*creaTab->get(ligne-1,colonne + 1).get() == NULL &&*/ creaTab->isEnable(ligne - 1,colonne))
+//        {
+//            new_ligne -= 1; new_colonne += 1;
+//        }
+//        // Vers l'adjacente n°3 ?
+//        else if (colonne < (int)(creaTab->getWidth()) /*&& creaTab->get(ligne,colonne + 1).get() == NULL*/ && creaTab->isEnable(ligne,colonne+1))
+//            new_colonne += 1;
+//        // Vers l'adjacente n°4 ?
+//        else if (ligne < (int)(creaTab->getHeight()) /*&& creaTab->get(ligne + 1,colonne).get() == NULL*/ && creaTab->isEnable(ligne + 1,colonne))
+//            new_ligne += 1;
+//        // Vers l'adjacente n°5 ?
+//        else if (colonne > 0 && ligne < (int)(creaTab->getHeight()) /*&& creaTab->get(ligne + 1,colonne).get() == NULL*/ && creaTab->isEnable(ligne + 1,colonne))
+//        {
+//            new_ligne += 1; new_colonne -= 1;
+//        }
+//        // Vers l'adjacente n°6 ?
+//        else if (colonne > 0 && /*creaTab->get(ligne,colonne-1).get() == NULL &&*/ creaTab->isEnable(ligne,colonne-1))
+//            new_colonne -= 1;
+        //else
+            //throw std::runtime_error("AI::moveCellResearch - La case selectionnee pour l'IA ne permet aucun deplacement");
         
-        destination[0] = new_ligne;
-        destination[1] = new_colonne;
+        destination[0] = adjCells[2*random];
+        destination[1] = adjCells[2*random+1];
         
         return destination;
     }
     
-    // Retourne la liste des coordonnees des 6 cellules adjacentes à la cellule dont les coordonnees sont fournies en argument
+    // Retourne la liste des coordonnees des cellules adjacentes à la cellule dont les coordonnees sont fournies en argument
     std::vector<int> AI::getAdjacences (int i, int j)
     {
         std::vector<int> liste;
+        CreaturesTab* creaTab = moteur->getState().getCharacters().get();
+        
+        std::cout << "AI::getAdjacences - Cellule depart : (" << i << "," << j << ")" << std::endl;
         
         // Adjacente 1 :
-        liste.push_back(i-1);
-        liste.push_back(j);
+        if (i > 0 && creaTab->isEnable(i-1,j))
+        {
+            liste.push_back(i-1);
+            liste.push_back(j);
+            std::cout << "AI::getAdjacences - Adjacente 1 : (" << i-1 << "," << j << ")" << std::endl;
+        }
+        
         // 2 :
-        liste.push_back(i-1);
-        liste.push_back(j+1);
+        if (i > 0 && j < (int)creaTab->getWidth()-1 && creaTab->isEnable(i-1,j+1))
+        {
+            liste.push_back(i-1);
+            liste.push_back(j+1);
+            std::cout << "AI::getAdjacences - Adjacente 2 : (" << i-1 << "," << j+1 << ")" << std::endl;
+        }
+        
         // 3 :
-        liste.push_back(i);
-        liste.push_back(j+1);
+        if (j < (int)creaTab->getWidth()-1 && creaTab->isEnable(i,j+1))
+        {
+            liste.push_back(i);
+            liste.push_back(j+1);
+            std::cout << "AI::getAdjacences - Adjacente 3 : (" << i << "," << j+1 << ")" << std::endl;
+        }
+        
         // 4 :
-        liste.push_back(i+1);
-        liste.push_back(j);
+        if (i < (int)creaTab->getHeight()-1 && creaTab->isEnable(i+1,j))
+        {
+            liste.push_back(i+1);
+            liste.push_back(j);
+            std::cout << "AI::getAdjacences - Adjacente 4 : (" << i+1 << "," << j << ")" << std::endl;
+        }
+        
         // 5 :
-        liste.push_back(i+1);
-        liste.push_back(j-1);
+        if (i < (int)creaTab->getHeight()-1 && j > 0 && creaTab->isEnable(i+1,j-1))
+        {
+            liste.push_back(i+1);
+            liste.push_back(j-1);
+            std::cout << "AI::getAdjacences - Adjacente 5 : (" << i+1 << "," << j-1 << ")" << std::endl;
+        }
+        
         // 6 :
-        liste.push_back(i);
-        liste.push_back(j-1);
+        if (j > 0 && creaTab->isEnable(i,j-1))
+        {
+            liste.push_back(i);
+            liste.push_back(j-1);
+            std::cout << "AI::getAdjacences - Adjacente 6 : (" << i << "," << j-1 << ")" << std::endl;
+        }
+        
         
         return liste;
     }
