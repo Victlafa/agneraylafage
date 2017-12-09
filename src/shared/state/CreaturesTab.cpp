@@ -139,10 +139,6 @@ namespace state
         // La case destination est-elle autorisée ?
         if (isEnable(new_i_elem,new_j_elem))
         {
-            //std::cout << "ElementTab::placeElement - appel isSpecial ligne 332" << std::endl;
-            // On veut aussi savoir si la case destination est speciale ou pas
-            //bool isSpe = isSpecial(new_i_elem,new_j_elem);
-            
             // La case destination est-elle vide ?
             if (this->get(new_i_elem,new_j_elem) == NULL)
             {
@@ -156,18 +152,6 @@ namespace state
                 if (this->get(new_i_elem,new_j_elem) == NULL)
                     throw std::runtime_error("CreaturesTab::placeElement - Le placement dans une case vide n'a pas ete effectue !");
                 
-//                if (this->get(new_i_elem,new_j_elem) != NULL && this->get(new_i_elem,new_j_elem)->getCreaturesNbr() == 1)
-//                {
-//                    //std::cout << "Une creature de l'IA a bien ete placee dans la grille" << std::endl;
-//                    
-//                    // si la cellule obtenue est speciale, on ajoute le nom du type à la liste de noms du joueur
-//                    if (isSpe)
-//                        this->assignSpecialCell(this->get(new_i_elem,new_j_elem)->getPlayer(),nullptr,this->get(new_i_elem,new_j_elem)->getElemType());
-//                }
-                    
-                
-//                else
-//                    throw std::runtime_error("Le placement d'une creature de l'IA dans une case vide n'a pas ete effectue !");
             }
             
             // Elle est occupee par le joueur qui souhaite placer une creature
@@ -204,6 +188,71 @@ namespace state
         for (int k = 0; k < (int)(listeTmp.size()/2); k++)
         {
             if (listeTmp[2*k] == i && listeTmp[2*k + 1] == j)
+                return false;
+        }
+        
+        return true;
+    }
+    
+    // renvoie les coordonnees des cellules vides de la grille
+    std::vector<int> CreaturesTab::getFreeCells()
+    {
+        std::vector<int> freeCells;
+        
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                if (isEnable(i,j) && get(i,j) == nullptr)
+                {
+                    freeCells.push_back(i);
+                    freeCells.push_back(j);
+                }
+            }
+        }
+        
+        return freeCells;
+    }
+    
+    // On cherche les coordonnees de toutes les cellules appartenant au joueur donne en argument
+    std::vector<int> CreaturesTab::getPlayerCells(Player* player)
+    {
+        std::vector<int> coordonnees;
+        
+        // On parcourt toutes les cellules de la grille
+        for (unsigned int i = 0; i < height; i++) 
+        {
+            for (unsigned int j = 0; j < width; j++) 
+            {
+                // Si la case est autorisee et qu'une creature y est presente
+                if (isEnable(i,j) && get(i,j).get() != nullptr)
+                {
+                    // Si ce groupe appartient au joueur designe
+                    if (get(i,j)->getPlayer() == player)
+                    {
+                        //std::cout << "AI::playerCellResearch - la cellule (" << i << "," << j << ") appartient au joueur " << moteur.getPlayer(player).get() << std::endl;
+                        // On ajoute les coordonnees à la liste
+                        coordonnees.push_back(i);
+                        coordonnees.push_back(j);
+                    }
+                }
+
+            }
+        }
+        
+        return coordonnees;
+    }
+    
+    // renvoie true si le joueur en argument ne peut plus placer de creatures dans ses propres cases
+    bool CreaturesTab::isSaturated(Player* player)
+    {
+        std::vector<int> playerCells = getPlayerCells(player);
+        
+        // On etudie les nombres de creatures de tous les groupes du joueur
+        // Si on en trouve au moins un qui comporte moins de 5 creatures, on sort de la boucle for en renvoyant false
+        for (int i = 0; i < (int)(playerCells.size()/2); i++)
+        {
+            if (get(playerCells[2*i],playerCells[2*i+1])->getCreaturesNbr() != 5)
                 return false;
         }
         

@@ -286,15 +286,15 @@ namespace ai {
                 
             }
             
-            if (moteur.getState().getCellNbr() == moteur.getPlayer(1)->getCellNbr())
+            if (moteur.getState().getCellNbr() == moteur.getPlayer(1)->getCellNbr() || moteur.getPlayer(2)->getCellNbr() == 0)
             {
-                cout << "L'IA n°1 a conquit toute la carte !" << endl;
+                cout << "L'IA n°1 a conquit toute la carte ou a totalement eliminé son adversaire !" << endl;
                 break;
             }
             
-            else if (moteur.getState().getCellNbr() == moteur.getPlayer(2)->getCellNbr())
+            else if (moteur.getState().getCellNbr() == moteur.getPlayer(2)->getCellNbr() || moteur.getPlayer(1)->getCellNbr() == 0)
             {
-                cout << "L'IA n°2 a conquit toute la carte !" << endl;
+                cout << "L'IA n°2 a conquit toute la carte ou a totalement eliminé son adversaire !" << endl;
                 break;
             }
             

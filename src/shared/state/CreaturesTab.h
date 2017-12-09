@@ -27,6 +27,9 @@ namespace state {
     void placeElement (int new_i_elem, int new_j_elem, ID creaType);
     bool isEnable (unsigned int i, unsigned int j);
     bool isUnique (std::vector<int>& listeTmp, int i, int j);
+    std::vector<int> getFreeCells ();
+    bool isSaturated (Player* player);
+    std::vector<int> getPlayerCells (Player* player);
     // Setters and Getters
   };
 

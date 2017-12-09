@@ -57,54 +57,6 @@ namespace ai{
             
             // On recupere le joueur
             state::Player* player_ia = moteur->getPlayer(player).get();
-            
-
-//            for (unsigned int i = 0; i < moteur->getState().getCharacters()->getHeight(); i++) 
-//            {
-//                for (unsigned int j = 0; j < moteur->getState().getCharacters()->getWidth(); j++) 
-//                {
-//                    // On verifie si les coordonnees etudiees ne sont pas deja prevues pour un autre placement durant ce tour
-//                    if (isAvailable(i,j,disabledPlaces))
-//                    {
-//                        //cout << "i : " << i << "|| j : " << j << endl;  // Oooooookkkkk
-//                        
-//                        // Si on cherche un groupe de creatures appartenant au joueur qui souhaite placer une creature et qu'il est de pointeur non nul
-//                        if (choice == 0 && moteur->getState().getCharacters()->get(i, j).get() != 0 && moteur->getState().getCharacters()->get(i, j)->getPlayer() == player_ia) {
-//                            //cout << "Cellule du joueur disponible " << "i : " << i << "|| j : " << j << endl; // Oooooooookkkk
-//                            // Si ce groupe appartient à l'ia et qu'il a au plus 4 creatures
-//                            int creaNbr = moteur->getState().getCharacters()->get(i, j)->getCreaturesNbr();
-//                            
-//                            if (creaNbr > 0 && creaNbr < 5) {
-//                                // Il est valide et on le selectionne
-//                                ligne = i;
-//                                colonne = j;
-//                                coordsDestination[2] = moteur->getState().getCharacters()->get(ligne,colonne)->getCreaturesNbr() + 1;
-//                                //cout << "Nombre de creatures prevu apres placement : " << coordsDestination[2] << endl;
-//
-//                                // On sort de la boucle for j
-//                                break;
-//                            }
-//                        }                            
-//                        
-//                        // Si on cherche une case vide (ON DOIT VERIFIER QUE LA CASE EST AUTORISEE !!)
-//                        else if (choice == 1 && moteur->getState().getCharacters()->isEnable(i, j) && moteur->getState().getCharacters()->get(i, j).get() == NULL) {
-//                            //cout << "Cellule vide disponible " << "i : " << i << "|| j : " << j << endl; // Oooooooookkkk
-//                            ligne = i;
-//                            colonne = j;
-//                            coordsDestination[2] = 1;
-//
-//                            // On sort de la boucle for j
-//                            break;
-//                        }
-//                    }
-//                    
-//
-//                }
-//
-//                // On sort de la boucle for i
-//                if (ligne != 0 || colonne != 0)
-//                    break;
-//            }
 
             // Si on cherche un groupe de creatures appartenant au joueur qui souhaite placer une creature et qu'il est de pointeur non null
             if (choice == 0) {
@@ -124,19 +76,15 @@ namespace ai{
                     throw std::runtime_error("AI::placeCellResearch - La cellule choisie pour un placement appartient à l'adversaire !");
             }
 
-            // Si on cherche une case vide (ON DOIT VERIFIER QUE LA CASE EST AUTORISEE !!)
+            // Si on cherche une case vide
             else if (choice == 1) {
-                // On tire des coordonnees au hasard jusqu'à ce qu'on en trouve qui correspondent à une case vide valide
-                int i,j;
-                do
-                {
-                    i = rand()%creaTab->getHeight();
-                    j = rand()%creaTab->getWidth();
-                }
-                while (!creaTab->isEnable(i,j) || creaTab->get(i,j) != nullptr);
+                // On recupere les coordonnees des cases vides de la carte
+                std::vector<int> freeCells = creaTab->getFreeCells();
+                // On en tire une au hasard
+                int random = rand()%(int)(freeCells.size()/2);
                 
-                ligne = i;
-                colonne = j;
+                ligne = freeCells[2*random];
+                colonne = freeCells[2*random+1];
                 coordsDestination[2] = 1;
             }
 
@@ -224,18 +172,18 @@ namespace ai{
     std::vector<int> AI::playerCellResearch (int player)
     {
         std::vector<int> coordonnees;
-        CreaturesTab* groupes = moteur->getState().getCharacters().get();
+        CreaturesTab* creaTab = moteur->getState().getCharacters().get();
         
         // On parcourt toutes les cellules de la grille
-        for (unsigned int i = 0; i < groupes->getHeight(); i++) 
+        for (unsigned int i = 0; i < creaTab->getHeight(); i++) 
         {
-            for (unsigned int j = 0; j < groupes->getWidth(); j++) 
+            for (unsigned int j = 0; j < creaTab->getWidth(); j++) 
             {
                 // Si la case est autorisee et qu'une creature est presente a la position etudiee
-                if (groupes->isEnable(i,j) && groupes->get(i,j).get() != nullptr)
+                if (creaTab->isEnable(i,j) && creaTab->get(i,j).get() != nullptr)
                 {
                     // Si ce groupe appartient au joueur designe
-                    if (groupes->get(i,j)->getPlayer() == moteur->getPlayer(player).get())
+                    if (creaTab->get(i,j)->getPlayer() == moteur->getPlayer(player).get())
                     {
                         //std::cout << "AI::playerCellResearch - la cellule (" << i << "," << j << ") appartient au joueur " << moteur.getPlayer(player).get() << std::endl;
                         // On ajoute les coordonnees à la liste
@@ -287,14 +235,14 @@ namespace ai{
         std::vector<int> liste;
         CreaturesTab* creaTab = moteur->getState().getCharacters().get();
         
-        std::cout << "AI::getAdjacences - Cellule depart : (" << i << "," << j << ")" << std::endl;
+        //std::cout << "AI::getAdjacences - Cellule depart : (" << i << "," << j << ")" << std::endl;
         
         // Adjacente 1 :
         if (i > 0 && creaTab->isEnable(i-1,j))
         {
             liste.push_back(i-1);
             liste.push_back(j);
-            std::cout << "AI::getAdjacences - Adjacente 1 : (" << i-1 << "," << j << ")" << std::endl;
+            //std::cout << "AI::getAdjacences - Adjacente 1 : (" << i-1 << "," << j << ")" << std::endl;
         }
         
         // 2 :
@@ -302,7 +250,7 @@ namespace ai{
         {
             liste.push_back(i-1);
             liste.push_back(j+1);
-            std::cout << "AI::getAdjacences - Adjacente 2 : (" << i-1 << "," << j+1 << ")" << std::endl;
+            //std::cout << "AI::getAdjacences - Adjacente 2 : (" << i-1 << "," << j+1 << ")" << std::endl;
         }
         
         // 3 :
@@ -310,7 +258,7 @@ namespace ai{
         {
             liste.push_back(i);
             liste.push_back(j+1);
-            std::cout << "AI::getAdjacences - Adjacente 3 : (" << i << "," << j+1 << ")" << std::endl;
+            //std::cout << "AI::getAdjacences - Adjacente 3 : (" << i << "," << j+1 << ")" << std::endl;
         }
         
         // 4 :
@@ -318,7 +266,7 @@ namespace ai{
         {
             liste.push_back(i+1);
             liste.push_back(j);
-            std::cout << "AI::getAdjacences - Adjacente 4 : (" << i+1 << "," << j << ")" << std::endl;
+            //std::cout << "AI::getAdjacences - Adjacente 4 : (" << i+1 << "," << j << ")" << std::endl;
         }
         
         // 5 :
@@ -326,7 +274,7 @@ namespace ai{
         {
             liste.push_back(i+1);
             liste.push_back(j-1);
-            std::cout << "AI::getAdjacences - Adjacente 5 : (" << i+1 << "," << j-1 << ")" << std::endl;
+            //std::cout << "AI::getAdjacences - Adjacente 5 : (" << i+1 << "," << j-1 << ")" << std::endl;
         }
         
         // 6 :
@@ -334,7 +282,7 @@ namespace ai{
         {
             liste.push_back(i);
             liste.push_back(j-1);
-            std::cout << "AI::getAdjacences - Adjacente 6 : (" << i << "," << j-1 << ")" << std::endl;
+            //std::cout << "AI::getAdjacences - Adjacente 6 : (" << i << "," << j-1 << ")" << std::endl;
         }
         
         
