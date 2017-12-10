@@ -100,16 +100,12 @@ namespace engine
     
     void Fight::undo (state::State& etat)
     {
-        // On efface les points de victoire et nombres de cellules attribues selon victoire et defaite
+        // On efface les points de victoire attribues selon victoire et defaite
         // S'il n'y avait pas eu egalite ou victoire du defenseur
         if (winner == 1 || winner == 2)
-        {
             etat.getPlayer(winner)->setConquestPoints(etat.getPlayer(winner)->getConquestPoints() - 1);
-            //etat.getPlayer(winner)->setCellNbr(etat.getPlayer(winner)->getCellNbr() - 1);
-            //etat.getPlayer(3 - winner)->setCellNbr(etat.getPlayer(3 - winner)->getCellNbr() + 1);
-        }
         
-        // S'il y avait eu egalite ou victoire du defenseur, il n'y a pas de modifs à faire au niveau des points de victoire et nbre de cellules
+        // S'il y avait eu egalite ou victoire du defenseur, il n'y a pas de modifs à faire au niveau des points de victoire 
         
     }
     

@@ -13,7 +13,6 @@ using namespace state;
 
 namespace engine{
     
-    //PlaceCommand::PlaceCommand () {}
     PlaceAction::PlaceAction (int i_final, int j_final, int player, state::ID type) : finalPos(2) {
         finalPos[0] = i_final;
         finalPos[1] = j_final;
