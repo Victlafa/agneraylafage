@@ -30,16 +30,25 @@ namespace state
         
         // Nbre de creatures de la cellule attaquante
         int creaNbrAtt = 0;
+        Player* fighter = nullptr;
         if (this->get(i_elem,j_elem) != NULL && this->get(i_elem,j_elem)->getCreaturesNbr() != 0)
+        {
             creaNbrAtt = this->get(i_elem,j_elem)->getCreaturesNbr();
+            fighter = this->get(i_elem,j_elem)->getPlayer();
+        }
+            
         else
             throw std::runtime_error("CreaturesTab::moveElement - Il n'y a pas de groupe de creatures dans la cellule designee comme attaquante !");
                 
         // Nbre de creatures de la cellule destination
         int creaNbrDef = 0;
+        Player* defender = nullptr;
         if (this->get(new_i_elem,new_j_elem) != NULL)
+        {
             creaNbrDef = this->get(new_i_elem,new_j_elem)->getCreaturesNbr();
-        
+            defender = this->get(new_i_elem,new_j_elem)->getPlayer();
+        }
+           
         oldCreaNbr[0] = creaNbrAtt;
         oldCreaNbr[1] = creaNbrDef;
         
@@ -56,16 +65,19 @@ namespace state
                 // On cree un nouveau groupe que l'on place dans la case vide avec N - 1 creatures SAUF si la case de depart n'en contenait qu'une !
                 if (creaNbrAtt > 1)
                 {
-                    newGroup = new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(),creaNbrAtt - 1,this->get(i_elem, j_elem)->getPlayer());
+                    newGroup = new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(),creaNbrAtt - 1,fighter);
                     // On fixe le nbre de creatures de la case attaquante à 1
                     this->get(i_elem,j_elem)->setCreaturesNbr(1);
+                    // On augmente le nombre de cellules du joueur attaquant
+                    fighter->setCellNbr(fighter->getCellNbr() + 1);
                 }
                 
                 else
                 {
-                    newGroup = new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(),1,this->get(i_elem, j_elem)->getPlayer());
+                    newGroup = new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(),1,fighter);
                     // On detruit le groupe de creatures de la cellule attaquante
                     this->set(nullptr,i_elem,j_elem);
+                    // Ici on ne modifie pas le nombre de cellules du joueur attaquant car il en perd une en prenant la cellule destination vide
                     
                     if (this->get(i_elem,j_elem).get() != nullptr)
                         throw std::runtime_error("CreaturesTab::moveElement ligne 70 - la cellule attaquante n'a pas ete detruite !");
@@ -99,21 +111,31 @@ namespace state
                         
                         // On fixe le nbre de creatures de la case destination
                         (creaNbrAtt != 1) ? this->get(new_i_elem,new_j_elem)->setCreaturesNbr(newDef_several) : this->get(new_i_elem,new_j_elem)->setCreaturesNbr(newDef_one);
+                        
+                        // Si la case d'attaque va etre detruite, on decremente le nombre de cellules de l'attaquant
+                        if (creaNbrAtt == 1)
+                            fighter->setCellNbr(fighter->getCellNbr() - 1);
                         // On fixe le nouveau nbre de creatures de la case de depart (on la detruit si elle est videe lors du deplacement)
                         (creaNbrAtt != 1) ? this->get(i_elem,j_elem)->setCreaturesNbr(creaNbrAtt - newDef_several + creaNbrDef) : this->set(nullptr,i_elem,j_elem);
+                        
                     }
                         
                     // Le joueur 1 ou le joueur 2 a gagné le combat sans aucune pitie en etant l'attaquant
                     else if (fight == 1 || fight == 2)
                     {
+                        // On decremente le nombre de cellules appartenant au joueur defenseur avant de detruire sa cellule
+                        defender->setCellNbr(defender->getCellNbr() - 1);
                         // On detruit les creatures de la case defense en les remplaçant par celles de l'attaquant
                         (creaNbrAtt != 1) ? this->set(new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(), creaNbrAtt - 1, this->get(i_elem, j_elem)->getPlayer()), new_i_elem, new_j_elem) : this->set(new CreaturesGroup(this->get(i_elem, j_elem)->getElemType(),1, this->get(i_elem, j_elem)->getPlayer()), new_i_elem, new_j_elem);
                         
                         // On fixe le nouveau nbre de creatures de la case de depart. Si la case de depart est destinee a etre videe, on la detruit
                         (creaNbrAtt != 1) ? this->get(i_elem,j_elem)->setCreaturesNbr(1) : this->set(nullptr,i_elem,j_elem);
+                        // Si la case d'attaque n'est pas detruite, on incremente le nombre de cellules de l'attaquant
+                        if (creaNbrAtt != 1)
+                            fighter->setCellNbr(fighter->getCellNbr() + 1);
                     }
                         
-                    // Le defenseur a gagné ou il y a egalite : dans ce cas là le nombre de creatures en attaque tombe à 1
+                    // Le defenseur a gagné ou il y a egalite : dans ce cas là le nombre de creatures en attaque tombe à 1 (et les nbres de cellules ne sont pas modifies)
                     else
                         this->get(i_elem, j_elem)->setCreaturesNbr(1);
 
@@ -199,9 +221,9 @@ namespace state
     {
         std::vector<int> freeCells;
         
-        for (int i = 0; i < height; i++)
+        for (unsigned int i = 0; i < height; i++)
         {
-            for (int j = 0; j < width; j++)
+            for (unsigned int j = 0; j < width; j++)
             {
                 if (isEnable(i,j) && get(i,j) == nullptr)
                 {

@@ -53,8 +53,8 @@ namespace engine
         if (fighter == 1 && fightProcess(state))
         {
             state.getPlayer(1)->setConquestPoints(state.getPlayer(1)->getConquestPoints() + 1);
-            state.getPlayer(1)->setCellNbr(state.getPlayer(1)->getCellNbr() + 1);
-            state.getPlayer(2)->setCellNbr(state.getPlayer(2)->getCellNbr() - 1);
+            //state.getPlayer(1)->setCellNbr(state.getPlayer(1)->getCellNbr() + 1);
+            //state.getPlayer(2)->setCellNbr(state.getPlayer(2)->getCellNbr() - 1);
             
             winner = 1;
         }
@@ -63,8 +63,8 @@ namespace engine
         else if (fighter == 2 && !fightProcess(state))
         {
             state.getPlayer(2)->setConquestPoints(state.getPlayer(2)->getConquestPoints() + 1);
-            state.getPlayer(2)->setCellNbr(state.getPlayer(2)->getCellNbr() + 1);
-            state.getPlayer(1)->setCellNbr(state.getPlayer(1)->getCellNbr() - 1);
+            //state.getPlayer(2)->setCellNbr(state.getPlayer(2)->getCellNbr() + 1);
+            //state.getPlayer(1)->setCellNbr(state.getPlayer(1)->getCellNbr() - 1);
             
             winner = 2;
         }
@@ -105,8 +105,8 @@ namespace engine
         if (winner == 1 || winner == 2)
         {
             etat.getPlayer(winner)->setConquestPoints(etat.getPlayer(winner)->getConquestPoints() - 1);
-            etat.getPlayer(winner)->setCellNbr(etat.getPlayer(winner)->getCellNbr() - 1);
-            etat.getPlayer(3 - winner)->setCellNbr(etat.getPlayer(3 - winner)->getCellNbr() + 1);
+            //etat.getPlayer(winner)->setCellNbr(etat.getPlayer(winner)->getCellNbr() - 1);
+            //etat.getPlayer(3 - winner)->setCellNbr(etat.getPlayer(3 - winner)->getCellNbr() + 1);
         }
         
         // S'il y avait eu egalite ou victoire du defenseur, il n'y a pas de modifs à faire au niveau des points de victoire et nbre de cellules

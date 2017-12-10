@@ -72,8 +72,13 @@ namespace engine{
             
             // Si la cellule ainsi modifiee devient vide
             if (etat.getCharacters()->get(finalPos[0],finalPos[1])->getCreaturesNbr() <= 0)
+            {
                 // On supprime definitivement le groupe de creatures
                 etat.getCharacters()->set(NULL,finalPos[0],finalPos[1]);
+                // On diminue le nbre de cellules du joueur qui perd sa cellule
+                etat.getPlayer(player)->setCellNbr(etat.getPlayer(player)->getCellNbr() - 1);
+            }
+                
         }
         else
             throw std::runtime_error("PlaceAction::undo - impossible de supprimer une creature de la cellule car celle-ci est deja vide !");

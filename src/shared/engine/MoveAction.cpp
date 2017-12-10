@@ -57,22 +57,38 @@ namespace engine{
         // On replace les creatures sur les deux cases telles qu'elles etaient avant le combat
         
         // Joueur qui se deplaçait
+        Player* oldFighter = etat.getPlayer(player).get();
+        // Adversaire
+        Player* oldDefender = etat.getPlayer(3-player).get();
+        
         // S'il y a un groupe sur la cellule de depart
         Element* attGroup = etat.getCharacters()->get(initPos[0],initPos[1]).get();
         if (attGroup)
         {
+            // Si ce groupe appartient à l'adversaire
+            if (attGroup->getPlayer() == etat.getPlayer(3-player).get())
+            {
+                // On lui associe le joueur qui se deplacait lors du mouvement
+                attGroup->setPlayer(oldFighter);
+                // On augmente le nombre de cellules du joueur attaquant
+                oldFighter->setCellNbr(oldFighter->getCellNbr() + 1);
+                // On diminue le nombre de cellules du defenseur
+                oldDefender->setCellNbr(oldDefender->getCellNbr() - 1);
+            }
             //std::cout << "MoveAction::undo - La case de depart est occupee" << std::endl;
-            // On lui associe le joueur concerne
-            attGroup->setPlayer(etat.getPlayer(player).get());
+            
             // On lui restitue le bon nombre de creatures
             attGroup->setCreaturesNbr(initCreaturesNbr[0]);
+            // Si la cellule appartient encore à l'attaquant, on ne touche pas aux nbres de cellules des joueurs
         }
         // Si la case est vide, on créé un nouveau groupe
         else
         {
             //std::cout << "MoveAction::undo - La case de depart n'est plus occupee" << std::endl;
-            CreaturesGroup* newGroup = new CreaturesGroup((ID)etat.getPlayer(player)->getClanName(),initCreaturesNbr[0],etat.getPlayer(player).get());
+            CreaturesGroup* newGroup = new CreaturesGroup((ID)oldFighter->getClanName(),initCreaturesNbr[0],oldFighter);
             etat.getCharacters()->set(newGroup,initPos[0],initPos[1]);
+            // On augmente le nombre de cellules du joueur attaquant
+            oldFighter->setCellNbr(oldFighter->getCellNbr() + 1);
         }
 
         // Si la cellule d'arrivee est occupee apres deplacement
@@ -80,32 +96,36 @@ namespace engine{
         if (defGroup)
         {
             //std::cout << "MoveAction::undo - La case de destination est occupee" << std::endl;
-            // Si elle appartenait à l'adversaire avant deplacement/combat
-            if (fight->getCreasDefender() != 0)
-            {
-                //std::cout << "MoveAction::undo - La case de destination appartenait à l'adversaire" << std::endl;
-                // On lui restitue ses creatures
-                CreaturesGroup* newGroup = new CreaturesGroup((ID)etat.getPlayer(3-player)->getClanName(),initCreaturesNbr[1],etat.getPlayer(3-player).get());
-                etat.getCharacters()->set(newGroup,finalPos[0],finalPos[1]);
+            // Si elle est actuellement occupee par l'ancien attaquant
+            if (defGroup->getPlayer() == oldFighter) {
+                // Si elle appartenait à l'adversaire avant deplacement/combat
+                if (fight->getCreasDefender() != 0) {
+                    //std::cout << "MoveAction::undo - La case de destination appartenait à l'adversaire avant le combat" << std::endl;
+                    // On lui restitue ses creatures
+                    CreaturesGroup* newGroup = new CreaturesGroup((ID)oldDefender->getClanName(), initCreaturesNbr[1], oldDefender);
+                    etat.getCharacters()->set(newGroup, finalPos[0], finalPos[1]);
+                    // On augmente le nbre de cellules du defenseur
+                    oldDefender->setCellNbr(oldDefender->getCellNbr() + 1);
+                    // On diminue le nombre de cellules du joueur attaquant
+                    oldFighter->setCellNbr(oldFighter->getCellNbr() - 1);
+                }                    
+                // Si elle appartenait au joueur en cours (il n'y a donc pas eu combat)
+                else if (fight->getCreasDefender() == 0 && initCreaturesNbr[1] != 0) {
+                    //std::cout << "MoveAction::undo - La case de destination appartenait au joueur en cours" << std::endl;
+                    // On lui restitue ses creatures
+                    defGroup->setPlayer(oldFighter);
+                    defGroup->setCreaturesNbr(initCreaturesNbr[1]);
+                    // On n'a pas à modifier le nbre de cellules du joueur
+                }                    
+                // Si elle etait vide
+                else {
+                    //std::cout << "MoveAction::undo - La case de destination etait vide" << std::endl;
+                    // On detruit le groupe qui se trouve actuellement dessus
+                    etat.getCharacters()->set(nullptr, finalPos[0], finalPos[1]);
+                    // On diminue le nbre de cellules de l'attaquant
+                    oldFighter->setCellNbr(oldFighter->getCellNbr() - 1);
+                }
             }
-            // Si elle appartenait au joueur en cours (il n'y a donc pas eu combat)
-            else if (fight->getCreasDefender() == 0 && initCreaturesNbr[1] != 0)
-            {
-                //std::cout << "MoveAction::undo - La case de destination appartenait au joueur en cours" << std::endl;
-                // On lui restitue ses creatures
-                defGroup->setPlayer(etat.getPlayer(player).get());
-                defGroup->setCreaturesNbr(initCreaturesNbr[1]);
-            }
-            // Si elle etait vide
-            else
-            {
-                //std::cout << "MoveAction::undo - La case de destination etait vide" << std::endl;
-                // On detruit le groupe qui se trouve actuellement dessus
-                etat.getCharacters()->set(nullptr,finalPos[0],finalPos[1]);
-                
-            }
-                
-                
         }
         // Si elle est vide
         else
@@ -116,15 +136,19 @@ namespace engine{
             if (fight->getCreasDefender() != 0)
             {
                 // On lui restitue ses creatures
-                newGroup2 = new CreaturesGroup((ID)etat.getPlayer(3-player)->getClanName(),fight->getCreasDefender(),etat.getPlayer(3-player).get());
+                newGroup2 = new CreaturesGroup((ID)oldDefender->getClanName(),fight->getCreasDefender(),oldDefender);
                 etat.getCharacters()->set(newGroup2,finalPos[0],finalPos[1]);
+                // On augmente le nbre de cellules du defenseur
+                oldDefender->setCellNbr(oldDefender->getCellNbr() + 1);
             }
-            // Si elle appartenait au joueur en cours (il n'y a donc pas eu combat)
+            // Si elle appartenait au joueur en cours (attaque avec une seule creature ou simple deplacement d'une creature)
             else if (fight->getCreasDefender() == 0 && initCreaturesNbr[1] != 0)
             {
                 // On lui restitue ses creatures
-                newGroup2 = new CreaturesGroup((ID)etat.getPlayer(player)->getClanName(),initCreaturesNbr[1],etat.getPlayer(player).get());
+                newGroup2 = new CreaturesGroup((ID)oldFighter->getClanName(),initCreaturesNbr[1],oldFighter);
                 etat.getCharacters()->set(newGroup2,finalPos[0],finalPos[1]);
+                // On augmente le nbre de cellules de l'attaquant
+                oldFighter->setCellNbr(oldFighter->getCellNbr() + 1);
             }
         }  
         
