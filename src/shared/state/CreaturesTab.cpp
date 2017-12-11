@@ -268,6 +268,8 @@ namespace state
     // renvoie true si le joueur en argument ne peut plus placer de creatures dans ses propres cases
     bool CreaturesTab::isSaturated(Player* player)
     {
+        //std::cout << "Entree dans CreaturesTab::isSaturated" << std::endl;
+        
         std::vector<int> playerCells = getPlayerCells(player);
         
         // On etudie les nombres de creatures de tous les groupes du joueur
@@ -275,9 +277,14 @@ namespace state
         for (int i = 0; i < (int)(playerCells.size()/2); i++)
         {
             if (get(playerCells[2*i],playerCells[2*i+1])->getCreaturesNbr() != 5)
+            {
+                //std::cout << "Sortie false de CreaturesTab::isSaturated" << std::endl;
                 return false;
+            }
+                
         }
         
+        //std::cout << "Sortie true de CreaturesTab::isSaturated" << std::endl;
         return true;
     }
 }

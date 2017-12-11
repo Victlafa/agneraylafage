@@ -34,7 +34,7 @@ namespace ai{
     }
     
     // On cherche une cellule destination pour l'IA afin de placer sur la carte un de ses groupes en reserve
-    std::vector<int> AI::placeCellResearch (int player, std::vector<int>& disabledPlaces)
+    std::vector<int> AI::placeCellResearch (int player)
     {
         // Les deux premiers elements du tableau seront les coordonnees de la cellule choisie. Le troisieme element sera le nombre de creatures que comportera la cellule apres l'execution du placement
         std::vector<int> coordsDestination(3);
@@ -63,13 +63,17 @@ namespace ai{
                 // On recupere les coordonnees des cellules appartenant au joueur
                 std::vector<int> playerCells = playerCellResearch(player);
                 int random;
-                // Parmi ces groupes, on en tire un au hasard (jusqu'à ce qu'on en ait un avec au plus 4 creatures)
-                do
-                    random = rand()%(int)(playerCells.size()/2);
-                while (creaTab->get(playerCells[2*random], playerCells[2*random+1])->getCreaturesNbr() > 4);
                 
-                ligne = playerCells[2 * random];
-                colonne = playerCells[2 * random + 1];
+                // Parmi ces groupes, on recupere ceux qui peuvent encore accueillir une nouvelle creature
+                std::vector<int> availablePlayerCells = playerAvailableCellResearch(playerCells);
+                
+                //std::cout << "AI::placeCellResearch - nombre de cellules du joueur disponibles pour placer une creature avant placement : " << availablePlayerCells.size()/2 << std::endl;
+                
+                // On tire au hasard dans cette derniere liste
+                random = rand() % (int) (availablePlayerCells.size() / 2);
+                
+                ligne = availablePlayerCells[2 * random];
+                colonne = availablePlayerCells[2 * random + 1];
                 coordsDestination[2] = creaTab->get(ligne, colonne)->getCreaturesNbr() + 1;
                 
                 if (creaTab->isOccupiedByOpp(ligne,colonne,player_ia))
@@ -198,6 +202,22 @@ namespace ai{
         return coordonnees;
     }
     
+    // On cherche les coordonnees des cellules du joueur qui peuvent encore accepter de nouveaux placements
+    std::vector<int> AI::playerAvailableCellResearch(const std::vector<int>& playerCells)
+    {
+        std::vector<int> sortie;
+        for (int i = 0; i < (int)(playerCells.size()/2); i++)
+        {
+            if (getMoteur()->getState().getCharacters()->get(playerCells[2 * i], playerCells[2 * i + 1])->getCreaturesNbr() < 5)
+            {
+                sortie.push_back(playerCells[2 * i]);
+                sortie.push_back(playerCells[2 * i + 1]);
+            }
+        }
+        
+        return sortie;
+    }
+    
     // Test d'adjacence : on veut savoir si la cellule init est adjacente à la final
     bool AI::isAdjacent (int init_i, int init_j, int final_i, int final_j)
     {
@@ -287,25 +307,6 @@ namespace ai{
         
         
         return liste;
-    }
-    
-    // Renvoie true si les coordonnees i et j ne sont pas presentes dans la liste disabledPlaces
-    bool AI::isAvailable (int i, int j, std::vector<int>& disabledPlaces)
-    {
-        if (disabledPlaces.size() == 0)
-            return true;
-        else
-        {
-            //cout << "Elements de disabledPlaces : ";
-            for (int k = 0; k < (int) disabledPlaces.size() / 2; k++) {
-                //cout << disabledPlaces[2*k] << "," << disabledPlaces[2*k+1] << " ";
-                if (disabledPlaces[2 * k] == i && disabledPlaces[2 * k + 1] == j)
-                    return false;
-            }
-            //cout << endl;
-            return true;
-        }
-        
     }
 
 }

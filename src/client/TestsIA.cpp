@@ -85,7 +85,7 @@ namespace ai {
         sf::Event event;
         clock_t t1,t2;
         
-        while (tour != 40 && window.isOpen()) {
+        while (/*tour != 40 && */window.isOpen()) {
             
             while (window.pollEvent(event)) {
                 // Fermeture de la fenetre ?
