@@ -5,6 +5,7 @@
 #include <vector>
 #include <stack>
 #include <memory>
+#include <json/json.h>
 
 namespace engine {
   class Action;
@@ -13,6 +14,7 @@ namespace state {
   class State;
 };
 namespace engine {
+  class MoveCommand;
   class Command;
 }
 
@@ -33,6 +35,8 @@ namespace engine {
     MoveCommand (int init_i, int init_j, int final_i, int final_j, int player);
     CommandTypeID getTypeID () const;
     void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
+    void serialize (Json::Value& out) const;
+    MoveCommand* deserialize (const Json::Value& in);
     // Setters and Getters
     const std::vector<int>& getInitPos() const;
     void setInitPos(const std::vector<int>& initPos);
