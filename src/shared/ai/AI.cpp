@@ -41,25 +41,28 @@ namespace ai{
         
         // On recupere le tableau de creatures
         CreaturesTab* creaTab = moteur->getState().getCharacters().get();
+        // On recupere le joueur
+        state::Player* player_ia = moteur->getPlayer(player).get();
                 
         // On verifie que le joueur dispose encore en stock de creatures à placer sur la grille
-        if (moteur->getState().getPlayer(player)->getCreaturesLeft() > 0)
+        if (player_ia->getCreaturesLeft() > 0)
         {
             // On va chercher une case vide ou une case appartenant à l'IA
             unsigned int ligne = 0;
             unsigned int colonne = 0;
             
-            // si choice = 0 on cherchera un groupe de l'ia, si choice = 1 on cherche une case vide
-            // S'il n'y a plus de case vide disponible, on met d'office choice à 0
-            int choice = (moteur->getState().getFreeCellNbr() == 0) ? 0 : rand()%2;
-            // S'il reste un nombre de cases libres inférieur à 5 et différent de 0, on favorise le choix de ces cases
-            if (moteur->getState().getFreeCellNbr() > 0 && moteur->getState().getFreeCellNbr() < 5) choice = 1;
+            // si choice est entre 0 et 80 on cherchera un groupe de l'ia, si choice est entre 81 et 100 on cherche une case vide
+            // (donc 80% de chance d'ajouter une creature à une case deja occupée par le joueur)
             
-            // On recupere le joueur
-            state::Player* player_ia = moteur->getPlayer(player).get();
-
+            // S'il n'y a plus de case vide disponible, on met d'office choice à 0
+            int choice = (moteur->getState().getFreeCellNbr() == 0) ? 0 : rand()%100 + 1;
+            // Si toutes les cases du joueur sont saturees, on le force à chercher une case vide
+            if (creaTab->isSaturated(player_ia)) choice = 100;
+            // S'il reste un nombre de cases libres inférieur à 5 et différent de 0, on force la recherche de case vide
+            //if (moteur->getState().getFreeCellNbr() > 0 && moteur->getState().getFreeCellNbr() < 5) choice = 100;
+            
             // Si on cherche un groupe de creatures appartenant au joueur qui souhaite placer une creature et qu'il est de pointeur non null
-            if (choice == 0) {
+            if (choice >= 0 && choice <= 95) {
                 // On recupere les coordonnees des cellules appartenant au joueur
                 std::vector<int> playerCells = playerCellResearch(player);
                 int random;
@@ -81,7 +84,7 @@ namespace ai{
             }
 
             // Si on cherche une case vide
-            else if (choice == 1) {
+            else if (choice > 95 && choice <= 100) {
                 // On recupere les coordonnees des cases vides de la carte
                 std::vector<int> freeCells = creaTab->getFreeCells();
                 // On en tire une au hasard

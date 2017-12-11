@@ -27,52 +27,49 @@ namespace ai
             // On initialise les attributs de l'IA
             this->initIA(player);
         
-        cout << "-------------------------------- PHASE DE CONQUETE --------------------------------" << endl << endl;
-        // On tire pour cela au sort une cellule de l'ia et une cellule du joueur 1 à attaquer
-        std::vector<int> coordsDeplacement = moveCellResearch(player);
         CreaturesTab* creaTab = getMoteur()->getState().getCharacters().get();
+        std::vector<int> coordsDeplacement;
+        engine::MoveCommand* moveCmd = nullptr;
         
-        std::cout << "HeuristicAI::run - Depart de l'IA n°" << player << " : (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ")" << std::endl;
-        std::cout << "HeuristicAI::run - Destination de l'IA n°" << player << " : (" << coordsDeplacement[2] << "," << coordsDeplacement[3] << ")" << std::endl;
+        cout << "-------------------------------- PHASE DE CONQUETE --------------------------------" << endl << endl;
         
-        if (creaTab->get(coordsDeplacement[2],coordsDeplacement[3]) == NULL)
-            std::cout << "HeuristicAI::run - La case destination est vide" << std::endl;
+        for (int nbr = 0; nbr < 3; nbr ++)
+{
+            // On tire pour cela au sort une cellule de l'ia et une cellule du joueur 1 à attaquer
+            coordsDeplacement = moveCellResearch(player);
+            
+            std::cout << "HeuristicAI::run - Depart de l'IA n°" << player << " : (" << coordsDeplacement[0] << "," << coordsDeplacement[1] << ")" << std::endl;
+            std::cout << "HeuristicAI::run - Destination de l'IA n°" << player << " : (" << coordsDeplacement[2] << "," << coordsDeplacement[3] << ")" << std::endl;
+
+            if (creaTab->get(coordsDeplacement[2], coordsDeplacement[3]) == NULL)
+                std::cout << "HeuristicAI::run - La case destination est vide" << std::endl;
+
+            moveCmd = new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player);
+            moveCmd->execute(getMoteur()->getPileAction(), getMoteur()->getState());
+
+            // On verifie que le deplacement de la phase de conquete a bien ete effectue
+            if (creaTab->get(coordsDeplacement[2], coordsDeplacement[3]) == NULL)
+                throw std::runtime_error("HeuristicAI::run - La case de destination est tjrs vide meme apres deplacement !");
+        }
         
-        engine::MoveCommand* moveCmd = new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player);
-        moveCmd->execute(getMoteur()->getPileAction(),getMoteur()->getState());
-        
-        // On verifie que le deplacement de la phase de conquete a bien ete effectue
-        if (creaTab->get(coordsDeplacement[2],coordsDeplacement[3]) == NULL)
-            throw std::runtime_error("HeuristicAI::run - La case de destination est tjrs vide meme apres deplacement !");
-                                     
-        //listCommands.clear();
-        
-        // 2. PHASE DE RENFORT - elle a lieu SEULEMENT si le joueur a encore des possibilités de placement de creatures
         if (getMoteur()->getState().getFreeCellNbr() != 0 || !creaTab->isSaturated(getMoteur()->getPlayer(player).get()))
         {
             cout << endl;
             cout << "-------------------------------- PHASE DE RENFORT --------------------------------" << endl << endl;
 
             // L'IA reçoit autant de creatures à placer qu'elle dispose de territoires. On plafonne à 8 !
-            int nbrCell = (getMoteur()->getPlayer(player)->getCellNbr() > 8) ? 8 : getMoteur()->getPlayer(player)->getCellNbr();
+            int nbrCell = (getMoteur()->getPlayer(player)->getCellNbr() > 10) ? 10 : getMoteur()->getPlayer(player)->getCellNbr();
 
             getMoteur()->getPlayer(player)->setCreaturesLeft(nbrCell);
             cout << "HeuristicAI::run - L'IA n°" << player << " dispose maintenant de " << nbrCell << " cellules, elle peut donc placer autant de nouvelles creatures sur la carte. (plafonné à 8)" << endl;
 
             // On declare un tableau qui contiendra les coords des cellules selectionnees pour le placement de nouvelles creatures
-            //std::vector<int> newCreasCoordsTotales(0);
             std::vector<int> newCreasCoordsUnitaires(3);
             engine::PlaceCommand* placement;
 
             // On recupere une liste des coordonnees des cellules qu'occuperont ces creatures et on ajoute les commandes au fur et à mesure à la liste
             for (int i = 0; i < nbrCell; i++) {
                 newCreasCoordsUnitaires = this->placeCellResearch(player);
-                // Si la cellule contiendra en principe 5 creatures apres placement
-//                if (newCreasCoordsUnitaires[2] == 5) {
-//                    // On fait en sorte qu'elle ne puisse plus etre choisie
-//                    newCreasCoordsTotales.push_back(newCreasCoordsUnitaires[0]);
-//                    newCreasCoordsTotales.push_back(newCreasCoordsUnitaires[1]);
-//                }
 
                 placement = new engine::PlaceCommand(newCreasCoordsUnitaires[0], newCreasCoordsUnitaires[1], player, (state::ID)getMoteur()->getPlayer(player)->getClanName());
                 placement->execute(getMoteur()->getPileAction(), getMoteur()->getState());

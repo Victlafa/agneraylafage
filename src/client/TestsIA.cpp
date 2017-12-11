@@ -16,8 +16,10 @@ namespace ai {
     // Pour gestion multi-thread
     mutex notre_mutex;
     int tour = 0;
+    // numero du joueur qui commence en premier
+    int beginner = 0;
     // Declaration de la fenetre
-    sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
+    sf::RenderWindow gameWindow(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
     void TestsRandomIA() 
     {
@@ -237,7 +239,6 @@ namespace ai {
     {
         // On prend possession du mutex
         notre_mutex.lock();
-        
         srand(time(NULL));
         
         // On initialise un moteur, on choisit les mineurs pour le joueur 1
@@ -251,23 +252,23 @@ namespace ai {
         render::CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));
         
         std::cout << "Ici s'affrontent deux IAs heuristiques qui peuvent pour le moment se déplacer, combattre avec les quelques créatures qu'elles ont au départ de la partie, et ajouter de nouvelles creatures sur la carte." << std::endl;
+        std::cout << "Pour accelerer le processus, on permet aux IAs d'effectuer trois déplacements (qui peuvent aboutir à un combat) pendant leur phase d'attaque." << std::endl;
         std::cout << "La démonstration se fera jusqu'à ce que la partie soit achevée." << std::endl;
-        std::cout << "De plus nous avons donné la priorité aux combats. Il est donc possible que des groupes de creatures ne cherchent pas à se disperser tant qu'elles n'ont pas d'ennemies à proximité." << std::endl;
         std::cout << "(APPUYER sur une touche de clavier pour lancer la partie.)" << std::endl;
         
         sf::Event event;
         
-        //pthread_t idThread;
-        //pthread_create((pthread_t*)&idThread, NULL, routine_thread, (void*)&ia);
-        //void* statusThread;
+        // On tire au hasard le joueur qui commence en premier
+        beginner = rand()%2 + 1;
+        
+        // On créé le thread lie à l'utilisation de l'ia et du moteur
         thread threadIA(routine_thread,(void*)&ia);
         
-        
-        while (window.isOpen()) {
+        while (gameWindow.isOpen()) {
             
-            while (window.pollEvent(event)) {
+            while (gameWindow.pollEvent(event)) {
                 // Fermeture de la fenetre ?
-                if (event.type == sf::Event::Closed) window.close();
+                if (event.type == sf::Event::Closed) gameWindow.close();
                 notre_mutex.unlock();
             }
             
@@ -287,15 +288,14 @@ namespace ai {
             cellLayer.initSurface();
             charsLayer.initSurface();
             
-            window.clear();
-            cellLayer.getSurface()->draw(window);
-            charsLayer.getSurface()->draw(window);
+            gameWindow.clear();
+            cellLayer.getSurface()->draw(gameWindow);
+            charsLayer.getSurface()->draw(gameWindow);
             
-            window.display();
+            gameWindow.display();
         }
         
         // Attente de la fin du thread
-        //pthread_join(idThread,&statusThread);
         threadIA.join();
         std::cout << "\nNotre démonstration est terminée :)" << std::endl;
     }
@@ -307,20 +307,23 @@ namespace ai {
         bool is_IA2_winner = (adrIA->getMoteur()->getState().getCellNbr() == adrIA->getMoteur()->getPlayer(2)->getCellNbr() || adrIA->getMoteur()->getPlayer(1)->getCellNbr() == 0);
         
         // On reste dans cette boucle tant qu'aucun des deux joueurs n'a gagné la partie et que la fenetre est ouverte
-        while(!is_IA1_winner && !is_IA2_winner && window.isOpen())
+        while(!is_IA1_winner && !is_IA2_winner && gameWindow.isOpen())
         {
-            notre_mutex.lock();
+            std::lock_guard<std::mutex> lock (notre_mutex);
             std::cout << "\n--------------    Tour n°" << tour / 2 + 1 << ", c'est à l'IA n°" << tour % 2 + 1 << " de jouer    --------------" << std::endl << std::endl;
             // Tour de l'IA n°1
-            if (tour % 2 == 0) adrIA->run(1);
+            if (tour % 2 == 0) adrIA->run(beginner);
                 // Tour de l'IA n°2
-            else adrIA->run(2);
+            else adrIA->run(3-beginner);
             tour++;
             adrIA->getMoteur()->increaseTour();
             std::this_thread::sleep_for(std::chrono::seconds(1));
-            notre_mutex.unlock();
+            
+            // On verifie si l'un des deux joueurs a gagné ou non la partie
+            is_IA1_winner = (adrIA->getMoteur()->getState().getCellNbr() == adrIA->getMoteur()->getPlayer(1)->getCellNbr() || adrIA->getMoteur()->getPlayer(2)->getCellNbr() == 0);
+            is_IA2_winner = (adrIA->getMoteur()->getState().getCellNbr() == adrIA->getMoteur()->getPlayer(2)->getCellNbr() || adrIA->getMoteur()->getPlayer(1)->getCellNbr() == 0);
+            
         }
-        
         
         return 0;
     }
