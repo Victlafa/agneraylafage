@@ -291,9 +291,16 @@ namespace engine {
                     
                     iter++;
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==4)){
-                    cout << "FIN TESTS MOVECOMMAND - Deplacement vers une case occupée par l'adversaire" << endl;
+                    cout << "Test undo" << endl;
                     iter++;
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==5)){
+                    moteur.undo();
+                    moteur.update();
+                    iter++;
+                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==6)){
+                    cout << "FIN TESTS MOVECOMMAND - Deplacement vers une case occupée par l'adversaire" << endl;
+                    iter++;
+                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==7)){
                     window.close();
                 }
             }
@@ -397,9 +404,16 @@ namespace engine {
         
                     iter++;
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==4)){
-                    cout << "FIN TESTS MOVECOMMAND - Deplacement vers une case occupée par le joueur" << endl;
+                    cout << "Test undo" << endl;
                     iter++;
                 }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==5)){
+                    moteur.undo();
+                    moteur.update();
+                    iter++;
+                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==6)){
+                    cout << "FIN TESTS MOVECOMMAND - Deplacement vers une case occupée par le joueur" << endl;
+                    iter++;
+                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==7)){
                     window.close();
                 }
             }
@@ -755,8 +769,7 @@ namespace engine {
         
     }
     
-    void TestsSpecialCommandCANDY()
-    {
+    void TestsSpecialCommandCANDY(){
         cout << "DEBUT TESTS SpecialCommand CANDY" << endl;
         
         srand(time(NULL));
@@ -844,8 +857,7 @@ namespace engine {
         
     }
     
-    void TestsPlaceCommand()
-    {
+    void TestsPlaceCommand(){
          cout << "DEBUT TESTS PlaceCommand" << endl;
         
         srand(time(NULL));

@@ -5,6 +5,7 @@
 #include <vector>
 #include <stack>
 #include <memory>
+//#include <json/json.h>
 
 namespace engine {
   class Action;
@@ -13,6 +14,7 @@ namespace state {
   class State;
 };
 namespace engine {
+  class ProtectedCommand;
   class Command;
 }
 
@@ -32,6 +34,8 @@ namespace engine {
     ProtectedCommand (int i, int j);
     void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
     CommandTypeID getTypeID () const;
+    void serialize (Json::Value& out) const;
+    ProtectedCommand* deserialize (const Json::Value& in);
     // Setters and Getters
     const std::vector<int>& getTarget() const;
     void setTarget(const std::vector<int>& target);
