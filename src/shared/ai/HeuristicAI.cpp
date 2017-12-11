@@ -27,7 +27,6 @@ namespace ai
             // On initialise les attributs de l'IA
             this->initIA(player);
         
-        // 1. PHASE DE CONQUETE
         cout << "-------------------------------- PHASE DE CONQUETE --------------------------------" << endl << endl;
         // On tire pour cela au sort une cellule de l'ia et une cellule du joueur 1 à attaquer
         std::vector<int> coordsDeplacement = moveCellResearch(player);
@@ -38,13 +37,6 @@ namespace ai
         
         if (creaTab->get(coordsDeplacement[2],coordsDeplacement[3]) == NULL)
             std::cout << "HeuristicAI::run - La case destination est vide" << std::endl;
-        
-        // On ajoute la commande associee à ce deplacement
-        //listCommands.push_back(std::shared_ptr<engine::Command> ( new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player)));
-        //getMoteur()->addCommand(1,std::shared_ptr<engine::Command> ( new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player)));
-        
-        //for (int i = 0; i < (int)(listCommands.size()); i++)
-            //listCommands[i]->execute(getMoteur()->getPileAction(),getMoteur()->getState());
         
         engine::MoveCommand* moveCmd = new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player);
         moveCmd->execute(getMoteur()->getPileAction(),getMoteur()->getState());
@@ -61,11 +53,11 @@ namespace ai
             cout << endl;
             cout << "-------------------------------- PHASE DE RENFORT --------------------------------" << endl << endl;
 
-            // L'IA reçoit autant de creatures à placer qu'elle dispose de territoires. On plafonne à 7 !
-            int nbrCell = (getMoteur()->getPlayer(player)->getCellNbr() > 7) ? 7 : getMoteur()->getPlayer(player)->getCellNbr();
+            // L'IA reçoit autant de creatures à placer qu'elle dispose de territoires. On plafonne à 8 !
+            int nbrCell = (getMoteur()->getPlayer(player)->getCellNbr() > 8) ? 8 : getMoteur()->getPlayer(player)->getCellNbr();
 
             getMoteur()->getPlayer(player)->setCreaturesLeft(nbrCell);
-            cout << "HeuristicAI::run - L'IA n°" << player << " dispose maintenant de " << nbrCell << " cellules, elle peut donc placer autant de nouvelles creatures sur la carte. (plafonné à 7)" << endl;
+            cout << "HeuristicAI::run - L'IA n°" << player << " dispose maintenant de " << nbrCell << " cellules, elle peut donc placer autant de nouvelles creatures sur la carte. (plafonné à 8)" << endl;
 
             // On declare un tableau qui contiendra les coords des cellules selectionnees pour le placement de nouvelles creatures
             //std::vector<int> newCreasCoordsTotales(0);

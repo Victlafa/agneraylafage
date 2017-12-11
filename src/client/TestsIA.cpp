@@ -12,6 +12,12 @@ using namespace render;
 using namespace std;
 
 namespace ai {
+    
+    // Pour gestion multi-thread
+    mutex notre_mutex;
+    int tour = 0;
+    // Declaration de la fenetre
+    sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
     void TestsRandomIA() 
     {
@@ -229,61 +235,40 @@ namespace ai {
     
     void TestsThread()
     {
-                srand(time(NULL));
+        // On prend possession du mutex
+        notre_mutex.lock();
+        
+        srand(time(NULL));
         
         // On initialise un moteur, on choisit les mineurs pour le joueur 1
         engine::Engine moteur(CreaturesID::MINERS);
         // On initialise une ia
         HeuristicAI ia(&moteur, rand()%30000);
-        // Declaration de la fenetre
-        sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
+        
         // On crée un Layer qui permettra de gerer l'affichage des cellules
         render::CellTabLayer cellLayer(*(moteur.getState().getGrid().get()));
         // On crée un Layer qui permettra de gerer l'affichage des creatures
         render::CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));
-        // On affichera sur un nombre limité de tours
-        int tour = 0;
         
-        std::cout << "Ici s'affrontent deux IAs heuristiques qui peuvent pour le moment seulement se déplacer et combattre avec les quelques créatures qu'elles ont au départ de la partie." << std::endl;
-        std::cout << "La démonstration se fera sur 10 tours. Il est possible que lors de certains tours il n'y ait pas de déplacements car nous n'avons pas encore pu faire en sorte qu'à la fin de chaque tour, des renforts viennent s'ajouter à la carte." << std::endl;
+        std::cout << "Ici s'affrontent deux IAs heuristiques qui peuvent pour le moment se déplacer, combattre avec les quelques créatures qu'elles ont au départ de la partie, et ajouter de nouvelles creatures sur la carte." << std::endl;
+        std::cout << "La démonstration se fera jusqu'à ce que la partie soit achevée." << std::endl;
         std::cout << "De plus nous avons donné la priorité aux combats. Il est donc possible que des groupes de creatures ne cherchent pas à se disperser tant qu'elles n'ont pas d'ennemies à proximité." << std::endl;
-        std::cout << "(APPUYER sur une touche de clavier pour passer à l'étape suivante)" << std::endl;
+        std::cout << "(APPUYER sur une touche de clavier pour lancer la partie.)" << std::endl;
         
         sf::Event event;
-        // Serviront à calculer le temps d'execution
-        clock_t t1,t2;
         
-        while (tour != 40 && window.isOpen()) {
+        //pthread_t idThread;
+        //pthread_create((pthread_t*)&idThread, NULL, routine_thread, (void*)&ia);
+        //void* statusThread;
+        thread threadIA(routine_thread,(void*)&ia);
+        
+        
+        while (window.isOpen()) {
             
             while (window.pollEvent(event)) {
                 // Fermeture de la fenetre ?
                 if (event.type == sf::Event::Closed) window.close();
-                // Appui sur une touche de clavier ?
-                else if(event.type == sf::Event::EventType::KeyReleased){
-                    std::cout << "\n--------------    Tour n°" << tour/2 + 1 << ", c'est à l'IA n°" << tour%2 + 1 << " de jouer    --------------" << std::endl << std::endl;
-                    t1 = clock();
-                    
-                    thread threadIA(
-                    [](HeuristicAI ia, int tour)
-                    {
-                        // Tour de l'IA n°1
-                        if(tour%2==0) ia.run(1);
-                        // Tour de l'IA n°2
-                        else ia.run(2);
-                    },ia,tour);
-                    
-                    threadIA.join();
-                    t2 = clock();
-                    
-                    std::cout << "Temps execution jeu avec thread : " << (float)(t2 - t1)/CLOCKS_PER_SEC << std::endl;
-                    
-                    // Execution des commandes demandées par les IA
-                    //moteur.update();
-                    tour++;
-                    moteur.increaseTour();
-                    std::cout << "\n(APPUYER sur une touche de clavier pour passer à l'étape suivante)" << std::endl;
-                }
-                
+                notre_mutex.unlock();
             }
             
             if (moteur.getState().getCellNbr() == moteur.getPlayer(1)->getCellNbr() || moteur.getPlayer(2)->getCellNbr() == 0)
@@ -309,7 +294,35 @@ namespace ai {
             window.display();
         }
         
+        // Attente de la fin du thread
+        //pthread_join(idThread,&statusThread);
+        threadIA.join();
         std::cout << "\nNotre démonstration est terminée :)" << std::endl;
+    }
+    
+    void* routine_thread(void* ia)
+    {
+        HeuristicAI* adrIA = (HeuristicAI*) ia;
+        bool is_IA1_winner = (adrIA->getMoteur()->getState().getCellNbr() == adrIA->getMoteur()->getPlayer(1)->getCellNbr() || adrIA->getMoteur()->getPlayer(2)->getCellNbr() == 0);
+        bool is_IA2_winner = (adrIA->getMoteur()->getState().getCellNbr() == adrIA->getMoteur()->getPlayer(2)->getCellNbr() || adrIA->getMoteur()->getPlayer(1)->getCellNbr() == 0);
+        
+        // On reste dans cette boucle tant qu'aucun des deux joueurs n'a gagné la partie et que la fenetre est ouverte
+        while(!is_IA1_winner && !is_IA2_winner && window.isOpen())
+        {
+            notre_mutex.lock();
+            std::cout << "\n--------------    Tour n°" << tour / 2 + 1 << ", c'est à l'IA n°" << tour % 2 + 1 << " de jouer    --------------" << std::endl << std::endl;
+            // Tour de l'IA n°1
+            if (tour % 2 == 0) adrIA->run(1);
+                // Tour de l'IA n°2
+            else adrIA->run(2);
+            tour++;
+            adrIA->getMoteur()->increaseTour();
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+            notre_mutex.unlock();
+        }
+        
+        
+        return 0;
     }
     
 }
