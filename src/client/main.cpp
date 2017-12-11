@@ -109,8 +109,8 @@ int main(int argc,char* argv[])
             // COMMANDES FONCTIONNELLES
             TestsPoisonCommand();
             cout << "\n" << endl;
-//            TestsNewGameCommand();
-//            cout << "\n" << endl;
+            TestsNewGameCommand();
+            cout << "\n" << endl;
             TestsMoveCommandNoOne();
             cout << "\n" << endl;
             TestsMoveCommandAdv();
@@ -126,8 +126,8 @@ int main(int argc,char* argv[])
             
             // COMMANDES A FINIR OU A CORRIGER
 
-            TestsPlaceCommand();
-            cout << "\n" << endl;
+            //TestsPlaceCommand();
+            //cout << "\n" << endl;
             
         }
         
