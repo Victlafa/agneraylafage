@@ -4,6 +4,7 @@
 
 #include <stack>
 #include <memory>
+#include <json/json.h>
 
 namespace engine {
   class Action;
@@ -12,6 +13,7 @@ namespace state {
   class State;
 };
 namespace engine {
+  class NewGameCommand;
   class Command;
 }
 
@@ -28,6 +30,8 @@ namespace engine {
     NewGameCommand ();
     void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
     CommandTypeID getTypeID () const;
+    void serialize (Json::Value& out) const;
+    NewGameCommand* deserialize (const Json::Value& in);
     // Setters and Getters
   };
 
