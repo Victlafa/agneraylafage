@@ -51,6 +51,18 @@ namespace engine{
             
     }
     
+    void serialize (Json::Value& out) const{
+        Json::Value fichier;
+        fichier["nom"] = "nom_fichier";
+        fichier["nbr_command"] = 0;
+        fichier["initPos"] = initPos;
+        fichier["finalPos"] = finalPos;
+    }
+    
+    MoveCommand* deserialize (const Json::Value& in){
+        
+    }
+    
     // Setters and Getters
     const std::vector<int>& MoveCommand::getInitPos() const { return initPos; }
     void MoveCommand::setInitPos(const std::vector<int>& initPos) { this->initPos = initPos; }
