@@ -6,6 +6,7 @@
 #include <stack>
 #include <memory>
 #include <json/json.h>
+#include <string>
 
 namespace engine {
   class Action;
@@ -20,7 +21,6 @@ namespace engine {
 
 #include "SpecialTypeID.h"
 #include "Action.h"
-#include "CommandTypeID.h"
 #include "Command.h"
 
 namespace engine {
@@ -37,9 +37,9 @@ namespace engine {
   public:
     SpecialCellCommand (int init_i, int init_j, int target_i, int target_j, int player, SpecialTypeID type);
     void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
-    CommandTypeID getTypeID () const;
     void serialize (Json::Value& out, int nTour) const;
-    SpecialCellCommand* deserialize (const Json::Value& in);
+    static SpecialCellCommand* deserialize (const Json::Value& in);
+    static SpecialTypeID translateSpecialType (std::string nomType);
     // Setters and Getters
     SpecialTypeID getSpecialType() const;
     void setSpecialType(SpecialTypeID specialType);

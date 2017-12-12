@@ -90,5 +90,34 @@ namespace state
     //void Element::setPlayer(const Player& player) {this->player = player;}
     Player* Element::getPlayer () const { return this->player; }
     void Element::setPlayer (Player* player) { this->player = player; }
+    
+    ID Element::translateType (std::string typeElement)
+    {
+        if (typeElement == "ID::BARBECUE")
+            return ID::BARBECUE;
+        else if (typeElement == "ID::BLACKSMITH")
+            return ID::BLACKSMITH;
+        else if (typeElement == "ID::CANDY")
+            return ID::CANDY;
+        else if (typeElement == "ID::COOKER") 
+            return ID::COOKER;
+        else if (typeElement == "ID::DIRT") 
+            return ID::DIRT;
+        else if (typeElement == "ID::GRASS") 
+            return ID::GRASS;
+        else if (typeElement == "ID::LUMBERJACK")
+            return ID::LUMBERJACK;
+        else if (typeElement == "ID::MINER")
+            return ID::MINER;
+        else if (typeElement == "ID::POOL")
+            return ID::POOL;
+        else if (typeElement == "ID::SAND")
+            return ID::SAND;
+        else if (typeElement == "ID::SKY")
+            return ID::SKY;
+        else
+            throw std::runtime_error("Element::translateType - utilisation d'un argument non valable");
+    }
+    
                 
 };

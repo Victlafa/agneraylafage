@@ -30,7 +30,7 @@ namespace engine {
     int playerBegin;
     // Operations
   public:
-    PoisonAction (int i_cell, int j_cell, state::ID state, int player);
+    PoisonAction (int i_cell, int j_cell, state::ID typeCreatures, int player);
     bool isPoisoned (state::State& state);
     void killCreatures (state::State& state);
     void apply (state::State& state);

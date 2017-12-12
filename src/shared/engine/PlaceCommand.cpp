@@ -20,8 +20,8 @@ namespace engine{
         finalPos[1] = j_final;
         this->player = player;
         this->creaType = type;
+        this->type = CommandTypeID::PLACE;
     }
-    CommandTypeID PlaceCommand::getTypeID () const { return CommandTypeID::PLACE; }
     
     void PlaceCommand::execute (std::stack<std::shared_ptr<Action> >& pile, state::State& state){
         std::shared_ptr<Action> action(new PlaceAction(finalPos[0], finalPos[1], player, creaType));
@@ -45,6 +45,15 @@ namespace engine{
     
     PlaceCommand* PlaceCommand::deserialize (const Json::Value& in){
         
+        int player = in.get("player",0).asInt();
+        string typeString = in.get("creaType","CommandTypeID::PLACE").asString();
+        ID creaturesType = Element::translateType(typeString);
+        
+        std::vector<int> finalPlace(2);
+        finalPlace[0] = in.get("finalPos[0]",0).asInt();
+        finalPlace[1] = in.get("finalPos[1]",0).asInt();
+        
+        return new PlaceCommand(finalPlace[0],finalPlace[1],player,creaturesType);
     }
     
     // Setters and Getters

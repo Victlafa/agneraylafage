@@ -13,11 +13,11 @@ using namespace state;
 
 namespace engine
 {
-    PoisonAction::PoisonAction (int i_cell, int j_cell, state::ID type, int player) : cell(2) {
+    PoisonAction::PoisonAction (int i_cell, int j_cell, state::ID typeCreatures, int player) : cell(2) {
         cell[0] = i_cell;
         cell[1] = j_cell;
         nbrCreaBegin = -1;
-        typeCreaBegin = type;
+        typeCreaBegin = typeCreatures;
         playerBegin = player;
     }
     

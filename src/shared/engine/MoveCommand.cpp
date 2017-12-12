@@ -17,10 +17,9 @@ namespace engine{
         finalPos[0] = final_i;
         finalPos[1] = final_j;
         this->player = player;
+        this->type = CommandTypeID::MOVE;
         
     }
-    
-    CommandTypeID MoveCommand::getTypeID () const { return CommandTypeID::MOVE; }
     
     void MoveCommand::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state) {
         
@@ -51,18 +50,31 @@ namespace engine{
     }
     
     void MoveCommand::serialize (Json::Value& out, int nTour) const{
-        Json::Value moveCommand;
-        moveCommand["type"] = CommandTypeID::MOVE;
-        moveCommand["initPos[0]"] = initPos[0];
-        moveCommand["initPos[1]"] = initPos[1];
-        moveCommand["finalPos[0]"] = finalPos[0];
-        moveCommand["finalPos[1]"] = finalPos[1];
-        moveCommand["player"] = player;
-        (out[nTour]).append(moveCommand);
+        Json::Value moveCommandNM;
+        moveCommandNM["type"] = "CommandTypeID::MOVE";
+        moveCommandNM["initPos[0]"] = initPos[0];
+        moveCommandNM["initPos[1]"] = initPos[1];
+        moveCommandNM["finalPos[0]"] = finalPos[0];
+        moveCommandNM["finalPos[1]"] = finalPos[1];
+        (out[nTour]).append(moveCommandNM);
+        
+        Json::StyledWriter styledWriter;
+        std::cout << styledWriter.write(moveCommandNM) << std::endl;
         
     }
     
     MoveCommand* MoveCommand::deserialize (const Json::Value& in){
+        
+        int player = in.get("player",0).asInt();
+        std::vector<int> initPlace(2);
+        std::vector<int> finalPlace(2);
+        
+        initPlace[0] = in.get("initPos[0]",0).asInt();
+        initPlace[1] = in.get("initPos[1]",0).asInt();
+        finalPlace[0] = in.get("finalPos[0]",0).asInt();
+        finalPlace[1] = in.get("finalPos[1]",0).asInt();
+        
+        return new MoveCommand(initPlace[0],initPlace[1],finalPlace[0],finalPlace[1],player);
         
     }
     

@@ -6,6 +6,9 @@
 
 #include "SpecialCellCommand.h"
 #include <iostream>
+#include "../state/ID.h"
+
+using namespace state;
 
 namespace engine
 {
@@ -17,10 +20,9 @@ namespace engine
         finalPos[1] = final_j;
         this->player = player;
         this->specialType = type;
-        
+        this->type = CommandTypeID::SPECIAL;
     }
     
-    CommandTypeID SpecialCellCommand::getTypeID () const { return CommandTypeID::SPECIAL; }
     SpecialTypeID SpecialCellCommand::getSpecialType () const { return specialType; }
     void SpecialCellCommand::setSpecialType(SpecialTypeID specialType) { this->specialType = specialType; }
     
@@ -43,6 +45,20 @@ namespace engine
     
     SpecialCellCommand* SpecialCellCommand::deserialize (const Json::Value& in){
         
+        int player = in.get("player",0).asInt();
+        
+        std::vector<int> initPos(2);
+        initPos[0] = in.get("initPos[0]",0).asInt();
+        initPos[1] = in.get("initPos[1]",0).asInt();
+        
+        std::vector<int> finalPos(2);
+        finalPos[0] = in.get("finalPos[0]",0).asInt();
+        finalPos[1] = in.get("finalPos[1]",0).asInt();
+        
+        std::string typeCell = in.get("typeCreatures","").asString();
+        SpecialTypeID cellType = SpecialCellCommand::translateSpecialType(typeCell);
+        
+        return new SpecialCellCommand(initPos[0],initPos[1],finalPos[0],finalPos[1],player,cellType);
     }
     
     // Setters and Getters
@@ -56,6 +72,21 @@ namespace engine
     {
         this->finalPos[0] = finalPos[0];
         this->finalPos[1] = finalPos[1];
+    }
+    
+    SpecialTypeID SpecialCellCommand::translateSpecialType (std::string nomType)
+    {
+        if (nomType == "SpecialTypeID::BARBECUE")
+            return SpecialTypeID::BARBECUE;
+        else if (nomType == "SpecialTypeID::POOL")
+            return SpecialTypeID::POOL;
+        else if (nomType == "SpecialTypeID::SKY")
+            return SpecialTypeID::SKY;
+        else if (nomType == "SpecialTypeID::SUGAR")
+            return SpecialTypeID::SUGAR;
+        else
+            throw std::runtime_error("SpecialCellCommand::translateType - utilisation d'un argument non valable");
+    
     }
 
 

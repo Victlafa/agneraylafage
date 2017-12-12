@@ -16,9 +16,8 @@ namespace engine
     ProtectedCommand::ProtectedCommand (int i_cell, int j_cell) : target(2) {
         target[0] = i_cell;
         target[1] = j_cell;
+        this->type = CommandTypeID::PROTECTED;
     };
-    
-    CommandTypeID ProtectedCommand::getTypeID () const {return CommandTypeID::PROTECTED; }
     
     void ProtectedCommand::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state)
     {
@@ -28,7 +27,7 @@ namespace engine
     
     void ProtectedCommand::serialize (Json::Value& out, int nTour) const{
         Json::Value protectedCommand;
-        protectedCommand["type"] = CommandTypeID::PROTECTED;
+        protectedCommand["type"] = "CommandTypeID::PROTECTED";
         protectedCommand["target[0]"] = target[0];
         protectedCommand["target[1]"] = target[1];
         protectedCommand["player"] = player;
@@ -37,6 +36,12 @@ namespace engine
     
     ProtectedCommand* ProtectedCommand::deserialize (const Json::Value& in){
         
+        //int player = in.get("player",0).asInt();
+        std::vector<int> targetCell(2);
+        targetCell[0] = in.get("target[0]",0).asInt();
+        targetCell[1] = in.get("target[1]",0).asInt();
+        
+        return new ProtectedCommand(targetCell[0],targetCell[1]);
     }
     
     // Setters and Getters
