@@ -18,7 +18,7 @@ namespace engine
         
     }
     
-    void NewGameCommand::serialize (Json::Value& out) const{
+    void NewGameCommand::serialize (Json::Value& out, int nTour) const{
         
     }
     
