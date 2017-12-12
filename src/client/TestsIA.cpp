@@ -85,15 +85,15 @@ namespace ai {
         // On affichera sur un nombre limité de tours
         int tour = 0;
         
-        std::cout << "Ici s'affrontent deux IAs heuristiques qui peuvent pour le moment seulement se déplacer et combattre avec les quelques créatures qu'elles ont au départ de la partie." << std::endl;
-        std::cout << "La démonstration se fera sur 10 tours. Il est possible que lors de certains tours il n'y ait pas de déplacements car nous n'avons pas encore pu faire en sorte qu'à la fin de chaque tour, des renforts viennent s'ajouter à la carte." << std::endl;
+        std::cout << "Ici s'affrontent deux IAs heuristiques qui peuvent pour le moment seulement se déplacer et combattre avec les quelques créatures qu'elles ont au départ de la partie. Elles peuvent aussi ajouter des creatures lors d'une phase de renfort." << std::endl;
+        std::cout << "La démonstration se fera sur 20 tours." << std::endl;
         std::cout << "De plus nous avons donné la priorité aux combats. Il est donc possible que des groupes de creatures ne cherchent pas à se disperser tant qu'elles n'ont pas d'ennemies à proximité." << std::endl;
         std::cout << "(APPUYER sur une touche de clavier pour passer à l'étape suivante)" << std::endl;
         
         sf::Event event;
-        clock_t t1,t2;
+        //clock_t t1,t2;
         
-        while (/*tour != 40 && */window.isOpen()) {
+        while (/*tour != 40 &&*/ window.isOpen()) {
             
             while (window.pollEvent(event)) {
                 // Fermeture de la fenetre ?
@@ -101,16 +101,18 @@ namespace ai {
                 // Appui sur une touche de clavier ?
                 else if(event.type == sf::Event::EventType::KeyReleased){
                     std::cout << "\n--------------    Tour n°" << tour/2 + 1 << ", c'est à l'IA n°" << tour%2 + 1 << " de jouer    --------------" << std::endl << std::endl;
-                    t1 = clock();
+                    //t1 = clock();
                     // Tour de l'IA n°1
                     if(tour%2==0) ia.run(1);
                     // Tour de l'IA n°2
                     else ia.run(2);
                     // Execution des commandes demandées par les IA
                     //moteur.update();
-                    t2 = clock();
+                    //t2 = clock();
                     
-                    std::cout << "Temps execution jeu sans thread : " << (float)(t2 - t1)/CLOCKS_PER_SEC << std::endl;
+                    //std::cout << "Temps execution jeu sans thread : " << (float)(t2 - t1)/CLOCKS_PER_SEC << std::endl;
+                    cout << "TestsHeuristicIA - Nombre de cellules du joueur 1 : " << moteur.getPlayer(1)->getCellNbr() << endl;
+                    cout << "TestsHeuristicIA - Nombre de cellules du joueur 2 : " << moteur.getPlayer(2)->getCellNbr() << endl;
 
                     tour++;
                     moteur.increaseTour();
@@ -119,15 +121,15 @@ namespace ai {
                 
             }
             
-            if (moteur.getState().getCellNbr() == moteur.getPlayer(1)->getCellNbr())
+            if (moteur.getState().getCellNbr() == moteur.getPlayer(1)->getCellNbr() || moteur.getPlayer(2)->getCellNbr() == 0)
             {
-                cout << "L'IA n°1 a conquit toute la carte !" << endl;
+                cout << "L'IA n°1 a conquit toute la carte ou a éliminé son adversaire !" << endl;
                 break;
             }
             
-            else if (moteur.getState().getCellNbr() == moteur.getPlayer(2)->getCellNbr())
+            else if (moteur.getState().getCellNbr() == moteur.getPlayer(2)->getCellNbr() || moteur.getPlayer(1)->getCellNbr() == 0)
             {
-                cout << "L'IA n°2 a conquit toute la carte !" << endl;
+                cout << "L'IA n°2 a conquit toute la carte ou a éliminé son adversaire !" << endl;
                 break;
             }
             

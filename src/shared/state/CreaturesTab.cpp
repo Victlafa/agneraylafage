@@ -52,6 +52,9 @@ namespace state
         oldCreaNbr[0] = creaNbrAtt;
         oldCreaNbr[1] = creaNbrDef;
         
+        std::cout << "CreaturesTab::moveElement - Nombre de creatures de la cellule attaquante : " << creaNbrAtt << std::endl;
+        std::cout << "CreaturesTab::moveElement - Nombre de creatures de la cellule en défense : " << creaNbrDef << std::endl;
+        
         // On verifie si le deplacement est possible ou non
         
         // La case destination est-elle autorisée ?
@@ -144,8 +147,6 @@ namespace state
                 else
                     throw std::runtime_error("CreaturesTab::moveElement - Le déplacement n'a pas pu etre effectué (mauvaise valeur de l'argument fight, doit etre egal à 0,1,2 ou 3 !");
             }
-            
-            std::cout << "CreaturesTab::moveElement - Nombre d'elements CreaturesGroup dans la liste de CreaturesTab : " << this->getList().size() << std::endl;
         }
         
         else

@@ -24,23 +24,26 @@ namespace engine
         creasDefender = 0;
     }
     
-    // Renvoie true si c'est le joueur 1 qui remporte le combat, sinon renvoie false
+    // Renvoie true si c'est l'attaquant qui remporte le combat, sinon renvoie false
     bool Fight::fightProcess (state::State& state)
     {
-        int nbCrea1 = state.getCharacters()->get(fighterPos[0],fighterPos[1])->getCreaturesNbr();
-        int nbCrea2 = state.getCharacters()->get(defenderPos[0],defenderPos[1])->getCreaturesNbr();
-        creasFighter = nbCrea1;
-        creasDefender = nbCrea2;
+        int nbCreaAtt = state.getCharacters()->get(fighterPos[0],fighterPos[1])->getCreaturesNbr();
+        int nbCreaDef = state.getCharacters()->get(defenderPos[0],defenderPos[1])->getCreaturesNbr();
+        creasFighter = nbCreaAtt;
+        creasDefender = nbCreaDef;
         
-        int totalPlayer1 = 0;
-        int totalPlayer2 = 0;
+        int totalFighter = 0;
+        int totalDefender = 0;
         
-        for (int i = 0 ; i < nbCrea1 ; i ++)
-            totalPlayer1 += rand()%6 + 1;
-        for (int j = 0 ; j < nbCrea2 ; j ++)
-            totalPlayer2 += rand()%6 + 1;
+        for (int i = 0 ; i < nbCreaAtt ; i ++)
+            totalFighter += rand()%6 + 1;
+        for (int j = 0 ; j < nbCreaDef ; j ++)
+            totalDefender += rand()%6 + 1;
                     
-        if (totalPlayer1 > totalPlayer2)
+        std::cout << "Fight::fightProcess - Total lancer de dés de l'attaquant : " << totalFighter << std::endl;
+        std::cout << "Fight::fightProcess - Total lancer de dés du défenseur : " << totalDefender << std::endl;
+        
+        if (totalFighter > totalDefender)
             return true;
         else
             return false;
@@ -49,23 +52,17 @@ namespace engine
     
     void Fight::gainConquest (state::State& state)
     {
-        // Si le joueur 1 comme attaquant gagne le combat, il remporte un point de conquete et son nombre de cellules augmente (celui de l'adversaire diminue)
+        // Si le joueur 1 comme attaquant gagne le combat, il remporte un point de conquete
         if (fighter == 1 && fightProcess(state))
         {
             state.getPlayer(1)->setConquestPoints(state.getPlayer(1)->getConquestPoints() + 1);
-            //state.getPlayer(1)->setCellNbr(state.getPlayer(1)->getCellNbr() + 1);
-            //state.getPlayer(2)->setCellNbr(state.getPlayer(2)->getCellNbr() - 1);
-            
             winner = 1;
         }
             
-        // Si le joueur 2 comme attaquant gagne le combat, il remporte un point de conquete et son nombre de cellules augmente (celui de l'adv diminue)
-        else if (fighter == 2 && !fightProcess(state))
+        // Si le joueur 2 comme attaquant gagne le combat, il remporte un point de conquete
+        else if (fighter == 2 && fightProcess(state))
         {
             state.getPlayer(2)->setConquestPoints(state.getPlayer(2)->getConquestPoints() + 1);
-            //state.getPlayer(2)->setCellNbr(state.getPlayer(2)->getCellNbr() + 1);
-            //state.getPlayer(1)->setCellNbr(state.getPlayer(1)->getCellNbr() - 1);
-            
             winner = 2;
         }
             
