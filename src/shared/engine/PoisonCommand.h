@@ -37,7 +37,7 @@ namespace engine {
     PoisonCommand (int i, int j, state::ID id, int player);
     void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
     CommandTypeID getTypeID () const;
-    void serialize (Json::Value& out) const;
+    void serialize (Json::Value& out, int nTour) const;
     PoisonCommand* deserialize (const Json::Value& in);
     // Setters and Getters
     const std::vector<int>& getTargetCell() const;

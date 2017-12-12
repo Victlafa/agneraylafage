@@ -29,7 +29,7 @@ namespace engine
         action->apply(state);
     }
     
-    void PoisonCommand::serialize (Json::Value& out) const{
+    void PoisonCommand::serialize (Json::Value& out, int nTour) const{
         
     }
     
