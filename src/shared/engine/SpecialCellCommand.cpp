@@ -29,7 +29,15 @@ namespace engine
     }
     
     void SpecialCellCommand::serialize (Json::Value& out, int nTour) const{
-        
+        Json::Value speCellCommand;
+        speCellCommand["type"] = CommandTypeID::SPECIAL;
+        speCellCommand["initPos[0]"] = initPos[0];
+        speCellCommand["initPos[1]"] = initPos[1];
+        speCellCommand["finalPos[0]"] = finalPos[0];
+        speCellCommand["finalPos[1]"] = finalPos[1];
+        speCellCommand["specialType"] = specialType;
+        speCellCommand["player"] = player;
+        (out[nTour]).append(speCellCommand);
     }
     
     SpecialCellCommand* SpecialCellCommand::deserialize (const Json::Value& in){

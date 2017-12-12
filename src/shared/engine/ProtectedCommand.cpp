@@ -26,7 +26,12 @@ namespace engine
     }
     
     void ProtectedCommand::serialize (Json::Value& out, int nTour) const{
-        
+        Json::Value protectedCommand;
+        protectedCommand["type"] = CommandTypeID::PROTECTED;
+        protectedCommand["target[0]"] = target[0];
+        protectedCommand["target[1]"] = target[1];
+        protectedCommand["player"] = player;
+        (out[nTour]).append(protectedCommand);
     }
     
     ProtectedCommand* ProtectedCommand::deserialize (const Json::Value& in){

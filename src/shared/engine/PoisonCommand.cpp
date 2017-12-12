@@ -31,7 +31,13 @@ namespace engine
     }
     
     void PoisonCommand::serialize (Json::Value& out, int nTour) const{
-        
+        Json::Value poisonCommand;
+        poisonCommand["type"] = CommandTypeID::POISON;
+        poisonCommand["targetCell[0]"] = targetCell[0];
+        poisonCommand["targetCell[1]"] = targetCell[1];
+        poisonCommand["stateType"] = type;
+        poisonCommand["player"] = player;
+        (out[nTour]).append(poisonCommand);
     }
     
     PoisonCommand* PoisonCommand::deserialize (const Json::Value& in){
