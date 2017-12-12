@@ -229,7 +229,7 @@ namespace engine {
         int colonne = 4;
         int iter = 0;
         
-        CreaturesGroup* forgeron;
+        CreaturesGroup* forgeron = nullptr;
         
         while (window.isOpen()) {
             sf::Event event;
@@ -254,7 +254,9 @@ namespace engine {
                     
                     moteur.update();
                     iter++;
-                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==1)){
+                }
+                
+                else if((event.type == sf::Event::EventType::KeyReleased) && (iter==1)){
                     // On place un cuisinier dans la case à droite
                     std::cout << "Creation d'un cuisinier associé au joueur 2" << std::endl;
                     CreaturesGroup* cuisinier = new CreaturesGroup(ID::COOKER, 3, moteur.getPlayer(2).get());
@@ -264,7 +266,9 @@ namespace engine {
                     
                     moteur.update();
                     iter++;
-                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==2)){
+                }
+                
+                else if((event.type == sf::Event::EventType::KeyReleased) && (iter==2)){
                     // On ajoute une commande au moteur
                     // On souhaite que la creature du joueur se deplace vers la droite
                     std::shared_ptr<Command> com(new MoveCommand(ligne,colonne,ligne,colonne + 1,1));
@@ -272,7 +276,9 @@ namespace engine {
                     
                     moteur.update();
                     iter++;
-                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==3)){
+                }
+                
+                else if((event.type == sf::Event::EventType::KeyReleased) && (iter==3)){
                     // On affiche les positions de la creature
                     if (forgeron)
                         std::cout << "Nbre de creatures d'attaque apres deplacement : " << forgeron->getCreaturesNbr() << std::endl;
@@ -290,17 +296,25 @@ namespace engine {
                     std::cout << "Joueur 2 de l'état : " << moteur.getPlayer(2).get() << std::endl;
                     
                     iter++;
-                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==4)){
+                }
+                
+                else if((event.type == sf::Event::EventType::KeyReleased) && (iter==4)){
                     cout << "Test undo" << endl;
                     iter++;
-                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==5)){
+                }
+                
+                else if((event.type == sf::Event::EventType::KeyReleased) && (iter==5)){
                     moteur.undo();
                     moteur.update();
                     iter++;
-                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==6)){
+                }
+                
+                else if((event.type == sf::Event::EventType::KeyReleased) && (iter==6)){
                     cout << "FIN TESTS MOVECOMMAND - Deplacement vers une case occupée par l'adversaire" << endl;
                     iter++;
-                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==7)){
+                }
+                
+                else if((event.type == sf::Event::EventType::KeyReleased) && (iter==7)){
                     window.close();
                 }
             }
@@ -353,8 +367,8 @@ namespace engine {
         int colonne = 4;
         int iter = 0;
         
-        CreaturesGroup* forgeron;
-        CreaturesGroup* forgeron2;
+        CreaturesGroup* forgeron = nullptr;
+        CreaturesGroup* forgeron2 = nullptr;
         
         while (window.isOpen()) {
             sf::Event event;
@@ -376,7 +390,9 @@ namespace engine {
                     std::cout << "Nbre de creatures sur case de depart avant deplacement : " << forgeron->getCreaturesNbr() << std::endl;
         
                     iter++;
-                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==1)){
+                }
+                
+                else if((event.type == sf::Event::EventType::KeyReleased) && (iter==1)){
                     // On place un autre forgeron dans la case à droite
                     forgeron2 = new CreaturesGroup(ID::BLACKSMITH, 1, moteur.getPlayer(1).get());
                     moteur.getState().getCharacters()->set(forgeron2,ligne,colonne + 1);
@@ -384,7 +400,9 @@ namespace engine {
         
                     moteur.update();
                     iter++;
-                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==2)){
+                }
+                
+                else if((event.type == sf::Event::EventType::KeyReleased) && (iter==2)){
                     // On ajoute une commande au moteur
                     // On souhaite que la creature du joueur se deplace vers la droite
                     std::shared_ptr<Command> com;
@@ -394,7 +412,9 @@ namespace engine {
                     moteur.update();
         
                     iter++;
-                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==3)){
+                }
+                
+                else if((event.type == sf::Event::EventType::KeyReleased) && (iter==3)){
                     if (forgeron)
                         std::cout << "Nbre de creatures sur case de depart apres deplacement : " << forgeron->getCreaturesNbr() << std::endl;
                     else
@@ -403,17 +423,25 @@ namespace engine {
                     std::cout << "Nbre de creatures sur case de destination apres deplacement : " << moteur.getState().getCharacters()->get(ligne, colonne +1)->getCreaturesNbr() << std::endl;
         
                     iter++;
-                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==4)){
+                }
+                
+                else if((event.type == sf::Event::EventType::KeyReleased) && (iter==4)){
                     cout << "Test undo" << endl;
                     iter++;
-                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==5)){
+                }
+                
+                else if((event.type == sf::Event::EventType::KeyReleased) && (iter==5)){
                     moteur.undo();
                     moteur.update();
                     iter++;
-                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==6)){
+                }
+                
+                else if((event.type == sf::Event::EventType::KeyReleased) && (iter==6)){
                     cout << "FIN TESTS MOVECOMMAND - Deplacement vers une case occupée par le joueur" << endl;
                     iter++;
-                }else if((event.type == sf::Event::EventType::KeyReleased) && (iter==7)){
+                }
+                
+                else if((event.type == sf::Event::EventType::KeyReleased) && (iter==7)){
                     window.close();
                 }
             }
@@ -466,7 +494,7 @@ namespace engine {
         int colonne = 4;
         int iter = 0;
         
-        CreaturesGroup* forgeron;
+        CreaturesGroup* forgeron = nullptr;
         
         while (window.isOpen()) {
             sf::Event event;
