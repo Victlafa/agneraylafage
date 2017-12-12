@@ -29,6 +29,13 @@ namespace engine
         action->apply(state);
     }
     
+    void PoisonCommand::serialize (Json::Value& out) const{
+        
+    }
+    
+    PoisonCommand* PoisonCommand::deserialize (const Json::Value& in){
+        
+    }
     
     // Setters and Getters
     CommandTypeID PoisonCommand::getTypeID () const {return CommandTypeID::POISON;}
