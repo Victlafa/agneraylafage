@@ -26,6 +26,14 @@ namespace engine
         action.apply(state);
     }
     
+    void ProtectedCommand::serialize (Json::Value& out) const{
+        
+    }
+    
+    ProtectedCommand* ProtectedCommand::deserialize (const Json::Value& in){
+        
+    }
+    
     // Setters and Getters
     const std::vector<int>& ProtectedCommand::getTarget() const{return target;}
    
