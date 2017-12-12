@@ -50,16 +50,14 @@ namespace engine{
     }
     
     void MoveCommand::serialize (Json::Value& out, int nTour) const{
-        Json::Value moveCommandNM;
-        moveCommandNM["type"] = "MoveCommand";
-        moveCommandNM["initPos[0]"] = initPos[0];
-        moveCommandNM["initPos[1]"] = initPos[1];
-        moveCommandNM["finalPos[0]"] = finalPos[0];
-        moveCommandNM["finalPos[1]"] = finalPos[1];
-        (out[nTour]).append(moveCommandNM);
-        
-        Json::StyledWriter styledWriter;
-        std::cout << styledWriter.write(moveCommandNM) << std::endl;
+        Json::Value moveCommand;
+        moveCommand["type"] = CommandTypeID::MOVE;
+        moveCommand["initPos[0]"] = initPos[0];
+        moveCommand["initPos[1]"] = initPos[1];
+        moveCommand["finalPos[0]"] = finalPos[0];
+        moveCommand["finalPos[1]"] = finalPos[1];
+        moveCommand["player"] = player;
+        (out[nTour]).append(moveCommand);
         
     }
     
