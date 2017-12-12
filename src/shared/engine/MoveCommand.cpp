@@ -49,14 +49,18 @@ namespace engine{
         
     }
     
-    void MoveCommand::serialize (Json::Value& out) const{
-        Json::Value fichier;
-        fichier["nom"] = "nom_fichier";
-        fichier["nbr_command"] = 0;
-        fichier["initPos0"] = initPos[0];
-        fichier["initPos1"] = initPos[1];
-        fichier["finalPos0"] = finalPos[0];
-        fichier["finalPos1"] = finalPos[1];
+    void MoveCommand::serialize (Json::Value& out, int nTour) const{
+        Json::Value moveCommandNM;
+        moveCommandNM["type"] = "MoveCommand";
+        moveCommandNM["initPos[0]"] = initPos[0];
+        moveCommandNM["initPos[1]"] = initPos[1];
+        moveCommandNM["finalPos[0]"] = finalPos[0];
+        moveCommandNM["finalPos[1]"] = finalPos[1];
+        (out[nTour]).append(moveCommandNM);
+        
+        Json::StyledWriter styledWriter;
+        std::cout << styledWriter.write(moveCommandNM) << std::endl;
+        
     }
     
     MoveCommand* MoveCommand::deserialize (const Json::Value& in){
