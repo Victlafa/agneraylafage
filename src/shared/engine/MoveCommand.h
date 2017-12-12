@@ -18,7 +18,6 @@ namespace engine {
   class Command;
 }
 
-#include "CommandTypeID.h"
 #include "Action.h"
 #include "Command.h"
 
@@ -33,10 +32,9 @@ namespace engine {
     // Operations
   public:
     MoveCommand (int init_i, int init_j, int final_i, int final_j, int player);
-    CommandTypeID getTypeID () const;
     void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
     void serialize (Json::Value& out, int nTour) const;
-    MoveCommand* deserialize (const Json::Value& in);
+    static MoveCommand* deserialize (const Json::Value& in);
     // Setters and Getters
     const std::vector<int>& getInitPos() const;
     void setInitPos(const std::vector<int>& initPos);

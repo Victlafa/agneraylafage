@@ -18,7 +18,6 @@ namespace engine {
 }
 
 #include "Action.h"
-#include "CommandTypeID.h"
 #include "Command.h"
 
 namespace engine {
@@ -29,9 +28,8 @@ namespace engine {
   public:
     NewGameCommand ();
     void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
-    CommandTypeID getTypeID () const;
     void serialize (Json::Value& out, int nTour) const;
-    NewGameCommand* deserialize (const Json::Value& in);
+    static NewGameCommand* deserialize (const Json::Value& in);
     // Setters and Getters
   };
 

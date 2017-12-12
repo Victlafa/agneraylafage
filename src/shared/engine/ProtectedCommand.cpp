@@ -16,9 +16,8 @@ namespace engine
     ProtectedCommand::ProtectedCommand (int i_cell, int j_cell) : target(2) {
         target[0] = i_cell;
         target[1] = j_cell;
+        this->type = CommandTypeID::PROTECTED;
     };
-    
-    CommandTypeID ProtectedCommand::getTypeID () const {return CommandTypeID::PROTECTED; }
     
     void ProtectedCommand::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state)
     {
@@ -31,7 +30,7 @@ namespace engine
     }
     
     ProtectedCommand* ProtectedCommand::deserialize (const Json::Value& in){
-        
+        return nullptr;
     }
     
     // Setters and Getters

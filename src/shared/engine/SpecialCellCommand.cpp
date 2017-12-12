@@ -17,10 +17,9 @@ namespace engine
         finalPos[1] = final_j;
         this->player = player;
         this->specialType = type;
-        
+        this->type = CommandTypeID::SPECIAL;
     }
     
-    CommandTypeID SpecialCellCommand::getTypeID () const { return CommandTypeID::SPECIAL; }
     SpecialTypeID SpecialCellCommand::getSpecialType () const { return specialType; }
     void SpecialCellCommand::setSpecialType(SpecialTypeID specialType) { this->specialType = specialType; }
     
@@ -34,7 +33,7 @@ namespace engine
     }
     
     SpecialCellCommand* SpecialCellCommand::deserialize (const Json::Value& in){
-        
+        return nullptr;
     }
     
     // Setters and Getters

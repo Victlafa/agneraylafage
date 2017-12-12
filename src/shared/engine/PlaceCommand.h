@@ -20,7 +20,6 @@ namespace engine {
 
 #include "state/ID.h"
 #include "Action.h"
-#include "CommandTypeID.h"
 #include "Command.h"
 
 namespace engine {
@@ -35,9 +34,8 @@ namespace engine {
   public:
     PlaceCommand (int i, int j, int player, state::ID type);
     void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
-    CommandTypeID getTypeID () const;
     void serialize (Json::Value& out, int nTour) const;
-    PlaceCommand* deserialize (const Json::Value& in);
+    static PlaceCommand* deserialize (const Json::Value& in);
     // Setters and Getters
     const std::vector<int>& getFinalPos() const;
     void setFinalPos(const std::vector<int>& finalPos);

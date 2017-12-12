@@ -10,10 +10,11 @@ using namespace state;
 
 namespace engine
 {
-    NewGameCommand::NewGameCommand () {}
-    CommandTypeID NewGameCommand::getTypeID () const{
-        return CommandTypeID::NEWGAME;
+    NewGameCommand::NewGameCommand () 
+    {
+        type = CommandTypeID::NEWGAME;
     }
+    
     void NewGameCommand::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state){
         
     }
@@ -23,6 +24,6 @@ namespace engine
     }
     
     NewGameCommand* NewGameCommand::deserialize (const Json::Value& in){
-        
+        return new NewGameCommand();
     }
 }

@@ -4,6 +4,7 @@
 
 #include <stack>
 #include <memory>
+#include <string>
 #include <json/json.h>
 
 namespace engine {
@@ -18,6 +19,7 @@ namespace engine {
 
 #include "CommandTypeID.h"
 #include "Action.h"
+#include "state/ID.h"
 #include "state/State.h"
 
 namespace engine {
@@ -27,16 +29,19 @@ namespace engine {
     // Attributes
   protected:
     int player;
+    CommandTypeID type;
     // Operations
   public:
     virtual ~Command ();
-    virtual CommandTypeID getTypeID () const = 0;
     virtual void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state) = 0;
+    CommandTypeID translateType (std::string typeString);
     virtual void serialize (Json::Value& out, int nTour) const = 0;
-    Command* deserialize (const Json::Value& in);
+    static Command* deserialize (const Json::Value& in);
     // Setters and Getters
     int getPlayer() const;
     void setPlayer(int player);
+    CommandTypeID getType() const;
+    void setType(CommandTypeID type);
   };
 
 };

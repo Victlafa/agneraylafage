@@ -13,16 +13,17 @@ using namespace state;
 
 namespace engine
 {
-    PoisonCommand::PoisonCommand (int i_cell, int j_cell, state::ID type, int player) : targetCell(2) {
+    PoisonCommand::PoisonCommand (int i_cell, int j_cell, state::ID id, int player) : targetCell(2) {
         targetCell[0] = i_cell;
         targetCell[1] = j_cell;
-        this->type = type;
+        this->typeCreatures = id;
         player = player;
+        this->type = CommandTypeID::POISON;
     } 
     
     
     void PoisonCommand::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state){
-        std::shared_ptr<Action> action(new PoisonAction(targetCell[0],targetCell[1], type, player));
+        std::shared_ptr<Action> action(new PoisonAction(targetCell[0],targetCell[1], typeCreatures, player));
         std::cout << "avant le push" << pile.size() << std::endl;
         pile.push(action);
         std::cout << "après le push" << pile.size() << std::endl;
@@ -34,11 +35,10 @@ namespace engine
     }
     
     PoisonCommand* PoisonCommand::deserialize (const Json::Value& in){
-        
+        return nullptr;
     }
     
     // Setters and Getters
-    CommandTypeID PoisonCommand::getTypeID () const {return CommandTypeID::POISON;}
     const std::vector<int>& PoisonCommand::getTargetCell() const { return targetCell;}
     void PoisonCommand::setTargetCell(const std::vector<int>& targetCell) {this->targetCell = targetCell;}
     
