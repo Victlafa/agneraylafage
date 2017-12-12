@@ -34,7 +34,13 @@ namespace engine{
     }
     
     void PlaceCommand::serialize (Json::Value& out, int nTour) const{
-        
+        Json::Value placeCommand;
+        placeCommand["type"] = CommandTypeID::PLACE;
+        placeCommand["finalPos[0]"] = finalPos[0];
+        placeCommand["finalPos[1]"] = finalPos[1];
+        placeCommand["creaType"] = creaType;
+        placeCommand["player"] = player;
+        (out[nTour]).append(placeCommand);
     }
     
     PlaceCommand* PlaceCommand::deserialize (const Json::Value& in){
