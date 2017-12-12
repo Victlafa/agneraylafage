@@ -47,21 +47,21 @@ namespace engine{
         else
             throw std::runtime_error("MoveCommand::execute - La case de destination doit etre adjacente à celle de depart !");
         
-        
-            
     }
     
-//    void serialize (Json::Value& out) const{
-//        Json::Value fichier;
-//        fichier["nom"] = "nom_fichier";
-//        fichier["nbr_command"] = 0;
-//        fichier["initPos"] = initPos;
-//        fichier["finalPos"] = finalPos;
-//    }
-//    
-//    MoveCommand* deserialize (const Json::Value& in){
-//        
-//    }
+    void MoveCommand::serialize (Json::Value& out) const{
+        Json::Value fichier;
+        fichier["nom"] = "nom_fichier";
+        fichier["nbr_command"] = 0;
+        fichier["initPos0"] = initPos[0];
+        fichier["initPos1"] = initPos[1];
+        fichier["finalPos0"] = finalPos[0];
+        fichier["finalPos1"] = finalPos[1];
+    }
+    
+    MoveCommand* MoveCommand::deserialize (const Json::Value& in){
+        
+    }
     
     // Setters and Getters
     const std::vector<int>& MoveCommand::getInitPos() const { return initPos; }
