@@ -8,6 +8,8 @@
 #include "state.h"
 #include "Layer.h"
 
+using namespace std;
+
 namespace render
 {
     Layer::Layer ()
@@ -32,6 +34,7 @@ namespace render
     
     void Layer::printText (int x, int y, const std::string& msg)
     {
+        cout << "Entree dans Layer::printText" << endl;
         sf::Font myFont;
         if (!myFont.loadFromFile("./res/HPS_Extrabold_trial.ttf"))
             std::cout << "Erreur chargement police\n" << std::endl;

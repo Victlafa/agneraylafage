@@ -26,7 +26,7 @@ using namespace ai;
 
 namespace render
 {
-    //void TestsStateLayer();
+    void TestsStateLayer();
     void TestsElementTabLayer();
     void TestInitMap();
     void TestAffichage2();

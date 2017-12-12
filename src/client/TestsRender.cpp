@@ -12,14 +12,25 @@ namespace render {
         HeuristicAI ia(&moteur, rand()%30000);
         
         // On crée un Layer qui permettra de gerer l'affichage des cellules
-        CellTabLayer cellLayer(moteur.getState().getGrid().get());
+        CellTabLayer cellLayer(*(moteur.getState().getGrid().get()));
         // On crée un Layer qui permettra de gerer l'affichage des creatures
-        CreaturesTabLayer charsLayer(moteur.getState().getCharacters().get());
-        // On crée un layer pour l'affichage des donnees texte de l'etat
+        CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));
         StateLayer stateLayer(moteur.getState());
-        stateLayer.initSurface();
-        
+        // On crée un layer pour l'affichage des donnees texte de l'etat
+        //StateLayer stateLayer(moteur.getState());
+        //stateLayer.initSurface();
         sf::RenderWindow gameWindow(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
+        
+        sf::Font myFont;
+        if (!myFont.loadFromFile("./res/Brainfish_Rush.ttf"))
+            std::cout << "Erreur chargement police\n" << std::endl;
+        
+        sf::Text message("Welcome to the garden !",myFont,50.f);
+        message.setColor(sf::Color::White);
+        message.setPosition(311,50);
+        
+        //gameWindow.draw(&background);
+        
         sf::Event event;
         
         while (gameWindow.isOpen()) {
@@ -34,8 +45,11 @@ namespace render {
             charsLayer.initSurface();
             
             gameWindow.clear();
+            //gameWindow.draw(&background);
+            stateLayer.getSurface()->draw(gameWindow);
             cellLayer.getSurface()->draw(gameWindow);
             charsLayer.getSurface()->draw(gameWindow);
+            gameWindow.draw(message);
             
             gameWindow.display();
         }

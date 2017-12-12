@@ -59,11 +59,11 @@ int main(int argc,char* argv[])
             //state::Element el;
 
             // On associe au joueur 1 les forgerons. Les creatures de l'IA sont tirees au hasard
-            state::State *etat = new State(CreaturesID::BLACKSMITHS);
-            //state::ElementTab tabCell(state::TypeID::CELL, 7, 5)
-            //state::ElementTab grid;
-            //grid = etat.getGrid();
-            TestAffichage(*etat);
+            //state::State *etat = new State(CreaturesID::BLACKSMITHS);
+            //TestAffichage(*etat);
+            
+            // Test affichage de donnees d'etat dans la fenetre de jeu
+            TestsStateLayer();
 
         }
         
