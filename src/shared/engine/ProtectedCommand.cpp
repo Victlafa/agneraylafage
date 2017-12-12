@@ -26,7 +26,7 @@ namespace engine
         action.apply(state);
     }
     
-    void ProtectedCommand::serialize (Json::Value& out) const{
+    void ProtectedCommand::serialize (Json::Value& out, int nTour) const{
         
     }
     

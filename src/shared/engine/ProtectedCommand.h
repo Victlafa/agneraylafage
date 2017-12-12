@@ -34,7 +34,7 @@ namespace engine {
     ProtectedCommand (int i, int j);
     void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
     CommandTypeID getTypeID () const;
-    void serialize (Json::Value& out) const;
+    void serialize (Json::Value& out, int nTour) const;
     ProtectedCommand* deserialize (const Json::Value& in);
     // Setters and Getters
     const std::vector<int>& getTarget() const;
