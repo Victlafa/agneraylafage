@@ -2,6 +2,7 @@
 #ifndef STATE__ELEMENT__H
 #define STATE__ELEMENT__H
 
+#include <string>
 
 namespace state {
   class Player;
@@ -33,6 +34,7 @@ namespace state {
     bool operator== (Element otherElement);
     Player* getPlayer () const;
     void setPlayer (Player* player);
+    static ID translateType (std::string typeElement);
     // Setters and Getters
     ID getElemType() const;
     void setElemType(ID elemType);
