@@ -33,6 +33,14 @@ namespace engine{
             throw std::runtime_error("PlaceCommand::execute - La case de destination choisie appartient à l'adversaire !");
     }
     
+    void PlaceCommand::serialize (Json::Value& out) const{
+        
+    }
+    
+    PlaceCommand* PlaceCommand::deserialize (const Json::Value& in){
+        
+    }
+    
     // Setters and Getters
     const std::vector<int>& PlaceCommand::getFinalPos() const {return finalPos;}
     void PlaceCommand::setFinalPos(const std::vector<int>& pos) {this->finalPos = pos;}
