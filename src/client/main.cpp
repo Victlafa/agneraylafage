@@ -142,6 +142,19 @@ int main(int argc,char* argv[])
         
         else if (argc >= 2 && (string) argv[1] == "thread") TestsThread();
         
+        else if (argc >= 2 && (string) argv[1] == "record"){
+            Json::Value fichier;
+            fichier["nom"] = "nom_fichier";
+            fichier["nbr_command"] = 0;
+            fichier["initPos0"] = 0;
+            fichier["initPos1"] = 1;
+            fichier["finalPos0"] = 14;
+            fichier["finalPos1"] = 8;
+
+            Json::StyledWriter styledWriter;
+            std::cout << styledWriter.write(fichier) << std::endl;
+        }
+        
     } catch (const std::exception &e) {
         
         cout << "Erreur, catch du main" << endl;
