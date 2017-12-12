@@ -33,7 +33,7 @@ namespace engine{
             throw std::runtime_error("PlaceCommand::execute - La case de destination choisie appartient à l'adversaire !");
     }
     
-    void PlaceCommand::serialize (Json::Value& out) const{
+    void PlaceCommand::serialize (Json::Value& out, int nTour) const{
         
     }
     
