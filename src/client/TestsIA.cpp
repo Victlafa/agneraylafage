@@ -258,7 +258,6 @@ namespace ai {
         std::cout << "Pour accelerer le processus, on permet aux IAs d'effectuer trois déplacements (qui peuvent aboutir à un combat) pendant leur phase d'attaque." << std::endl;
         std::cout << "La démonstration se fera jusqu'à ce que la partie soit achevée." << std::endl;
         
-        
         sf::Event event;
         
         // On tire au hasard le joueur qui commence en premier
@@ -271,8 +270,6 @@ namespace ai {
         thread threadIA(routine_thread,(void*)&ia);
         
         while (gameWindow.isOpen()) {
-            
-            
             
             while (gameWindow.pollEvent(event)) {
                 // Fermeture de la fenetre ?
