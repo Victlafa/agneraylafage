@@ -29,6 +29,14 @@ namespace engine
         
     }
     
+    void SpecialCellCommand::serialize (Json::Value& out) const{
+        
+    }
+    
+    SpecialCellCommand* SpecialCellCommand::deserialize (const Json::Value& in){
+        
+    }
+    
     // Setters and Getters
     const std::vector<int>& SpecialCellCommand::getInitPos() const { return initPos; }
     void SpecialCellCommand::setInitPos(const std::vector<int>& initPos) {

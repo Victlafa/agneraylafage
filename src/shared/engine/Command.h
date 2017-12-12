@@ -32,7 +32,7 @@ namespace engine {
     virtual ~Command ();
     virtual CommandTypeID getTypeID () const = 0;
     virtual void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state) = 0;
-    virtual void serialize (Json::Values& out) const = 0;
+    virtual void serialize (Json::Value& out) const = 0;
     Command* deserialize (const Json::Value& in);
     // Setters and Getters
     int getPlayer() const;

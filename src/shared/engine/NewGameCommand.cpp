@@ -17,4 +17,12 @@ namespace engine
     void NewGameCommand::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state){
         
     }
+    
+    void NewGameCommand::serialize (Json::Value& out) const{
+        
+    }
+    
+    NewGameCommand* NewGameCommand::deserialize (const Json::Value& in){
+        
+    }
 }
