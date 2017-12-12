@@ -52,8 +52,8 @@ namespace state
         oldCreaNbr[0] = creaNbrAtt;
         oldCreaNbr[1] = creaNbrDef;
         
-        std::cout << "CreaturesTab::moveElement - Nombre de creatures de la cellule attaquante : " << creaNbrAtt << std::endl;
-        std::cout << "CreaturesTab::moveElement - Nombre de creatures de la cellule en défense : " << creaNbrDef << std::endl;
+        std::cout << "CreaturesTab::moveElement - Nombre de creatures de la cellule de départ avant deplacement : " << creaNbrAtt << std::endl;
+        std::cout << "CreaturesTab::moveElement - Nombre de creatures de la cellule de destination avant deplacement : " << creaNbrDef << std::endl;
         
         // On verifie si le deplacement est possible ou non
         

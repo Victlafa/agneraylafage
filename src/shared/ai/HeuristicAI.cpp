@@ -51,6 +51,9 @@ namespace ai
             // On verifie que le deplacement de la phase de conquete a bien ete effectue
             if (creaTab->get(coordsDeplacement[2], coordsDeplacement[3]) == NULL)
                 throw std::runtime_error("HeuristicAI::run - La case de destination est tjrs vide meme apres deplacement !");
+            
+            std::cout << "HeuristicAI::run - Nombre de creatures de la cellule de départ apres deplacement : " << creaTab->get(coordsDeplacement[0], coordsDeplacement[1])->getCreaturesNbr() << std::endl;
+            std::cout << "HeuristicAI::run - Nombre de creatures de la cellule de destination apres deplacement : " << creaTab->get(coordsDeplacement[2], coordsDeplacement[3])->getCreaturesNbr() << std::endl;
         }
         
         if (getMoteur()->getState().getFreeCellNbr() != 0 || !creaTab->isSaturated(getMoteur()->getPlayer(player).get()))
