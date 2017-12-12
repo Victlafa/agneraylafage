@@ -19,16 +19,17 @@
 #include "render.h"
 #include <iostream>
 #include <time.h>
+#include "../shared/ai.h"
 
 using namespace state;
+using namespace ai;
 
 namespace render
 {
-    //void TestsStateLayer();
+    void TestsStateLayer();
     void TestsElementTabLayer();
     void TestInitMap();
     void TestAffichage2();
-    void TestAffichage3();
     
     void TestAffichage(State& etat);
     
