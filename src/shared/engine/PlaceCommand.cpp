@@ -45,13 +45,15 @@ namespace engine{
     
     PlaceCommand* PlaceCommand::deserialize (const Json::Value& in){
         
+        int player = in.get("player",0).asInt();
         string typeString = in.get("creaType","CommandTypeID::PLACE").asString();
-        //ID creaturesType = Element::translateType(typeString);
+        ID creaturesType = Element::translateType(typeString);
         
         std::vector<int> finalPlace(2);
         finalPlace[0] = in.get("finalPos[0]",0).asInt();
         finalPlace[1] = in.get("finalPos[1]",0).asInt();
-        return nullptr;
+        
+        return new PlaceCommand(finalPlace[0],finalPlace[1],player,creaturesType);
     }
     
     // Setters and Getters

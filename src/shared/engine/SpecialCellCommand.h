@@ -6,6 +6,7 @@
 #include <stack>
 #include <memory>
 #include <json/json.h>
+#include <string>
 
 namespace engine {
   class Action;
@@ -38,6 +39,7 @@ namespace engine {
     void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
     void serialize (Json::Value& out, int nTour) const;
     static SpecialCellCommand* deserialize (const Json::Value& in);
+    static SpecialTypeID translateSpecialType (std::string nomType);
     // Setters and Getters
     SpecialTypeID getSpecialType() const;
     void setSpecialType(SpecialTypeID specialType);

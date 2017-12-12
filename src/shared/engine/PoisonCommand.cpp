@@ -32,16 +32,24 @@ namespace engine
     
     void PoisonCommand::serialize (Json::Value& out, int nTour) const{
         Json::Value poisonCommand;
-        poisonCommand["type"] = CommandTypeID::POISON;
+        poisonCommand["type"] = "CommandTypeID::POISON";
         poisonCommand["targetCell[0]"] = targetCell[0];
         poisonCommand["targetCell[1]"] = targetCell[1];
-        poisonCommand["stateType"] = type;
         poisonCommand["player"] = player;
+        poisonCommand["typeCreatures"] = typeCreatures;
         (out[nTour]).append(poisonCommand);
     }
     
     PoisonCommand* PoisonCommand::deserialize (const Json::Value& in){
-        return nullptr;
+        
+        int player = in.get("player",0).asInt();
+        std::vector<int> targetPos(2);
+        targetPos[0] = in.get("targetCell[0]",0).asInt();
+        targetPos[1] = in.get("targetCell[1]",0).asInt();
+        std::string typeCreas = in.get("typeCreatures","").asString();
+        ID creaturesType = Element::translateType(typeCreas);
+        
+        return new PoisonCommand(targetPos[0],targetPos[1],creaturesType,player);
     }
     
     // Setters and Getters
