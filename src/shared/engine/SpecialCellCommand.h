@@ -38,7 +38,7 @@ namespace engine {
     SpecialCellCommand (int init_i, int init_j, int target_i, int target_j, int player, SpecialTypeID type);
     void execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state);
     CommandTypeID getTypeID () const;
-    void serialize (Json::Value& out) const;
+    void serialize (Json::Value& out, int nTour) const;
     SpecialCellCommand* deserialize (const Json::Value& in);
     // Setters and Getters
     SpecialTypeID getSpecialType() const;

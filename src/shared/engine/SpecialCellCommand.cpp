@@ -29,7 +29,7 @@ namespace engine
         
     }
     
-    void SpecialCellCommand::serialize (Json::Value& out) const{
+    void SpecialCellCommand::serialize (Json::Value& out, int nTour) const{
         
     }
     
