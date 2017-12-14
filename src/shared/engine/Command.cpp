@@ -10,6 +10,9 @@
 #include "PoisonCommand.h"
 #include "ProtectedCommand.h"
 #include "SpecialCellCommand.h"
+#include <iostream>
+
+using namespace std;
 
 namespace engine
 {
@@ -21,8 +24,10 @@ namespace engine
     
     Command* Command::deserialize (const Json::Value& in) 
     { 
+        cout << "Entree Command::deserialize" << endl;
         std::string typeCommand = in.get("type","").asString();
-        
+        cout << "Command::deserialize - recup type commande effectuee" << endl;
+                
         if (typeCommand == "CommandTypeID::MOVE")
             return MoveCommand::deserialize(in);
         else if (typeCommand == "CommandTypeID::NEWGAME")

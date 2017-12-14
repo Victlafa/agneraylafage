@@ -147,29 +147,44 @@ int main(int argc,char* argv[])
             // On initialise un moteur, on choisit les mineurs pour le joueur 1
             engine::Engine moteur(state::CreaturesID::MINERS);
             // On initialise une ia
-            ai::HeuristicAI ia(&moteur, 2);
+            //ai::HeuristicAI ia(&moteur, 2);
             
             Json::Reader reader;
             Json::Value fichier;
-            std::ifstream file("replay.txt", std::ifstream::in);
+            std::ifstream file("./src/replay.txt", std::ifstream::in);
             
             if (!reader.parse(file,fichier))
                 throw std::runtime_error("Erreur lors de la recuperation des donnees contenues dans replay.txt");
             
+            // Pour chaque tour on recupere les donnees des commandes
             for (int i = 0; i < 10; i++)
             {
+                cout << "Entree dans boucle for" << endl;
+                Json::Value donneesCommandes = fichier[i];
+                cout << "Recup des donnees dans fichier effectuee" << endl;
+                
+                // Pour chaque commande du tour on recupere ses parametres et on l'execute
+                for (unsigned int j = 0; j < donneesCommandes.size(); j++)
+                {
+                    Json::Value commande = fichier[i][j];
+                    Command* comm = Command::deserialize(commande);
+                    cout << "Deserialize effectue" << endl;
+                    comm->execute(moteur.getPileAction(), moteur.getState());
+                    cout << "Execution effectuee" << endl;
+                }
+                
                 
             }
             
-            fichier["nom"] = "nom_fichier";
-            fichier["nbr_command"] = 0;
-            fichier["initPos0"] = 0;
-            fichier["initPos1"] = 1;
-            fichier["finalPos0"] = 14;
-            fichier["finalPos1"] = 8;
-
-            Json::StyledWriter styledWriter;
-            std::cout << styledWriter.write(fichier) << std::endl;
+//            fichier["nom"] = "nom_fichier";
+//            fichier["nbr_command"] = 0;
+//            fichier["initPos0"] = 0;
+//            fichier["initPos1"] = 1;
+//            fichier["finalPos0"] = 14;
+//            fichier["finalPos1"] = 8;
+//
+//            Json::StyledWriter styledWriter;
+//            std::cout << styledWriter.write(fichier) << std::endl;
         }
         
     } catch (const std::exception &e) {
