@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <memory>
+#include <json/json.h>
 
 namespace engine {
   class Engine;
@@ -22,6 +23,7 @@ namespace ai {
     engine::Engine* moteur;
   protected:
     std::vector<std::shared_ptr<engine::Command> > listCommands;
+    Json::Value jsonFile;
     // Operations
   public:
     AI (engine::Engine* moteur);
@@ -40,6 +42,8 @@ namespace ai {
     // Setters and Getters
     const std::vector<std::shared_ptr<engine::Command> >& getListCommands() const;
     void setListCommands(const std::vector<std::shared_ptr<engine::Command> >& listCommands);
+    const Json::Value& getJsonFile() const;
+    void setJsonFile(const Json::Value& jsonFile);
   };
 
 };
