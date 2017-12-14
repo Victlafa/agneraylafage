@@ -40,7 +40,6 @@ namespace engine{
             action.reset(new MoveAction(initPos[0], initPos[1], finalPos[0], finalPos[1],player));
             //std::cout << "taille avant push : " << pile.size() << std::endl;
             pile.push(action);
-            this->serialize(,);
             action->apply(state);
             //std::cout << "taille après push : " << pile.size() << std::endl;
         }
@@ -50,16 +49,20 @@ namespace engine{
     }
     
     void MoveCommand::serialize (Json::Value& out, int nTour) const{
+        
         Json::Value moveCommandNM;
         moveCommandNM["type"] = "CommandTypeID::MOVE";
         moveCommandNM["initPos[0]"] = initPos[0];
         moveCommandNM["initPos[1]"] = initPos[1];
         moveCommandNM["finalPos[0]"] = finalPos[0];
         moveCommandNM["finalPos[1]"] = finalPos[1];
-        (out[nTour]).append(moveCommandNM);
+        //std::cout << "MoveCommand : serialize : création commande" << std::endl;
         
-        Json::StyledWriter styledWriter;
-        std::cout << styledWriter.write(moveCommandNM) << std::endl;
+        out.append(moveCommandNM);
+        //std::cout << "MoveCommand : serialize : ajout commande json::value" << std::endl;
+        
+        //Json::StyledWriter styledWriter;
+        //std::cout << styledWriter.write(moveCommandNM) << std::endl;
         
     }
     
