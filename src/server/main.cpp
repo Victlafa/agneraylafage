@@ -27,14 +27,15 @@ using namespace ai;
 int main(int argc, char** argv) {
 
     if (argc >= 2 && (string) argv[1] == "record"){
-        srand(time(NULL));
+        
+        srand(2);
 
         // On initialise un moteur, on choisit les mineurs pour le joueur 1
         engine::Engine moteur(state::CreaturesID::MINERS);
         // On initialise une ia
-        ai::HeuristicAI ia(&moteur, rand()%30000);
+        ai::HeuristicAI ia(&moteur, 2);
 
-        std::ofstream file("replay.txt", std::ifstream::in);
+        std::ofstream file("replay.txt", std::ifstream::out);
 
         Json::Value jsonArray(Json::arrayValue);
         ia.setJsonFile(jsonArray);
