@@ -15,7 +15,10 @@ using namespace std;
 
 namespace ai{
     AI::AI (engine::Engine* moteur) : listCommands()
-    { this->moteur = moteur; }
+    { 
+        this->moteur = moteur;
+        jsonFile = Json::Value(Json::arrayValue);
+    }
     // Setters and Getters
     const std::vector<std::shared_ptr<engine::Command> >& AI::getListCommands() const { return listCommands; }
     void AI::setListCommands(const std::vector<std::shared_ptr<engine::Command> >& listCommands) { this->listCommands = listCommands; }
@@ -312,4 +315,8 @@ namespace ai{
         return liste;
     }
 
+    const Json::Value& AI::getJsonFile() const {return jsonFile;}
+    
+    void AI::setJsonFile(const Json::Value& jsonFile) {this->jsonFile = jsonFile;}
+    
 }
