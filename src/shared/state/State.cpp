@@ -5,6 +5,7 @@
 #include "CreaturesGroup.h"
 #include <iostream>
 #include <time.h>
+#include <json/json.h>
 
 namespace state
 {
@@ -25,6 +26,8 @@ namespace state
         
         // On initialise le tableau de creatures de sorte à associer 3 groupes de 2 creatures à chaque joueur
         this->initCreatures();
+        
+        //std::ifstream file("replay.txt", std::ifstream::in);
         
     }
     
