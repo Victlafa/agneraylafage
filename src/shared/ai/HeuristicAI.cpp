@@ -6,6 +6,7 @@
 
 #include "HeuristicAI.h"
 #include <iostream>
+#include <fstream>
 #include "../shared/engine.h"
 #include "../shared/state/CreaturesTab.h"
 
@@ -17,6 +18,8 @@ namespace ai
     HeuristicAI::HeuristicAI (engine::Engine* moteur, int randomSeed) : AI(moteur)
     {
         randGen.seed(randomSeed);
+        this->jsonFile = new Json::Value(Json::arrayValue);
+        std::ifstream file("replay.txt",std::ifstream::in);
         // On initialise les attributs de l'IA
         //this->initIA(moteur,player);
     }
@@ -30,8 +33,10 @@ namespace ai
         CreaturesTab* creaTab = getMoteur()->getState().getCharacters().get();
         std::vector<int> coordsDeplacement;
         engine::MoveCommand* moveCmd = nullptr;
+        Json::Value lCommandes(Json::arrayValue);
+                
         
-        cout << "-------------------------------- PHASE DE CONQUETE --------------------------------" << endl << endl;
+        std::cout << "-------------------------------- PHASE DE CONQUETE --------------------------------" << std::endl << std::endl;
         
         for (int nbr = 0; nbr < 3; nbr ++)
         {
@@ -46,6 +51,8 @@ namespace ai
                 std::cout << "HeuristicAI::run - La case destination est vide" << std::endl;
 
             moveCmd = new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player);
+            //std::cout << "HeuristicAI : serialize move" << std::endl;
+            moveCmd->serialize(lCommandes, getMoteur()->getTour());
             moveCmd->execute(getMoteur()->getPileAction(), getMoteur()->getState());
 
             // On verifie que le deplacement de la phase de conquete a bien ete effectue
@@ -74,12 +81,15 @@ namespace ai
             // On declare un tableau qui contiendra les coords des cellules selectionnees pour le placement de nouvelles creatures
             std::vector<int> newCreasCoordsUnitaires(3);
             engine::PlaceCommand* placement;
-
+            
             // On recupere une liste des coordonnees des cellules qu'occuperont ces creatures et on ajoute les commandes au fur et à mesure à la liste
             for (int i = 0; i < nbrCell; i++) {
                 newCreasCoordsUnitaires = this->placeCellResearch(player);
 
                 placement = new engine::PlaceCommand(newCreasCoordsUnitaires[0], newCreasCoordsUnitaires[1], player, (state::ID)getMoteur()->getPlayer(player)->getClanName());
+                
+                placement->serialize(lCommandes, getMoteur()->getTour());
+                //std::cout << "HeuristicAI : serialize placement" << std::endl;
                 placement->execute(getMoteur()->getPileAction(), getMoteur()->getState());
                 //cout << "Nombre de cellules vides restantes apres placement : " << getMoteur()->getState().getFreeCellNbr() << endl;
                 //cout << "Nombre de cellules du joueur : " << getMoteur()->getPlayer(player)->getCellNbr() << endl;
@@ -94,6 +104,9 @@ namespace ai
             
             cout << "FIN DE LA PHASE DE RENFORT" << endl;
         }
+        
+        jsonFile.append(lCommandes);
+        cout << "Ajout de lCommandes" << endl;
         
     }
     
