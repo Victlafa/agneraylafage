@@ -1,6 +1,50 @@
 [
    [
       {
+         "creature" : 4,
+         "i" : 0,
+         "j" : 4,
+         "joueur" : true,
+         "nbrCrea" : 3
+      },
+      {
+         "creature" : 4,
+         "i" : 1,
+         "j" : 3,
+         "joueur" : true,
+         "nbrCrea" : 3
+      },
+      {
+         "creature" : 1,
+         "i" : 1,
+         "j" : 6,
+         "joueur" : true,
+         "nbrCrea" : 3
+      },
+      {
+         "creature" : 4,
+         "i" : 2,
+         "j" : 1,
+         "joueur" : true,
+         "nbrCrea" : 3
+      },
+      {
+         "creature" : 1,
+         "i" : 3,
+         "j" : 1,
+         "joueur" : true,
+         "nbrCrea" : 3
+      },
+      {
+         "creature" : 1,
+         "i" : 3,
+         "j" : 5,
+         "joueur" : true,
+         "nbrCrea" : 3
+      }
+   ],
+   [
+      {
          "finalPos[0]" : 3,
          "finalPos[1]" : 1,
          "initPos[0]" : 2,

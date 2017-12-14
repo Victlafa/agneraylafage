@@ -48,6 +48,26 @@ int main(int argc, char** argv) {
         ia.setJsonFile(jsonArray);
 
         Json::StyledWriter styledWriter;
+        
+        //On sauvegarde l'état initial du jeu
+        Json::Value etatInit(Json::arrayValue);
+        
+        for(int i=0; i<5; i++){
+            for(int j=0; j<7; j++){
+                if(moteur.getState().getCharacters()->get(i,j)!=NULL){
+                    Json::Value elem;
+                    elem["joueur"] = moteur.getState().getCharacters()->get(i,j)->getPlayer();
+                    elem["creature"] = moteur.getState().getCharacters()->get(i,j)->getElemType();
+                    elem["nbrCrea"] = moteur.getState().getCharacters()->get(i,j)->getCreaturesNbr();
+                    elem["i"] = i;
+                    elem["j"] = j;
+                    etatInit.append(elem);
+                }
+            }
+        }
+        
+        jsonArray.append(etatInit);
+        ia.setJsonFile(jsonArray);
 
         int tour = 0;
 
