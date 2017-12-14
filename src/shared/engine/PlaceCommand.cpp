@@ -40,7 +40,7 @@ namespace engine{
         placeCommand["finalPos[1]"] = finalPos[1];
         placeCommand["creaType"] = creaType;
         placeCommand["player"] = player;
-        (out[nTour]).append(placeCommand);
+        out.append(placeCommand);
     }
     
     PlaceCommand* PlaceCommand::deserialize (const Json::Value& in){
