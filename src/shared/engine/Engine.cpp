@@ -9,6 +9,8 @@
 #include "../shared/state.h"
 #include "../client/render.h"
 #include <iostream>
+#include <fstream>
+
 using namespace state;
 using namespace render;
 using namespace std;
