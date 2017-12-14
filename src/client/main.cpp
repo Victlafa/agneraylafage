@@ -166,7 +166,7 @@ int main(int argc,char* argv[])
             // On initialise une ia
             ai::HeuristicAI ia(&moteur, rand()%30000);
             
-            std::ofstream file("replay.txt", std::ifstream::in);
+            std::ofstream file("replay.txt", std::ifstream::out);
             //file.open("replay.txt");
             
             Json::Value jsonArray(Json::arrayValue);
