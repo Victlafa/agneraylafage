@@ -1,6 +1,50 @@
 [
    [
       {
+         "creature" : 4,
+         "i" : 0,
+         "j" : 4,
+         "joueur" : true,
+         "nbrCrea" : 3
+      },
+      {
+         "creature" : 4,
+         "i" : 1,
+         "j" : 3,
+         "joueur" : true,
+         "nbrCrea" : 3
+      },
+      {
+         "creature" : 1,
+         "i" : 1,
+         "j" : 6,
+         "joueur" : true,
+         "nbrCrea" : 3
+      },
+      {
+         "creature" : 4,
+         "i" : 2,
+         "j" : 1,
+         "joueur" : true,
+         "nbrCrea" : 3
+      },
+      {
+         "creature" : 1,
+         "i" : 3,
+         "j" : 1,
+         "joueur" : true,
+         "nbrCrea" : 3
+      },
+      {
+         "creature" : 1,
+         "i" : 3,
+         "j" : 5,
+         "joueur" : true,
+         "nbrCrea" : 3
+      }
+   ],
+   [
+      {
          "finalPos[0]" : 3,
          "finalPos[1]" : 1,
          "initPos[0]" : 2,
@@ -26,21 +70,21 @@
          "finalPos[0]" : 2,
          "finalPos[1]" : 1,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 4,
          "finalPos[0]" : 2,
          "finalPos[1]" : 1,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 4,
          "finalPos[0]" : 0,
          "finalPos[1]" : 4,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       }
    ],
    [
@@ -70,42 +114,42 @@
          "finalPos[0]" : 3,
          "finalPos[1]" : 4,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 3,
          "finalPos[1]" : 1,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 0,
          "finalPos[1]" : 6,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 3,
          "finalPos[1]" : 5,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 1,
          "finalPos[1]" : 6,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 3,
          "finalPos[1]" : 1,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       }
    ],
    [
@@ -135,28 +179,28 @@
          "finalPos[0]" : 1,
          "finalPos[1]" : 2,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 4,
          "finalPos[0]" : 1,
          "finalPos[1]" : 3,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 4,
          "finalPos[0]" : 1,
          "finalPos[1]" : 2,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 4,
          "finalPos[0]" : 0,
          "finalPos[1]" : 4,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       }
    ],
    [
@@ -186,42 +230,42 @@
          "finalPos[0]" : 3,
          "finalPos[1]" : 1,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 3,
          "finalPos[1]" : 0,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 2,
          "finalPos[1]" : 1,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 3,
          "finalPos[1]" : 4,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 3,
          "finalPos[1]" : 4,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 0,
          "finalPos[1]" : 6,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       }
    ],
    [
@@ -251,28 +295,28 @@
          "finalPos[0]" : 1,
          "finalPos[1]" : 2,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 4,
          "finalPos[0]" : 1,
          "finalPos[1]" : 3,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 4,
          "finalPos[0]" : 1,
          "finalPos[1]" : 2,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 4,
          "finalPos[0]" : 1,
          "finalPos[1]" : 2,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       }
    ],
    [
@@ -302,42 +346,42 @@
          "finalPos[0]" : 3,
          "finalPos[1]" : 0,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 3,
          "finalPos[1]" : 0,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 1,
          "finalPos[1]" : 6,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 3,
          "finalPos[1]" : 5,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 2,
          "finalPos[1]" : 3,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 3,
          "finalPos[1]" : 5,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       }
    ],
    [
@@ -367,35 +411,35 @@
          "finalPos[0]" : 1,
          "finalPos[1]" : 3,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 4,
          "finalPos[0]" : 1,
          "finalPos[1]" : 3,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 4,
          "finalPos[0]" : 2,
          "finalPos[1]" : 3,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 4,
          "finalPos[0]" : 1,
          "finalPos[1]" : 2,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 4,
          "finalPos[0]" : 2,
          "finalPos[1]" : 1,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       }
    ],
    [
@@ -425,42 +469,42 @@
          "finalPos[0]" : 0,
          "finalPos[1]" : 6,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 3,
          "finalPos[1]" : 0,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 0,
          "finalPos[1]" : 6,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 3,
          "finalPos[1]" : 1,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 0,
          "finalPos[1]" : 6,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 3,
          "finalPos[1]" : 1,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       }
    ],
    [
@@ -490,35 +534,35 @@
          "finalPos[0]" : 2,
          "finalPos[1]" : 3,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 4,
          "finalPos[0]" : 2,
          "finalPos[1]" : 3,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 4,
          "finalPos[0]" : 1,
          "finalPos[1]" : 3,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 4,
          "finalPos[0]" : 1,
          "finalPos[1]" : 2,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 4,
          "finalPos[0]" : 2,
          "finalPos[1]" : 1,
          "player" : 1,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       }
    ],
    [
@@ -548,42 +592,42 @@
          "finalPos[0]" : 3,
          "finalPos[1]" : 1,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 2,
          "finalPos[1]" : 1,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 3,
          "finalPos[1]" : 5,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 3,
          "finalPos[1]" : 1,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 3,
          "finalPos[1]" : 1,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       },
       {
          "creaType" : 1,
          "finalPos[0]" : 3,
          "finalPos[1]" : 1,
          "player" : 2,
-         "type" : 3
+         "type" : "CommandTypeID::PLACE"
       }
    ]
 ]
