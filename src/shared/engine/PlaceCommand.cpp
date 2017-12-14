@@ -38,7 +38,7 @@ namespace engine{
         placeCommand["type"] = "CommandTypeID::PLACE";
         placeCommand["finalPos[0]"] = finalPos[0];
         placeCommand["finalPos[1]"] = finalPos[1];
-        placeCommand["creaType"] = creaType;
+        placeCommand["creaType"] = Element::translateType(creaType);
         placeCommand["player"] = player;
         out.append(placeCommand);
     }
@@ -46,7 +46,7 @@ namespace engine{
     PlaceCommand* PlaceCommand::deserialize (const Json::Value& in){
         
         int player = in.get("player",0).asInt();
-        string typeString = in.get("creaType","CommandTypeID::PLACE").asString();
+        string typeString = in.get("creaType","").asString();
         ID creaturesType = Element::translateType(typeString);
         
         std::vector<int> finalPlace(2);

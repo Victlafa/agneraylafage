@@ -35,6 +35,7 @@ namespace state {
     Player* getPlayer () const;
     void setPlayer (Player* player);
     static ID translateType (std::string typeElement);
+    static std::string translateType (ID typeElement);
     // Setters and Getters
     ID getElemType() const;
     void setElemType(ID elemType);

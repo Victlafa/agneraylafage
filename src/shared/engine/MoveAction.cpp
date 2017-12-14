@@ -9,6 +9,7 @@
 #include "../state/CreaturesGroup.h"
 
 using namespace state;
+using namespace std;
 
 namespace engine{
     
@@ -28,18 +29,24 @@ namespace engine{
     const std::vector<int>& MoveAction::getInitCreaturesNbr () const { return initCreaturesNbr; }
     void MoveAction::apply (state::State& state) {
 
+        CreaturesTab* creaTab = state.getCharacters().get();
+        
+        std::cout << "MoveAction::apply - Depart de l'IA n°" << player << " : (" << initPos[0] << "," << initPos[1] << ")" << std::endl;
+        std::cout << "MoveAction::apply - Destination de l'IA n°" << player << " : (" << finalPos[0] << "," << finalPos[1] << ")" << std::endl;
+            
         // Si la case de destination est occupée par l'adversaire, on engage un combat
-        if (state.getCharacters()->isOccupiedByOpp(finalPos[0], finalPos[1], state.getPlayer(player).get())) {
+        if (creaTab->isOccupiedByOpp(finalPos[0], finalPos[1], state.getPlayer(player).get())) {
             std::cout << "MoveAction::apply - Un combat commence !" << std::endl;
             fight->apply(state);
-            initCreaturesNbr = state.getCharacters()->moveElement(initPos[0], initPos[1], finalPos[0], finalPos[1], fight->getWinner());
+            initCreaturesNbr = creaTab->moveElement(initPos[0], initPos[1], finalPos[0], finalPos[1], fight->getWinner());
             isThereFight = true;
         } 
+        // Si la case de destination est vide
         else
         {
-            std::cout << "MoveAction::apply - Il y a déplacement sans combat !" << std::endl;
+            std::cout << "MoveAction::apply - Il y a déplacement sans combat car la case de destination est vide !" << std::endl;
             // S'il n'y a pas combat on procede directement au deplacement
-            initCreaturesNbr = state.getCharacters()->moveElement(initPos[0], initPos[1], finalPos[0], finalPos[1], 0);
+            initCreaturesNbr = creaTab->moveElement(initPos[0], initPos[1], finalPos[0], finalPos[1], 0);
         }
 
 
@@ -47,8 +54,15 @@ namespace engine{
         if (fight->getWinner() == 1 || fight->getWinner() == 2) {
             //std::cout << "MoveCommand::execute - Joueur gagnant : " << state.getPlayer(fight->getWinner()).get() << std::endl;
             std::cout << "MoveAction::apply - Joueur gagnant du combat : " << fight->getWinner() << std::endl;
-            state.getCharacters()->get(finalPos[0], finalPos[1])->setPlayer(state.getPlayer(fight->getWinner()).get());
+            creaTab->get(finalPos[0], finalPos[1])->setPlayer(state.getPlayer(fight->getWinner()).get());
         }
+        
+        if (creaTab->get(initPos[0], initPos[1]) != NULL)
+            std::cout << "HeuristicAI::run - Nombre de creatures de la cellule de départ apres deplacement : " << creaTab->get(initPos[0], initPos[1])->getCreaturesNbr() << std::endl;
+        else
+            std::cout << "HeuristicAI::run - Nombre de creatures de la cellule de départ apres deplacement : 0" << std::endl;
+
+        std::cout << "HeuristicAI::run - Nombre de creatures de la cellule de destination apres deplacement : " << creaTab->get(finalPos[0], finalPos[1])->getCreaturesNbr() << std::endl;
             
     }
     

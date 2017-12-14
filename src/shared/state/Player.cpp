@@ -26,7 +26,7 @@ namespace state{
           cellNbr = 3;
           zonesNbr = 0;
           conquestPoints = 0;
-          creaturesLeft = 0;
+          creaturesLeft = 3;
           xLastCell = 0;
           yLastCell = 0;
       }
@@ -78,7 +78,7 @@ namespace state{
         }
 
         void Player::setCreaturesLeft(int count) {
-            creaturesLeft = count;
+            creaturesLeft = (count > 6) ? 6 : count;
         }
 
         void Player::decreaseCreaLeft() {

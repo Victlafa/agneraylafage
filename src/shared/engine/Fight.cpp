@@ -52,7 +52,7 @@ namespace engine
     
     void Fight::gainConquest (state::State& state)
     {
-        // Si le joueur 1 comme attaquant gagne le combat, il remporte un point de conquete
+        // Si le joueur 1 comme attaquant gagne le combat, il remporte un point de conquete 
         if (fighter == 1 && fightProcess(state))
         {
             state.getPlayer(1)->setConquestPoints(state.getPlayer(1)->getConquestPoints() + 1);
@@ -98,9 +98,15 @@ namespace engine
     void Fight::undo (state::State& etat)
     {
         // On efface les points de victoire attribues selon victoire et defaite
+        // On diminue le nbre de creatures restantes pour phase de renfort
         // S'il n'y avait pas eu egalite ou victoire du defenseur
         if (winner == 1 || winner == 2)
+        {
             etat.getPlayer(winner)->setConquestPoints(etat.getPlayer(winner)->getConquestPoints() - 1);
+//            etat.getPlayer(3-winner)->setCreaturesLeft(etat.getPlayer(3-winner)->getCreaturesLeft() + 1);
+//            etat.getPlayer(winner)->decreaseCreaLeft();
+        }
+            
         
         // S'il y avait eu egalite ou victoire du defenseur, il n'y a pas de modifs à faire au niveau des points de victoire 
         

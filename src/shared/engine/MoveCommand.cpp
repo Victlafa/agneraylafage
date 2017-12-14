@@ -52,6 +52,7 @@ namespace engine{
         
         Json::Value moveCommandNM;
         moveCommandNM["type"] = "CommandTypeID::MOVE";
+        moveCommandNM["player"] = player;
         moveCommandNM["initPos[0]"] = initPos[0];
         moveCommandNM["initPos[1]"] = initPos[1];
         moveCommandNM["finalPos[0]"] = finalPos[0];

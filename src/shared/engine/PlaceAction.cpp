@@ -77,6 +77,9 @@ namespace engine{
                 // On diminue le nbre de cellules du joueur qui perd sa cellule
                 etat.getPlayer(player)->setCellNbr(etat.getPlayer(player)->getCellNbr() - 1);
             }
+            
+            // On augmente le nombre restant de creatures du joueur
+            etat.getPlayer(player)->setCreaturesLeft(etat.getPlayer(player)->getCreaturesLeft() + 1);
                 
         }
         else
