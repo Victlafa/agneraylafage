@@ -142,12 +142,12 @@ int main(int argc,char* argv[])
         
         else if (argc >= 2 && (string) argv[1] == "play"){
             
+            cout << "XXXXXXXXXXXXXXXX      REPLAY D'UNE PARTIE      XXXXXXXXXXXXXXXX\n" << endl;
+            
             srand(2);
             
             // On initialise un moteur, on choisit les mineurs pour le joueur 1
             engine::Engine moteur(state::CreaturesID::MINERS);
-            // On initialise une ia
-            //ai::HeuristicAI ia(&moteur, 2);
             
             Json::Reader reader;
             Json::Value fichier;
@@ -157,23 +157,23 @@ int main(int argc,char* argv[])
                 throw std::runtime_error("Erreur lors de la recuperation des donnees contenues dans replay.txt");
             
             // Pour chaque tour on recupere les donnees des commandes
-            for (int i = 0; i < 10; i++)
+            for (int tour = 0; tour < 10; tour++)
             {
-                cout << "Entree dans boucle for" << endl;
-                Json::Value donneesCommandes = fichier[i];
-                cout << "Recup des donnees dans fichier effectuee" << endl;
+                std::cout << "\n--------------    Tour n°" << tour/2 + 1 << ", c'est à l'IA n°" << tour%2 + 1 << " de jouer    --------------" << std::endl << std::endl;
+                Json::Value donneesCommandes = fichier[tour];
                 
                 // Pour chaque commande du tour on recupere ses parametres et on l'execute
                 for (unsigned int j = 0; j < donneesCommandes.size(); j++)
                 {
-                    Json::Value commande = fichier[i][j];
+                    if (j == 0)
+                        std::cout << "-------------------------------- PHASE DE CONQUETE --------------------------------" << std::endl << std::endl;
+                    else if (j == 3)
+                        std::cout << "-------------------------------- PHASE DE RENFORT --------------------------------" << std::endl << std::endl;
+                    Json::Value commande = fichier[tour][j];
+                    cout << "Type de commande executee : " << commande.get("type","").asString() << endl;
                     Command* comm = Command::deserialize(commande);
-                    cout << "Deserialize effectue" << endl;
                     comm->execute(moteur.getPileAction(), moteur.getState());
-                    cout << "Execution effectuee" << endl;
                 }
-                
-                
             }
             
 //            fichier["nom"] = "nom_fichier";

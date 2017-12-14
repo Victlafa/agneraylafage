@@ -28,6 +28,8 @@ int main(int argc, char** argv) {
 
     if (argc >= 2 && (string) argv[1] == "record"){
         
+        cout << "XXXXXXXXXXXXXXXX      ENREGISTREMENT D'UNE PARTIE      XXXXXXXXXXXXXXXX\n" << endl;
+        
         srand(2);
 
         // On initialise un moteur, on choisit les mineurs pour le joueur 1

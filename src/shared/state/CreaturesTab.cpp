@@ -73,6 +73,9 @@ namespace state
                     this->get(i_elem,j_elem)->setCreaturesNbr(1);
                     // On augmente le nombre de cellules du joueur attaquant
                     fighter->setCellNbr(fighter->getCellNbr() + 1);
+                    // On augmente le nbre de creatures restant pour phase de renfort du joueur
+                    //fighter->setCreaturesLeft(fighter->getCreaturesLeft() + 1);
+                    //defender->decreaseCreaLeft();
                 }
                 
                 else
@@ -117,7 +120,11 @@ namespace state
                         
                         // Si la case d'attaque va etre detruite, on decremente le nombre de cellules de l'attaquant
                         if (creaNbrAtt == 1)
+                        {
                             fighter->setCellNbr(fighter->getCellNbr() - 1);
+                            //fighter->decreaseCreaLeft();
+                        }
+                            
                         // On fixe le nouveau nbre de creatures de la case de depart (on la detruit si elle est videe lors du deplacement)
                         (creaNbrAtt != 1) ? this->get(i_elem,j_elem)->setCreaturesNbr(creaNbrAtt - newDef_several + creaNbrDef) : this->set(nullptr,i_elem,j_elem);
                         
@@ -135,7 +142,14 @@ namespace state
                         (creaNbrAtt != 1) ? this->get(i_elem,j_elem)->setCreaturesNbr(1) : this->set(nullptr,i_elem,j_elem);
                         // Si la case d'attaque n'est pas detruite, on incremente le nombre de cellules de l'attaquant
                         if (creaNbrAtt != 1)
+                        {
                             fighter->setCellNbr(fighter->getCellNbr() + 1);
+                            // On augmente le nbre de creatures restant pour phase de renfort du joueur
+                            //fighter->setCreaturesLeft(fighter->getCreaturesLeft() + 1);
+                        }
+                        
+                        //defender->decreaseCreaLeft();
+                            
                     }
                         
                     // Le defenseur a gagné ou il y a egalite : dans ce cas là le nombre de creatures en attaque tombe à 1 (et les nbres de cellules ne sont pas modifies)
