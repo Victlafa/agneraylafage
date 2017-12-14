@@ -34,8 +34,13 @@ int main(int argc, char** argv) {
         // On initialise une ia
         ai::HeuristicAI ia(&moteur, rand()%30000);
 
-        std::ofstream file("replay.txt", std::ifstream::in);
-
+        std::ofstream file("./src/replay.txt", std::ios::out);
+        //file.open("../replay.txt");
+        if(file.bad()){
+            std::cout << "Erreur avec le fichier replay.txt" << std::endl;
+            return 1;
+        }
+        
         Json::Value jsonArray(Json::arrayValue);
         ia.setJsonFile(jsonArray);
 
