@@ -18,7 +18,6 @@ namespace ai
     HeuristicAI::HeuristicAI (engine::Engine* moteur, int randomSeed) : AI(moteur)
     {
         randGen.seed(randomSeed);
-        this->jsonFile = new Json::Value(Json::arrayValue);
         std::ifstream file("replay.txt",std::ifstream::in);
         // On initialise les attributs de l'IA
         //this->initIA(moteur,player);
@@ -92,7 +91,7 @@ namespace ai
             cout << "FIN DE LA PHASE DE RENFORT" << endl;
         }
         
-        jsonFile.append(lCommandes);
+        this->getMoteur()->setRecord(this->getMoteur()->getRecord().append(lCommandes));
         //cout << "Ajout de lCommandes" << endl;
         
     }

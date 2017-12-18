@@ -5,6 +5,7 @@
 #include <map>
 #include <memory>
 #include <stack>
+#include <json/json.h>
 
 namespace state {
   class State;
@@ -30,6 +31,7 @@ namespace engine {
     std::map<int,std::shared_ptr<Command> > currentCommands;
     int tour;
     std::stack<std::shared_ptr<Action> > pileAction;
+    Json::Value record;
     // Operations
   public:
     Engine (state::CreaturesID typePl1);
@@ -45,6 +47,8 @@ namespace engine {
     void addAction (std::shared_ptr<Action> action);
     void undo ();
     std::stack<std::shared_ptr<Action> >& getPileAction ();
+    Json::Value getRecord () const;
+    void setRecord (Json::Value record);
     // Setters and Getters
   };
 
