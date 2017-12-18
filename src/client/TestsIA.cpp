@@ -276,7 +276,6 @@ namespace ai {
                 if (event.type == sf::Event::Closed) gameWindow.close();
                 if (event.type == sf::Event::KeyPressed) std::cout << "\nTID du thread lié à l'affichage : " << this_thread::get_id() << std::endl;
                 notre_mutex.unlock();
-                
             }
            
             if (moteur.getState().getCellNbr() == moteur.getPlayer(1)->getCellNbr() || moteur.getPlayer(2)->getCellNbr() == 0)
@@ -319,19 +318,21 @@ namespace ai {
             std::lock_guard<std::mutex> lock (notre_mutex);
             std::cout << "\nTID du thread lié à l'IA et au moteur : " << this_thread::get_id() << std::endl;
             std::cout << "\n--------------    Tour n°" << tour / 2 + 1 << " - "; 
+            
             // Tour de l'IA n°1
             if (tour % 2 == 0) 
             {
                 std::cout << "C'est à l'IA n°" << beginner << " de jouer    --------------" << std::endl << std::endl;
                 adrIA->run(beginner);
             }
-                
-                // Tour de l'IA n°2
+            
+            // Tour de l'IA n°2
             else
             {
                 std::cout << "C'est à l'IA n°" << 3-beginner << " de jouer    --------------" << std::endl << std::endl;
                 adrIA->run(3-beginner);
             }
+            
             tour++;
             adrIA->getMoteur()->increaseTour();
             std::cout << "routine_thread - Points de victoire de l'IA n°1 : " << adrIA->getMoteur()->getPlayer(1)->getConquestPoints() << std::endl;
