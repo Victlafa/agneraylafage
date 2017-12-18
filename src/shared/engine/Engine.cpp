@@ -18,6 +18,7 @@ using namespace std;
 namespace engine
 {
     Engine::Engine(CreaturesID typePl1) : currentState(typePl1) { 
+        record = Json::Value(Json::arrayValue);
         tour = 1;
     }
     
@@ -97,5 +98,9 @@ namespace engine
     }
     
     std::stack<std::shared_ptr<Action> >& Engine::getPileAction () {return pileAction;}
+    
+    Json::Value Engine::getRecord () const{return this->record;}
+    
+    void Engine::setRecord (Json::Value record){this->record = record;}
     
 }
