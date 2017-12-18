@@ -74,8 +74,7 @@ namespace state
                     // On augmente le nombre de cellules du joueur attaquant
                     fighter->setCellNbr(fighter->getCellNbr() + 1);
                     // On augmente le nbre de creatures restant pour phase de renfort du joueur
-                    //fighter->setCreaturesLeft(fighter->getCreaturesLeft() + 1);
-                    //defender->decreaseCreaLeft();
+                    fighter->setCreaturesLeft(fighter->getCreaturesLeft() + 1);
                 }
                 
                 else
@@ -122,7 +121,7 @@ namespace state
                         if (creaNbrAtt == 1)
                         {
                             fighter->setCellNbr(fighter->getCellNbr() - 1);
-                            //fighter->decreaseCreaLeft();
+                            fighter->decreaseCreaLeft();
                         }
                             
                         // On fixe le nouveau nbre de creatures de la case de depart (on la detruit si elle est videe lors du deplacement)
@@ -145,10 +144,10 @@ namespace state
                         {
                             fighter->setCellNbr(fighter->getCellNbr() + 1);
                             // On augmente le nbre de creatures restant pour phase de renfort du joueur
-                            //fighter->setCreaturesLeft(fighter->getCreaturesLeft() + 1);
+                            fighter->setCreaturesLeft(fighter->getCreaturesLeft() + 1);
                         }
                         
-                        //defender->decreaseCreaLeft();
+                        defender->decreaseCreaLeft();
                             
                     }
                         
@@ -172,7 +171,7 @@ namespace state
     
     void CreaturesTab::placeElement (int new_i_elem, int new_j_elem, ID creaType)
     {
-        
+                
         // La case destination est-elle autorisée ?
         if (isEnable(new_i_elem,new_j_elem))
         {

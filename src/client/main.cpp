@@ -148,6 +148,8 @@ int main(int argc,char* argv[])
             
             // On initialise un moteur, on choisit les mineurs pour le joueur 1
             engine::Engine moteur(state::CreaturesID::MINERS);
+            // On recupere le placement initial des creatures presentes sur la grille
+            moteur.getState().initCreaturesFromRecord();
             
             Json::Reader reader;
             Json::Value fichier;
@@ -159,32 +161,24 @@ int main(int argc,char* argv[])
             // Pour chaque tour on recupere les donnees des commandes
             for (int tour = 0; tour < 10; tour++)
             {
-                std::cout << "\n--------------    Tour n°" << tour/2 + 1 << ", c'est à l'IA n°" << tour%2 + 1 << " de jouer    --------------" << std::endl << std::endl;
-                Json::Value donneesCommandes = fichier[tour];
+                std::cout << "\n--------------    Tour n°" << tour/2 + 1 << ", c'est à l'IA n°" << tour%2 + 1<< " de jouer    --------------" << std::endl << std::endl;
+                Json::Value donneesCommandes = fichier[tour + 1];
+                
+                cout << "Taille de la liste donneesCommande : " << donneesCommandes.size() << endl;
                 
                 // Pour chaque commande du tour on recupere ses parametres et on l'execute
                 for (unsigned int j = 0; j < donneesCommandes.size(); j++)
                 {
                     if (j == 0)
-                        std::cout << "-------------------------------- PHASE DE CONQUETE --------------------------------" << std::endl << std::endl;
+                        std::cout << "\n-------------------------------- PHASE DE CONQUETE --------------------------------" << std::endl << std::endl;
                     else if (j == 3)
-                        std::cout << "-------------------------------- PHASE DE RENFORT --------------------------------" << std::endl << std::endl;
-                    Json::Value commande = fichier[tour][j];
-                    cout << "Type de commande executee : " << commande.get("type","").asString() << endl;
+                        std::cout << "\n-------------------------------- PHASE DE RENFORT --------------------------------" << std::endl << std::endl;
+                    Json::Value commande = fichier[tour+1][j];
+                    //cout << "Type de commande executee : " << commande.get("type","").asString() << endl;
                     Command* comm = Command::deserialize(commande);
                     comm->execute(moteur.getPileAction(), moteur.getState());
                 }
             }
-            
-//            fichier["nom"] = "nom_fichier";
-//            fichier["nbr_command"] = 0;
-//            fichier["initPos0"] = 0;
-//            fichier["initPos1"] = 1;
-//            fichier["finalPos0"] = 14;
-//            fichier["finalPos1"] = 8;
-//
-//            Json::StyledWriter styledWriter;
-//            std::cout << styledWriter.write(fichier) << std::endl;
         }
         
     } catch (const std::exception &e) {

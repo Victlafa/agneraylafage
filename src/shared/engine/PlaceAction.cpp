@@ -10,6 +10,7 @@
 #include "../state/State.h"
 
 using namespace state;
+using namespace std;
 
 namespace engine{
     
@@ -25,6 +26,8 @@ namespace engine{
         // On verifie que le joueur dispose encore en stock de creatures à placer sur la grille
         if (state.getPlayer(player)->getCreaturesLeft() > 0)
         {
+            cout << "PlaceAction::apply - nombre de creatures à placer : " << state.getPlayer(player)->getCreaturesLeft() << endl;
+            
             // Si c'est le cas on cherche à placer une creature
             CreaturesTab* creaTab = state.getCharacters().get();
             
@@ -53,6 +56,8 @@ namespace engine{
                 }
                 
             }
+            
+            cout << "PlaceAction::apply - un placement a été effectué !" << endl;
         }
         // Sinon, on leve une exception
         else

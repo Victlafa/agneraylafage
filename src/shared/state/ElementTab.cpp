@@ -2,6 +2,8 @@
 #include <iostream>
 #include <map>
 
+using namespace std;
+
 namespace state
 {
     // Constructor :
@@ -89,6 +91,17 @@ namespace state
     
     bool ElementTab::isPoisoned(int i, int j){
         if (get(i,j)->getCellState() == CellState::POISONED)
+            return true;
+        else
+            return false;
+    }
+    
+    bool ElementTab::clearList ()
+    {
+        this->list.clear();
+        this->list.resize(height*width);
+        
+        if (list.size() == height*width)
             return true;
         else
             return false;

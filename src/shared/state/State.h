@@ -41,6 +41,7 @@ namespace state {
     const std::unique_ptr<Player>& getPlayer (int number) const;
     void reset (CreaturesID typeCreatures);
     void initCreatures ();
+    void initCreaturesFromRecord ();
     // Setters and Getters
   };
 

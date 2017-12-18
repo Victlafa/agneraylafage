@@ -59,8 +59,8 @@ namespace ai
             cout << "-------------------------------- PHASE DE RENFORT --------------------------------" << endl << endl;
 
             // L'IA reçoit autant de creatures à placer qu'elle dispose de territoires. On plafonne à 6 !
-            int nbrCell = (getMoteur()->getPlayer(player)->getCellNbr() > 6) ? 6 : getMoteur()->getPlayer(player)->getCellNbr();
-            getMoteur()->getPlayer(player)->setCreaturesLeft(nbrCell);
+            int nbrCell = (getMoteur()->getPlayer(player)->getCreaturesLeft() > 6) ? 6 : getMoteur()->getPlayer(player)->getCreaturesLeft();
+            //getMoteur()->getPlayer(player)->setCreaturesLeft(nbrCell);
             
             cout << "HeuristicAI::run - L'IA n°" << player << " dispose maintenant de " << nbrCell << " cellules, elle peut donc placer autant de nouvelles creatures sur la carte. (plafonné à 6)" << endl;
 

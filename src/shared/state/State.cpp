@@ -6,6 +6,9 @@
 #include <iostream>
 #include <time.h>
 #include <json/json.h>
+#include <fstream>
+
+using namespace std;
 
 namespace state
 {
@@ -142,5 +145,42 @@ namespace state
         }
     }
    
-    
+    void State::initCreaturesFromRecord ()
+    {
+        Json::Reader reader;
+        Json::Value fichier;
+        std::ifstream file("./src/replay.txt", std::ifstream::in);
+        
+        if (!reader.parse(file,fichier))
+                throw std::runtime_error("State::initCreaturesFromRecord - Erreur lors de la recuperation des donnees contenues dans replay.txt");
+        
+        // On vide la liste de creatures de l'état actuel
+        if (this->characters->clearList() != true)
+            throw std::runtime_error("State::initCreaturesFromRecord - la liste n'a pas ete vidée correctement !");
+        
+        // On recupere dans l'enregistrement les groupes de creatures et on les place dans la liste  --------------" << std::endl << std::endl;
+        Json::Value etatInitial = fichier[0];
+
+        //cout << "State::initCreaturesFromRecord - Taille de la liste etatInitial : " << etatInitial.size() << endl;
+
+        // Pour chaque groupe on recupere ses donnees
+        for (unsigned int j = 0; j < etatInitial.size(); j++)
+        {
+            //cout << "State::initCreaturesFromRecord - entree dans boucle for" << endl;
+            Json::Value creasGroup = fichier[0][j];
+            int player = creasGroup.get("joueur",0).asInt();
+            int id = creasGroup.get("creature",0).asInt();
+            int nbCreas = creasGroup.get("nbrCrea",0).asInt();
+            int x = creasGroup.get("i",-1).asInt();
+            int y = creasGroup.get("j",-1).asInt();
+            Player* playerPtr = this->getPlayer(player).get();
+            //cout << "State::initCreaturesFromRecord - recup etat d'une cellule" << endl;
+            // On cree un nouveau groupe
+            CreaturesGroup* group = new CreaturesGroup((ID)id,nbCreas,playerPtr);
+            //cout << "State::initCreaturesFromRecord - crea nouveau groupe" << endl;
+            // On l'ajoute à la grille
+            this->characters->set(group,x,y);
+            //cout << "State::initCreaturesFromRecord - ajout à la grille" << endl;
+        }
+    }
 };
