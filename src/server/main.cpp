@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
         }
         
         Json::Value jsonArray(Json::arrayValue);
-        ia.setJsonFile(jsonArray);
+        //ia.setJsonFile(jsonArray);
 
         Json::StyledWriter styledWriter;
         
@@ -67,7 +67,7 @@ int main(int argc, char** argv) {
         }
         
         jsonArray.append(etatInit);
-        ia.setJsonFile(jsonArray);
+        moteur.setRecord(jsonArray);
 
         int tour = 0;
 
@@ -109,7 +109,7 @@ int main(int argc, char** argv) {
             ///std::cout << styledWriter.write(ia.getJsonFile()) << std::endl;
         }
 
-        file << styledWriter.write(ia.getJsonFile());
+        file << styledWriter.write(ia.getMoteur()->getRecord());
 
         //std::cout << styledWriter.write(ia.getJsonFile()) << std::endl;
 
