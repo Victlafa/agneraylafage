@@ -25,6 +25,7 @@ namespace engine
     Command* Command::deserialize (const Json::Value& in) 
     { 
         std::string typeCommand = in.get("type","").asString();
+        cout << "Command::deserialize - type de commande recupere : " << typeCommand << endl;
                 
         if (typeCommand == "CommandTypeID::MOVE")
             return MoveCommand::deserialize(in);

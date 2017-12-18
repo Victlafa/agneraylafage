@@ -37,6 +37,7 @@ namespace state {
     const std::vector<std::unique_ptr<Element> >& getList () const;
     void poisonCell (bool poison, int i, int j);
     bool isPoisoned (int i, int j);
+    bool clearList ();
     // Setters and Getters
     TypeID getTabType() const;
     void setTabType(TypeID tabType);

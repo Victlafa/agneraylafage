@@ -52,11 +52,17 @@ int main(int argc, char** argv) {
         //On sauvegarde l'état initial du jeu
         Json::Value etatInit(Json::arrayValue);
         
+        // On fait le tour de toutes les cellules de la carte
         for(int i=0; i<5; i++){
             for(int j=0; j<7; j++){
+                // Si la cellule selectionnee est non vide
                 if(moteur.getState().getCharacters()->get(i,j)!=NULL){
                     Json::Value elem;
-                    elem["joueur"] = moteur.getState().getCharacters()->get(i,j)->getPlayer();
+                    // Si la cellule appartient au joueur 1
+                    if (moteur.getPlayer(1).get() == moteur.getState().getCharacters()->get(i,j)->getPlayer())
+                        elem["joueur"] = 1;
+                    else
+                        elem["joueur"] = 2;
                     elem["creature"] = moteur.getState().getCharacters()->get(i,j)->getElemType();
                     elem["nbrCrea"] = moteur.getState().getCharacters()->get(i,j)->getCreaturesNbr();
                     elem["i"] = i;
