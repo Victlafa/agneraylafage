@@ -17,17 +17,17 @@
 #include <microhttpd.h>
 #include <string.h>
 
-#include "ServicesManager.hpp"
-#include "VersionService.hpp"
-#include "UserService.hpp"
+
 #include "../shared/state.h"
 #include "../shared/engine.h"
 #include "../shared/ai.h"
+#include "../server/server.h"
 
 using namespace std;
 using namespace state;
 using namespace engine;
 using namespace ai;
+using namespace server;
 
 
 class Request {
@@ -238,11 +238,11 @@ int main(int argc, char** argv) {
         
         try {
             ServicesManager servicesManager;
-            servicesManager.registerService(make_unique<VersionService>());
+            //servicesManager.registerService(std::make_unique<VersionService>());
 
-            UserDB userDB;
-            userDB.addUser(make_unique<User>("Paul",23));
-            servicesManager.registerService(make_unique<UserService>(std::ref(userDB)));
+            UserGame userGame;
+            //userGame.addUser(std::make_unique<User>("Paul",23));
+            //servicesManager.registerService(std::make_unique<UserService>(std::ref(userGame)));
 
             struct MHD_Daemon *d;
             if (argc != 2) {
