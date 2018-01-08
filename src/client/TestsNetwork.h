@@ -14,6 +14,11 @@
 #ifndef TESTSNETWORK_H
 #define TESTSNETWORK_H
 
+#include <SFML/Network.hpp>
+#include <iostream>
+
+using namespace std;
+
 namespace server{
     void TestsNetwork();
 }
