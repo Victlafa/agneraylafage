@@ -22,3 +22,12 @@ const char* ServiceException::what () const {
     return msg.c_str();
     //return msg;
 }
+
+HttpStatus ServiceException::getHttpStatus() const{return httpStatus;}
+
+void ServiceException::setHttpStatus(HttpStatus httpStatus){this->httpStatus = httpStatus;}
+
+const std::string& ServiceException::getMsg() const{return msg;}
+
+void ServiceException::setMsg(const std::string& msg){this->msg = msg;}
+
