@@ -27,8 +27,8 @@ exec_program(${DIA2CODE} ARGS -ns state  -d ../src/shared -t cpp ../src/state.di
 exec_program(${DIA2CODE} ARGS -ns render -d ../src/client -t cpp ../src/render.dia)
 exec_program(${DIA2CODE} ARGS -ns engine -d ../src/shared -t cpp ../src/engine.dia)
 exec_program(${DIA2CODE} ARGS -ns ai     -d ../src/shared -t cpp ../src/ai.dia)
-#exec_program(${DIA2CODE} ARGS -ns client -d ../src/client -t cpp ../src/module.dia)
-#exec_program(${DIA2CODE} ARGS -ns server -d ../src/server -t cpp ../src/module.dia)
+exec_program(${DIA2CODE} ARGS -ns client -d ../src/client -t cpp ../src/module.dia)
+exec_program(${DIA2CODE} ARGS -ns server -d ../src/server -t cpp ../src/module.dia)
 
 # Sources
 file(GLOB_RECURSE client_sources src/client/*.cpp)
@@ -62,10 +62,12 @@ if(SFML_FOUND)
 endif()
 
 # libmicrohttpd
-find_library(
-	MHD_LIBRARY
-	NAMES microhttpd microhttpd-10 libmicrohttpd libmicrohttpd-dll
-	DOC "microhttpd library"
-)
-#target_link_libraries(server ${MHD_LIBRARY})
+include_directories ("${PROJECT_SOURCE_DIR}/extern/libmicrohttpd/include")
+#target_link_libraries(tdrest "${PROJECT_SOURCE_DIR}/extern/libmicrohttpd/lib/libmicrohttpd.so")
+#find_library(
+#	MHD_LIBRARY
+#	NAMES microhttpd microhttpd-10 libmicrohttpd libmicrohttpd-dll
+#	DOC "microhttpd library"
+#)
+target_link_libraries(server ${MHD_LIBRARY})
 

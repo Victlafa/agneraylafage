@@ -15,17 +15,20 @@ void testSFML() {
 #include "../shared/state.h"
 #include "render.h"
 #include "../shared/engine.h"
+#include "../shared/ai.h"
 #include "TestsState.h"
 #include "TestsRender.h"
 #include "TestsEngine.h"
 #include "TestsIA.h"
 #include "TestsPlayRecord.h"
-#include "../shared/ai.h"
+#include "TestsNetwork.h"
+
 
 using namespace std;
 using namespace state;
 using namespace render;
 using namespace engine;
+using namespace server;
 using namespace ai;
 
 int main(int argc,char* argv[]) 
@@ -140,6 +143,8 @@ int main(int argc,char* argv[])
         else if (argc >= 2 && (string) argv[1] == "thread") TestsThread();
         
         else if (argc >= 2 && (string) argv[1] == "play") TestPlayConsole();
+        
+        else if (argc >= 2 && (string) argv[1] == "network") TestsNetwork();
         
     } catch (const std::exception &e) {
         
