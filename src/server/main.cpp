@@ -16,7 +16,7 @@
 #include <sstream>
 #include <microhttpd.h>
 #include <string.h>
-
+#include <SFML/Network.hpp>
 
 #include "../shared/state.h"
 #include "../shared/engine.h"
@@ -237,22 +237,18 @@ int main(int argc, char** argv) {
         
         try {
             ServicesManager servicesManager;
-            //servicesManager.registerService(std::make_unique<VersionService>());
+            servicesManager.registerService(std::move(std::unique_ptr<VersionService>(new VersionService())));
 
             UserGame userGame;
-            //userGame.addUser(std::make_unique<User>("Paul",23));
-            //servicesManager.registerService(std::make_unique<UserService>(std::ref(userGame)));
+            userGame.addUser(std::move(std::unique_ptr<User>(new User("Paul",23))));
+            servicesManager.registerService(std::move(std::unique_ptr<UserService>(new UserService(userGame))));
 
             struct MHD_Daemon *d;
-            if (argc != 2) {
-                printf("%s PORT\n", argv[0]);
-                return 1;
-            }
             d = MHD_start_daemon(// MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG | MHD_USE_POLL,
                     MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
                     // MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG | MHD_USE_POLL,
                     // MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG,
-                    atoi(argv[1]),
+                    atoi(argv[2]),
                     NULL, NULL, 
                     &main_handler, (void*) &servicesManager,
                     MHD_OPTION_NOTIFY_COMPLETED, request_completed, NULL,

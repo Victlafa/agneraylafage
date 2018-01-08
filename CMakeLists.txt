@@ -62,12 +62,10 @@ if(SFML_FOUND)
 endif()
 
 # libmicrohttpd
-include_directories ("${PROJECT_SOURCE_DIR}/extern/libmicrohttpd/include")
-#target_link_libraries(tdrest "${PROJECT_SOURCE_DIR}/extern/libmicrohttpd/lib/libmicrohttpd.so")
-#find_library(
-#	MHD_LIBRARY
-#	NAMES microhttpd microhttpd-10 libmicrohttpd libmicrohttpd-dll
-#	DOC "microhttpd library"
-#)
+find_library(
+	MHD_LIBRARY
+	NAMES microhttpd microhttpd-10 libmicrohttpd libmicrohttpd-dll
+	DOC "microhttpd library"
+)
 target_link_libraries(server ${MHD_LIBRARY})
 
