@@ -39,9 +39,8 @@ public:
     }
 };
 
-// Fonction pour gérer les données imporantes en upload (non implanté ici)
-static int
-post_iterator(void *cls,
+// Fonction pour gérer les données importantes en upload (non implanté ici)
+static int post_iterator(void *cls,
         enum MHD_ValueKind kind,
         const char *key,
         const char *filename,
@@ -241,7 +240,7 @@ int main(int argc, char** argv) {
             servicesManager.registerService(std::move(std::unique_ptr<VersionService>(new VersionService())));
 
             UserGame userGame;
-            userGame.addUser(std::move(std::unique_ptr<User>(new User("Paul",23))));
+            userGame.addUser(std::move(std::unique_ptr<User>(new User("Paul",23,state::CreaturesID::MINERS))));
             servicesManager.registerService(std::move(std::unique_ptr<UserService>(new UserService(userGame))));
 
             struct MHD_Daemon *d;
@@ -263,7 +262,9 @@ int main(int argc, char** argv) {
         catch(exception& e) {
             cerr << "Exception: " << e.what() << endl;
         }
+    
     }
+    
     return 0;
 }
 

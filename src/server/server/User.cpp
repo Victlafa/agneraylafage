@@ -9,6 +9,6 @@
 #include "User.h"
 using namespace server;
 
-User::User (std::string name, int id) : name(name),id(id) {
+User::User (std::string name, int id, state::CreaturesID cr) : name(name),id(id), creatures(cr) {
     
 }
