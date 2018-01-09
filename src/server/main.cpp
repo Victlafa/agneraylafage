@@ -240,7 +240,7 @@ int main(int argc, char** argv) {
             servicesManager.registerService(std::move(std::unique_ptr<VersionService>(new VersionService())));
 
             UserGame userGame;
-            userGame.addUser(std::move(std::unique_ptr<User>(new User("Paul",23,state::CreaturesID::MINERS))));
+            userGame.addUser(std::move(std::unique_ptr<User>(new User("Paul",state::CreaturesID::MINERS))));
             servicesManager.registerService(std::move(std::unique_ptr<UserService>(new UserService(userGame))));
 
             struct MHD_Daemon *d;
