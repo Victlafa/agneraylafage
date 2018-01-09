@@ -7,12 +7,27 @@
 
 #include "UserService.hpp"
 #include "UserService.h"
+#include "TestsNetwork.h"
+#include "state/CreaturesID.h"
 
 using namespace server;
 
+state::CreaturesID translateStringType (string typeElement)
+    {
+        if (typeElement == "BLACKSMITHS")
+            return state::CreaturesID::BLACKSMITHS;
+        else if (typeElement == "COOKERS") 
+            return CreaturesID::COOKERS;
+        else if (typeElement == "LUMBERJACKS")
+            return CreaturesID::LUMBERJACKS;
+        else if (typeElement == "MINERS")
+            return CreaturesID::MINERS;
+        else
+            throw std::runtime_error("translateType (string -> CreaturesID) - utilisation d'un argument non valable");
+    }
+
 UserService::UserService (UserGame& userGame) : AbstractService("/user"),
     userGame(userGame) {
-    
 }
 
 HttpStatus UserService::get (Json::Value& out, int id) const {
@@ -33,40 +48,19 @@ HttpStatus UserService::post (const Json::Value& in, int id) {
     if (in.isMember("name")) {
         usermod->name = in["name"].asString();
     }
-    if (in.isMember("id")) {
-        usermod->id = in["id"].asInt();
-    }
     if (in.isMember("creatures")) {
-        if(in["creatures"].asString()=="BLACKSMITHS")
-            usermod->creatures = state::CreaturesID::BLACKSMITHS;
-        else if(in["creatures"].asString()=="COOKERS")
-            usermod->creatures = state::CreaturesID::COOKERS;
-        if(in["creatures"].asString()=="LUMBERJACKS")
-            usermod->creatures = state::CreaturesID::LUMBERJACKS;
-        if(in["creatures"].asString()=="MINERS")
-            usermod->creatures = state::CreaturesID::MINERS;
+        usermod->creatures = translateStringType(in["creatures"].asString());
     }
     
-
     this->userGame.setUser(id,std::move(usermod));
     return HttpStatus::NO_CONTENT;
 }
 
 HttpStatus UserService::put (Json::Value& out, const Json::Value& in) {
     std::string name = in["name"].asString();
-    int id = in["id"].asInt();
     std::string cr = in["creatures"].asString();
-    state::CreaturesID crea;
-    if(cr=="BLACKSMITHS")
-        crea = state::CreaturesID::BLACKSMITHS;
-    else if(cr=="COOKERS")
-        crea = state::CreaturesID::COOKERS;
-    else if(cr=="LUMBERJACKS")
-        crea = state::CreaturesID::LUMBERJACKS;
-    else if(cr=="MINERS")
-        crea = state::CreaturesID::MINERS;
-    
-    out["id"] = userGame.addUser(move(std::unique_ptr<User>(new User(name,id,crea))));
+    state::CreaturesID crea = translateStringType(cr);
+    out["id"] = userGame.addUser(move(std::unique_ptr<User>(new User(name,crea))));
     return HttpStatus::CREATED;
 }
 
