@@ -20,7 +20,7 @@ namespace server{
         else if (typeElement == CreaturesID::MINERS)
             return "MINERS";
         else
-            throw std::runtime_error("translateType (CreaturesID -> string) - utilisation d'un argument non valable");
+            throw std::runtime_error("TestsNetwork - translateType (CreaturesID -> string) - utilisation d'un argument non valable");
     }
     
     void affichageListe()
@@ -34,21 +34,28 @@ namespace server{
         request.setMethod(sf::Http::Request::Get);
         request.setHttpVersion(1, 1);
         request.setField("Content-Type", "application/x-www-form-urlencoded");
-        int nbJoueurs = 1;
+        int nbJoueurs = -1;
         
         // Reponse suite à la requete
         sf::Http::Response answer;
         
-        // Tant que le serveur effectue la requete, on affiche un joueur present sur le serveur
-        do
+        // On effectue une premiere requete pour savoir combien de joueurs sont presents sur le serveur
+        request.setUri("/user/0");
+        answer = Http.sendRequest(request);
+        // On recupere la partie utile contenue dans la reponse du serveur
+        int tailleReponse = answer.getBody().size();
+        string nombre = answer.getBody().substr(tailleReponse - 4,1);
+        // On convertit le nombre de joueur string en int
+        nbJoueurs = stoi(nombre);
+        
+        // On affiche un à un les joueurs
+        for (int i = 1; i <= nbJoueurs; i++)
         {
-            request.setUri("/user/" + std::to_string(nbJoueurs));
+            request.setUri("/user/" + std::to_string(i));
             answer = Http.sendRequest(request);
             cout << "Statut de la reponse : " << answer.getStatus() << endl;
             cout << "Utilisateur demandé : " << answer.getBody() << endl;
-            nbJoueurs ++;
         }
-        while (answer.getStatus() == sf::Http::Response::Status::Accepted);
          
     }
     
@@ -83,10 +90,8 @@ namespace server{
         // On souhaite ajouter un nouvel utilisateur
         Json::Value newUser;
         newUser["name"] = name;
-        newUser["id"] = 4;
         newUser["creatures"] = translateType((CreaturesID)type);
         
-        //string data = "-d \'{\"name\":\"pika\"}\'";
         string data = newUser.toStyledString();
         request.setBody(data);
         
