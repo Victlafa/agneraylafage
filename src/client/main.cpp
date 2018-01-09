@@ -1,16 +1,6 @@
 #include <iostream>
 #include <fstream>
 
-// Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
-#include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/System/Utf.hpp>
-
-void testSFML() {
-    sf::Texture texture;
-}
-
-// Fin test SFML
 
 #include "../shared/state.h"
 #include "render.h"
@@ -19,7 +9,7 @@ void testSFML() {
 #include "TestsState.h"
 #include "TestsRender.h"
 #include "TestsEngine.h"
-#include "TestsIA.h"
+//#include "TestsIA.h"
 #include "TestsPlayRecord.h"
 #include "TestsNetwork.h"
 
@@ -39,10 +29,10 @@ int main(int argc,char* argv[])
     
     try {
         
-        if (argc >= 2 && (string) argv[1] == "hello")
+        if (argc >= 2 && string(argv[1]) == "hello")
             cout << "Bonjour tout le monde !" << endl;
 
-        else if (argc >= 2 && (string) argv[1] == "state") {
+        else if (argc >= 2 && string(argv[1]) == "state") {
 
             TestsElementTab();
             TestsCreaturesGroup();
@@ -54,7 +44,7 @@ int main(int argc,char* argv[])
 
         }
         
-        else if (argc >= 2 && (string) argv[1] == "render") {
+        else if (argc >= 2 && string(argv[1]) == "render") {
 
             // On cherche à afficher une ligne de cinq hexagones :
             //TestInitMap();
@@ -70,7 +60,7 @@ int main(int argc,char* argv[])
 
         }
         
-        else if (argc >= 2 && (string) argv[1] == "engine") {
+        else if (argc >= 2 && string(argv[1]) == "engine") {
 
             srand(time(NULL));
             
@@ -134,17 +124,17 @@ int main(int argc,char* argv[])
             
         }
         
-        else if (argc >= 2 && (string) argv[1] == "random_ai") TestsRandomIA();
+        //else if (argc >= 2 && string(argv[1]) == "random_ai") TestsRandomIA();
         
-        else if (argc >= 2 && (string) argv[1] == "heuristic_ai") TestsHeuristicIA();
+        //else if (argc >= 2 && string(argv[1]) == "heuristic_ai") TestsHeuristicIA();
         
-        else if (argc >= 2 && (string) argv[1] == "rollback") TestsRollbackMove();
+        //else if (argc >= 2 && string(argv[1]) == "rollback") TestsRollbackMove();
         
-        else if (argc >= 2 && (string) argv[1] == "thread") TestsThread();
+        //else if (argc >= 2 && string(argv[1]) == "thread") TestsThread();
         
-        else if (argc >= 2 && (string) argv[1] == "play") TestPlayConsole();
+        else if (argc >= 2 && string(argv[1]) == "play") TestPlayConsole();
         
-        else if (argc >= 2 && (string) argv[1] == "network") TestsNetwork();
+        else if (argc >= 2 && string(argv[1]) == "network") TestsNetwork();
         
     } catch (const std::exception &e) {
         
