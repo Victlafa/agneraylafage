@@ -23,7 +23,7 @@ state::CreaturesID translateStringType (string typeElement)
         else if (typeElement == "MINERS")
             return CreaturesID::MINERS;
         else
-            throw std::runtime_error("translateType (string -> CreaturesID) - utilisation d'un argument non valable");
+            throw std::runtime_error("UserService - translateType (string -> CreaturesID) - utilisation d'un argument non valable");
     }
 
 UserService::UserService (UserGame& userGame) : AbstractService("/user"),
@@ -31,12 +31,25 @@ UserService::UserService (UserGame& userGame) : AbstractService("/user"),
 }
 
 HttpStatus UserService::get (Json::Value& out, int id) const {
-    const User* user = userGame.getUser(id);
-    if (!user)
-        throw ServiceException(HttpStatus::NOT_FOUND,"Invalid user id");
-    out["name"] = user->name;
-    out["id"] = user->id;
-    out["creatures"] = user->creatures;
+    
+    // Si id = 0, on renvoie le nombre de joueurs connectes sur le serveur
+    if (id == 0)
+    {
+        out["Players_on_the_server"] = userGame.getUsers().size();
+    }
+        
+    // Si id > 0, on peut potentiellement renvoyer un joueur
+    else if (id > 0)
+    {
+        const User* user = userGame.getUser(id);
+        if (!user) throw ServiceException(HttpStatus::NOT_FOUND,"UserService::get - Invalid user id");
+        
+        out["name"] = user->name;
+        out["creatures"] = user->creatures;
+    }
+    
+    else throw ServiceException(HttpStatus::NOT_FOUND,"UserService::get - Invalid user id");
+    
     return HttpStatus::OK;
 }
 
@@ -59,6 +72,8 @@ HttpStatus UserService::post (const Json::Value& in, int id) {
 HttpStatus UserService::put (Json::Value& out, const Json::Value& in) {
     std::string name = in["name"].asString();
     std::string cr = in["creatures"].asString();
+    cout << "Type de creatures à ajouter : " << cr << endl;
+    cout << "Longueur chaine caracteres : " << cr.size() << endl;
     state::CreaturesID crea = translateStringType(cr);
     out["id"] = userGame.addUser(move(std::unique_ptr<User>(new User(name,crea))));
     return HttpStatus::CREATED;

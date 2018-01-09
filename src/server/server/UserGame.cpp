@@ -10,7 +10,7 @@
 
 using namespace server;
 
-UserGame::UserGame() : idseq(0) {
+UserGame::UserGame() : idseq(1) {
     
 }
 
@@ -40,5 +40,7 @@ void UserGame::removeUser (int id) {
         return;
     users.erase(ite);
 }
+
+const std::map<int,std::unique_ptr<User> >& UserGame::getUsers() const { return users; }
 
 

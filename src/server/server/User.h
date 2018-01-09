@@ -13,7 +13,6 @@ namespace server {
     // Attributes
   public:
     std::string name;
-    int id;
     state::CreaturesID creatures;
     // Operations
   public:
