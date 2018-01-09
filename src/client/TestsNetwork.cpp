@@ -5,7 +5,7 @@
  */
 
 #include "TestsNetwork.h"
-#include "state/Element.h"
+
 
 namespace server{
     
@@ -23,13 +23,39 @@ namespace server{
             throw std::runtime_error("translateType (CreaturesID -> string) - utilisation d'un argument non valable");
     }
     
-    void TestsNetwork() {
+    void affichageListe()
+    {
+        // Connexion au serveur
+        sf::Http Http;
+        Http.setHost("http://localhost",8080);
+        
+        // Mise en place de la requete
+        sf::Http::Request request;
+        request.setMethod(sf::Http::Request::Get);
+        request.setHttpVersion(1, 1);
+        request.setField("Content-Type", "application/x-www-form-urlencoded");
+        int nbJoueurs = 1;
+        
+        // Reponse suite à la requete
+        sf::Http::Response answer;
+        
+        // Tant que le serveur effectue la requete, on affiche un joueur present sur le serveur
+        do
+        {
+            request.setUri("/user/" + std::to_string(nbJoueurs));
+            answer = Http.sendRequest(request);
+            cout << "Statut de la reponse : " << answer.getStatus() << endl;
+            cout << "Utilisateur demandé : " << answer.getBody() << endl;
+            nbJoueurs ++;
+        }
+        while (answer.getStatus() == sf::Http::Response::Status::Accepted);
+         
+    }
+    
+    void ajoutUser() {
               
         // On vide le buffer d'entrée
-        cin.clear();
-        // On ignore les derniers eventuels caracteres indesirables
-        //cin.ignore(1000,'\n');
-        
+        cin.clear();        
         // On vide le buffer de sortie
         cout.clear();
         
@@ -44,23 +70,21 @@ namespace server{
         request.setHttpVersion(1, 1);
         request.setField("Content-Type", "application/x-www-form-urlencoded");
         
-        cout << "Demande d'ajout d'un joueur sur le serveur. \n Veuillez entrer un pseudo." << endl;
+        cout << "Veuillez entrer un pseudo." << endl;
         string name;
-        //scanf("%s",&name);
-        //cin >> name;
-        //getline(cin,name);
+        getline(cin,name);
+        
         // On demande au joueur quel type de creatures il souhaite jouer
         int type;
         std::cout << "Quel type de creatures souhaitez-vous jouer ?\n" << std::endl;
         std::cout << "Cuisinier : 1\nForgeron : 2\nBûcheron : 3\nMineur : 4\n" << std::endl;
-        //cin >> type;
-        //scanf("%d",&type);
+        cin >> type;
         
         // On souhaite ajouter un nouvel utilisateur
         Json::Value newUser;
-        newUser["name"] = "test";//name;
+        newUser["name"] = name;
         newUser["id"] = 4;
-        newUser["creatures"] = "CreaturesID::BLACKSMITHS"; // translateType((CreaturesID)type);//
+        newUser["creatures"] = translateType((CreaturesID)type);
         
         //string data = "-d \'{\"name\":\"pika\"}\'";
         string data = newUser.toStyledString();
@@ -72,6 +96,19 @@ namespace server{
          
          
      }
+    
+    void TestsNetwork()
+    {
+        cout << "Affichage des joueurs presents sur le serveur : " << endl;
+        affichageListe();
+        
+        cout << "Demande d'ajout d'un utilisateur sur le serveur : " << endl;
+        ajoutUser();
+        
+        cout << "Affichage des joueurs presents sur le serveur : " << endl;
+        affichageListe();
+        
+    }
     
 }
 

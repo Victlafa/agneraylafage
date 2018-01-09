@@ -16,14 +16,17 @@
 
 #include <SFML/Network.hpp>
 #include <iostream>
-#include "state.h"
+#include "stdlib.h"
 #include "json/json.h"
+#include "state.h"
 
 using namespace state;
 using namespace std;
 
 namespace server{
     void TestsNetwork();
+    void affichageListe();
+    void ajoutUser();
     string translateType (CreaturesID);
 }
 
