@@ -17,7 +17,7 @@ namespace server {
     state::CreaturesID creatures;
     // Operations
   public:
-    User (std::string name, int id, state::CreaturesID creatures);
+    User (std::string name, state::CreaturesID creatures);
     // Setters and Getters
   };
 
