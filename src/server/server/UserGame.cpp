@@ -10,7 +10,7 @@
 
 using namespace server;
 
-UserGame::UserGame() : idseq(1) {
+UserGame::UserGame() : idseq(0) {
     
 }
 
