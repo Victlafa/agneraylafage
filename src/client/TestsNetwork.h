@@ -27,6 +27,8 @@ namespace server{
     void TestsNetwork();
     void affichageListe();
     void ajoutUser();
+    void suppressionUser(string);
+    int getPlayerNbr(sf::Http*);
     string translateType (CreaturesID);
 }
 

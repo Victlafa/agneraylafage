@@ -23,11 +23,27 @@ namespace server{
             throw std::runtime_error("TestsNetwork - translateType (CreaturesID -> string) - utilisation d'un argument non valable");
     }
     
+    int getPlayerNbr(sf::Http* serveur)
+    {
+        sf::Http::Request request;
+        request.setMethod(sf::Http::Request::Get);
+        request.setHttpVersion(1, 1);
+        request.setField("Content-Type", "application/x-www-form-urlencoded");
+        request.setUri("/user/0");
+        sf::Http::Response answer = serveur->sendRequest(request);
+        string reponse = answer.getBody();
+        
+        // On recupere la partie utile contenue dans la reponse du serveur
+        int tailleReponse = reponse.size();
+        string nombre = reponse.substr(tailleReponse - 4,1);
+        // On convertit le nombre de joueur string en int
+        return stoi(nombre);
+    }
+    
     void affichageListe()
     {
         // Connexion au serveur
-        sf::Http Http;
-        Http.setHost("http://localhost",8080);
+        sf::Http* serveur = new sf::Http("http://localhost",8080);
         
         // Mise en place de la requete
         sf::Http::Request request;
@@ -40,19 +56,13 @@ namespace server{
         sf::Http::Response answer;
         
         // On effectue une premiere requete pour savoir combien de joueurs sont presents sur le serveur
-        request.setUri("/user/0");
-        answer = Http.sendRequest(request);
-        // On recupere la partie utile contenue dans la reponse du serveur
-        int tailleReponse = answer.getBody().size();
-        string nombre = answer.getBody().substr(tailleReponse - 4,1);
-        // On convertit le nombre de joueur string en int
-        nbJoueurs = stoi(nombre);
+        nbJoueurs = getPlayerNbr(serveur);
         
         // On affiche un à un les joueurs
         for (int i = 1; i <= nbJoueurs; i++)
         {
             request.setUri("/user/" + std::to_string(i));
-            answer = Http.sendRequest(request);
+            answer = serveur->sendRequest(request);
             cout << "Statut de la reponse : " << answer.getStatus() << endl;
             cout << "Utilisateur demandé : " << answer.getBody() << endl;
         }
@@ -98,20 +108,45 @@ namespace server{
         // Envoi de la requete
         sf::Http::Response answer = Http.sendRequest(request);
         cout << "Statut de la reponse : " << answer.getStatus() << endl;
-         
-         
+     
+     }
+    
+    void suppressionUser(string nbr) {
+             
+        // Connexion au serveur
+        sf::Http Http;
+        Http.setHost("http://localhost",8080);
+        
+        // Mise en place de la requete
+        sf::Http::Request request;
+        request.setMethod(sf::Http::Request::Delete);
+        request.setUri("/user/" + nbr);
+        request.setHttpVersion(1, 1);
+        request.setField("Content-Type", "application/x-www-form-urlencoded");
+        
+        // Envoi de la requete
+        sf::Http::Response answer = Http.sendRequest(request);
+        cout << "Statut de la reponse : " << answer.getStatus() << endl;
+     
      }
     
     void TestsNetwork()
     {
-        cout << "Affichage des joueurs presents sur le serveur : " << endl;
+        cout << "OOOOOOOOOOOOOOOOO Affichage des joueurs presents sur le serveur OOOOOOOOOOOOOOOOO" << endl;
         affichageListe();
         
-        cout << "Demande d'ajout d'un utilisateur sur le serveur : " << endl;
+        cout << "OOOOOOOOOOOOOOOOO Demande d'ajout d'un utilisateur sur le serveur OOOOOOOOOOOOOOOOO" << endl;
         ajoutUser();
         
-        cout << "Affichage des joueurs presents sur le serveur : " << endl;
+        cout << "OOOOOOOOOOOOOOOOO Affichage des joueurs presents sur le serveur OOOOOOOOOOOOOOOOO" << endl;
         affichageListe();
+        
+        cout << "OOOOOOOOOOOOOOOOO Demande de suppression d'un utilisateur sur le serveur OOOOOOOOOOOOOOOOO" << endl;
+        suppressionUser("2");
+        
+        cout << "OOOOOOOOOOOOOOOOO Affichage des joueurs presents sur le serveur OOOOOOOOOOOOOOOOO" << endl;
+        affichageListe();
+        
         
     }
     
