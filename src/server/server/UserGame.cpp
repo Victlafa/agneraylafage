@@ -39,6 +39,7 @@ void UserGame::removeUser (int id) {
     if (ite == users.end())
         return;
     users.erase(ite);
+    idseq--;
 }
 
 const std::map<int,std::unique_ptr<User> >& UserGame::getUsers() const { return users; }
