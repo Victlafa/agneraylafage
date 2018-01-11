@@ -72,8 +72,6 @@ HttpStatus UserService::post (const Json::Value& in, int id) {
 HttpStatus UserService::put (Json::Value& out, const Json::Value& in) {
     std::string name = in["name"].asString();
     std::string cr = in["creatures"].asString();
-    cout << "Type de creatures à ajouter : " << cr << endl;
-    cout << "Longueur chaine caracteres : " << cr.size() << endl;
     state::CreaturesID crea = translateStringType(cr);
     out["id"] = userGame.addUser(move(std::unique_ptr<User>(new User(name,crea))));
     return HttpStatus::CREATED;
