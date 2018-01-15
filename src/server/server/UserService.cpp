@@ -8,14 +8,15 @@
 #include "UserService.hpp"
 #include "UserService.h"
 #include "TestsNetwork.h"
-#include "state/CreaturesID.h"
+#include "../../shared/state/CreaturesID.h"
 
 using namespace server;
+using namespace state;
 
 state::CreaturesID translateStringType (string typeElement)
     {
         if (typeElement == "BLACKSMITHS")
-            return state::CreaturesID::BLACKSMITHS;
+            return CreaturesID::BLACKSMITHS;
         else if (typeElement == "COOKERS") 
             return CreaturesID::COOKERS;
         else if (typeElement == "LUMBERJACKS")
