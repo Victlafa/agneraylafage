@@ -23,6 +23,6 @@ void Start()
     std::cin >> type;
     
     // On initialise le moteur de jeu
-    Engine moteur(((CreaturesID)(type)));
+    Engine moteur(((CreaturesID)(type)),  CreaturesID::BLACKSMITHS);
     
 }

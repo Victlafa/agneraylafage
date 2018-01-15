@@ -11,8 +11,7 @@ namespace server{
     
     // Pour gestion multi-thread
     mutex notre_mutex;
-    int creaturesChoisies1 = 0;
-    int creaturesChoisies2 = 0;
+    int creaturesChoisies = 0;
     int tour = 0;
     // numéro du joueur 
     int numPlayer = 0;
@@ -199,7 +198,7 @@ namespace server{
         srand(party);
         
         // On initialise un moteur à partir du type de creatures choisies par le joueur
-        engine::Engine moteur((CreaturesID)creaturesChoisies);
+        engine::Engine moteur((CreaturesID)creaturesChoisies, state::CreaturesID::BLACKSMITHS);
         // On initialise l'ia
         HeuristicAI ia(&moteur, party);
         

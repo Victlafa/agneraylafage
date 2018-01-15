@@ -1,46 +1,39 @@
 [
    {
-      "finalPos[0]" : 2,
+      "finalPos[0]" : 1,
       "finalPos[1]" : 1,
-      "initPos[0]" : 3,
-      "initPos[1]" : 1,
-      "player" : 2,
-      "type" : "CommandTypeID::MOVE"
-   },
-   {
-      "finalPos[0]" : 3,
-      "finalPos[1]" : 4,
-      "initPos[0]" : 3,
-      "initPos[1]" : 5,
-      "player" : 2,
-      "type" : "CommandTypeID::MOVE"
-   },
-   {
-      "finalPos[0]" : 3,
-      "finalPos[1]" : 0,
       "initPos[0]" : 2,
+      "initPos[1]" : 0,
+      "player" : 2,
+      "type" : "CommandTypeID::MOVE"
+   },
+   {
+      "finalPos[0]" : 1,
+      "finalPos[1]" : 2,
+      "initPos[0]" : 1,
       "initPos[1]" : 1,
       "player" : 2,
       "type" : "CommandTypeID::MOVE"
    },
    {
+      "finalPos[0]" : 2,
+      "finalPos[1]" : 2,
+      "initPos[0]" : 1,
+      "initPos[1]" : 2,
+      "player" : 2,
+      "type" : "CommandTypeID::MOVE"
+   },
+   {
       "creaType" : "ID::COOKER",
-      "finalPos[0]" : 3,
-      "finalPos[1]" : 4,
+      "finalPos[0]" : 1,
+      "finalPos[1]" : 2,
       "player" : 2,
       "type" : "CommandTypeID::PLACE"
    },
    {
       "creaType" : "ID::COOKER",
-      "finalPos[0]" : 3,
-      "finalPos[1]" : 1,
-      "player" : 2,
-      "type" : "CommandTypeID::PLACE"
-   },
-   {
-      "creaType" : "ID::COOKER",
-      "finalPos[0]" : 0,
-      "finalPos[1]" : 6,
+      "finalPos[0]" : 2,
+      "finalPos[1]" : 0,
       "player" : 2,
       "type" : "CommandTypeID::PLACE"
    },
@@ -53,15 +46,8 @@
    },
    {
       "creaType" : "ID::COOKER",
-      "finalPos[0]" : 1,
-      "finalPos[1]" : 6,
-      "player" : 2,
-      "type" : "CommandTypeID::PLACE"
-   },
-   {
-      "creaType" : "ID::COOKER",
-      "finalPos[0]" : 3,
-      "finalPos[1]" : 1,
+      "finalPos[0]" : 2,
+      "finalPos[1]" : 0,
       "player" : 2,
       "type" : "CommandTypeID::PLACE"
    }
