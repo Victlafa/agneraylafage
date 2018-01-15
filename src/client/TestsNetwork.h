@@ -42,6 +42,7 @@ namespace server{
     void ajoutUser();
     void suppressionUser(string);
     int getPlayerNbr(sf::Http*);
+    int getPartyBeginner(sf::Http*);
     string translateType (CreaturesID);
     void nouvellePartie();
     void* routine_thread(void*,void*);

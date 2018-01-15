@@ -49,20 +49,37 @@ namespace server{
         return stoi(nombre);
     }
     
-    int getPartyNbr(sf::Http* serveur)
+//    int getPartyNbr(sf::Http* serveur)
+//    {
+//        sf::Http::Request request;
+//        request.setMethod(sf::Http::Request::Get);
+//        request.setHttpVersion(1, 1);
+//        request.setField("Content-Type", "application/x-www-form-urlencoded");
+//        request.setUri("/user/");
+//        sf::Http::Response answer = serveur->sendRequest(request);
+//        string reponse = answer.getBody();
+//        
+//        // On recupere la partie utile contenue dans la reponse du serveur
+//        int tailleReponse = reponse.size();
+//        string nombre = reponse.substr(tailleReponse - 4,1);
+//        // On convertit le nombre de joueur string en int
+//        return stoi(nombre);
+//    }
+    
+    int getPartyBeginner(sf::Http* serveur)
     {
         sf::Http::Request request;
         request.setMethod(sf::Http::Request::Get);
         request.setHttpVersion(1, 1);
         request.setField("Content-Type", "application/x-www-form-urlencoded");
-        request.setUri("/user/");
+        request.setUri("/game/0");
         sf::Http::Response answer = serveur->sendRequest(request);
         string reponse = answer.getBody();
         
         // On recupere la partie utile contenue dans la reponse du serveur
         int tailleReponse = reponse.size();
         string nombre = reponse.substr(tailleReponse - 4,1);
-        // On convertit le nombre de joueur string en int
+        // On convertit le numero du joueur string en int
         return stoi(nombre);
     }
     
@@ -282,7 +299,9 @@ namespace server{
         }
         
         // Les deux joueurs sont connectés, la partie peut commencer
-        nouvellePartie();
+        //nouvellePartie();
+        cout << "Joueur qui commence la partie : " << getPartyBeginner(serveur) << endl;
+        
         
 //        cout << "OOOOOOOOOOOOOOOOO Demande de suppression d'un utilisateur sur le serveur OOOOOOOOOOOOOOOOO" << endl;
 //        suppressionUser("2");
