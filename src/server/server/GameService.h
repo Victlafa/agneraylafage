@@ -18,6 +18,7 @@ namespace server {
     // Attributes
   public:
     int beginner     = 0;
+    int party;
     // Operations
   public:
     GameService ();

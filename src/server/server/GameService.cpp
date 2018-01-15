@@ -10,17 +10,18 @@ using namespace server;
 using namespace std;
 
 GameService::GameService () : AbstractService("/game") {
+    srand(time(NULL));
     beginner = rand()%2 + 1;
+    party = rand()%100 + 1;
 }
 
 HttpStatus GameService::get (Json::Value& out, int id) const {
     
     // Si on souhaite recuperer le numero du joueur qui debute la partie
     if (id == 0)
-    {
-        cout << "GameService::get - Joueur qui commence : " << beginner << endl;
         out["beginner"] = beginner;
-    }
+    else if (id == 1)
+        out["party"] = party;
         
     else throw ServiceException(HttpStatus::NOT_FOUND,"GameService::get - Invalid game information id");
     
