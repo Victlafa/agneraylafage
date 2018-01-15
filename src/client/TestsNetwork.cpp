@@ -303,6 +303,7 @@ namespace server{
         //nouvellePartie();
         cout << "Joueur qui commence la partie : " << getPartyBeginner(serveur) << endl;
         
+        nouvellePartie();
         
 //        cout << "OOOOOOOOOOOOOOOOO Demande de suppression d'un utilisateur sur le serveur OOOOOOOOOOOOOOOOO" << endl;
 //        suppressionUser("2");
