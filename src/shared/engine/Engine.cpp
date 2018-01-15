@@ -17,7 +17,7 @@ using namespace std;
 
 namespace engine
 {
-    Engine::Engine(CreaturesID typePl1) : currentState(typePl1) { 
+    Engine::Engine(state::CreaturesID creaPl1, state::CreaturesID creaPl2) : currentState(creaPl1, creaPl2) {
         record = Json::Value(Json::arrayValue);
         tour = 1;
     }

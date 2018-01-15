@@ -64,7 +64,7 @@ int main(int argc,char* argv[])
 
             srand(time(NULL));
             
-            state::State *etat = new State(CreaturesID::BLACKSMITHS);
+            state::State *etat = new State(CreaturesID::BLACKSMITHS, state::CreaturesID::MINERS);
             
             sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 

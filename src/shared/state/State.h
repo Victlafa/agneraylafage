@@ -32,7 +32,7 @@ namespace state {
     int freeCellNbr;
     // Operations
   public:
-    State (CreaturesID typePl1);
+    State (CreaturesID typePl1, CreaturesID typePl2);
     ~State ();
     const std::unique_ptr<CellTab>& getGrid () const;
     const std::unique_ptr<CreaturesTab>& getCharacters () const;

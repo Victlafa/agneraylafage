@@ -144,7 +144,7 @@ int main(int argc, char** argv) {
         srand(2);
 
         // On initialise un moteur, on choisit les mineurs pour le joueur 1
-        engine::Engine moteur(state::CreaturesID::MINERS);
+        engine::Engine moteur(state::CreaturesID::MINERS, state::CreaturesID::COOKERS);
         // On initialise une ia
         ai::HeuristicAI ia(&moteur, 2);
 

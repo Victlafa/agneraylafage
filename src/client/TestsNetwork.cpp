@@ -11,7 +11,8 @@ namespace server{
     
     // Pour gestion multi-thread
     mutex notre_mutex;
-    int creaturesChoisies = 0;
+    int creaturesChoisies1 = 0;
+    int creaturesChoisies2 = 0;
     int tour = 0;
     // numéro du joueur 
     int numPlayer = 0;
