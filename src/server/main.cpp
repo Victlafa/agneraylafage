@@ -193,7 +193,7 @@ int main(int argc, char** argv) {
         std::cout << "De plus nous avons donné la priorité aux combats. Il est donc possible que des groupes de creatures ne cherchent pas à se disperser tant qu'elles n'ont pas d'ennemies à proximité." << std::endl;
         std::cout << "(APPUYER sur une touche de clavier pour passer à l'étape suivante)" << std::endl;
 
-        while(tour!=10){
+        while(tour!=2){
             std::cout << "\n--------------    Tour n°" << tour/2 + 1 << ", c'est à l'IA n°" << tour%2 + 1 << " de jouer    --------------" << std::endl << std::endl;
 
             // Tour de l'IA n°1
