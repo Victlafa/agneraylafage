@@ -37,9 +37,7 @@ AbstractService* ServicesManager::findService (const std::string& url) const {
 }
 
 HttpStatus ServicesManager::queryService (std::string& out, const std::string& in, const std::string& url, const std::string& method) { 
-    
-    cout << "ServicesManager::queryService - ligne 41" << endl;
-    
+        
     // On cherche le service approprie
     AbstractService* service = findService(url);
     if (!service)
@@ -48,8 +46,6 @@ HttpStatus ServicesManager::queryService (std::string& out, const std::string& i
     // Recherche un éventuel id (ex: /mon/service/<id>)
     const std::string& pattern(service->getPattern());
     int id = 0;
-    
-    cout << "ServicesManager::queryService - ligne 52" << endl;
     
     // Si l'url est plus longue que le pattern
     if (url.size() > pattern.size()) {
@@ -73,16 +69,12 @@ HttpStatus ServicesManager::queryService (std::string& out, const std::string& i
         }
     }
     
-    cout << "ServicesManager::queryService - ligne 76" << endl;
-    
     // Traite les différentes méthodes
     if (method == "GET") {
-        cout << "ServicesManager::queryService - ligne 80" << endl;
         cerr << "Requête GET " << pattern << " avec id=" << id << endl;
         Json::Value jsonOut;
         HttpStatus status = service->get(jsonOut,id);
         out = jsonOut.toStyledString();
-        cout << "ServicesManager::queryService - ligne 85" << endl;
         return status;
     }
     else if (method == "POST") {
