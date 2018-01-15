@@ -188,19 +188,19 @@ namespace server{
      
      }
     
-    void nouvellePartie()
+    void nouvellePartie(int party, int beginner)
     {
         // Connexion au serveur
         sf::Http* serveur = new sf::Http("http://localhost",8080);
         
         // On prend possession du mutex
         notre_mutex.lock();
-        srand(time(NULL));
+        srand(party);
         
         // On initialise un moteur à partir du type de creatures choisies par le joueur
         engine::Engine moteur((CreaturesID)creaturesChoisies);
         // On initialise l'ia
-        HeuristicAI ia(&moteur, rand()%30000);
+        HeuristicAI ia(&moteur, party);
         
         // On crée un Layer qui permettra de gerer l'affichage des cellules
         CellTabLayer cellLayer(*(moteur.getState().getGrid().get()));
@@ -299,9 +299,11 @@ namespace server{
         }
         
         // Les deux joueurs sont connectés, la partie peut commencer
-        //nouvellePartie();
-        cout << "Joueur qui commence la partie : " << getPartyBeginner(serveur) << endl;
-        cout << "Numero de la partie : " << getPartyNbr(serveur) << endl;
+        int beginner = getPartyBeginner(serveur);
+        int party = getPartyNbr(serveur);
+        cout << "Joueur qui commence la partie : " << beginner << endl;
+        cout << "Numero de la partie : " << party << endl;
+        nouvellePartie(party,beginner);
         
         
 //        cout << "OOOOOOOOOOOOOOOOO Demande de suppression d'un utilisateur sur le serveur OOOOOOOOOOOOOOOOO" << endl;
