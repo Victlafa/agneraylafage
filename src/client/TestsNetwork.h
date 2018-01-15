@@ -19,9 +19,22 @@
 #include "stdlib.h"
 #include "json/json.h"
 #include "state.h"
+#include "../shared/ai.h"
+#include "../shared/engine.h"
+#include "../shared/state.h"
+#include "render.h"
+
+#include <time.h>
+#include <thread>
+#include <mutex>
+#include <pthread.h>
+#include <unistd.h>
+#include <sys/types.h>
 
 using namespace state;
+using namespace ai;
 using namespace std;
+using namespace render;
 
 namespace server{
     void TestsNetwork();
@@ -30,6 +43,8 @@ namespace server{
     void suppressionUser(string);
     int getPlayerNbr(sf::Http*);
     string translateType (CreaturesID);
+    void nouvellePartie();
+    void* routine_thread(void*,void*);
 }
 
 #endif /* TESTSNETWORK_H */
