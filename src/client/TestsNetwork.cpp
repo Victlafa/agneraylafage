@@ -305,6 +305,7 @@ namespace server{
         cout << "Numero de la partie : " << party << endl;
         nouvellePartie(party,beginner);
         
+        nouvellePartie();
         
 //        cout << "OOOOOOOOOOOOOOOOO Demande de suppression d'un utilisateur sur le serveur OOOOOOOOOOOOOOOOO" << endl;
 //        suppressionUser("2");
