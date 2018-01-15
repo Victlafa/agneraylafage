@@ -75,6 +75,7 @@ namespace server{
         request.setUri("/game/0");
         sf::Http::Response answer = serveur->sendRequest(request);
         string reponse = answer.getBody();
+        cout << "getPartyBeginner - reponse : " << reponse << endl;
         
         // On recupere la partie utile contenue dans la reponse du serveur
         int tailleReponse = reponse.size();
