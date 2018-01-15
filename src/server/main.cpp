@@ -238,6 +238,7 @@ int main(int argc, char** argv) {
         try {
             ServicesManager servicesManager;
             servicesManager.registerService(std::move(std::unique_ptr<VersionService>(new VersionService())));
+            servicesManager.registerService(std::move(std::unique_ptr<GameService>(new GameService())));
 
             UserGame userGame;
             //userGame.addUser(std::move(std::unique_ptr<User>(new User("Paul",state::CreaturesID::MINERS))));

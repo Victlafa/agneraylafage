@@ -16,6 +16,7 @@
 
 using std::vector;
 using std::unique_ptr;
+using namespace std;
 
 #include "ServicesManager.h"
 

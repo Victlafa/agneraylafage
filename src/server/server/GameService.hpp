@@ -15,7 +15,7 @@
 #define GAMESERVICE_HPP
 
 #include "AbstractService.hpp"
-
+#include <iostream>
 #include "GameService.h"
 
 #endif /* GAMESERVICE_HPP */

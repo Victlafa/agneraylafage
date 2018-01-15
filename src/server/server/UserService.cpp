@@ -6,7 +6,6 @@
  */
 
 #include "UserService.hpp"
-#include "UserService.h"
 #include "TestsNetwork.h"
 #include "../../shared/state/CreaturesID.h"
 

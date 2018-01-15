@@ -3,22 +3,25 @@
 #define SERVER__GAMESERVICE__H
 
 #include <json/json.h>
-#include <string>
 
 namespace server {
   class AbstractService;
 }
 
+#include "HttpStatus.h"
 #include "AbstractService.h"
 
 namespace server {
 
   /// class GameService - 
   class GameService : public server::AbstractService {
+    // Attributes
+  public:
+    int beginner     = 0;
     // Operations
   public:
     GameService ();
-    HttpStatus const get (Json::Value& out, std::string id);
+    HttpStatus get (Json::Value& out, int id) const;
     // Setters and Getters
   };
 
