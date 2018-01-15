@@ -91,7 +91,17 @@ namespace ai
             cout << "FIN DE LA PHASE DE RENFORT" << endl;
         }
         
+        /*
+        std::ofstream filebis("./src/lCommandes.txt", std::ios::out);
+        Json::StyledWriter styledWriter;
+        filebis << styledWriter.write(lCommandes);
+        
+        std::ofstream fileter("./src/final.txt", std::ios::out);
+        fileter << styledWriter.write(this->getMoteur()->getRecord());
+        */
+        
         this->getMoteur()->setRecord(this->getMoteur()->getRecord().append(lCommandes));
+        
         //cout << "Ajout de lCommandes" << endl;
         
     }
