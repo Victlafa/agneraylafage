@@ -107,11 +107,10 @@ namespace server{
         request.setHttpVersion(1, 1);
         request.setField("Content-Type", "application/x-www-form-urlencoded");
         request.setUri("/game/2");
-        request.setBody("{\"player\":"+numPlayer);
+        Json::Value player;
+        player["player"] = numPlayer;
+        request.setBody(player.toStyledString());
         sf::Http::Response answer = serveur->sendRequest(request);
-        string reponse = answer.getBody();
-        
-        cout << "setOccupedPlayer - Reponse du serveur apres requete : " << reponse << endl;
     }
     
     void affichageListe()
@@ -335,7 +334,14 @@ namespace server{
         cout << "Joueur qui commence la partie : " << beginner << endl;
         cout << "Numero de la partie : " << party << endl;
         cout << "La partie va commencer" << endl;
-        nouvellePartie(party,beginner);
+        
+        if (numPlayer == 1)
+        {
+            cout << "Appel à setOccupedPlayer" << endl;
+            setOccupedPlayer(serveur);
+        }
+        
+        //nouvellePartie(party,beginner);
         
 //        cout << "OOOOOOOOOOOOOOOOO Demande de suppression d'un utilisateur sur le serveur OOOOOOOOOOOOOOOOO" << endl;
 //        suppressionUser("2");
