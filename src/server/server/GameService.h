@@ -19,10 +19,12 @@ namespace server {
   public:
     int beginner     = 0;
     int party;
+    int player;
     // Operations
   public:
     GameService ();
     HttpStatus get (Json::Value& out, int id) const;
+    HttpStatus post (const Json::Value& in, int id);
     // Setters and Getters
   };
 
