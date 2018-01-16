@@ -91,7 +91,7 @@ main_handler (void *cls,
         return MHD_YES;
     }    
     
-    // Cas où il faut récupérer les données envoyés par l'utilisateur
+    // Cas où il faut récupérer les données envoyées par l'utilisateur
     if (strcmp(method, MHD_HTTP_METHOD_POST) == 0
      || strcmp(method, MHD_HTTP_METHOD_PUT) == 0) {
         MHD_post_process(request->pp,upload_data,*upload_data_size);
