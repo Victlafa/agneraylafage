@@ -7,7 +7,7 @@ namespace render {
         std::cout << "DEBUT TESTS STATELAYER" << std::endl << std::endl;
 
         // On initialise un moteur, on choisit les mineurs pour le joueur 1
-        engine::Engine moteur(CreaturesID::MINERS);
+        engine::Engine moteur(CreaturesID::MINERS, state::CreaturesID::COOKERS);
         // On initialise une ia
         HeuristicAI ia(&moteur, rand()%30000);
         

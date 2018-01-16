@@ -34,7 +34,7 @@ namespace engine {
     Json::Value record;
     // Operations
   public:
-    Engine (state::CreaturesID typePl1);
+    Engine (state::CreaturesID CreaPl1, state::CreaturesID CreaPl2);
     ~Engine ();
     void addPassiveCommands ();
     void addCommand (int priority, std::shared_ptr<Command> cmd);

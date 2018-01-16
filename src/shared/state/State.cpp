@@ -13,7 +13,7 @@ using namespace std;
 namespace state
 {
 
-    State::State(CreaturesID typePl1){
+    State::State(CreaturesID typePl1, CreaturesID typePl2){
         totalCellNbr = 29;
         grid.reset(new CellTab(7,5));
         characters.reset(new CreaturesTab(7,5));
@@ -22,10 +22,11 @@ namespace state
         CreaturesID tirage = typePl1;
         
         // On tire au sort un type de creature qu'on associe à l'IA (on s'arrange pour qu'il soit different de celui du joueur) :
-        while (tirage == typePl1)
-            tirage = (CreaturesID)(rand()%4 + 1);
+        //while (tirage == typePl1)
+        //    tirage = (CreaturesID)(rand()%4 + 1);
         
-        player2.reset(new Player((CreaturesID)tirage));
+        //player2.reset(new Player((CreaturesID)tirage));
+        player2.reset(new Player(typePl2));
         
         // On initialise le tableau de creatures de sorte à associer 3 groupes de 2 creatures à chaque joueur
         this->initCreatures();

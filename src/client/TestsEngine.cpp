@@ -23,7 +23,7 @@ namespace engine {
         
         cout << "DEBUT TESTS POISONCOMMAND" << endl;
         
-        engine::Engine moteur(CreaturesID::BLACKSMITHS);
+        engine::Engine moteur(CreaturesID::BLACKSMITHS, state::CreaturesID::MINERS);
         
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
@@ -121,7 +121,7 @@ namespace engine {
         int iter = 0;
         
         // On initialise un moteur
-        engine::Engine moteur(CreaturesID::BLACKSMITHS);
+        engine::Engine moteur(CreaturesID::BLACKSMITHS, state::CreaturesID::MINERS);
         
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
@@ -195,7 +195,7 @@ namespace engine {
         
         cout << "DEBUT TESTS MOVECOMMAND - Deplacement vers une case occupée par l'adversaire" << endl;
         
-        engine::Engine moteur(CreaturesID::BLACKSMITHS);
+        engine::Engine moteur(CreaturesID::BLACKSMITHS, state::CreaturesID::MINERS);
         
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
@@ -334,7 +334,7 @@ namespace engine {
     void TestsMoveCommandPlayer(){
         cout << "\n\nDEBUT TESTS MOVECOMMAND - Deplacement vers une case occupée par le joueur" << endl;
         
-        engine::Engine moteur(CreaturesID::BLACKSMITHS);
+        engine::Engine moteur(CreaturesID::BLACKSMITHS, state::CreaturesID::MINERS);
         
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
@@ -461,7 +461,7 @@ namespace engine {
     void TestsMoveCommandNoOne(){
         cout << "DEBUT TESTS MOVECOMMAND - Deplacement vers une case vide" << endl;
         
-        engine::Engine moteur(CreaturesID::BLACKSMITHS);
+        engine::Engine moteur(CreaturesID::BLACKSMITHS, state::CreaturesID::MINERS);
         
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
@@ -569,7 +569,7 @@ namespace engine {
         
         // On initialise un moteur
         // On choisit les cuisiniers pour le joueur 1
-        engine::Engine moteur(CreaturesID::COOKERS);
+        engine::Engine moteur(CreaturesID::COOKERS, state::CreaturesID::MINERS);
         
         // On attribue trois cellules speciales au joueur 1
         std::vector<std::string> speCells;
@@ -686,7 +686,7 @@ namespace engine {
         
         // On initialise un moteur
         // On choisit les cuisiniers pour le joueur 1
-        engine::Engine moteur(CreaturesID::COOKERS);
+        engine::Engine moteur(CreaturesID::COOKERS, state::CreaturesID::MINERS);
         
         // On attribue trois cellules speciales au joueur 1
         std::vector<std::string> speCells;
@@ -804,7 +804,7 @@ namespace engine {
         
         // On initialise un moteur
         // On choisit les cuisiniers pour le joueur 1
-        engine::Engine moteur(CreaturesID::COOKERS);
+        engine::Engine moteur(CreaturesID::COOKERS, state::CreaturesID::MINERS);
         
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 
@@ -892,7 +892,7 @@ namespace engine {
         
         // On initialise un moteur
         // On choisit les cuisiniers pour le joueur 1
-        engine::Engine moteur(CreaturesID::COOKERS);
+        engine::Engine moteur(CreaturesID::COOKERS, state::CreaturesID::MINERS);
         
         sf::RenderWindow window(sf::VideoMode(1024, 720), "Garden Tensions"); //, sf::Style::Close | sf::Style::Titlebar);
 

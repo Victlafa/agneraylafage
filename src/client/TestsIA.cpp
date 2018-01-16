@@ -27,7 +27,7 @@ namespace ai {
         
         // On initialise un moteur
         // On choisit les cuisiniers pour le joueur 1
-        engine::Engine moteur(CreaturesID::COOKERS);
+        engine::Engine moteur(CreaturesID::COOKERS, state::CreaturesID::MINERS);
         
         // On initialise une ia
         RandomAI ia(&moteur, rand()%30000);
@@ -73,7 +73,7 @@ namespace ai {
         srand(time(NULL));
         
         // On initialise un moteur, on choisit les mineurs pour le joueur 1
-        engine::Engine moteur(CreaturesID::MINERS);
+        engine::Engine moteur(CreaturesID::MINERS, state::CreaturesID::COOKERS);
         // On initialise une ia
         HeuristicAI ia(&moteur, rand()%30000);
         // Declaration de la fenetre
@@ -153,7 +153,7 @@ namespace ai {
         srand(time(NULL));
         
         // On initialise un moteur, on choisit les mineurs pour le joueur 1
-        engine::Engine moteur(CreaturesID::MINERS);
+        engine::Engine moteur(CreaturesID::MINERS, state::CreaturesID::COOKERS);
         // On initialise une ia
         HeuristicAI ia(&moteur, rand()%30000);
         // Declaration de la fenetre

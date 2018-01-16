@@ -20,7 +20,7 @@ void TestPlayConsole() {
     srand(2);
 
     // On initialise un moteur, on choisit les mineurs pour le joueur 1
-    engine::Engine moteur(state::CreaturesID::MINERS);
+    engine::Engine moteur(state::CreaturesID::MINERS, state::CreaturesID::COOKERS);
     // On recupere le placement initial des creatures presentes sur la grille
     moteur.getState().initCreaturesFromRecord();
 
@@ -62,7 +62,7 @@ void TestPlayWindow() {
     srand(2);
 
     // On initialise un moteur, on choisit les mineurs pour le joueur 1
-    engine::Engine moteur(state::CreaturesID::MINERS);
+    engine::Engine moteur(state::CreaturesID::MINERS, state::CreaturesID::COOKERS);
     // On recupere le placement initial des creatures presentes sur la grille
     moteur.getState().initCreaturesFromRecord();
     

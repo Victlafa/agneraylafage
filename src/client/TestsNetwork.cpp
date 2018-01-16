@@ -228,7 +228,7 @@ namespace server{
         srand(party);
         
         // On initialise un moteur à partir du type de creatures choisies par le joueur
-        engine::Engine moteur((CreaturesID)creaturesChoisies);
+        engine::Engine moteur((CreaturesID)creaturesChoisies, state::CreaturesID::BLACKSMITHS);
         // On initialise l'ia
         HeuristicAI ia(&moteur, party);
         
