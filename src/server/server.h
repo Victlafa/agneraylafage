@@ -10,5 +10,7 @@
 #include "server/VersionService.h"
 #include "server/ServiceException.h"
 #include "server/ServicesManager.h"
+#include "server/GameStatus.h"
+#include "server/Game.h"
 #include "server/GameService.h"
 #endif

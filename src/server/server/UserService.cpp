@@ -8,6 +8,7 @@
 #include "UserService.hpp"
 #include "TestsNetwork.h"
 #include "../../shared/state/CreaturesID.h"
+#include "../../shared/engine.h"
 
 using namespace server;
 using namespace state;

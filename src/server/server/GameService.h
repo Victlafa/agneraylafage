@@ -5,9 +5,11 @@
 #include <json/json.h>
 
 namespace server {
+  class Game;
   class AbstractService;
 }
 
+#include "Game.h"
 #include "HttpStatus.h"
 #include "AbstractService.h"
 
@@ -15,11 +17,10 @@ namespace server {
 
   /// class GameService - 
   class GameService : public server::AbstractService {
+    // Associations
     // Attributes
   public:
-    int beginner     = 0;
-    int party;
-    int player;
+    Game game;
     // Operations
   public:
     GameService ();
