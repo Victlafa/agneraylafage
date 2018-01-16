@@ -19,7 +19,7 @@ namespace state
         characters.reset(new CreaturesTab(7,5));
         player1.reset(new Player(typePl1));
         
-        CreaturesID tirage = typePl1;
+        //CreaturesID tirage = typePl1;
         
         // On tire au sort un type de creature qu'on associe à l'IA (on s'arrange pour qu'il soit different de celui du joueur) :
         //while (tirage == typePl1)

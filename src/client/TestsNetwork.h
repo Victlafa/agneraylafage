@@ -44,6 +44,8 @@ namespace server{
     int getPlayerNbr(sf::Http*);
     int getPartyNbr(sf::Http*);
     int getPartyBeginner(sf::Http*);
+    int getOccupedPlayer(sf::Http*);
+    void setOccupedPlayer(sf::Http*, int);
     string translateType (CreaturesID);
     void nouvellePartie(int,int);
     void* routine_thread(void*,void*);
