@@ -12,6 +12,7 @@ namespace server{
     // Pour gestion multi-thread
     mutex notre_mutex;
     int creaturesChoisies = 0;
+    int creaturesAdv = 0;
     int tour = 0;
     // numéro du joueur 
     int numPlayer = 0;
@@ -174,10 +175,15 @@ namespace server{
             getline(cin, name);
 
             // On demande au joueur quel type de creatures il souhaite jouer
-            int type;
-            std::cout << "Quel type de creatures souhaitez-vous jouer ?\n" << std::endl;
-            std::cout << "Cuisinier : 1\nForgeron : 2\nBûcheron : 3\nMineur : 4\n" << std::endl;
-            cin >> type;
+            int type = 0;
+            while (type < 1 || type > 4)
+            {
+                std::cout << "Quel type de creatures souhaitez-vous jouer ?\n" << std::endl;
+                std::cout << "Cuisinier : 1\nForgeron : 2\nBûcheron : 3\nMineur : 4\n" << std::endl;
+                cin >> type;
+                if (type < 1 || type > 4) cout << "Veuillez choisir un chiffre entre 1 et 4 inclus !" << endl;
+            }
+            
             creaturesChoisies = type;
 
             // On souhaite ajouter un nouvel utilisateur
@@ -278,11 +284,12 @@ namespace server{
         
         HeuristicAI* adrIA = (HeuristicAI*) ia;
         //sf::RenderWindow* adrGameWindow = (sf::RenderWindow*)gameWindow;
-        bool is_IA_winner = (adrIA->getMoteur()->getState().getCellNbr() == adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() == 0);
-        bool is_IA_loser = (adrIA->getMoteur()->getState().getCellNbr() == adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
+        int totalCellNbr = adrIA->getMoteur()->getState().getCellNbr();
+        bool is_IA_winner = (totalCellNbr == adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() == 0);
+        bool is_IA_loser = (totalCellNbr == adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
         
         // On effectue les actions voulues par le joueur si c'est à son tour de jouer
-        if (getOccupedPlayer(serveur) == numPlayer && !is_IA_winner && !is_IA_loser)
+        while (getOccupedPlayer(serveur) == numPlayer && !is_IA_winner && !is_IA_loser)
         {
             std::lock_guard<std::mutex> lock(notre_mutex);
 
@@ -297,8 +304,8 @@ namespace server{
             std::this_thread::sleep_for(std::chrono::seconds(1));
 
             // On verifie si l'un des deux joueurs a gagné ou non la partie
-            is_IA_winner = (adrIA->getMoteur()->getState().getCellNbr() == adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() == 0);
-            is_IA_loser = (adrIA->getMoteur()->getState().getCellNbr() == adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
+            is_IA_winner = (totalCellNbr == adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() == 0);
+            is_IA_loser = (totalCellNbr == adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
             
             // Une fois son tour achevé on signale au serveur que le joueur qui doit jouer est modifie
             setOccupedPlayer(serveur,2-numPlayer);
