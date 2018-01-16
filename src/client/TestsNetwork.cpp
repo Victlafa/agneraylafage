@@ -12,6 +12,7 @@ namespace server{
     // Pour gestion multi-thread
     mutex notre_mutex;
     int creaturesChoisies = 0;
+    int creaAdversary =0;
     int tour = 0;
     // numéro du joueur 
     int numPlayer = 0;
@@ -79,6 +80,26 @@ namespace server{
         // On recupere la partie utile contenue dans la reponse du serveur
         int tailleReponse = reponse.size();
         string nombre = reponse.substr(tailleReponse - 4,1);
+        // On convertit le numero du joueur string en int
+        return stoi(nombre);
+    }
+    
+    int getCreaOtherPlayer(sf::Http* serveur)
+    {
+        sf::Http::Request request;
+        request.setMethod(sf::Http::Request::Get);
+        request.setHttpVersion(1, 1);
+        request.setField("Content-Type", "application/x-www-form-urlencoded");
+        if(numPlayer==1) request.setUri("/user/2");
+        else if(numPlayer==2) request.setUri("/user/1");
+        sf::Http::Response answer = serveur->sendRequest(request);
+        string reponse = answer.getBody();
+        
+        // On recupere la partie utile contenue dans la reponse du serveur
+        string nombre = reponse.substr(19,1);
+        
+        std::cout << "crea other player : " << nombre << std::endl;
+        
         // On convertit le numero du joueur string en int
         return stoi(nombre);
     }
@@ -166,8 +187,7 @@ namespace server{
             cout << "Le serveur de jeu est complet, impossible d'ajouter un nouveau joueur !" << endl;
         
         
-     
-     }
+    }
     
     void suppressionUser(string nbr) {
              
@@ -186,7 +206,7 @@ namespace server{
         sf::Http::Response answer = Http.sendRequest(request);
         cout << "Statut de la reponse : " << answer.getStatus() << endl;
      
-     }
+    }
     
     void nouvellePartie(int party, int beginner)
     {
@@ -198,7 +218,7 @@ namespace server{
         srand(party);
         
         // On initialise un moteur à partir du type de creatures choisies par le joueur
-        engine::Engine moteur((CreaturesID)creaturesChoisies, state::CreaturesID::BLACKSMITHS);
+        engine::Engine moteur((numPlayer==1) ? (CreaturesID)creaturesChoisies : (CreaturesID)getCreaOtherPlayer(serveur), (numPlayer==2) ? (CreaturesID)creaturesChoisies : (CreaturesID)getCreaOtherPlayer(serveur));
         // On initialise l'ia
         HeuristicAI ia(&moteur, party);
         
