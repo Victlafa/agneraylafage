@@ -55,7 +55,7 @@ namespace server{
         request.setMethod(sf::Http::Request::Get);
         request.setHttpVersion(1, 1);
         request.setField("Content-Type", "application/x-www-form-urlencoded");
-        request.setUri("/game/1");
+        request.setUri("/game/0");
         sf::Http::Response answer = serveur->sendRequest(request);
         string reponse = answer.getBody();
         
@@ -72,7 +72,7 @@ namespace server{
         request.setMethod(sf::Http::Request::Get);
         request.setHttpVersion(1, 1);
         request.setField("Content-Type", "application/x-www-form-urlencoded");
-        request.setUri("/game/0");
+        request.setUri("/game/1");
         sf::Http::Response answer = serveur->sendRequest(request);
         string reponse = answer.getBody();
         
@@ -81,6 +81,37 @@ namespace server{
         string nombre = reponse.substr(tailleReponse - 4,1);
         // On convertit le numero du joueur string en int
         return stoi(nombre);
+    }
+    
+    int getOccupedPlayer(sf::Http* serveur)
+    {
+        sf::Http::Request request;
+        request.setMethod(sf::Http::Request::Get);
+        request.setHttpVersion(1, 1);
+        request.setField("Content-Type", "application/x-www-form-urlencoded");
+        request.setUri("/game/2");
+        sf::Http::Response answer = serveur->sendRequest(request);
+        string reponse = answer.getBody();
+        
+        // On recupere la partie utile contenue dans la reponse du serveur
+        int tailleReponse = reponse.size();
+        string nombre = reponse.substr(tailleReponse - 4,1);
+        // On convertit le numero du joueur string en int
+        return stoi(nombre);
+    }
+    
+    void setOccupedPlayer(sf::Http* serveur)
+    {
+        sf::Http::Request request;
+        request.setMethod(sf::Http::Request::Post);
+        request.setHttpVersion(1, 1);
+        request.setField("Content-Type", "application/x-www-form-urlencoded");
+        request.setUri("/game/2");
+        request.setBody("{\"player\":"+numPlayer);
+        sf::Http::Response answer = serveur->sendRequest(request);
+        string reponse = answer.getBody();
+        
+        cout << "setOccupedPlayer - Reponse du serveur apres requete : " << reponse << endl;
     }
     
     void affichageListe()
@@ -303,6 +334,7 @@ namespace server{
         int party = getPartyNbr(serveur);
         cout << "Joueur qui commence la partie : " << beginner << endl;
         cout << "Numero de la partie : " << party << endl;
+        cout << "La partie va commencer" << endl;
         nouvellePartie(party,beginner);
         
 //        cout << "OOOOOOOOOOOOOOOOO Demande de suppression d'un utilisateur sur le serveur OOOOOOOOOOOOOOOOO" << endl;
