@@ -100,7 +100,7 @@ namespace server{
         return stoi(nombre);
     }
     
-    void setOccupedPlayer(sf::Http* serveur)
+    void setOccupedPlayer(sf::Http* serveur, int num)
     {
         sf::Http::Request request;
         request.setMethod(sf::Http::Request::Post);
@@ -108,7 +108,7 @@ namespace server{
         request.setField("Content-Type", "application/x-www-form-urlencoded");
         request.setUri("/game/2");
         Json::Value player;
-        player["player"] = numPlayer;
+        player["player"] = num;
         request.setBody(player.toStyledString());
         sf::Http::Response answer = serveur->sendRequest(request);
     }
@@ -194,9 +194,6 @@ namespace server{
         }
         else
             cout << "Le serveur de jeu est complet, impossible d'ajouter un nouveau joueur !" << endl;
-        
-        
-     
      }
     
     void suppressionUser(string nbr) {
@@ -220,11 +217,9 @@ namespace server{
     
     void nouvellePartie(int party, int beginner)
     {
-        // Connexion au serveur
-        sf::Http* serveur = new sf::Http("http://localhost",8080);
-        
         // On prend possession du mutex
         notre_mutex.lock();
+        // On initialise graine aleatoire correspondant à la partie selectionnée par le serveur
         srand(party);
         
         // On initialise un moteur à partir du type de creatures choisies par le joueur
@@ -278,30 +273,37 @@ namespace server{
     
     void* routine_thread(void* ia,void* gameWindow)
     {
+        // Connexion au serveur
+        sf::Http* serveur = new sf::Http("http://localhost",8080);
+        
         HeuristicAI* adrIA = (HeuristicAI*) ia;
-        sf::RenderWindow* adrGameWindow = (sf::RenderWindow*)gameWindow;
+        //sf::RenderWindow* adrGameWindow = (sf::RenderWindow*)gameWindow;
         bool is_IA_winner = (adrIA->getMoteur()->getState().getCellNbr() == adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() == 0);
         bool is_IA_loser = (adrIA->getMoteur()->getState().getCellNbr() == adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
         
-        // On reste dans cette boucle tant que le joueur n'a pas gagné ou perdu
-        while(!is_IA_winner && !is_IA_loser && adrGameWindow->isOpen())
+        // On effectue les actions voulues par le joueur si c'est à son tour de jouer
+        if (getOccupedPlayer(serveur) == numPlayer && !is_IA_winner && !is_IA_loser)
         {
-            std::lock_guard<std::mutex> lock (notre_mutex);
-            
-            std::cout << "\n--------------    Tour n°" << tour / 2 + 1 << " - "; 
-            
+            std::lock_guard<std::mutex> lock(notre_mutex);
+
+            std::cout << "\n--------------    Tour n°" << tour / 2 + 1 << " - ";
+
             // Tour de l'IA
             std::cout << "C'est à l'IA n°" << numPlayer << " de jouer    --------------" << std::endl << std::endl;
             adrIA->run(numPlayer);
-            
+
             tour++;
             adrIA->getMoteur()->increaseTour();
             std::this_thread::sleep_for(std::chrono::seconds(1));
-            
+
             // On verifie si l'un des deux joueurs a gagné ou non la partie
             is_IA_winner = (adrIA->getMoteur()->getState().getCellNbr() == adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() == 0);
             is_IA_loser = (adrIA->getMoteur()->getState().getCellNbr() == adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
             
+            // Une fois son tour achevé on signale au serveur que le joueur qui doit jouer est modifie
+            setOccupedPlayer(serveur,2-numPlayer);
+            
+            //notre_mutex.unlock();
         }
         
         return 0;
@@ -335,13 +337,7 @@ namespace server{
         cout << "Numero de la partie : " << party << endl;
         cout << "La partie va commencer" << endl;
         
-        if (numPlayer == 1)
-        {
-            cout << "Appel à setOccupedPlayer" << endl;
-            setOccupedPlayer(serveur);
-        }
-        
-        //nouvellePartie(party,beginner);
+        nouvellePartie(party,beginner);
         
 //        cout << "OOOOOOOOOOOOOOOOO Demande de suppression d'un utilisateur sur le serveur OOOOOOOOOOOOOOOOO" << endl;
 //        suppressionUser("2");
