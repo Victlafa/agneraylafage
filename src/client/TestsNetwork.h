@@ -41,10 +41,8 @@ namespace server{
     void affichageListe();
     void ajoutUser();
     void suppressionUser(string);
-    int getPlayerNbr(sf::Http*);
-    int getPartyNbr(sf::Http*);
-    int getPartyBeginner(sf::Http*);
-    int getOccupedPlayer(sf::Http*);
+    int getServerInfo(sf::Http*, std::string);
+    int getCreaOtherPlayer(sf::Http*);
     void setOccupedPlayer(sf::Http*, int);
     string translateType (CreaturesID);
     void nouvellePartie(int,int);
