@@ -35,15 +35,11 @@ HttpStatus GameService::get (Json::Value& out, int id) const {
 
 HttpStatus GameService::post (const Json::Value& in, int id)
 {
-    //cout << "GameService::post - entree dans methode" << endl;
-    //cout << "Affichage entree : " << endl;
-    //cout << in.toStyledString() << endl;
     if (id == 2)
     {
         if (in.isMember("player")) player = in["player"].asInt();
     }
     else throw ServiceException(HttpStatus::NOT_FOUND,"GameService::post - Invalid game information id");
     
-    //cout << "GameService::post - fin methode, valeur de player : " << player << endl;
     return HttpStatus::OK;
 }
