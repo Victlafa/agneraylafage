@@ -278,6 +278,7 @@ namespace server{
 
                 tour++;
                 adrIA->getMoteur()->increaseTour();
+                
                 std::this_thread::sleep_for(std::chrono::seconds(1));
 
                 // On verifie si l'un des deux joueurs a gagné ou non la partie
