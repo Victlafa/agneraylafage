@@ -12,6 +12,7 @@ namespace client {
 
       
     void SuperEngine::addCommand (int priority, std::shared_ptr<engine::Command> cmd) {
+
         std::cout << "Entree dans SuperEngine::addCommand" << std::endl;
         // On ajoute une commande :
         this->currentCommands.emplace(priority,cmd);
@@ -54,7 +55,26 @@ namespace client {
         
     }
     
-}
 
+    std::string SuperEngine::convertCommandTypeToString (CommandTypeID commandType)
+    {
+        if (commandType == CommandTypeID::NEWGAME)
+            return "CommandTypeID::NEWGAME";
+        else if (commandType == CommandTypeID::MOVE)
+            return "CommandTypeID::MOVE";
+        else if (commandType == CommandTypeID::PLACE)
+            return "CommandTypeID::PLACE";
+        else if (commandType == CommandTypeID::POISON)
+            return "CommandTypeID::POISON";
+        else if (commandType == CommandTypeID::PROTECTED)
+            return "CommandTypeID::PROTECTED";
+        else if (commandType == CommandTypeID::SPECIAL)
+            return "CommandTypeID::SPECIAL";
+        else
+            throw std::runtime_error("SuperEngine::convertCommandTypeToString - l'arguement d'entrée n'est pas valide !");
+        
+    }
+
+}
 
 
