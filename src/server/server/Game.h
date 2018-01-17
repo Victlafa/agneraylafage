@@ -25,6 +25,7 @@ namespace server {
     int party;
     int currentPlayer;
     Json::Value listCommands;
+    int idmax     = 0;
   private:
     engine::Engine* moteur;
     // Operations

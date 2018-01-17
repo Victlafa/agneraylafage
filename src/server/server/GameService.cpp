@@ -42,13 +42,10 @@ HttpStatus GameService::post (const Json::Value& in, int id)
     return HttpStatus::OK;
 }
 
-HttpStatus GameService::put (const Json::Value& in, int id)
+HttpStatus GameService::put (const Json::Value& in)
 {
-    
-    //listCommands.append(in);
-    if(id>2) game.listCommands[id-2] = in;
-    else throw ServiceException(HttpStatus::NOT_FOUND,"GameService::post - Invalid game information id");
-    
+    game.listCommands[game.idmax] = in;
+    game.idmax++;
     return HttpStatus::OK;
 }
 
