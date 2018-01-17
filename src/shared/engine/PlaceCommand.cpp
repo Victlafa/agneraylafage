@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+#include <SFML/Network.hpp>
 #include "PlaceCommand.h"
 #include <iostream>
 #include "../shared/state/CreaturesTab.h"
@@ -35,7 +36,8 @@ namespace engine{
     
     void PlaceCommand::serialize (Json::Value& out, int nTour) const{
         // Connexion au serveur
-        sf::Http* serveur = new sf::Http("http://localhost",8080);
+        sf::Http* Http = new sf::Http("http://localhost",8080);
+        Http->setHost("http://localhost",8080);
         
         Json::Value placeCommand;
         placeCommand["type"] = "CommandTypeID::PLACE";
@@ -52,7 +54,7 @@ namespace engine{
         request.setHttpVersion(1, 1);
         request.setField("Content-Type", "application/x-www-form-urlencoded");
         
-        request.setBody(placeCommand);
+        request.setBody(placeCommand.asString());
 
         // Envoi de la requete
         sf::Http::Response answer = Http->sendRequest(request);

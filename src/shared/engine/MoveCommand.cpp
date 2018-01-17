@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+#include <SFML/Network.hpp>
 #include "MoveCommand.h"
 #include <iostream>
 #include "MoveAction.h"
@@ -51,7 +52,8 @@ namespace engine{
     void MoveCommand::serialize (Json::Value& out, int nTour) const{
         
         // Connexion au serveur
-        sf::Http* serveur = new sf::Http("http://localhost",8080);
+        sf::Http* Http = new sf::Http("http://localhost",8080);
+        Http->setHost("http://localhost",8080);
         
         Json::Value moveCommandNM;
         moveCommandNM["type"] = "CommandTypeID::MOVE";
@@ -71,7 +73,7 @@ namespace engine{
         request.setHttpVersion(1, 1);
         request.setField("Content-Type", "application/x-www-form-urlencoded");
         
-        request.setBody(moveCommandNM);
+        request.setBody(moveCommandNM.asString());
 
         // Envoi de la requete
         sf::Http::Response answer = Http->sendRequest(request);
