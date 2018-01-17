@@ -6,6 +6,7 @@
 
 #include "TestsNetwork.h"
 
+using namespace std;
 
 namespace server{
     
@@ -112,7 +113,7 @@ namespace server{
          
     }
     
-    void ajoutUser() {
+    bool ajoutUser() {
                 
         // On vide le buffer d'entrée
         cin.clear();        
@@ -127,6 +128,7 @@ namespace server{
         int nbr = getServerInfo(Http,"/user/0");
         // Si aucun joueur n'est present, celui qui se connecte devient le numéro 1, s'il y a un joueur présent, il sera le numero 2
         numPlayer = nbr + 1;
+        cout << "AjoutUser - numPlayer : " << numPlayer << endl;
         
         // S'il y a dejà deux joueurs présents sur le serveur, on ne peut pas ajouter de nouveau joueur
         
@@ -166,9 +168,15 @@ namespace server{
             // Envoi de la requete
             sf::Http::Response answer = Http->sendRequest(request);
             cout << "Statut de la reponse : " << answer.getStatus() << endl;
+            
+            return true;
         }
         else
+        {
             cout << "Le serveur de jeu est complet, impossible d'ajouter un nouveau joueur !" << endl;
+            return false;
+        }
+            
         
     }
     
@@ -252,6 +260,7 @@ namespace server{
     
     void* routine_thread(void* ia,void* gameWindow)
     {
+        cout << "TestsNetwork::routine_thread - ligne 262" << endl;
         // Connexion au serveur
         sf::Http* serveur = new sf::Http("http://localhost",8080);
         
@@ -261,14 +270,21 @@ namespace server{
         bool is_IA_winner = (totalCellNbr == adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() == 0);
         bool is_IA_loser = (totalCellNbr == adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
         
+        cout << "TestsNetwork::routine_thread - ligne 272" << endl;
+        
         // On effectue les actions voulues par le joueur si c'est à son tour de jouer
         while (!is_IA_winner && !is_IA_loser && adrGameWindow->isOpen())
         {
+            cout << "TestsNetwork::routine_thread - ligne 277" << endl;
+            cout << "TestsNetwork::routine_thread - joueur en cours : " << getServerInfo(serveur,"/game/2") << endl;
+            
             // si c'est à son tour
             if (getServerInfo(serveur,"/game/2") == numPlayer)
             {
                 // On prend le mutex
                 std::lock_guard<std::mutex> lock(notre_mutex);
+                
+                cout << "TestsNetwork::routine_thread - ligne 284" << endl;
 
                 std::cout << "\n--------------    Tour n°" << tour / 2 + 1 << " - ";
 
@@ -276,6 +292,7 @@ namespace server{
                 std::cout << "C'est à l'IA n°" << numPlayer << " de jouer    --------------" << std::endl << std::endl;
                 adrIA->run(numPlayer);
 
+                cout << "TestsNetwork::routine_thread - ligne 291" << endl;
                 tour++;
                 adrIA->getMoteur()->increaseTour();
                 
@@ -287,10 +304,14 @@ namespace server{
 
                 // Une fois son tour achevé on signale au serveur que l'adversaire peut debuter son tour
                 setOccupedPlayer(serveur, 2 - numPlayer);
+                
+                cout << "TestsNetwork::routine_thread - ligne 305" << endl;
 
                 //notre_mutex.unlock();
             }
         }
+        
+        cout << "TestsNetwork::routine_thread - ligne 311" << endl;
         
         return 0;
     }
@@ -304,28 +325,33 @@ namespace server{
         affichageListe();
         
         cout << "OOOOOOOOOOOOOOOOO Demande d'ajout d'un utilisateur sur le serveur OOOOOOOOOOOOOOOOO" << endl;
-        ajoutUser();
-        
-        cout << "OOOOOOOOOOOOOOOOO Affichage des joueurs presents sur le serveur OOOOOOOOOOOOOOOOO" << endl;
-        affichageListe();
-        
-        // On reste sur le serveur tant qu'un deuxieme joueur n'a pas rejoint la partie
-        while (getServerInfo(serveur,"/user/0") != 2) 
-        { 
-            cout << "En attente d'un deuxieme joueur" << endl;
-            sf::sleep(sf::seconds(2.0f));
+        if (ajoutUser())
+        {
+            cout << "OOOOOOOOOOOOOOOOO Affichage des joueurs presents sur le serveur OOOOOOOOOOOOOOOOO" << endl;
+            affichageListe();
+
+            // On reste sur le serveur tant qu'un deuxieme joueur n'a pas rejoint la partie
+            while (getServerInfo(serveur, "/user/0") != 2) {
+                cout << "En attente d'un deuxieme joueur" << endl;
+                sf::sleep(sf::seconds(2.0f));
+            }
+
+            // Les deux joueurs sont connectés, la partie peut commencer
+            int beginner = getServerInfo(serveur, "/game/1");
+            int party = getServerInfo(serveur, "/game/0");
+            cout << "Joueur qui commence la partie : " << beginner << endl;
+            cout << "Numero de la partie : " << party << endl;
+            cout << "----------->> La partie va commencer <<-----------" << endl;
+
+            nouvellePartie(party, beginner);
+
+            std::cout << "\n----------->> Fin de la partie <<-----------" << std::endl;
         }
         
-        // Les deux joueurs sont connectés, la partie peut commencer
-        int beginner = getServerInfo(serveur,"/game/1");
-        int party = getServerInfo(serveur,"/game/0");
-        cout << "Joueur qui commence la partie : " << beginner << endl;
-        cout << "Numero de la partie : " << party << endl;
-        cout << "----------->> La partie va commencer <<-----------" << endl;
+        else
+            cout << "Impossible de démarrer une partie" << endl;
         
-        nouvellePartie(party,beginner);
         
-        std::cout << "\n----------->> Fin de la partie <<-----------" << std::endl;
         
 //        cout << "OOOOOOOOOOOOOOOOO Demande de suppression d'un utilisateur sur le serveur OOOOOOOOOOOOOOOOO" << endl;
 //        suppressionUser("2");

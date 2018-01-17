@@ -39,7 +39,7 @@ using namespace render;
 namespace server{
     void TestsNetwork();
     void affichageListe();
-    void ajoutUser();
+    bool ajoutUser();
     void suppressionUser(string);
     int getServerInfo(sf::Http*, std::string);
     int getCreaOtherPlayer(sf::Http*);
