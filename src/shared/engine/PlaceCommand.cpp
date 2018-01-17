@@ -36,8 +36,8 @@ namespace engine{
     
     void PlaceCommand::serialize (Json::Value& out, int nTour) const{
         // Connexion au serveur
-        sf::Http* Http = new sf::Http("http://localhost",8080);
-        Http->setHost("http://localhost",8080);
+        //sf::Http* Http = new sf::Http("http://localhost",8080);
+        //Http->setHost("http://localhost",8080);
         
         Json::Value placeCommand;
         placeCommand["type"] = "CommandTypeID::PLACE";
@@ -48,7 +48,7 @@ namespace engine{
         out.append(placeCommand);
         
         // Mise en place de la requete
-        sf::Http::Request request;
+        /*sf::Http::Request request;
         request.setMethod(sf::Http::Request::Put);
         request.setUri("/game");
         request.setHttpVersion(1, 1);
@@ -57,7 +57,7 @@ namespace engine{
         request.setBody(placeCommand.asString());
 
         // Envoi de la requete
-        sf::Http::Response answer = Http->sendRequest(request);
+        sf::Http::Response answer = Http->sendRequest(request);*/
         
     }
     

@@ -52,8 +52,8 @@ namespace engine{
     void MoveCommand::serialize (Json::Value& out, int nTour) const{
         
         // Connexion au serveur
-        sf::Http* Http = new sf::Http("http://localhost",8080);
-        Http->setHost("http://localhost",8080);
+        //sf::Http* Http = new sf::Http("http://localhost",8080);
+        //Http->setHost("http://localhost",8080);
         
         Json::Value moveCommandNM;
         moveCommandNM["type"] = "CommandTypeID::MOVE";
@@ -67,7 +67,7 @@ namespace engine{
         out.append(moveCommandNM);
         
         // Mise en place de la requete
-        sf::Http::Request request;
+        /*sf::Http::Request request;
         request.setMethod(sf::Http::Request::Put);
         request.setUri("/game");
         request.setHttpVersion(1, 1);
@@ -76,7 +76,7 @@ namespace engine{
         request.setBody(moveCommandNM.asString());
 
         // Envoi de la requete
-        sf::Http::Response answer = Http->sendRequest(request);
+        sf::Http::Response answer = Http->sendRequest(request);*/
             
         //std::cout << "MoveCommand : serialize : ajout commande json::value" << std::endl;
         

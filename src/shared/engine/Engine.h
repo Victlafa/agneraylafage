@@ -13,12 +13,16 @@ namespace state {
 namespace engine {
   class Command;
   class Action;
+};
+namespace state {
+  class Player;
 }
 
 #include "state/State.h"
 #include "state/CreaturesID.h"
 #include "Command.h"
 #include "Action.h"
+#include "state/Player.h"
 
 namespace engine {
 
@@ -37,7 +41,7 @@ namespace engine {
     Engine (state::CreaturesID CreaPl1, state::CreaturesID CreaPl2);
     ~Engine ();
     void addPassiveCommands ();
-    void addCommand (int priority, std::shared_ptr<Command> cmd);
+    virtual void addCommand (int priority, std::shared_ptr<Command> cmd);
     void update ();
     state::State& getState ();
     const std::unique_ptr<state::Player>& getPlayer (int num) const;
