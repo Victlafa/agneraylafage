@@ -2,7 +2,7 @@
 #ifndef SERVER__GAME__H
 #define SERVER__GAME__H
 
-#include <vector>
+#include <json/json.h>
 
 namespace engine {
   class Engine;
@@ -24,10 +24,9 @@ namespace server {
     int beginner     = 0;
     int party;
     int currentPlayer;
+    Json::Value listCommands;
   private:
     engine::Engine* moteur;
-  protected:
-    std::vector<engine::Command> listCommands;
     // Operations
   public:
     Game ();
@@ -37,8 +36,6 @@ namespace server {
     // Setters and Getters
     GameStatus getStatus() const;
     void setStatus(GameStatus status);
-    const std::vector<engine::Command>& getListCommands() const;
-    void setListCommands(const std::vector<engine::Command>& listCommands);
   };
 
 };

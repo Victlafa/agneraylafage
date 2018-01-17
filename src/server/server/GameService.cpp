@@ -25,7 +25,7 @@ HttpStatus GameService::get (Json::Value& out, int id) const {
     else if (id == 2)
         out["player"] = game.currentPlayer;
     else if (id>2)
-        out[id] = game.listCommands[id].asString;
+        out[id] = game.listCommands[id];
     else throw ServiceException(HttpStatus::NOT_FOUND,"GameService::get - Invalid game information id");
     
     return HttpStatus::OK;
@@ -42,12 +42,12 @@ HttpStatus GameService::post (const Json::Value& in, int id)
     return HttpStatus::OK;
 }
 
-HttpStatus GameService::put (Json::Value& out, Json::Value& in)
+HttpStatus GameService::put (const Json::Value& in, int id)
 {
     
     //listCommands.append(in);
-    
-    //else throw ServiceException(HttpStatus::NOT_FOUND,"GameService::post - Invalid game information id");
+    if(id>2) game.listCommands[id-2] = in;
+    else throw ServiceException(HttpStatus::NOT_FOUND,"GameService::post - Invalid game information id");
     
     return HttpStatus::OK;
 }

@@ -15,6 +15,7 @@ namespace server
         party = rand()%100 + 1;
         currentPlayer = beginner;
         status = GameStatus::CREATING;
+        listCommands = Json::Value(Json::arrayValue);
     };
     
     Game::~Game () {};
