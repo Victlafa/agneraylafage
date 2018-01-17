@@ -11,7 +11,7 @@ namespace server
 {
     Game::Game() {
         moteur = NULL;
-        beginner = rand()%2 + 1;
+        beginner = 1; //rand()%2 + 1;
         party = rand()%100 + 1;
         currentPlayer = beginner;
         status = GameStatus::CREATING;
