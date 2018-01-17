@@ -3,6 +3,7 @@
 #define CLIENT__SUPERENGINE__H
 
 #include <memory>
+#include <string>
 
 namespace engine {
   class Command;
@@ -10,6 +11,7 @@ namespace engine {
 }
 
 #include "engine/Command.h"
+#include "engine/CommandTypeID.h"
 #include "engine/Engine.h"
 
 namespace client {
@@ -19,6 +21,7 @@ namespace client {
     // Operations
   public:
     void addCommand (int priority, std::shared_ptr<engine::Command> cmd);
+    std::string convertCommandTypeToString (engine::CommandTypeID commandType);
     // Setters and Getters
   };
 

@@ -7,6 +7,9 @@
 //#include "../engine.h"
 #include <iostream>
 #include "SuperEngine.h"
+#include <SFML/Network.hpp>
+
+using namespace engine;
 
 namespace client {
 
@@ -19,20 +22,9 @@ namespace client {
         
         Json::Value command(Json::arrayValue);
         
-        if(convertTypeToString(cmd)=="2"){
-            command["type"] = "CommandTypeID::MOVE";
-            command["player"] = player;
-            command["initPos[0]"] = initPos[0];
-            command["initPos[1]"] = initPos[1];
-            command["finalPos[0]"] = finalPos[0];
-            command["finalPos[1]"] = finalPos[1];
-        }else if(convertTypeToString(cmd)=="3"){
-            command["type"] = "CommandTypeID::PLACE";
-            command["finalPos[0]"] = cmd->finalPos[0];
-            command["finalPos[1]"] = cmd->finalPos[1];
-            command["creaType"] = Element::translateType(cmd->creaType);
-            command["player"] = cmd->player;
-        }
+        command["type"] = convertCommandTypeToString(cmd->getType());
+        command["player"] = cmd->getPlayer();
+                    
         // Connexion au serveur
         sf::Http* Http = new sf::Http("http://localhost",8080);
         Http->setHost("http://localhost",8080);
@@ -55,7 +47,6 @@ namespace client {
         
     }
     
-
     std::string SuperEngine::convertCommandTypeToString (CommandTypeID commandType)
     {
         if (commandType == CommandTypeID::NEWGAME)
