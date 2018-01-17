@@ -10,7 +10,7 @@ using namespace server;
 using namespace std;
 
 GameService::GameService () : AbstractService("/game") {
-    srand(time(NULL));
+    srand(game.party);
 }
 
 HttpStatus GameService::get (Json::Value& out, int id) const {
