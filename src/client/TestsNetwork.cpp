@@ -201,6 +201,8 @@ namespace server{
     
     void nouvellePartie(int party, int beginner)
     {
+        cout << "TestsNetwork::nouvellePartie ligne 204 - numPlayer : " << numPlayer << endl;
+        
         // On prend possession du mutex
         notre_mutex.lock();
         // On initialise graine aleatoire correspondant à la partie selectionnée par le serveur
@@ -236,7 +238,7 @@ namespace server{
             }
            
             // On verifie si l'IA en cours a gagné ou non la partie
-            if (moteur.getState().getCellNbr() == moteur.getPlayer(numPlayer)->getCellNbr() || moteur.getPlayer(2 - numPlayer)->getCellNbr() == 0)
+            if (moteur.getState().getCellNbr() == moteur.getPlayer(numPlayer)->getCellNbr() || moteur.getPlayer(3 - numPlayer)->getCellNbr() == 0)
             {
                 cout << "L'IA n°" << numPlayer << " a conquit toute la carte ou a totalement eliminé son adversaire !" << endl;
                 break;
@@ -267,8 +269,8 @@ namespace server{
         HeuristicAI* adrIA = (HeuristicAI*) ia;
         sf::RenderWindow* adrGameWindow = (sf::RenderWindow*)gameWindow;
         int totalCellNbr = adrIA->getMoteur()->getState().getCellNbr();
-        bool is_IA_winner = (totalCellNbr == adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() == 0);
-        bool is_IA_loser = (totalCellNbr == adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
+        bool is_IA_winner = (totalCellNbr == adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(3 - numPlayer)->getCellNbr() == 0);
+        bool is_IA_loser = (totalCellNbr == adrIA->getMoteur()->getPlayer(3 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
         
         cout << "TestsNetwork::routine_thread - ligne 272" << endl;
         
@@ -299,8 +301,8 @@ namespace server{
                 std::this_thread::sleep_for(std::chrono::seconds(1));
 
                 // On verifie si l'un des deux joueurs a gagné ou non la partie
-                is_IA_winner = (totalCellNbr == adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() == 0);
-                is_IA_loser = (totalCellNbr == adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
+                is_IA_winner = (totalCellNbr == adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(3 - numPlayer)->getCellNbr() == 0);
+                is_IA_loser = (totalCellNbr == adrIA->getMoteur()->getPlayer(3 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
 
                 // Une fois son tour achevé on signale au serveur que l'adversaire peut debuter son tour
                 setOccupedPlayer(serveur, 2 - numPlayer);
