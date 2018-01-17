@@ -64,7 +64,7 @@ namespace server{
         // On recupere la partie utile contenue dans la reponse du serveur
         string nombre = reponse.substr(19,1);
         
-        std::cout << "crea other player : " << nombre << std::endl;
+        //std::cout << "getCreaOtherPlayer - type crea : " << nombre << std::endl;
         
         // On convertit le numero du joueur string en int
         return stoi(nombre);
@@ -288,7 +288,7 @@ namespace server{
                 // Une fois son tour achevé on signale au serveur que l'adversaire peut debuter son tour
                 setOccupedPlayer(serveur, 2 - numPlayer);
 
-                notre_mutex.unlock();
+                //notre_mutex.unlock();
             }
         }
         
