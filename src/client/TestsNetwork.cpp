@@ -247,7 +247,7 @@ namespace server{
         
         // Attente de la fin du thread
         threadIA.join();
-        std::cout << "\nNotre démonstration est terminée :)" << std::endl;
+        
     }
     
     void* routine_thread(void* ia,void* gameWindow)
@@ -256,34 +256,39 @@ namespace server{
         sf::Http* serveur = new sf::Http("http://localhost",8080);
         
         HeuristicAI* adrIA = (HeuristicAI*) ia;
-        //sf::RenderWindow* adrGameWindow = (sf::RenderWindow*)gameWindow;
+        sf::RenderWindow* adrGameWindow = (sf::RenderWindow*)gameWindow;
         int totalCellNbr = adrIA->getMoteur()->getState().getCellNbr();
         bool is_IA_winner = (totalCellNbr == adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() == 0);
         bool is_IA_loser = (totalCellNbr == adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
         
         // On effectue les actions voulues par le joueur si c'est à son tour de jouer
-        while (getServerInfo(serveur,"/game/2") == numPlayer && !is_IA_winner && !is_IA_loser)
+        while (!is_IA_winner && !is_IA_loser && adrGameWindow->isOpen())
         {
-            std::lock_guard<std::mutex> lock(notre_mutex);
+            // si c'est à son tour
+            if (getServerInfo(serveur,"/game/2") == numPlayer)
+            {
+                // On prend le mutex
+                std::lock_guard<std::mutex> lock(notre_mutex);
 
-            std::cout << "\n--------------    Tour n°" << tour / 2 + 1 << " - ";
+                std::cout << "\n--------------    Tour n°" << tour / 2 + 1 << " - ";
 
-            // Tour de l'IA
-            std::cout << "C'est à l'IA n°" << numPlayer << " de jouer    --------------" << std::endl << std::endl;
-            adrIA->run(numPlayer);
+                // Tour de l'IA
+                std::cout << "C'est à l'IA n°" << numPlayer << " de jouer    --------------" << std::endl << std::endl;
+                adrIA->run(numPlayer);
 
-            tour++;
-            adrIA->getMoteur()->increaseTour();
-            std::this_thread::sleep_for(std::chrono::seconds(1));
+                tour++;
+                adrIA->getMoteur()->increaseTour();
+                std::this_thread::sleep_for(std::chrono::seconds(1));
 
-            // On verifie si l'un des deux joueurs a gagné ou non la partie
-            is_IA_winner = (totalCellNbr == adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() == 0);
-            is_IA_loser = (totalCellNbr == adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
-            
-            // Une fois son tour achevé on signale au serveur que le joueur qui doit jouer est modifie
-            setOccupedPlayer(serveur,2-numPlayer);
-            
-            //notre_mutex.unlock();
+                // On verifie si l'un des deux joueurs a gagné ou non la partie
+                is_IA_winner = (totalCellNbr == adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() == 0);
+                is_IA_loser = (totalCellNbr == adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
+
+                // Une fois son tour achevé on signale au serveur que l'adversaire peut debuter son tour
+                setOccupedPlayer(serveur, 2 - numPlayer);
+
+                notre_mutex.unlock();
+            }
         }
         
         return 0;
@@ -315,9 +320,11 @@ namespace server{
         int party = getServerInfo(serveur,"/game/0");
         cout << "Joueur qui commence la partie : " << beginner << endl;
         cout << "Numero de la partie : " << party << endl;
-        cout << "La partie va commencer" << endl;
+        cout << "----------->> La partie va commencer <<-----------" << endl;
         
         nouvellePartie(party,beginner);
+        
+        std::cout << "\n----------->> Fin de la partie <<-----------" << std::endl;
         
 //        cout << "OOOOOOOOOOOOOOOOO Demande de suppression d'un utilisateur sur le serveur OOOOOOOOOOOOOOOOO" << endl;
 //        suppressionUser("2");
