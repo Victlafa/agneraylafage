@@ -24,13 +24,16 @@ namespace client {
         command["type"] = convertCommandTypeToString(cmd->getType());
         command["player"] = cmd->getPlayer();
 
-        if(convertCommandTypeToString(cmd->getType())=="2"){
+        if(cmd->getType() == engine::CommandTypeID::MOVE)
+        {
             engine::MoveCommand* mcmd = (engine::MoveCommand*)(cmd.get());
             command["initPos[0]"] = mcmd->getInitPos()[0];
             command["initPos[1]"] = mcmd->getInitPos()[1];
             command["finalPos[0]"] = mcmd->getFinalPos()[0];
             command["finalPos[1]"] = mcmd->getFinalPos()[1];
-        }else if(convertCommandTypeToString(cmd->getType())=="3"){
+        }
+        else if(cmd->getType() == engine::CommandTypeID::PLACE)
+        {
             engine::PlaceCommand* pcmd = (engine::PlaceCommand*)(cmd.get());
             command["finalPos[0]"] = pcmd->getFinalPos()[0];
             command["finalPos[1]"] = pcmd->getFinalPos()[1];
