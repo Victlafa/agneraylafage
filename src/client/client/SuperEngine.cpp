@@ -5,8 +5,10 @@
  */
 
 //#include "../engine.h"
+#include <SFML/Network.hpp>
 #include <iostream>
 #include "SuperEngine.h"
+#include "../../shared/state/Element.h"
 
 namespace client {
 
@@ -19,19 +21,21 @@ namespace client {
         
         Json::Value command(Json::arrayValue);
         
-        if(convertTypeToString(cmd)=="2"){
+        if(convertCommandTypeToString(cmd->getType())=="2"){
+            engine::MoveCommand* mcmd = (engine::MoveCommand*)(cmd.get());
             command["type"] = "CommandTypeID::MOVE";
-            command["player"] = player;
-            command["initPos[0]"] = initPos[0];
-            command["initPos[1]"] = initPos[1];
-            command["finalPos[0]"] = finalPos[0];
-            command["finalPos[1]"] = finalPos[1];
-        }else if(convertTypeToString(cmd)=="3"){
+            command["player"] = cmd->getPlayer();
+            command["initPos[0]"] = mcmd->getInitPos()[0];
+            command["initPos[1]"] = mcmd->getInitPos()[1];
+            command["finalPos[0]"] = mcmd->getFinalPos()[0];
+            command["finalPos[1]"] = mcmd->getFinalPos()[1];
+        }else if(convertCommandTypeToString(cmd->getType())=="3"){
+            engine::PlaceCommand* pcmd = (engine::PlaceCommand*)(cmd.get());
             command["type"] = "CommandTypeID::PLACE";
-            command["finalPos[0]"] = cmd->finalPos[0];
-            command["finalPos[1]"] = cmd->finalPos[1];
-            command["creaType"] = Element::translateType(cmd->creaType);
-            command["player"] = cmd->player;
+            command["finalPos[0]"] = pcmd->getFinalPos()[0];
+            command["finalPos[1]"] = pcmd->getFinalPos()[1];
+            command["creaType"] = state::Element::translateType(pcmd->getCreaType());
+            command["player"] = cmd->getPlayer();
         }
         // Connexion au serveur
         sf::Http* Http = new sf::Http("http://localhost",8080);
@@ -56,19 +60,19 @@ namespace client {
     }
     
 
-    std::string SuperEngine::convertCommandTypeToString (CommandTypeID commandType)
+    std::string SuperEngine::convertCommandTypeToString (engine::CommandTypeID commandType)
     {
-        if (commandType == CommandTypeID::NEWGAME)
+        if (commandType == engine::CommandTypeID::NEWGAME)
             return "CommandTypeID::NEWGAME";
-        else if (commandType == CommandTypeID::MOVE)
+        else if (commandType == engine::CommandTypeID::MOVE)
             return "CommandTypeID::MOVE";
-        else if (commandType == CommandTypeID::PLACE)
+        else if (commandType == engine::CommandTypeID::PLACE)
             return "CommandTypeID::PLACE";
-        else if (commandType == CommandTypeID::POISON)
+        else if (commandType == engine::CommandTypeID::POISON)
             return "CommandTypeID::POISON";
-        else if (commandType == CommandTypeID::PROTECTED)
+        else if (commandType == engine::CommandTypeID::PROTECTED)
             return "CommandTypeID::PROTECTED";
-        else if (commandType == CommandTypeID::SPECIAL)
+        else if (commandType == engine::CommandTypeID::SPECIAL)
             return "CommandTypeID::SPECIAL";
         else
             throw std::runtime_error("SuperEngine::convertCommandTypeToString - l'arguement d'entrée n'est pas valide !");
