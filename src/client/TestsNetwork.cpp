@@ -6,6 +6,7 @@
 
 #include "TestsNetwork.h"
 
+
 using namespace std;
 
 namespace server{
@@ -46,7 +47,27 @@ namespace server{
         
         // On recupere la partie utile contenue dans la reponse du serveur
         int tailleReponse = reponse.size();
-        string nombre = reponse.substr(tailleReponse - 4,1);
+        string nombre;
+        
+        if (uri == "/game/0")
+        {
+            // si le nombre ne comporte pas 3 chiffres (on verifie que la conversion de string en int est possible)
+            if (!strtol(reponse.substr(tailleReponse - 6,3).c_str(),nullptr,10))
+            {
+                // si le nombre n'en comporte pas 2
+                if (!(strtol(reponse.substr(tailleReponse - 5,2).c_str(),nullptr,10)))
+                    // alors il en comporte un seul
+                    nombre = reponse.substr(tailleReponse - 4,1);
+                else
+                    nombre = reponse.substr(tailleReponse - 5,2);
+            }
+            else
+                nombre = reponse.substr(tailleReponse - 6,3);
+                
+        }
+        else
+            nombre = reponse.substr(tailleReponse - 4,1);
+        
         // On convertit le nombre de joueur string en int
         return stoi(nombre);
     }
@@ -227,7 +248,7 @@ namespace server{
         sf::RenderWindow gameWindow(sf::VideoMode(1024, 720), "Garden Tensions");
         
         // On créé le thread lie à l'utilisation de l'ia et du moteur
-        thread threadIA(routine_thread,(void*)&ia,(void*)&gameWindow);
+        //thread threadIA(routine_thread,(void*)&ia,(void*)&gameWindow);
         
         while (gameWindow.isOpen()) {
             
@@ -256,7 +277,7 @@ namespace server{
         }
         
         // Attente de la fin du thread
-        threadIA.join();
+        //threadIA.join();
         
     }
     
