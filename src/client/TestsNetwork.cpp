@@ -248,7 +248,7 @@ namespace server{
         sf::RenderWindow gameWindow(sf::VideoMode(1024, 720), "Garden Tensions");
         
         // On créé le thread lie à l'utilisation de l'ia et du moteur
-        //thread threadIA(routine_thread,(void*)&ia,(void*)&gameWindow);
+        thread threadIA(routine_thread,(void*)&ia,(void*)&gameWindow);
         
         while (gameWindow.isOpen()) {
             
@@ -277,7 +277,7 @@ namespace server{
         }
         
         // Attente de la fin du thread
-        //threadIA.join();
+        threadIA.join();
         
     }
     
