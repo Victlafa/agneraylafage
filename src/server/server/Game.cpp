@@ -6,6 +6,9 @@
 
 #include "Game.h"
 #include <cstdlib>
+#include <iostream>
+
+using namespace std;
 
 namespace server
 {
@@ -13,6 +16,7 @@ namespace server
         moteur = NULL;
         beginner = 1; //rand()%2 + 1;
         party = rand()%100 + 1;
+        cout << "Game::Game - numero de la partie : " << party << endl;
         currentPlayer = beginner;
         status = GameStatus::CREATING;
         listCommands = Json::Value(Json::arrayValue);

@@ -28,7 +28,7 @@ namespace engine
     
     const std::unique_ptr<state::Player>& Engine::getPlayer (int num) const 
     {
-        cout << "Engine::getPlayer - num : " << num << endl;
+        //cout << "Engine::getPlayer - num : " << num << endl;
         if (num == 1)
             return currentState.getPlayer(1);
         else if (num == 2)

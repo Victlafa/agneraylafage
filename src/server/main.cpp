@@ -235,6 +235,8 @@ int main(int argc, char** argv) {
     
     else if (argc >= 2 && (string) argv[1] == "listen"){
         
+        srand(time(NULL));
+        
         try {
             ServicesManager servicesManager;
             servicesManager.registerService(std::move(std::unique_ptr<VersionService>(new VersionService())));
