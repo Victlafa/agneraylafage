@@ -18,6 +18,7 @@ namespace engine {
 }
 
 #include "engine/Command.h"
+#include "engine/CommandTypeID.h"
 #include "engine/Engine.h"
 #include "state/Element.h"
 #include "engine/PlaceCommand.h"
@@ -30,7 +31,7 @@ namespace client {
     // Operations
   public:
     void addCommand (int priority, std::shared_ptr<engine::Command> cmd);
-    std::string convertCommandTypeToString (engine::CommandTypeID cmd);
+    std::string convertCommandTypeToString (engine::CommandTypeID commandType);
     // Setters and Getters
   };
 

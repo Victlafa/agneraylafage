@@ -21,22 +21,22 @@ namespace client {
         
         Json::Value command(Json::arrayValue);
         
+        command["type"] = convertCommandTypeToString(cmd->getType());
+        command["player"] = cmd->getPlayer();
+
         if(convertCommandTypeToString(cmd->getType())=="2"){
             engine::MoveCommand* mcmd = (engine::MoveCommand*)(cmd.get());
-            command["type"] = "CommandTypeID::MOVE";
-            command["player"] = cmd->getPlayer();
             command["initPos[0]"] = mcmd->getInitPos()[0];
             command["initPos[1]"] = mcmd->getInitPos()[1];
             command["finalPos[0]"] = mcmd->getFinalPos()[0];
             command["finalPos[1]"] = mcmd->getFinalPos()[1];
         }else if(convertCommandTypeToString(cmd->getType())=="3"){
             engine::PlaceCommand* pcmd = (engine::PlaceCommand*)(cmd.get());
-            command["type"] = "CommandTypeID::PLACE";
             command["finalPos[0]"] = pcmd->getFinalPos()[0];
             command["finalPos[1]"] = pcmd->getFinalPos()[1];
             command["creaType"] = state::Element::translateType(pcmd->getCreaType());
-            command["player"] = cmd->getPlayer();
         }
+
         // Connexion au serveur
         sf::Http* Http = new sf::Http("http://localhost",8080);
         Http->setHost("http://localhost",8080);

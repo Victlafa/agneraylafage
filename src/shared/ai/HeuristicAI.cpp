@@ -46,6 +46,7 @@ namespace ai
             moveCmd = new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player);
             //std::cout << "HeuristicAI : serialize move" << std::endl;
             moveCmd->serialize(lCommandes, getMoteur()->getTour());
+            getMoteur()->addCommand(1,std::shared_ptr<engine::Command>(std::move(moveCmd)));
             moveCmd->execute(getMoteur()->getPileAction(), getMoteur()->getState());
 
             // On verifie que le deplacement de la phase de conquete a bien ete effectue
@@ -75,6 +76,7 @@ namespace ai
                 placement = new engine::PlaceCommand(newCreasCoordsUnitaires[0], newCreasCoordsUnitaires[1], player, (state::ID)getMoteur()->getPlayer(player)->getClanName());
                 
                 placement->serialize(lCommandes, getMoteur()->getTour());
+                getMoteur()->addCommand(1,std::shared_ptr<engine::Command>(std::move(placement)));
                 //std::cout << "HeuristicAI : serialize placement" << std::endl;
                 placement->execute(getMoteur()->getPileAction(), getMoteur()->getState());
                 //cout << "Nombre de cellules vides restantes apres placement : " << getMoteur()->getState().getFreeCellNbr() << endl;
