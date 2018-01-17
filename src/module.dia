@@ -4949,7 +4949,7 @@
                 <dia:string>#cmd#</dia:string>
               </dia:attribute>
               <dia:attribute name="type">
-                <dia:string>#std::shared_ptr&lt;state::Command&gt;#</dia:string>
+                <dia:string>#std::shared_ptr&lt;engine::Command&gt;#</dia:string>
               </dia:attribute>
               <dia:attribute name="value">
                 <dia:string>##</dia:string>

@@ -5,9 +5,11 @@
 #include <memory>
 
 namespace engine {
+  class Command;
   class Engine;
 }
 
+#include "engine/Command.h"
 #include "engine/Engine.h"
 
 namespace client {
@@ -16,7 +18,7 @@ namespace client {
   class SuperEngine : public engine::Engine {
     // Operations
   public:
-    void addCommand (int priority, std::shared_ptr<state::Command> cmd);
+    void addCommand (int priority, std::shared_ptr<engine::Command> cmd);
     // Setters and Getters
   };
 

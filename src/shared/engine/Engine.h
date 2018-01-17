@@ -30,9 +30,10 @@ namespace engine {
   class Engine {
     // Associations
     // Attributes
+  public:
+    std::map<int,std::shared_ptr<Command> > currentCommands;
   private:
     state::State currentState;
-    std::map<int,std::shared_ptr<Command> > currentCommands;
     int tour;
     std::stack<std::shared_ptr<Action> > pileAction;
     Json::Value record;
