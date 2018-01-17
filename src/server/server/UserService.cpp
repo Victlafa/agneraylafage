@@ -16,13 +16,13 @@ using namespace state;
 state::CreaturesID translateStringType (string typeElement)
     {
         if (typeElement == "BLACKSMITHS")
-            return CreaturesID::BLACKSMITHS;
+            return state::CreaturesID::BLACKSMITHS;
         else if (typeElement == "COOKERS") 
-            return CreaturesID::COOKERS;
+            return state::CreaturesID::COOKERS;
         else if (typeElement == "LUMBERJACKS")
-            return CreaturesID::LUMBERJACKS;
+            return state::CreaturesID::LUMBERJACKS;
         else if (typeElement == "MINERS")
-            return CreaturesID::MINERS;
+            return state::CreaturesID::MINERS;
         else
             throw std::runtime_error("UserService - translateType (string -> CreaturesID) - utilisation d'un argument non valable");
     }
