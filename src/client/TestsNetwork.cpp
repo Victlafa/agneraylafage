@@ -33,13 +33,13 @@ namespace server{
             throw std::runtime_error("TestsNetwork - translateType (CreaturesID -> string) - utilisation d'un argument non valable");
     }
     
-    int getPlayerNbr(sf::Http* serveur)
+    int getServerInfo(sf::Http* serveur, std::string uri)
     {
         sf::Http::Request request;
         request.setMethod(sf::Http::Request::Get);
         request.setHttpVersion(1, 1);
         request.setField("Content-Type", "application/x-www-form-urlencoded");
-        request.setUri("/user/0");
+        request.setUri(uri);
         sf::Http::Response answer = serveur->sendRequest(request);
         string reponse = answer.getBody();
         
@@ -47,40 +47,6 @@ namespace server{
         int tailleReponse = reponse.size();
         string nombre = reponse.substr(tailleReponse - 4,1);
         // On convertit le nombre de joueur string en int
-        return stoi(nombre);
-    }
-    
-    int getPartyNbr(sf::Http* serveur)
-    {
-        sf::Http::Request request;
-        request.setMethod(sf::Http::Request::Get);
-        request.setHttpVersion(1, 1);
-        request.setField("Content-Type", "application/x-www-form-urlencoded");
-        request.setUri("/game/0");
-        sf::Http::Response answer = serveur->sendRequest(request);
-        string reponse = answer.getBody();
-        
-        // On recupere la partie utile contenue dans la reponse du serveur
-        int tailleReponse = reponse.size();
-        string nombre = reponse.substr(tailleReponse - 4,1);
-        // On convertit le nombre de joueur string en int
-        return stoi(nombre);
-    }
-    
-    int getPartyBeginner(sf::Http* serveur)
-    {
-        sf::Http::Request request;
-        request.setMethod(sf::Http::Request::Get);
-        request.setHttpVersion(1, 1);
-        request.setField("Content-Type", "application/x-www-form-urlencoded");
-        request.setUri("/game/1");
-        sf::Http::Response answer = serveur->sendRequest(request);
-        string reponse = answer.getBody();
-        
-        // On recupere la partie utile contenue dans la reponse du serveur
-        int tailleReponse = reponse.size();
-        string nombre = reponse.substr(tailleReponse - 4,1);
-        // On convertit le numero du joueur string en int
         return stoi(nombre);
     }
     
@@ -99,24 +65,6 @@ namespace server{
         string nombre = reponse.substr(19,1);
         
         std::cout << "crea other player : " << nombre << std::endl;
-        
-        // On convertit le numero du joueur string en int
-        return stoi(nombre);
-    }
-
-    int getOccupedPlayer(sf::Http* serveur)
-    {
-        sf::Http::Request request;
-        request.setMethod(sf::Http::Request::Get);
-        request.setHttpVersion(1, 1);
-        request.setField("Content-Type", "application/x-www-form-urlencoded");
-        request.setUri("/game/2");
-        sf::Http::Response answer = serveur->sendRequest(request);
-        string reponse = answer.getBody();
-        
-        // On recupere la partie utile contenue dans la reponse du serveur
-        int tailleReponse = reponse.size();
-        string nombre = reponse.substr(tailleReponse - 4,1);
         
         // On convertit le numero du joueur string en int
         return stoi(nombre);
@@ -151,7 +99,7 @@ namespace server{
         sf::Http::Response answer;
         
         // On effectue une premiere requete pour savoir combien de joueurs sont presents sur le serveur
-        nbJoueurs = getPlayerNbr(serveur);
+        nbJoueurs = getServerInfo(serveur,"/user/0");
         
         // On affiche un à un les joueurs
         for (int i = 1; i <= nbJoueurs; i++)
@@ -176,7 +124,7 @@ namespace server{
         Http->setHost("http://localhost",8080);
         
         // On recupere nbre de joueurs presents sur le serveur
-        int nbr = getPlayerNbr(Http);
+        int nbr = getServerInfo(Http,"/user/0");
         // Si aucun joueur n'est present, celui qui se connecte devient le numéro 1, s'il y a un joueur présent, il sera le numero 2
         numPlayer = nbr + 1;
         
@@ -314,7 +262,7 @@ namespace server{
         bool is_IA_loser = (totalCellNbr == adrIA->getMoteur()->getPlayer(2 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
         
         // On effectue les actions voulues par le joueur si c'est à son tour de jouer
-        while (getOccupedPlayer(serveur) == numPlayer && !is_IA_winner && !is_IA_loser)
+        while (getServerInfo(serveur,"/game/2") == numPlayer && !is_IA_winner && !is_IA_loser)
         {
             std::lock_guard<std::mutex> lock(notre_mutex);
 
@@ -356,15 +304,15 @@ namespace server{
         affichageListe();
         
         // On reste sur le serveur tant qu'un deuxieme joueur n'a pas rejoint la partie
-        while (getPlayerNbr(serveur) != 2) 
+        while (getServerInfo(serveur,"/user/0") != 2) 
         { 
             cout << "En attente d'un deuxieme joueur" << endl;
             sf::sleep(sf::seconds(2.0f));
         }
         
         // Les deux joueurs sont connectés, la partie peut commencer
-        int beginner = getPartyBeginner(serveur);
-        int party = getPartyNbr(serveur);
+        int beginner = getServerInfo(serveur,"/game/1");
+        int party = getServerInfo(serveur,"/game/0");
         cout << "Joueur qui commence la partie : " << beginner << endl;
         cout << "Numero de la partie : " << party << endl;
         cout << "La partie va commencer" << endl;
