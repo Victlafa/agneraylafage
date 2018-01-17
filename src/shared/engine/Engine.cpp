@@ -28,13 +28,17 @@ namespace engine
     
     const std::unique_ptr<state::Player>& Engine::getPlayer (int num) const 
     {
+        cout << "Engine::getPlayer - num : " << num << endl;
         if (num == 1)
             return currentState.getPlayer(1);
         else if (num == 2)
             return currentState.getPlayer(2);
         else
+        {
             throw std::runtime_error("Engine::getPlayer - Vous avez entré un mauvais numéro en argument !\n");
             return NULL;
+        }
+            
     }
     
     void Engine::addPassiveCommands () {
