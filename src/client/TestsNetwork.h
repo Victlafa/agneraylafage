@@ -31,6 +31,9 @@
 #include <unistd.h>
 #include <sys/types.h>
 
+#include <fstream>
+
+using namespace engine;
 using namespace state;
 using namespace ai;
 using namespace std;
