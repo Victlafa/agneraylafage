@@ -13,15 +13,13 @@ namespace state {
   class Element;
 };
 namespace engine {
-  class PlaceCommand;
   class MoveCommand;
 }
 
 #include "engine/Command.h"
-#include "engine/CommandTypeID.h"
+#include "state/CreaturesID.h"
 #include "engine/Engine.h"
 #include "state/Element.h"
-#include "engine/PlaceCommand.h"
 #include "engine/MoveCommand.h"
 
 namespace client {
@@ -31,7 +29,8 @@ namespace client {
     // Operations
   public:
     void addCommand (int priority, std::shared_ptr<engine::Command> cmd);
-    std::string convertCommandTypeToString (engine::CommandTypeID commandType);
+    std::string convertCommandTypeToString (engine::CommandTypeID cmd);
+    SuperEngine (state::CreaturesID creaPl1, state::CreaturesID creaPl2);
     // Setters and Getters
   };
 

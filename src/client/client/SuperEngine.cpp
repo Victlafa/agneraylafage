@@ -9,10 +9,13 @@
 #include <iostream>
 #include "SuperEngine.h"
 #include "../../shared/state/Element.h"
+#include "engine/PlaceCommand.h"
 
 namespace client {
 
-      
+    SuperEngine::SuperEngine (state::CreaturesID creaPl1, state::CreaturesID creaPl2) : Engine(creaPl1, creaPl2){
+    }  
+    
     void SuperEngine::addCommand (int priority, std::shared_ptr<engine::Command> cmd) {
 
         std::cout << "Entree dans SuperEngine::addCommand" << std::endl;
