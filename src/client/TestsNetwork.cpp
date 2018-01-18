@@ -50,6 +50,7 @@ namespace server{
         int tailleReponse = reponse.size();
         string nombre;
         
+        // Si on cherche à recuperer le numero de la partie tirée au hasard par le serveur
         if (uri == "/game/0")
         {
             // si le nombre ne comporte pas 3 chiffres (on verifie que la conversion de string en int est possible)
@@ -66,6 +67,7 @@ namespace server{
                 nombre = reponse.substr(tailleReponse - 6,3);
                 
         }
+        // Si on cherche à recuperer d'autres infos sur le serveur
         else
             nombre = reponse.substr(tailleReponse - 4,1);
         
@@ -294,6 +296,13 @@ namespace server{
         bool is_IA_winner = (totalCellNbr == adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(3 - numPlayer)->getCellNbr() == 0);
         bool is_IA_loser = (totalCellNbr == adrIA->getMoteur()->getPlayer(3 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
         
+//        Json::Reader reader;
+//        Json::Value fichier;
+//        std::ifstream file("./src/replay.txt", std::ifstream::in);
+//
+//        if (!reader.parse(file, fichier))
+//            throw std::runtime_error("Erreur lors de la recuperation des donnees contenues dans replay.txt");
+    
         cout << "TestsNetwork::routine_thread - ligne 272" << endl;
         
         // On effectue les actions voulues par le joueur si c'est à son tour de jouer
@@ -333,6 +342,24 @@ namespace server{
 
                 //notre_mutex.unlock();
             }
+            
+            // si c'est à l'adversaire de jouer
+//            else if (getServerInfo(serveur,"/game/2") == 3 - numPlayer)
+//            {
+//                Json::Value donneesCommandes = fichier[tour + 1];
+//                
+//                // Pour chaque commande du tour on recupere ses parametres et on l'execute
+//                for (unsigned int j = 0; j < donneesCommandes.size(); j++) {
+//                    if (j == 0)
+//                        std::cout << "\n-------------------------------- PHASE DE CONQUETE --------------------------------" << std::endl << std::endl;
+//                    else if (j == 3)
+//                        std::cout << "\n-------------------------------- PHASE DE RENFORT --------------------------------" << std::endl << std::endl;
+//                    Json::Value commande = fichier[tour + 1][j];
+//                    //cout << "Type de commande executee : " << commande.get("type","").asString() << endl;
+//                    Command* comm = Command::deserialize(commande);
+//                    comm->execute(adrIA->getMoteur()->getPileAction(), adrIA->getMoteur()->getState());
+//                }
+//            }
         }
         
         cout << "TestsNetwork::routine_thread - ligne 311" << endl;
