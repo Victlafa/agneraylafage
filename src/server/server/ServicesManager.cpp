@@ -92,7 +92,7 @@ HttpStatus ServicesManager::queryService (std::string& out, const std::string& i
         if (!jsonReader.parse(in,jsonIn))
             throw ServiceException(HttpStatus::BAD_REQUEST,"Données invalides: "+jsonReader.getFormattedErrorMessages());
         Json::Value jsonOut;
-        HttpStatus status = service->put(jsonOut,jsonIn);
+        HttpStatus status = service->put(jsonOut, jsonIn);
         out = jsonOut.toStyledString();
         return status;
     }
