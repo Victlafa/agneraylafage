@@ -21,34 +21,26 @@ namespace client {
         std::cout << "Entree dans SuperEngine::addCommand" << std::endl;
         // On ajoute une commande :
         this->currentCommands.emplace(priority,cmd);
-        std::cout << "SuperEngine::addCommand emplace OK" << std::endl;
         
         Json::Value command;//(Json::arrayValue);
         
-        std::cout << "SuperEngine::addCommand utilisation command" << std::endl;
         command["type"] = convertCommandTypeToString(cmd->getType());
-        std::cout << "SuperEngine::addCommand type OK" << std::endl;
         command["player"] = cmd->getPlayer();
-        std::cout << "SuperEngine::addCommand player OK" << std::endl;
 
         if(cmd->getType() == engine::CommandTypeID::MOVE)
         {
             engine::MoveCommand* mcmd = (engine::MoveCommand*)(cmd.get());
             command["initPos[0]"] = mcmd->getInitPos()[0];
             command["initPos[1]"] = mcmd->getInitPos()[1];
-            std::cout << "SuperEngine::addCommand InitPos OK" << std::endl;
             command["finalPos[0]"] = mcmd->getFinalPos()[0];
             command["finalPos[1]"] = mcmd->getFinalPos()[1];
-            std::cout << "SuperEngine::addCommand FinalPos OK" << std::endl;
         }
         else if(cmd->getType() == engine::CommandTypeID::PLACE)
         {
             engine::PlaceCommand* pcmd = (engine::PlaceCommand*)(cmd.get());
             command["finalPos[0]"] = pcmd->getFinalPos()[0];
             command["finalPos[1]"] = pcmd->getFinalPos()[1];
-            std::cout << "SuperEngine::addCommand finalPos OK" << std::endl;
             command["creaType"] = state::Element::translateType(pcmd->getCreaType());
-            std::cout << "SuperEngine::addCommand creaType OK" << std::endl;
         }
 
         // Connexion au serveur
@@ -70,6 +62,7 @@ namespace client {
         // la map trie automatiquement les clés dans l'ordre croissant (en principe, à vérifier)
         // Ajout de commandes automatiques
         addPassiveCommands();
+        std::cout << "SuperEngine::addCommand sortie methode OK" << std::endl;
         
     }
     
