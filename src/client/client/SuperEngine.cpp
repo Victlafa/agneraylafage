@@ -42,7 +42,7 @@ namespace client {
             command["finalPos[1]"] = pcmd->getFinalPos()[1];
             command["creaType"] = state::Element::translateType(pcmd->getCreaType());
         }
-
+        
         // Connexion au serveur
         sf::Http* Http = new sf::Http("http://localhost",8080);
         Http->setHost("http://localhost",8080);
@@ -60,8 +60,6 @@ namespace client {
         sf::Http::Response answer = Http->sendRequest(request);
         
         // la map trie automatiquement les clés dans l'ordre croissant (en principe, à vérifier)
-        // Ajout de commandes automatiques
-        addPassiveCommands();
         std::cout << "SuperEngine::addCommand sortie methode OK" << std::endl;
         
     }
