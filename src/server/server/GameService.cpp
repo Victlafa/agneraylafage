@@ -5,6 +5,8 @@
  */
 
 #include "GameService.hpp"
+#include <fstream>
+#include <iostream>
 
 using namespace server;
 using namespace std;
@@ -40,13 +42,28 @@ HttpStatus GameService::post (const Json::Value& in, int id)
     return HttpStatus::OK;
 }
 
-HttpStatus GameService::put (const Json::Value& in)
+HttpStatus GameService::put (Json::Value& out, const Json::Value& in)
 {
+    std::cout << "GameService::put entree de la methode" << std::endl;
+    
+    std::ofstream file("./src/command.txt", std::ios::out);
+    file.open("../command.txt");
+    if(file.bad()){
+        std::cout << "Erreur avec le fichier command.txt" << std::endl;
+        return HttpStatus::SERVER_ERROR;
+    }
+    
+    Json::StyledWriter styledWriter;
+    
     std::cout << "GameService::put" << std::endl;
     game.listCommands[game.idmax] = in;
+    out[game.idmax] = in;
     std::cout << "GameService::put ajout listCommand OK" << std::endl;
     game.idmax++;
     std::cout << "GameService::put incrémentation idmax OK" << std::endl;
+    
+    file << styledWriter.write(game.listCommands);
+    
     return HttpStatus::OK;
 }
 
