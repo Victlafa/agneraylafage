@@ -5,6 +5,7 @@
  */
 
 #include "TestsNetwork.h"
+#include "./client.h"
 
 
 using namespace std;
@@ -233,7 +234,7 @@ namespace server{
         sf::Http* serveur = new sf::Http("http://localhost",8080);
         
         // On initialise un moteur à partir du type de creatures choisies par le joueur
-        engine::Engine moteur((numPlayer==1) ? (CreaturesID)creaturesChoisies : (CreaturesID)getCreaOtherPlayer(serveur), (numPlayer==2) ? (CreaturesID)creaturesChoisies : (CreaturesID)getCreaOtherPlayer(serveur));
+        client::SuperEngine moteur((numPlayer==1) ? (CreaturesID)creaturesChoisies : (CreaturesID)getCreaOtherPlayer(serveur), (numPlayer==2) ? (CreaturesID)creaturesChoisies : (CreaturesID)getCreaOtherPlayer(serveur));
         // On initialise l'ia
         HeuristicAI ia(&moteur, party);
         
