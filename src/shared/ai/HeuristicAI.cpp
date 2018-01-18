@@ -51,10 +51,15 @@ namespace ai
             
             std::cout << "HeuristicAI::run - taille de la pile avant execute" << getMoteur()->getPileAction().size() << endl;
             
-            if (moveCmd)
-                moveCmd->execute(getMoteur()->getPileAction(), getMoteur()->getState());
-            else
-                throw runtime_error("HeuristicAI::run - moveCmd est null !");
+            std::stack<std::shared_ptr<engine::Action>>  pilebis = getMoteur()->getPileAction();
+            
+            std::cout << "HeuristicAI::run - getPileAction OK" << std::endl;
+            
+            getMoteur()->update();
+            //if (moveCmd){
+            //    moveCmd->execute(getMoteur()->getPileAction(), getMoteur()->getState());
+            //}else
+            //    throw runtime_error("HeuristicAI::run - moveCmd est null !");
             
             std::cout << "HeuristicAI::run - apres execute" << std::endl;
 
@@ -87,7 +92,8 @@ namespace ai
                 placement->serialize(lCommandes, getMoteur()->getTour());
                 getMoteur()->addCommand(1,std::shared_ptr<engine::Command>(std::move(placement)));
                 //std::cout << "HeuristicAI : serialize placement" << std::endl;
-                placement->execute(getMoteur()->getPileAction(), getMoteur()->getState());
+                getMoteur()->update();
+                //placement->execute(getMoteur()->getPileAction(), getMoteur()->getState());
                 //cout << "Nombre de cellules vides restantes apres placement : " << getMoteur()->getState().getFreeCellNbr() << endl;
                 //cout << "Nombre de cellules du joueur : " << getMoteur()->getPlayer(player)->getCellNbr() << endl;
                 
