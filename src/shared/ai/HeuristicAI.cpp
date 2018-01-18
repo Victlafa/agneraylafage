@@ -47,7 +47,16 @@ namespace ai
             //std::cout << "HeuristicAI : serialize move" << std::endl;
             moveCmd->serialize(lCommandes, getMoteur()->getTour());
             getMoteur()->addCommand(1,std::shared_ptr<engine::Command>(std::move(moveCmd)));
-            moveCmd->execute(getMoteur()->getPileAction(), getMoteur()->getState());
+            std::cout << "HeuristicAI::run - avant execute" << std::endl;
+            
+            std::cout << "HeuristicAI::run - taille de la pile avant execute" << getMoteur()->getPileAction().size() << endl;
+            
+            if (moveCmd)
+                moveCmd->execute(getMoteur()->getPileAction(), getMoteur()->getState());
+            else
+                throw runtime_error("HeuristicAI::run - moveCmd est null !");
+            
+            std::cout << "HeuristicAI::run - apres execute" << std::endl;
 
             // On verifie que le deplacement de la phase de conquete a bien ete effectue
             if (creaTab->get(coordsDeplacement[2], coordsDeplacement[3]) == NULL)
