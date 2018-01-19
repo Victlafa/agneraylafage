@@ -313,7 +313,7 @@ namespace server{
                 // si c'est à l'adversaire de jouer
                 else if (getServerInfo(serveur,"/game/2") == 3 - numPlayer)
                 {
-                    cout << "Tour de l'adversaire" << endl;
+                    cout << "\n>>>>>>>>>>>>>>>>> TOUR DE L'ADVERSAIRE <<<<<<<<<<<<<<<<<" << endl;
 //                    Json::Value donneesCommandes = fichier[tour + 1];
 //
 //                    // Pour chaque commande du tour on recupere ses parametres et on l'execute

@@ -33,18 +33,20 @@ HttpStatus GameService::get (Json::Value& out, int id) const {
 
 HttpStatus GameService::post (const Json::Value& in, int id)
 {
+    //std::cout << "GameService::post entree dans la methode" << std::endl;
     if (id == 2)
     {
         if (in.isMember("player")) game.currentPlayer = in["player"].asInt();
     }
     else throw ServiceException(HttpStatus::NOT_FOUND,"GameService::post - Invalid game information id");
     
+    //std::cout << "GameService::post sortie de la methode" << std::endl;
     return HttpStatus::OK;
 }
 
 HttpStatus GameService::put (Json::Value& out, const Json::Value& in)
 {
-    std::cout << "GameService::put entree de la methode" << std::endl;
+    //std::cout << "GameService::put entree dans la methode" << std::endl;
     
     std::ofstream file("./src/command.txt", std::ios::out);
     file.open("../command.txt");
@@ -55,12 +57,9 @@ HttpStatus GameService::put (Json::Value& out, const Json::Value& in)
     
     Json::StyledWriter styledWriter;
     
-    std::cout << "GameService::put" << std::endl;
     game.listCommands[game.idmax] = in;
     out[game.idmax] = in;
-    std::cout << "GameService::put ajout listCommand OK" << std::endl;
     game.idmax++;
-    std::cout << "GameService::put incrémentation idmax OK" << std::endl;
     
     file << styledWriter.write(game.listCommands);
     

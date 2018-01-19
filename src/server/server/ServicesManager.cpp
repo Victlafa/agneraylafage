@@ -38,6 +38,8 @@ AbstractService* ServicesManager::findService (const std::string& url) const {
 
 HttpStatus ServicesManager::queryService (std::string& out, const std::string& in, const std::string& url, const std::string& method) { 
         
+    //cerr << "ServicesManager::queryService - requete avec contenu : " << in << endl;
+    
     // On cherche le service approprie
     AbstractService* service = findService(url);
     if (!service)
@@ -78,6 +80,9 @@ HttpStatus ServicesManager::queryService (std::string& out, const std::string& i
         return status;
     }
     else if (method == "POST") {
+        std::cerr.clear();
+        std::cout.clear();
+        
         cerr << "Requête POST " << pattern << " avec contenu: " << in << endl;
         Json::Reader jsonReader;
         Json::Value jsonIn;

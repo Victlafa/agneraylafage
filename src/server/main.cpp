@@ -96,6 +96,7 @@ main_handler (void *cls,
      || strcmp(method, MHD_HTTP_METHOD_PUT) == 0) {
         MHD_post_process(request->pp,upload_data,*upload_data_size);
         if (*upload_data_size != 0) {
+            //cout << "Donnees envoyées par l'utilisateur : " << upload_data << endl;
             request->data = upload_data;
             *upload_data_size = 0;
             return MHD_YES;
