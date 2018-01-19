@@ -45,7 +45,6 @@ namespace client {
 
         // Connexion au serveur
         sf::Http* Http = new sf::Http("http://localhost",8080);
-        Http->setHost("http://localhost",8080);
         
         // Mise en place de la requete
         sf::Http::Request request;
@@ -61,7 +60,7 @@ namespace client {
         
         // la map trie automatiquement les clés dans l'ordre croissant (en principe, à vérifier)
         // Ajout de commandes automatiques
-        addPassiveCommands();
+        //addPassiveCommands();
         std::cout << "SuperEngine::addCommand sortie methode OK" << std::endl;
         
     }

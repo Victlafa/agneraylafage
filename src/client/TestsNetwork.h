@@ -27,7 +27,7 @@
 #include <time.h>
 #include <thread>
 #include <mutex>
-#include <pthread.h>
+#include <condition_variable>
 #include <unistd.h>
 #include <sys/types.h>
 

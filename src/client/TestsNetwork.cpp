@@ -14,6 +14,7 @@ namespace server{
     
     // Pour gestion multi-thread
     mutex notre_mutex;
+    condition_variable cond;
     int creaturesChoisies = 0;
     int creaAdversary = 0;
     int tour = 0;
@@ -225,10 +226,11 @@ namespace server{
     
     void nouvellePartie(int party, int beginner)
     {
-        cout << "TestsNetwork::nouvellePartie ligne 204 - numPlayer : " << numPlayer << endl;
+        cout << "TestsNetwork::nouvellePartie ligne 228 - numPlayer : " << numPlayer << endl;
         
         // On prend possession du mutex
-        notre_mutex.lock();
+        std::unique_lock<std::mutex> lock(notre_mutex);
+        
         // On initialise graine aleatoire correspondant à la partie selectionnée par le serveur
         srand(party);
         
@@ -250,17 +252,83 @@ namespace server{
         // Declaration de la fenetre
         sf::RenderWindow gameWindow(sf::VideoMode(1024, 720), "Garden Tensions");
         
+        //        Json::Reader reader;
+//        Json::Value fichier;
+//        std::ifstream file("./src/replay.txt", std::ifstream::in);
+//
+//        if (!reader.parse(file, fichier))
+//            throw std::runtime_error("Erreur lors de la recuperation des donnees contenues dans replay.txt");
+        
         // On créé le thread lie à l'utilisation de l'ia et du moteur
         thread threadIA(routine_thread,(void*)&ia,(void*)&gameWindow);
         
-        while (gameWindow.isOpen()) {
+        while (gameWindow.isOpen() && tour < 2) {
+            
+            sf::sleep(sf::seconds(1.0f));
             
             while (gameWindow.pollEvent(event)) {
                 // Fermeture de la fenetre ?
                 if (event.type == sf::Event::Closed) gameWindow.close();
-                notre_mutex.unlock();
             }
-           
+            
+            int totalCellNbr = ia.getMoteur()->getState().getCellNbr();
+            bool is_IA_winner = (totalCellNbr == ia.getMoteur()->getPlayer(numPlayer)->getCellNbr() || ia.getMoteur()->getPlayer(3 - numPlayer)->getCellNbr() == 0);
+            bool is_IA_loser = (totalCellNbr == ia.getMoteur()->getPlayer(3 - numPlayer)->getCellNbr() || ia.getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
+            
+            // Si aucune des IAs n'a gagné pour le moment
+            if (!is_IA_winner && !is_IA_loser)
+            {
+                cout << "TestsNetwork::nouvellePartie - joueur en cours : " << getServerInfo(serveur, "/game/2") << endl;
+
+                // si c'est au tour du joueur
+                if (getServerInfo(serveur, "/game/2") == numPlayer) {
+                    
+                    cout << "TestsNetwork::nouvellePartie - debut du tour du joueur" << endl;
+
+                    tour++;
+                    std::cout << "\n--------------    Tour n°" << tour / 2 + 1 << " - ";
+
+                    // Tour de l'IA
+                    std::cout << "C'est à l'IA n°" << numPlayer << " de jouer    --------------" << std::endl << std::endl;
+                    
+                    // On attend que le moteur ait executé les commandes
+                    cond.wait(lock);
+                    
+                    cout << "TestsNetwork::nouvellePartie - le moteur a fini d'executer les commandes" << endl;
+                    
+                    ia.getMoteur()->increaseTour();
+
+                    std::this_thread::sleep_for(std::chrono::seconds(1));
+
+                    // On verifie si l'un des deux joueurs a gagné ou non la partie
+                    is_IA_winner = (totalCellNbr == ia.getMoteur()->getPlayer(numPlayer)->getCellNbr() || ia.getMoteur()->getPlayer(3 - numPlayer)->getCellNbr() == 0);
+                    is_IA_loser = (totalCellNbr == ia.getMoteur()->getPlayer(3 - numPlayer)->getCellNbr() || ia.getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
+
+                    // Une fois son tour achevé on signale au serveur que l'adversaire peut debuter son tour
+                    setOccupedPlayer(serveur, 3 - numPlayer);
+
+                    cout << "TestsNetwork::nouvellePartie - fin du tour du joueur" << endl;
+                }
+
+                // si c'est à l'adversaire de jouer
+                else if (getServerInfo(serveur,"/game/2") == 3 - numPlayer)
+                {
+                    cout << "Tour de l'adversaire" << endl;
+//                    Json::Value donneesCommandes = fichier[tour + 1];
+//
+//                    // Pour chaque commande du tour on recupere ses parametres et on l'execute
+//                    for (unsigned int j = 0; j < donneesCommandes.size(); j++) {
+//                        if (j == 0)
+//                            std::cout << "\n-------------------------------- PHASE DE CONQUETE --------------------------------" << std::endl << std::endl;
+//                        else if (j == 3)
+//                            std::cout << "\n-------------------------------- PHASE DE RENFORT --------------------------------" << std::endl << std::endl;
+//                        Json::Value commande = fichier[tour + 1][j];
+//                        //cout << "Type de commande executee : " << commande.get("type","").asString() << endl;
+//                        Command* comm = Command::deserialize(commande);
+//                        comm->execute(adrIA->getMoteur()->getPileAction(), adrIA->getMoteur()->getState());
+//                    }
+                }
+            }
             // On verifie si l'IA en cours a gagné ou non la partie
             if (moteur.getState().getCellNbr() == moteur.getPlayer(numPlayer)->getCellNbr() || moteur.getPlayer(3 - numPlayer)->getCellNbr() == 0)
             {
@@ -286,84 +354,26 @@ namespace server{
     
     void* routine_thread(void* ia,void* gameWindow)
     {
-        cout << "TestsNetwork::routine_thread - ligne 262" << endl;
-        // Connexion au serveur
-        sf::Http* serveur = new sf::Http("http://localhost",8080);
+        sf::RenderWindow* adrWindow = (sf::RenderWindow*)gameWindow;
         
-        HeuristicAI* adrIA = (HeuristicAI*) ia;
-        sf::RenderWindow* adrGameWindow = (sf::RenderWindow*)gameWindow;
-        int totalCellNbr = adrIA->getMoteur()->getState().getCellNbr();
-        bool is_IA_winner = (totalCellNbr == adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(3 - numPlayer)->getCellNbr() == 0);
-        bool is_IA_loser = (totalCellNbr == adrIA->getMoteur()->getPlayer(3 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
-        
-//        Json::Reader reader;
-//        Json::Value fichier;
-//        std::ifstream file("./src/replay.txt", std::ifstream::in);
-//
-//        if (!reader.parse(file, fichier))
-//            throw std::runtime_error("Erreur lors de la recuperation des donnees contenues dans replay.txt");
-    
-        cout << "TestsNetwork::routine_thread - ligne 272" << endl;
-        
-        // On effectue les actions voulues par le joueur si c'est à son tour de jouer
-        while (!is_IA_winner && !is_IA_loser && adrGameWindow->isOpen())
+        while (adrWindow->isOpen() && tour < 2)
         {
-            cout << "TestsNetwork::routine_thread - ligne 277" << endl;
-            cout << "TestsNetwork::routine_thread - joueur en cours : " << getServerInfo(serveur,"/game/2") << endl;
-            
-            // si c'est à son tour
-            if (getServerInfo(serveur,"/game/2") == numPlayer)
+            if (tour != 0)
             {
-                // On prend le mutex
-                std::lock_guard<std::mutex> lock(notre_mutex);
+                cout << "TestsNetwork::routine_thread - avant execution des commandes" << endl;
+                std::unique_lock<std::mutex> lock(notre_mutex);
                 
-                cout << "TestsNetwork::routine_thread - ligne 284" << endl;
+                HeuristicAI* adrIA = (HeuristicAI*) ia;
 
-                std::cout << "\n--------------    Tour n°" << tour / 2 + 1 << " - ";
-
-                // Tour de l'IA
-                std::cout << "C'est à l'IA n°" << numPlayer << " de jouer    --------------" << std::endl << std::endl;
                 adrIA->run(numPlayer);
 
-                cout << "TestsNetwork::routine_thread - ligne 291" << endl;
-                tour++;
-                adrIA->getMoteur()->increaseTour();
-                
-                std::this_thread::sleep_for(std::chrono::seconds(1));
-
-                // On verifie si l'un des deux joueurs a gagné ou non la partie
-                is_IA_winner = (totalCellNbr == adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(3 - numPlayer)->getCellNbr() == 0);
-                is_IA_loser = (totalCellNbr == adrIA->getMoteur()->getPlayer(3 - numPlayer)->getCellNbr() || adrIA->getMoteur()->getPlayer(numPlayer)->getCellNbr() == 0);
-
-                // Une fois son tour achevé on signale au serveur que l'adversaire peut debuter son tour
-                setOccupedPlayer(serveur, 2 - numPlayer);
-                
-                cout << "TestsNetwork::routine_thread - ligne 305" << endl;
-
-                //notre_mutex.unlock();
+                cout << "TestsNetwork::routine_thread - apres execution des commandes" << endl;
+                cond.notify_all();
             }
             
-            // si c'est à l'adversaire de jouer
-//            else if (getServerInfo(serveur,"/game/2") == 3 - numPlayer)
-//            {
-//                Json::Value donneesCommandes = fichier[tour + 1];
-//                
-//                // Pour chaque commande du tour on recupere ses parametres et on l'execute
-//                for (unsigned int j = 0; j < donneesCommandes.size(); j++) {
-//                    if (j == 0)
-//                        std::cout << "\n-------------------------------- PHASE DE CONQUETE --------------------------------" << std::endl << std::endl;
-//                    else if (j == 3)
-//                        std::cout << "\n-------------------------------- PHASE DE RENFORT --------------------------------" << std::endl << std::endl;
-//                    Json::Value commande = fichier[tour + 1][j];
-//                    //cout << "Type de commande executee : " << commande.get("type","").asString() << endl;
-//                    Command* comm = Command::deserialize(commande);
-//                    comm->execute(adrIA->getMoteur()->getPileAction(), adrIA->getMoteur()->getState());
-//                }
-//            }
         }
         
-        cout << "TestsNetwork::routine_thread - ligne 311" << endl;
-        
+            
         return 0;
     }
     

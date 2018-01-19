@@ -16,8 +16,8 @@ namespace engine {
   class MoveCommand;
 }
 
-#include "engine/Command.h"
 #include "state/CreaturesID.h"
+#include "engine/Command.h"
 #include "engine/Engine.h"
 #include "state/Element.h"
 #include "engine/MoveCommand.h"
@@ -28,9 +28,9 @@ namespace client {
   class SuperEngine : public engine::Engine {
     // Operations
   public:
+    SuperEngine (state::CreaturesID creaPl1, state::CreaturesID creaPl2);
     void addCommand (int priority, std::shared_ptr<engine::Command> cmd);
     std::string convertCommandTypeToString (engine::CommandTypeID cmd);
-    SuperEngine (state::CreaturesID creaPl1, state::CreaturesID creaPl2);
     // Setters and Getters
   };
 
