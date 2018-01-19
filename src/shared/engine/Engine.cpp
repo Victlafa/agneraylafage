@@ -64,7 +64,6 @@ namespace engine
         // la map trie automatiquement les clés dans l'ordre croissant (en principe, à vérifier)
         // Ajout de commandes automatiques
         addPassiveCommands();
-        
     }
     
     void Engine::update (){

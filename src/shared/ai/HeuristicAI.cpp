@@ -19,8 +19,6 @@ namespace ai
     {
         randGen.seed(randomSeed);
         std::ifstream file("replay.txt",std::ifstream::in);
-        // On initialise les attributs de l'IA
-        //this->initIA(moteur,player);
     }
     
     void HeuristicAI::run (int player)
@@ -44,6 +42,8 @@ namespace ai
             coordsDeplacement = moveCellResearch(player);
 
             moveCmd = new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player);
+            
+            // Enregistrement et execution de la commande
             moveCmd->serialize(lCommandes, getMoteur()->getTour());
             getMoteur()->addCommand(1,std::shared_ptr<engine::Command>(std::move(moveCmd)));
             getMoteur()->update();
@@ -73,6 +73,7 @@ namespace ai
 
                 placement = new engine::PlaceCommand(newCreasCoordsUnitaires[0], newCreasCoordsUnitaires[1], player, (state::ID)getMoteur()->getPlayer(player)->getClanName());
                 
+                // Enregistrement et execution de la commande
                 placement->serialize(lCommandes, getMoteur()->getTour());
                 getMoteur()->addCommand(1,std::shared_ptr<engine::Command>(std::move(placement)));
                 getMoteur()->update();
@@ -102,9 +103,6 @@ namespace ai
         this->getMoteur()->setRecord(this->getMoteur()->getRecord().append(lCommandes));
         // On annule les commandes qui viennent d'être effectuées
         //this->getMoteur()->undo();
-        
-        //cout << "Ajout de lCommandes" << endl;
-        
     }
     
     // On cherche une cellule attaquante pour l'IA ainsi qu'une cellule destination adverse ADJACENTE
@@ -131,8 +129,6 @@ namespace ai
                 // Si la cellule du joueur est valide (verification en amont dans playerCellResearch) et qu'elle est adjacente à celle de l'IA
                 if (isAdjacent(ia_cells[2*i],ia_cells[2*i+1],real_cells[2*j],real_cells[2*j+1]))
                 {
-                    //std::cout << "HeuristicAI::moveCellResearch - Cellule de l'ia : (" << ia_cells[2*i] << "," << ia_cells[2*i+1] << ")" << std::endl;
-                    //std::cout << "HeuristicAI::moveCellResearch - Cellule adjacente trouvee correspondante : (" << real_cells[2*j] << "," << real_cells[2*j+1] << ")" << std::endl;
                     // On ajoute les coordonnees de l'ia à adjacent_cells
                     adjacent_cells.push_back(ia_cells[2*i]);
                     adjacent_cells.push_back(ia_cells[2*i+1]);
@@ -140,11 +136,8 @@ namespace ai
                 }
             }
             
-            //std::cout << std::endl;
         }
         
-        //std::cout << "fin de la boucle for" << std::endl;
-            
         std::vector<int> startCell;
         
         // si aucune cellule de l'IA n'est voisine d'une cellule du joueur
@@ -176,34 +169,24 @@ namespace ai
     // Dans les cellules adjacentes à la cellule argument, on renvoie celle qui rapportera probablement le plus de points à l'IA
     std::vector<int> HeuristicAI::adjacentEnnemyResearch (int player, int init_i, int init_j)
     {
-        //std::cout << "HeuristicAI::adjacentEnnemyResearch - coordonnees argument : (" << init_i << "," << init_j << ")" << std::endl;
-        
         // On declare un tableau dans lequel on mettra les coordonnees des cellules adjacentes
         std::vector<int> adjacent_Cells;
         std::vector<int> finalCell;
         std::vector<int> possibleAdjs = getAdjacences(init_i,init_j);
-        //bool verifBornes = false;
         bool occupation = false;
         CreaturesTab* creaTab = getMoteur()->getState().getCharacters().get();
-        //int tabWidth = creaTab->getWidth();
-        //int tabHeight = creaTab->getHeight();
         
         for (int i = 0; i < (int)(possibleAdjs.size()/2); i++)
         {
-
             // On verifie si la cellule adjacente possible est occupee ou non par l'adversaire
             occupation = creaTab->isOccupiedByOpp(possibleAdjs[2 * i], possibleAdjs[2 * i + 1], getMoteur()->getPlayer(player).get());
 
             if (occupation) {
-                //std::cout << "HeuristicAI::adjacentEnnemyResearch - coordonnees adjacence : (" << possibleAdjs[2*i] << "," << possibleAdjs[2*i+1] << ")" << std::endl;
                 // Si les deux conditions sont verifiees, la cellule adjacente etudiee appartient au joueur reel 
                 adjacent_Cells.push_back(possibleAdjs[2 * i]);
                 adjacent_Cells.push_back(possibleAdjs[2 * i + 1]);
             }
-            
         }
-        
-        //std::cout << "HeuristicAI::adjacentEnnemyResearch - fin recherche cellule adjacente" << std::endl;
         
         // Si on trouve aucune cellule adjacente adverse
         if (adjacent_Cells.size() == 0)
@@ -220,8 +203,6 @@ namespace ai
     // Parmi la liste fournie en argument (liste de coordonnees de cellules), on recherche la cellule qui comporte le plus de creatures
     std::vector<int> HeuristicAI::betterIAResearch (std::vector<int>& listeIA)
     {
-        //std::cout << "Entree dans betterIAResearch" << std::endl;
-        
         if (listeIA.size() == 0)
             throw std::runtime_error("HeuristicAI::betterIAResearch - la liste donnée en argument est vide !");
         if (listeIA.size() % 2 != 0)
@@ -235,7 +216,6 @@ namespace ai
         // On parcoure la liste des coordonnees donnée en argument
         for (int i = 1; i < (int)(listeIA.size()/2); i++)
         {
-            //std::cout << "HeuristicAI::betterIAResearch - (" << listeIA[2*i] << "," << listeIA[2*i+1] << ")" << std::endl;
             // Pour chaque couple de coords, si le nbre de creatures de la cellule correspondante est superieur à celui defini 
             if (getMoteur()->getState().getCharacters()->get(listeIA[2*i],listeIA[2*i + 1])->getCreaturesNbr() > nbrMaxCreatures)
             {
@@ -246,8 +226,6 @@ namespace ai
                 betterCell[1] = listeIA[2*i + 1];
             }
         }
-        
-        //std::cout << "Sortie de betterIAResearch" << std::endl;
         
         // On renvoie betterCell
         return betterCell;

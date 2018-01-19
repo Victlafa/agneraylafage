@@ -13,8 +13,7 @@
 
 namespace client {
 
-    SuperEngine::SuperEngine (state::CreaturesID creaPl1, state::CreaturesID creaPl2) : Engine(creaPl1, creaPl2){
-    }  
+    SuperEngine::SuperEngine (state::CreaturesID creaPl1, state::CreaturesID creaPl2) : Engine(creaPl1, creaPl2){}  
     
     void SuperEngine::addCommand (int priority, std::shared_ptr<engine::Command> cmd) {
 
@@ -42,7 +41,7 @@ namespace client {
             command["finalPos[1]"] = pcmd->getFinalPos()[1];
             command["creaType"] = state::Element::translateType(pcmd->getCreaType());
         }
-
+        
         // Connexion au serveur
         sf::Http* Http = new sf::Http("http://localhost",8080);
         
@@ -58,9 +57,9 @@ namespace client {
         // Envoi de la requete
         sf::Http::Response answer = Http->sendRequest(request);
         
-        // la map trie automatiquement les clés dans l'ordre croissant (en principe, à vérifier)
         // Ajout de commandes automatiques
         //addPassiveCommands();
+        
         std::cout << "SuperEngine::addCommand sortie methode OK" << std::endl;
         
     }
