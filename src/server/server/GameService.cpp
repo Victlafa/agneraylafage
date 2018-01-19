@@ -48,7 +48,7 @@ HttpStatus GameService::put (Json::Value& out, const Json::Value& in)
 {
     std::cout << "GameService::put entree dans la methode" << std::endl;
     
-    std::ofstream file("./src/command.txt", std::ios::app);
+    std::ofstream file("./src/command.txt", std::ios::out);
     
     if(file.bad()){
         std::cout << "Erreur avec le fichier command.txt" << std::endl;
