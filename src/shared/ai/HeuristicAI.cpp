@@ -44,19 +44,9 @@ namespace ai
             coordsDeplacement = moveCellResearch(player);
 
             moveCmd = new engine::MoveCommand(coordsDeplacement[0], coordsDeplacement[1], coordsDeplacement[2], coordsDeplacement[3], player);
-            //std::cout << "HeuristicAI : serialize move" << std::endl;
             moveCmd->serialize(lCommandes, getMoteur()->getTour());
             getMoteur()->addCommand(1,std::shared_ptr<engine::Command>(std::move(moveCmd)));
-            std::cout << "HeuristicAI::run - avant execute" << std::endl;
-            
-            std::cout << "HeuristicAI::run - taille de la pile avant execute" << getMoteur()->getPileAction().size() << endl;
-            
-            if (moveCmd)
-                moveCmd->execute(getMoteur()->getPileAction(), getMoteur()->getState());
-            else
-                throw runtime_error("HeuristicAI::run - moveCmd est null !");
-            
-            std::cout << "HeuristicAI::run - apres execute" << std::endl;
+            getMoteur()->update();
 
             // On verifie que le deplacement de la phase de conquete a bien ete effectue
             if (creaTab->get(coordsDeplacement[2], coordsDeplacement[3]) == NULL)
@@ -70,7 +60,6 @@ namespace ai
 
             // L'IA reçoit autant de creatures à placer qu'elle dispose de territoires. On plafonne à 6 !
             int nbrCell = (getMoteur()->getPlayer(player)->getCreaturesLeft() > 6) ? 6 : getMoteur()->getPlayer(player)->getCreaturesLeft();
-            //getMoteur()->getPlayer(player)->setCreaturesLeft(nbrCell);
             
             cout << "HeuristicAI::run - L'IA n°" << player << " dispose maintenant de " << nbrCell << " cellules, elle peut donc placer autant de nouvelles creatures sur la carte. (plafonné à 6)" << endl;
 
@@ -86,8 +75,7 @@ namespace ai
                 
                 placement->serialize(lCommandes, getMoteur()->getTour());
                 getMoteur()->addCommand(1,std::shared_ptr<engine::Command>(std::move(placement)));
-                //std::cout << "HeuristicAI : serialize placement" << std::endl;
-                placement->execute(getMoteur()->getPileAction(), getMoteur()->getState());
+                getMoteur()->update();
                 //cout << "Nombre de cellules vides restantes apres placement : " << getMoteur()->getState().getFreeCellNbr() << endl;
                 //cout << "Nombre de cellules du joueur : " << getMoteur()->getPlayer(player)->getCellNbr() << endl;
                 
@@ -112,6 +100,8 @@ namespace ai
         */
         
         this->getMoteur()->setRecord(this->getMoteur()->getRecord().append(lCommandes));
+        // On annule les commandes qui viennent d'être effectuées
+        //this->getMoteur()->undo();
         
         //cout << "Ajout de lCommandes" << endl;
         
