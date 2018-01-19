@@ -46,10 +46,10 @@ HttpStatus GameService::post (const Json::Value& in, int id)
 
 HttpStatus GameService::put (Json::Value& out, const Json::Value& in)
 {
-    //std::cout << "GameService::put entree dans la methode" << std::endl;
+    std::cout << "GameService::put entree dans la methode" << std::endl;
     
-    std::ofstream file("./src/command.txt", std::ios::out);
-    file.open("../command.txt");
+    std::ofstream file("./src/command.txt", std::ios::app);
+    
     if(file.bad()){
         std::cout << "Erreur avec le fichier command.txt" << std::endl;
         return HttpStatus::SERVER_ERROR;
@@ -62,6 +62,8 @@ HttpStatus GameService::put (Json::Value& out, const Json::Value& in)
     game.idmax++;
     
     file << styledWriter.write(game.listCommands);
+    
+    file.close();
     
     return HttpStatus::OK;
 }
