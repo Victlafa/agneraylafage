@@ -16,8 +16,9 @@ namespace client {
     SuperEngine::SuperEngine (state::CreaturesID creaPl1, state::CreaturesID creaPl2) : Engine(creaPl1, creaPl2){}  
     
     void SuperEngine::addCommand (int priority, std::shared_ptr<engine::Command> cmd) {
+        
 
-        std::cout << "Entree dans SuperEngine::addCommand" << std::endl;
+        //std::cout << "Entree dans SuperEngine::addCommand" << std::endl;
         // On ajoute une commande :
         this->currentCommands.emplace(priority,cmd);
         
@@ -60,7 +61,7 @@ namespace client {
         // Ajout de commandes automatiques
         //addPassiveCommands();
         
-        std::cout << "SuperEngine::addCommand sortie methode OK" << std::endl;
+        //std::cout << "SuperEngine::addCommand sortie methode OK" << std::endl;
         
     }
     

@@ -32,6 +32,7 @@ namespace engine {
     // Attributes
   public:
     std::map<int,std::shared_ptr<Command> > currentCommands;
+    int nbrLastCommands;
   private:
     state::State currentState;
     int tour;

@@ -6,6 +6,8 @@
 
 #include "TestsNetwork.h"
 #include "./client.h"
+#include "client/SuperEngine.h"
+//#include "engine/Engine.h"
 
 
 using namespace std;
@@ -22,6 +24,9 @@ namespace server{
     int numPlayer = 0;
     // numero du joueur qui commence en premier
     int beginner = 0;
+    int compteurCommandesDebutTour = 0;
+    int compteurCommandesFinTour = 0;
+    int commandesLastTour = 0;
     
     string translateType (CreaturesID typeElement)
     {
@@ -39,6 +44,7 @@ namespace server{
     
     int getServerInfo(sf::Http* serveur, std::string uri)
     {
+        cout << "getServerInfo - entree methode" << endl;
         sf::Http::Request request;
         request.setMethod(sf::Http::Request::Get);
         request.setHttpVersion(1, 1);
@@ -51,8 +57,8 @@ namespace server{
         int tailleReponse = reponse.size();
         string nombre;
         
-        // Si on cherche à recuperer le numero de la partie tirée au hasard par le serveur
-        if (uri == "/game/0")
+        // Si on cherche à recuperer le numero de la partie tirée au hasard par le serveur ou le compteur de commandes envoyées sur le serveur
+        if (uri == "/game/0" || uri == "/game/3")
         {
             // si le nombre ne comporte pas 3 chiffres (on verifie que la conversion de string en int est possible)
             if (!strtol(reponse.substr(tailleReponse - 6,3).c_str(),nullptr,10))
@@ -68,9 +74,11 @@ namespace server{
                 nombre = reponse.substr(tailleReponse - 6,3);
                 
         }
-        // Si on cherche à recuperer d'autres infos sur le serveur
+        // On souhaite d'autres infos de la part du serveur
         else
             nombre = reponse.substr(tailleReponse - 4,1);
+        
+        cout << "getServerInfo - sortie methode" << endl;
         
         // On convertit le nombre de joueur string en int
         return stoi(nombre);
@@ -220,8 +228,60 @@ namespace server{
         
         // Envoi de la requete
         sf::Http::Response answer = Http.sendRequest(request);
-        cout << "Statut de la reponse : " << answer.getStatus() << endl;
+        //cout << "Statut de la reponse : " << answer.getStatus() << endl;
      
+    }
+    
+    bool verifAdversaryCommands(sf::Http* serveur)
+    {
+        sf::Http::Request request;
+        request.setMethod(sf::Http::Request::Get);
+        request.setHttpVersion(1, 1);
+        request.setField("Content-Type", "application/x-www-form-urlencoded");
+        request.setUri("/game/" + std::to_string(compteurCommandesDebutTour + 4));
+        sf::Http::Response answer = serveur->sendRequest(request);
+        string reponse = answer.getBody();
+        //cout << "verifAdversaryCommands - reponse du serveur" << reponse << endl;
+        
+        Json::Value commande;
+        Json::Reader reader;
+        reader.parse(reponse,commande);
+        
+        if (commande.isMember("commande"))
+        {
+            cout << "verifAdversaryCommands - sortie true" << endl;
+            return true;
+        }
+            
+        else if (commande.isMember("fin_liste"))
+        {
+            cout << "verifAdversaryCommands - sortie false" << endl;
+            return false;
+        }
+        else
+            throw runtime_error("verifAdversaryCommands - probleme avec verif de la presence des commandes sur le serveur");
+        
+        
+    }
+    
+    Json::Value getAdversaryCommands(sf::Http* serveur)
+    {
+        cout << "getAdversaryCommands - entree methode" << endl;
+        
+        sf::Http::Request request;
+        request.setMethod(sf::Http::Request::Get);
+        request.setHttpVersion(1, 1);
+        request.setField("Content-Type", "application/x-www-form-urlencoded");
+        request.setUri("/game/" + std::to_string(compteurCommandesDebutTour + 4));
+        sf::Http::Response answer = serveur->sendRequest(request);
+        string reponse = answer.getBody();
+        //cout << "getAdversaryCommands - reponse du serveur" << reponse << endl;
+        
+        Json::Value commande;
+        Json::Reader reader;
+        reader.parse(reponse,commande);
+        
+        return commande;
     }
     
     void nouvellePartie(int party, int beginner)
@@ -241,28 +301,19 @@ namespace server{
         client::SuperEngine moteur((numPlayer==1) ? (CreaturesID)creaturesChoisies : (CreaturesID)getCreaOtherPlayer(serveur), (numPlayer==2) ? (CreaturesID)creaturesChoisies : (CreaturesID)getCreaOtherPlayer(serveur));
         // On initialise l'ia
         HeuristicAI ia(&moteur, party);
-        
         // On crée un Layer qui permettra de gerer l'affichage des cellules
         CellTabLayer cellLayer(*(moteur.getState().getGrid().get()));
         // On crée un Layer qui permettra de gerer l'affichage des creatures
         CreaturesTabLayer charsLayer(*(moteur.getState().getCharacters().get()));
         
         sf::Event event;
-        
         // Declaration de la fenetre
         sf::RenderWindow gameWindow(sf::VideoMode(1024, 720), "Garden Tensions");
-        
-        //        Json::Reader reader;
-//        Json::Value fichier;
-//        std::ifstream file("./src/replay.txt", std::ifstream::in);
-//
-//        if (!reader.parse(file, fichier))
-//            throw std::runtime_error("Erreur lors de la recuperation des donnees contenues dans replay.txt");
         
         // On créé le thread lie à l'utilisation de l'ia et du moteur
         thread threadIA(routine_thread,(void*)&ia,(void*)&gameWindow);
         
-        while (gameWindow.isOpen() && tour < 2) {
+        while (gameWindow.isOpen() && tour < 4) {
             
             sf::sleep(sf::seconds(1.0f));
             
@@ -291,14 +342,37 @@ namespace server{
                     // Tour de l'IA
                     std::cout << "C'est à l'IA n°" << numPlayer << " de jouer    --------------" << std::endl << std::endl;
                     
+                    // On recupere les commandes de l'adversaire et on les execute
+                    for (int k = 0; k < (getServerInfo(serveur,"/game/3") - compteurCommandesFinTour); k++)
+                    {
+                        cout << "nouvellePartie - commande adverse n°" << k << endl;
+                        if (verifAdversaryCommands(serveur)) 
+                        {
+                            Json::Value commande = getAdversaryCommands(serveur);
+                            cout << "nouvellePartie - ligne 353 - Json::Value : " << commande.toStyledString() << endl;
+                            Command* newCommand = Command::deserialize(commande["commande"]);
+                            moteur.Engine::addCommand(1, std::shared_ptr<Command>(std::move(newCommand)));
+                            std::cout << "nouvellePartie - avant moteur.update()" << std::endl;
+                            moteur.update();
+                            std::cout << "nouvellePartie - apres moteur.update()" << std::endl;
+                            compteurCommandesDebutTour += 1;
+                        }
+                        else
+                            throw std::runtime_error("nouvellePartie - probleme avec recup des commandes adverses");
+                    }
+                    
+                    sf::sleep(sf::seconds(1.0f));
+                    
+                    if (compteurCommandesDebutTour != getServerInfo(serveur,"/game/3"))
+                        throw runtime_error("Probleme avec comptage des commandes");
+                    
                     // On attend que le moteur ait executé les commandes
                     cond.wait(lock);
                     
                     cout << "TestsNetwork::nouvellePartie - le moteur a fini d'executer les commandes" << endl;
                     
+                    // On recupere le nombre total de commandes enregistrees sur le serveur
                     ia.getMoteur()->increaseTour();
-
-                    std::this_thread::sleep_for(std::chrono::seconds(1));
 
                     // On verifie si l'un des deux joueurs a gagné ou non la partie
                     is_IA_winner = (totalCellNbr == ia.getMoteur()->getPlayer(numPlayer)->getCellNbr() || ia.getMoteur()->getPlayer(3 - numPlayer)->getCellNbr() == 0);
@@ -307,28 +381,14 @@ namespace server{
                     // Une fois son tour achevé on signale au serveur que l'adversaire peut debuter son tour
                     setOccupedPlayer(serveur, 3 - numPlayer);
 
-                    cout << "TestsNetwork::nouvellePartie - fin du tour du joueur" << endl;
+                    //cout << "TestsNetwork::nouvellePartie - fin du tour du joueur" << endl;
                 }
 
                 // si c'est à l'adversaire de jouer
-                else if (getServerInfo(serveur,"/game/2") == 3 - numPlayer)
-                {
-                    cout << "\n>>>>>>>>>>>>>>>>> TOUR DE L'ADVERSAIRE <<<<<<<<<<<<<<<<<" << endl;
-//                    Json::Value donneesCommandes = fichier[tour + 1];
-//
-//                    // Pour chaque commande du tour on recupere ses parametres et on l'execute
-//                    for (unsigned int j = 0; j < donneesCommandes.size(); j++) {
-//                        if (j == 0)
-//                            std::cout << "\n-------------------------------- PHASE DE CONQUETE --------------------------------" << std::endl << std::endl;
-//                        else if (j == 3)
-//                            std::cout << "\n-------------------------------- PHASE DE RENFORT --------------------------------" << std::endl << std::endl;
-//                        Json::Value commande = fichier[tour + 1][j];
-//                        //cout << "Type de commande executee : " << commande.get("type","").asString() << endl;
-//                        Command* comm = Command::deserialize(commande);
-//                        comm->execute(adrIA->getMoteur()->getPileAction(), adrIA->getMoteur()->getState());
-//                    }
-                }
+                else if (getServerInfo(serveur,"/game/2") == 3 - numPlayer) cout << "\n>>>>>>>>>>>>>>>>> TOUR DE L'ADVERSAIRE <<<<<<<<<<<<<<<<<" << endl;
+                
             }
+            
             // On verifie si l'IA en cours a gagné ou non la partie
             if (moteur.getState().getCellNbr() == moteur.getPlayer(numPlayer)->getCellNbr() || moteur.getPlayer(3 - numPlayer)->getCellNbr() == 0)
             {
@@ -356,7 +416,7 @@ namespace server{
     {
         sf::RenderWindow* adrWindow = (sf::RenderWindow*)gameWindow;
         
-        while (adrWindow->isOpen() && tour < 2)
+        while (adrWindow->isOpen() && tour < 4)
         {
             if (tour != 0)
             {
@@ -366,8 +426,13 @@ namespace server{
                 HeuristicAI* adrIA = (HeuristicAI*) ia;
 
                 adrIA->run(numPlayer);
+                commandesLastTour = adrIA->getMoteur()->nbrLastCommands;
+                adrIA->getMoteur()->nbrLastCommands = 0;
+                compteurCommandesFinTour += commandesLastTour;
+                compteurCommandesDebutTour = compteurCommandesFinTour;
 
                 cout << "TestsNetwork::routine_thread - apres execution des commandes" << endl;
+                sf::sleep(sf::seconds(1.0f));
                 cond.notify_all();
             }
             

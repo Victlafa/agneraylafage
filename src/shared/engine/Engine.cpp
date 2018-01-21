@@ -5,15 +5,17 @@
  */
 
 #include "Engine.h"
-#include "../engine.h"
+//#include "../engine.h"
 #include "../shared/state.h"
 #include "../client/render.h"
+#include "client/SuperEngine.h"
 #include <iostream>
 #include <fstream>
 
 using namespace state;
 using namespace render;
 using namespace std;
+using namespace client;
 
 namespace engine
 {
@@ -68,9 +70,16 @@ namespace engine
     
     void Engine::update (){
         // On execute les commandes par ordre de priorite
+        cout << "Engine::update - debut methode" << endl;
+        cout << "Engine::update - taille de currentCommands : " << currentCommands.size() << endl;
         for (std::map<int,std::shared_ptr<Command> >::iterator mapIt = currentCommands.begin(); mapIt != currentCommands.end(); mapIt ++)
             mapIt->second->execute(pileAction,currentState);
+            
+        //cout << "Engine::update - ligne 81" << endl;
+        
         currentCommands.clear();
+        
+        cout << "Engine::update - sortie methode" << endl;
     }
     
     void Engine::poisonCell(bool poison,int i_cell, int j_cell){
@@ -89,7 +98,7 @@ namespace engine
     
     void Engine::undo(){
        std::shared_ptr<Action> act;
-       std::cout << "Engine::undo - taille de la pile d'actions : " << pileAction.size() << std::endl;
+       //std::cout << "Engine::undo - taille de la pile d'actions : " << pileAction.size() << std::endl;
        
        if (pileAction.size() != 0)
        {

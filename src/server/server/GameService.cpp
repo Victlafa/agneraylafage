@@ -24,8 +24,17 @@ HttpStatus GameService::get (Json::Value& out, int id) const {
     // Si on souhaite recuperer le numero du joueur qui est en train de jouer
     else if (id == 2)
         out["player"] = game.currentPlayer;
-    else if (id>2)
-        out[id-3] = game.listCommands[id-3];
+    else if (id == 3)
+        out["nbreCommandes"] = game.listCommands.size();
+    else if (id > 3)
+    {
+        cout << "GameService::get - cas où id > 3" << endl;
+        if ((int)game.listCommands.size() > id - 4)
+            out["commande"] = game.listCommands[id - 4];
+        else
+            out["fin_liste"] = id - 4;
+    }
+        
     else throw ServiceException(HttpStatus::NOT_FOUND,"GameService::get - Invalid game information id");
     
     return HttpStatus::OK;
@@ -46,7 +55,7 @@ HttpStatus GameService::post (const Json::Value& in, int id)
 
 HttpStatus GameService::put (Json::Value& out, const Json::Value& in)
 {
-    std::cout << "GameService::put entree dans la methode" << std::endl;
+    //std::cout << "GameService::put entree dans la methode" << std::endl;
     
     std::ofstream file("./src/command.txt", std::ios::out);
     

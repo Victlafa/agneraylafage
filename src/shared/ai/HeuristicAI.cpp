@@ -47,6 +47,7 @@ namespace ai
             moveCmd->serialize(lCommandes, getMoteur()->getTour());
             getMoteur()->addCommand(1,std::shared_ptr<engine::Command>(std::move(moveCmd)));
             getMoteur()->update();
+            getMoteur()->nbrLastCommands += 1;
 
             // On verifie que le deplacement de la phase de conquete a bien ete effectue
             if (creaTab->get(coordsDeplacement[2], coordsDeplacement[3]) == NULL)
@@ -77,6 +78,7 @@ namespace ai
                 placement->serialize(lCommandes, getMoteur()->getTour());
                 getMoteur()->addCommand(1,std::shared_ptr<engine::Command>(std::move(placement)));
                 getMoteur()->update();
+                getMoteur()->nbrLastCommands += 1;
                 //cout << "Nombre de cellules vides restantes apres placement : " << getMoteur()->getState().getFreeCellNbr() << endl;
                 //cout << "Nombre de cellules du joueur : " << getMoteur()->getPlayer(player)->getCellNbr() << endl;
                 

@@ -24,7 +24,7 @@ namespace engine{
     
     void MoveCommand::execute (std::stack<std::shared_ptr<Action>>& pile, state::State& state) {
         
-        std::cout << "MoveCommand::execute - entree dans méthode" << std::endl;
+        //std::cout << "MoveCommand::execute - entree dans méthode" << std::endl;
         
         // On verifie si la case de destination est adjacente à celle de departs
         bool verif1 = ((finalPos[0] == initPos[0] - 1) && finalPos[1] == initPos[1]);
@@ -39,15 +39,15 @@ namespace engine{
             //prendre en compte le joueur
             std::shared_ptr<Action> action;
             action.reset(new MoveAction(initPos[0], initPos[1], finalPos[0], finalPos[1],player));
-            std::cout << "MoveCommand::execute - taille de la pile avant push : " << pile.size() << std::endl;
+            //std::cout << "MoveCommand::execute - taille de la pile avant push : " << pile.size() << std::endl;
             pile.push(action);
             action->apply(state);
-            std::cout << "MoveCommand::execute - taille de la pile après push : " << pile.size() << std::endl;
+            //std::cout << "MoveCommand::execute - taille de la pile après push : " << pile.size() << std::endl;
         }
         else
             throw std::runtime_error("MoveCommand::execute - La case de destination doit etre adjacente à celle de depart !");
         
-        std::cout << "MoveCommand::execute - sortie de la méthode" << std::endl;
+        //std::cout << "MoveCommand::execute - sortie de la méthode" << std::endl;
         
     }
     

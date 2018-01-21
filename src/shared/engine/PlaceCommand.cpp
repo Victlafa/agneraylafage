@@ -25,13 +25,21 @@ namespace engine{
     }
     
     void PlaceCommand::execute (std::stack<std::shared_ptr<Action> >& pile, state::State& state){
+        cout << "PlaceCommand::execute - entree methode" << endl;
         std::shared_ptr<Action> action(new PlaceAction(finalPos[0], finalPos[1], player, creaType));
+        cout << "PlaceCommand::execute - ligne 30" << endl;
+        // On verifie si la case de destination n'est pas occupee par l'adversaire
         if(!state.getCharacters()->isOccupiedByOpp(finalPos[0],finalPos[1],state.getPlayer(player).get())){
+            cout << "PlaceCommand::execute - ligne 33" << endl;
             pile.push(action);
+            cout << "PlaceCommand::execute - ligne 35" << endl;
             action->apply(state);
+            cout << "PlaceCommand::execute - ligne 36" << endl;
         }
         else
             throw std::runtime_error("PlaceCommand::execute - La case de destination choisie appartient à l'adversaire !");
+        
+        cout << "PlaceCommand::execute - sortie methode" << endl;
     }
     
     void PlaceCommand::serialize (Json::Value& out, int nTour) const{

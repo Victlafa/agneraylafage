@@ -47,6 +47,8 @@ namespace server{
     int getServerInfo(sf::Http*, std::string);
     int getCreaOtherPlayer(sf::Http*);
     void setOccupedPlayer(sf::Http*, int);
+    bool verifAdversaryCommands(sf::Http*);
+    Json::Value getAdversaryCommands(sf::Http*);
     string translateType (CreaturesID);
     void nouvellePartie(int,int);
     void* routine_thread(void*,void*);
